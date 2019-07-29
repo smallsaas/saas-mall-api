@@ -40,6 +40,8 @@ spring:
     static-path-pattern: /static/**
     view:
       prefix: /WEB-INF/view
+    # 解决 option 跨域
+    dispatch-options-request: true
   http:
     converters:
       preferred-json-mapper: fastjson
@@ -94,8 +96,6 @@ am:
 ##########################################################
 spring:
   profiles: dev
-  mvc:
-    dispatch-options-request: true
   datasource:
       url: jdbc:mysql://120.79.49.72:3306/muaskin_MallWebapp?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
       username: root
