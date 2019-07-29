@@ -1,0 +1,11 @@
+LOG_PATH*
+target/*
+build/*
+.idea/*
+.gradle/*
+.svn/*
+*.iml
+*.swp
+*.log
+*.db
+logs/*

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.product.services.domain.dao.QueryProductCategoryDao">
+                                                                                                                                                                                                                                                                                                                                                                                                                        <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_category.id, t_product_category.parent_id AS parentId, t_product_category.name, t_product_category.description, t_product_category.cover, t_product_category.sort_order AS sortOrder, t_product_category.promoted, t_product_category.visible, t_product_category.promoted_product_count AS promotedProductCount, t_product_category.wholesale, t_product_category.is_show_products AS isShowProducts
+    </sql>
+
+
+
+    <select id="findProductCategoryPage" resultType="ProductCategoryRecord" parameterType="ProductCategoryRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_product_category
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_product_category.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.parentId != null and record.parentId>0 ">
+                AND t_product_category.parent_id LIKE CONCAT('%',#{record.parentId},'%')
+            </if>
+                                <if test="record.name != null and record.name!= ''">
+                AND t_product_category.name LIKE CONCAT('%',#{record.name},'%')
+            </if>
+                                <if test="record.description != null and record.description!= ''">
+                AND t_product_category.description LIKE CONCAT('%',#{record.description},'%')
+            </if>
+                                <if test="record.cover != null and record.cover!= ''">
+                AND t_product_category.cover LIKE CONCAT('%',#{record.cover},'%')
+            </if>
+                                                                                            <if test="record.sortOrder != null and record.sortOrder>0 ">
+                AND t_product_category.sort_order LIKE CONCAT('%',#{record.sortOrder},'%')
+            </if>
+                                <if test="record.promoted != null and record.promoted>0 ">
+                AND t_product_category.promoted LIKE CONCAT('%',#{record.promoted},'%')
+            </if>
+                                <if test="record.visible != null and record.visible>0 ">
+                AND t_product_category.visible LIKE CONCAT('%',#{record.visible},'%')
+            </if>
+                                                                                                            <if test="record.promotedProductCount != null and record.promotedProductCount>0 ">
+                AND t_product_category.promoted_product_count LIKE CONCAT('%',#{record.promotedProductCount},'%')
+            </if>
+                                <if test="record.wholesale != null and record.wholesale>0 ">
+                AND t_product_category.wholesale LIKE CONCAT('%',#{record.wholesale},'%')
+            </if>
+                                                                                                            <if test="record.isShowProducts != null and record.isShowProducts>0 ">
+                AND t_product_category.is_show_products LIKE CONCAT('%',#{record.isShowProducts},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_product_category.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_product_category.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_product_category.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.product.services.domain.dao.QueryProductBrandDao">
+                                                                                                                                                            <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                        t_product_brand.id, t_product_brand.name, t_product_brand.description, t_product_brand.logo
+    </sql>
+
+
+
+    <select id="findProductBrandPage" resultType="ProductBrandRecord" parameterType="ProductBrandRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_product_brand
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_product_brand.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                <if test="record.name != null and record.name!= ''">
+                AND t_product_brand.name LIKE CONCAT('%',#{record.name},'%')
+            </if>
+                                <if test="record.description != null and record.description!= ''">
+                AND t_product_brand.description LIKE CONCAT('%',#{record.description},'%')
+            </if>
+                                <if test="record.logo != null and record.logo!= ''">
+                AND t_product_brand.logo LIKE CONCAT('%',#{record.logo},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_product_brand.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_product_brand.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_product_brand.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

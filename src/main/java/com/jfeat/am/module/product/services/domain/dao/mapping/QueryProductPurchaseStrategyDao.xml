@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.product.services.domain.dao.QueryProductPurchaseStrategyDao">
+                                                                                                                        <sql id="Base_Column_List">
+                                                                                                                                                                                                t_product_purchase_strategy.id, t_product_purchase_strategy.name, t_product_purchase_strategy.description
+    </sql>
+
+
+
+    <select id="findProductPurchaseStrategyPage" resultType="ProductPurchaseStrategyRecord" parameterType="ProductPurchaseStrategyRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_product_purchase_strategy
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_product_purchase_strategy.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                <if test="record.name != null and record.name!= ''">
+                AND t_product_purchase_strategy.name LIKE CONCAT('%',#{record.name},'%')
+            </if>
+                                <if test="record.description != null and record.description!= ''">
+                AND t_product_purchase_strategy.description LIKE CONCAT('%',#{record.description},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_product_purchase_strategy.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_product_purchase_strategy.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_product_purchase_strategy.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

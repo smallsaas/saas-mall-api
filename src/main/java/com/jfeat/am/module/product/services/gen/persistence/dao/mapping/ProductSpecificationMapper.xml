@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.product.services.gen.persistence.dao.ProductSpecificationMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.product.services.gen.persistence.model.ProductSpecification">
+		<id column="id" property="id" />
+		<result column="product_id" property="productId" />
+		<result column="name" property="name" />
+		<result column="stock_balance" property="stockBalance" />
+		<result column="price" property="price" />
+		<result column="cost_price" property="costPrice" />
+		<result column="suggested_price" property="suggestedPrice" />
+		<result column="weight" property="weight" />
+		<result column="bulk" property="bulk" />
+		<result column="sku_id" property="skuId" />
+		<result column="sku_name" property="skuName" />
+		<result column="sku_code" property="skuCode" />
+		<result column="bar_code" property="barCode" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, product_id AS productId, name, stock_balance AS stockBalance, price, cost_price AS costPrice, suggested_price AS suggestedPrice, weight, bulk, sku_id AS skuId, sku_name AS skuName, sku_code AS skuCode, bar_code AS barCode
+    </sql>
+
+</mapper>
