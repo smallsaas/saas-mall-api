@@ -73,6 +73,7 @@ public class ProductCategoryServiceImpl extends CRUDProductCategoryServiceImpl i
         affected += productCategoryPropertyMapper.delete(new EntityWrapper<ProductCategoryProperty>().eq("category_id",entity.getId()));
         List<ProductCategoryProperty> productCategoryPropertyList = entity.getProductCategoryPropertyList();
         productCategoryPropertyList.forEach(item -> {
+            item.setCategoryId(entity.getId());
             productCategoryPropertyService.createMaster(item);
         });
         return affected;
