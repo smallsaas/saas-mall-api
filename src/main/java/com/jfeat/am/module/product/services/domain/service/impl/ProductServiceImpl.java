@@ -19,6 +19,7 @@ import com.jfeat.am.module.product.services.gen.persistence.model.*;
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
@@ -75,18 +76,23 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
         }
         //保存封面
         List<ProductImage> productImageList = entity.getProductImageList();
-        for(ProductImage productImage : productImageList){
-            productImage.setProductId(entity.getId());
-            affected += productImageService.createMaster(productImage);
+        if(!CollectionUtils.isEmpty(productImageList)){
+            for(ProductImage productImage : productImageList){
+                productImage.setProductId(entity.getId());
+                affected += productImageService.createMaster(productImage);
+            }
         }
         //保存标签
         List<Integer> tagIds = entity.getTagIds();
-        for(Integer tagId : tagIds){
-            ProductTagRelation productTagRelation = new ProductTagRelation();
-            productTagRelation.setProductId(entity.getId());
-            productTagRelation.setTagId(tagId);
-            affected += productTagRelationService.createMaster(productTagRelation);
+        if(!CollectionUtils.isEmpty(tagIds)){
+            for(Integer tagId : tagIds){
+                ProductTagRelation productTagRelation = new ProductTagRelation();
+                productTagRelation.setProductId(entity.getId());
+                productTagRelation.setTagId(tagId);
+                affected += productTagRelationService.createMaster(productTagRelation);
+            }
         }
+
         return affected;
     }
 
@@ -118,24 +124,29 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
         affected += this.updateMaster(entity, false);
         //更新描述
         ProductDescription productDescription = entity.getProductDescription();
-        affected += productDescriptionService.updateMaster(productDescription,false);
+        if(productDescription!=null){
+            affected += productDescriptionService.updateMaster(productDescription,false);
+        }
         //更新封面
         affected += productImageMapper.delete(new EntityWrapper<ProductImage>().eq("product_id",entity.getId()));
         List<ProductImage> productImageList = entity.getProductImageList();
-        for(ProductImage productImage : productImageList){
-            productImage.setProductId(entity.getId());
-            affected += productImageService.createMaster(productImage);
+        if(!CollectionUtils.isEmpty(productImageList)){
+            for(ProductImage productImage : productImageList){
+                productImage.setProductId(entity.getId());
+                affected += productImageService.createMaster(productImage);
+            }
         }
         //更新标签
         affected += productTagRelationMapper.delete(new EntityWrapper<ProductTagRelation>().eq("product_id", entity.getId()));
         List<Integer> tagIds = entity.getTagIds();
-        for(Integer tagId : tagIds){
-            ProductTagRelation productTagRelation = new ProductTagRelation();
-            productTagRelation.setProductId(entity.getId());
-            productTagRelation.setTagId(tagId);
-            affected += productTagRelationService.createMaster(productTagRelation);
+        if(!CollectionUtils.isEmpty(tagIds)){
+            for(Integer tagId : tagIds){
+                ProductTagRelation productTagRelation = new ProductTagRelation();
+                productTagRelation.setProductId(entity.getId());
+                productTagRelation.setTagId(tagId);
+                affected += productTagRelationService.createMaster(productTagRelation);
+            }
         }
-
         return affected;
     }
 
