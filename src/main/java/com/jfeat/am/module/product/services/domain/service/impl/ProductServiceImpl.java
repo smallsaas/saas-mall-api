@@ -2,6 +2,7 @@ package com.jfeat.am.module.product.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.module.product.constant.ProductStatus;
 import com.jfeat.am.module.product.services.domain.dao.QueryProductDao;
 import com.jfeat.am.module.product.services.domain.model.ProductModel;
 import com.jfeat.am.module.product.services.domain.model.ProductRecord;
@@ -62,6 +63,9 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
     @Transactional
     public Integer createProduct(ProductModel entity) {
         int affected = 0;
+        if(entity.getStatus()==null){
+            entity.setStatus(ProductStatus.OFFSELL.getStatus());
+        }
         affected += this.createMaster(entity);
         //保存描述
         ProductDescription productDescription = entity.getProductDescription();
