@@ -1,6 +1,9 @@
 package com.jfeat.am.module.product.services.domain.model;
 
 import com.jfeat.am.module.product.services.gen.persistence.model.Product;
+import com.jfeat.am.module.product.services.gen.persistence.model.ProductDescription;
+import com.jfeat.am.module.product.services.gen.persistence.model.ProductImage;
+import com.jfeat.am.module.product.services.gen.persistence.model.ProductTag;
 
 import java.util.List;
 
@@ -10,19 +13,13 @@ import java.util.List;
  */
 public class ProductModel extends Product {
 
-    private List<ProductImageModel> productImageModelList;
+    private List<ProductImage> productImageList;
 
     private List<Integer> tagIds;
 
-    private ProductDescriptionModel productDescriptionModel;
+    private List<ProductTag> productTagList;
 
-    public List<ProductImageModel> getProductImageModelList() {
-        return productImageModelList;
-    }
-
-    public void setProductImageModelList(List<ProductImageModel> productImageModelList) {
-        this.productImageModelList = productImageModelList;
-    }
+    private ProductDescription productDescription;
 
     public List<Integer> getTagIds() {
         return tagIds;
@@ -32,11 +29,27 @@ public class ProductModel extends Product {
         this.tagIds = tagIds;
     }
 
-    public ProductDescriptionModel getProductDescriptionModel() {
-        return productDescriptionModel;
+    public List<ProductImage> getProductImageList() {
+        return productImageList;
     }
 
-    public void setProductDescriptionModel(ProductDescriptionModel productDescriptionModel) {
-        this.productDescriptionModel = productDescriptionModel;
+    public void setProductImageList(List<ProductImage> productImageList) {
+        this.productImageList = productImageList;
+    }
+
+    public ProductDescription getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(ProductDescription productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public List<ProductTag> getProductTagList() {
+        return productTagList;
+    }
+
+    public void setProductTagList(List<ProductTag> productTagList) {
+        this.productTagList = productTagList;
     }
 }

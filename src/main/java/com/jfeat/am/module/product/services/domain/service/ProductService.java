@@ -27,5 +27,20 @@ public interface ProductService extends CRUDProductService{
      * @param id
      * @return
      */
-    ProductModel getProduct(Long id);
+    ProductModel getProduct(Integer id);
+
+    /**
+     * 更新产品
+     * @param entity
+     * @return 数据库受影响的行数
+     */
+    Integer updateProduct(ProductModel entity);
+
+    /**
+     *
+     * @param id
+     * @param status
+     * @return 数据库受影响的行数
+     */
+    Integer updateProductStatus(Integer id, String status);
 }

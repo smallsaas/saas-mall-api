@@ -1,9 +1,8 @@
 package com.jfeat.am.module.product.services.domain.service.impl;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.product.services.domain.dao.QueryProductDao;
-import com.jfeat.am.module.product.services.domain.model.ProductDescriptionModel;
-import com.jfeat.am.module.product.services.domain.model.ProductImageModel;
 import com.jfeat.am.module.product.services.domain.model.ProductModel;
 import com.jfeat.am.module.product.services.domain.model.ProductRecord;
 import com.jfeat.am.module.product.services.domain.service.ProductDescriptionService;
@@ -11,13 +10,17 @@ import com.jfeat.am.module.product.services.domain.service.ProductImageService;
 import com.jfeat.am.module.product.services.domain.service.ProductService;
 import com.jfeat.am.module.product.services.domain.service.ProductTagRelationService;
 import com.jfeat.am.module.product.services.gen.crud.service.impl.CRUDProductServiceImpl;
-import com.jfeat.am.module.product.services.gen.persistence.model.Product;
-import com.jfeat.am.module.product.services.gen.persistence.model.ProductTagRelation;
+import com.jfeat.am.module.product.services.gen.persistence.dao.ProductDescriptionMapper;
+import com.jfeat.am.module.product.services.gen.persistence.dao.ProductImageMapper;
+import com.jfeat.am.module.product.services.gen.persistence.dao.ProductTagMapper;
+import com.jfeat.am.module.product.services.gen.persistence.dao.ProductTagRelationMapper;
+import com.jfeat.am.module.product.services.gen.persistence.model.*;
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -39,6 +42,14 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
     ProductImageService productImageService;
     @Resource
     ProductTagRelationService productTagRelationService;
+    @Resource
+    ProductImageMapper productImageMapper;
+    @Resource
+    ProductDescriptionMapper productDescriptionMapper;
+    @Resource
+    ProductTagRelationMapper productTagRelationMapper;
+    @Resource
+    ProductTagMapper productTagMapper;
 
     @Override
     public List findProductPage(Page<ProductRecord> page, ProductRecord record,
@@ -53,14 +64,14 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
         int affected = 0;
         affected += this.createMaster(entity);
         //保存描述
-        ProductDescriptionModel productDescriptionModel = entity.getProductDescriptionModel();
-        productDescriptionModel.setProductId(entity.getId());
-        affected += productDescriptionService.createMaster(productDescriptionModel);
+        ProductDescription productDescription = entity.getProductDescription();
+        productDescription.setProductId(entity.getId());
+        affected += productDescriptionService.createMaster(productDescription);
         //保存封面
-        List<ProductImageModel> productImageModelList = entity.getProductImageModelList();
-        for(ProductImageModel productImageModel : productImageModelList){
-            productImageModel.setProductId(entity.getId());
-            affected += productImageService.createMaster(productImageModel);
+        List<ProductImage> productImageList = entity.getProductImageList();
+        for(ProductImage productImage : productImageList){
+            productImage.setProductId(entity.getId());
+            affected += productImageService.createMaster(productImage);
         }
         //保存标签
         List<Integer> tagIds = entity.getTagIds();
@@ -74,10 +85,56 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
     }
 
     @Override
-    public ProductModel getProduct(Long id) {
+    public ProductModel getProduct(Integer id) {
         Product product = this.retrieveMaster(id);
         ProductModel productModel = CRUD.castObject(product, ProductModel.class);
+        //添加images
+        List<ProductImage> productImageList = productImageMapper.selectList(new EntityWrapper<ProductImage>().eq("product_id", id));
+        productModel.setProductImageList(productImageList);
+        //添加description
+        ProductDescription productDescription = productDescriptionMapper.selectOne(new ProductDescription().setProductId(id));
+        productModel.setProductDescription(productDescription);
+        //添加标签
+        List<ProductTagRelation> productTagRelationList = productTagRelationMapper.selectList(new EntityWrapper<ProductTagRelation>().eq("product_id", id));
+        List<ProductTag> productTagList = new ArrayList<>();
+        productTagRelationList.forEach(item -> {
+            ProductTag productTag = productTagMapper.selectById(item.getTagId());
+            productTagList.add(productTag);
+        });
 
-        return null;
+        return productModel;
+    }
+
+    @Override
+    @Transactional
+    public Integer updateProduct(ProductModel entity) {
+        int affected = 0;
+        affected += this.updateMaster(entity, false);
+        //更新描述
+        ProductDescription productDescription = entity.getProductDescription();
+        affected += productDescriptionService.updateMaster(productDescription,false);
+        //更新封面
+        affected += productImageMapper.delete(new EntityWrapper<ProductImage>().eq("product_id",entity.getId()));
+        List<ProductImage> productImageList = entity.getProductImageList();
+        for(ProductImage productImage : productImageList){
+            productImage.setProductId(entity.getId());
+            affected += productImageService.createMaster(productImage);
+        }
+        //更新标签
+        affected += productTagRelationMapper.delete(new EntityWrapper<ProductTagRelation>().eq("product_id", entity.getId()));
+        List<Integer> tagIds = entity.getTagIds();
+        for(Integer tagId : tagIds){
+            ProductTagRelation productTagRelation = new ProductTagRelation();
+            productTagRelation.setProductId(entity.getId());
+            productTagRelation.setTagId(tagId);
+            affected += productTagRelationService.createMaster(productTagRelation);
+        }
+
+        return affected;
+    }
+
+    @Override
+    public Integer updateProductStatus(Integer id, String status) {
+        return productMapper.updateById(new Product().setId(id).setStatus(status));
     }
 }

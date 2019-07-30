@@ -2,6 +2,7 @@ package com.jfeat.am.module.product.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.module.product.constant.ProductStatus;
 import com.jfeat.am.module.product.services.domain.model.ProductModel;
 import com.jfeat.am.module.product.services.domain.model.ProductRecord;
 import com.jfeat.am.module.product.services.domain.service.ProductService;
@@ -58,15 +59,15 @@ public class ProductEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Product", response = Product.class)
-    public Tip getProduct(@PathVariable Long id) {
+    public Tip getProduct(@PathVariable Integer id) {
         return SuccessTip.create(productService.getProduct(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Product", response = Product.class)
-    public Tip updateProduct(@PathVariable Integer id, @RequestBody Product entity) {
+    public Tip updateProduct(@PathVariable Integer id, @RequestBody ProductModel entity) {
         entity.setId(id);
-        return SuccessTip.create(productService.updateMaster(entity));
+        return SuccessTip.create(productService.updateProduct(entity));
     }
 
     @DeleteMapping("/{id}")
@@ -214,4 +215,14 @@ public class ProductEndpoint {
 
         return SuccessTip.create(page);
     }
+
+    @PutMapping("/{id}/{status}")
+    @ApiOperation(value = "修改 Product 状态", response = Integer.class)
+    public Tip updateProduct(@PathVariable Integer id, @PathVariable String status) {
+        if(!ProductStatus.ONSELL.getStatus().equals(status) && !ProductStatus.OFFSELL.getStatus().equals(status)){
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+        return SuccessTip.create(productService.updateProductStatus(id,status));
+    }
+
 }
