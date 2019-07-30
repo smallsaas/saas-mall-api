@@ -69,8 +69,10 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
         affected += this.createMaster(entity);
         //保存描述
         ProductDescription productDescription = entity.getProductDescription();
-        productDescription.setProductId(entity.getId());
-        affected += productDescriptionService.createMaster(productDescription);
+        if(productDescription!=null){
+            productDescription.setProductId(entity.getId());
+            affected += productDescriptionService.createMaster(productDescription);
+        }
         //保存封面
         List<ProductImage> productImageList = entity.getProductImageList();
         for(ProductImage productImage : productImageList){
