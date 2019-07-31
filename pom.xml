@@ -280,22 +280,8 @@
                     <outputDir>src/main/java</outputDir>
                     <initialize>false</initialize>
                     <tables>
-                        <table>t_product</table>
-                        <table>t_product_brand</table>
-                        <table>t_product_category</table>
-                        <table>t_product_category_property</table>
-                        <table>t_product_description</table>
-                        <table>t_product_favorite</table>
-                        <table>t_product_hit_word</table>
-                        <table>t_product_image</table>
-                        <table>t_product_property</table>
-                        <table>t_product_purchase_strategy</table>
-                        <table>t_product_purchase_strategy_item</table>
-                        <table>t_product_purchase_strategy_relation</table>
-                        <table>t_product_settlement_proportion</table>
-                        <table>t_product_specification</table>
-                        <table>t_product_tag</table>
-                        <table>t_product_tag_relation</table>
+                        <table>t_fare_template</table>
+                        <table>t_incl_postage_proviso</table>
                     </tables>
                 </configuration>
             </plugin>

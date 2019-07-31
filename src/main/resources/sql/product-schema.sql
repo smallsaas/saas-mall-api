@@ -296,4 +296,43 @@ CREATE TABLE `t_product_tag_relation`  (
   CONSTRAINT `t_product_tag_relation_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for t_fare_template
+-- ----------------------------
+DROP TABLE IF EXISTS `t_fare_template`;
+CREATE TABLE `t_fare_template`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `shop_addr` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `dispatch_time` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `is_incl_postage` int(11) NULL DEFAULT 1,
+  `valuation_model` int(11) NOT NULL,
+  `is_incl_postage_by_if` int(11) NULL DEFAULT 0,
+  `last_modified_date` datetime(0) NULL DEFAULT NULL,
+  `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `message_format` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for t_incl_postage_proviso
+-- ----------------------------
+DROP TABLE IF EXISTS `t_incl_postage_proviso`;
+CREATE TABLE `t_incl_postage_proviso`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fare_id` int(11) NOT NULL,
+  `region` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `piece_no` int(11) NULL DEFAULT NULL,
+  `weight_no` int(11) NULL DEFAULT NULL,
+  `bulk_no` int(11) NULL DEFAULT NULL,
+  `amount` decimal(18, 2) NULL DEFAULT NULL,
+  `carry_way` int(11) NULL DEFAULT 0,
+  `type` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `fare_id`(`fare_id`) USING BTREE,
+  CONSTRAINT `t_incl_postage_proviso_ibfk_1` FOREIGN KEY (`fare_id`) REFERENCES `t_fare_template` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+
 SET FOREIGN_KEY_CHECKS = 1;
