@@ -23,11 +23,12 @@ public class FastJsonConverterConfig {
                 SerializerFeature.WriteNullListAsEmpty,
                 SerializerFeature.WriteNullStringAsEmpty,
                 SerializerFeature.WriteNullBooleanAsFalse,
-                SerializerFeature.WriteDateUseDateFormat,
-                SerializerFeature.WriteNonStringValueAsString
+                SerializerFeature.WriteDateUseDateFormat
+                //SerializerFeature.WriteNonStringValueAsString
         );
         //全局指定了日期格式
-        fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        //fastJsonConfig.setDateFormat("yyyy-MM-dd HH:mm:ss");
+
         fastConverter.setFastJsonConfig(fastJsonConfig);
 
         //该设置目的，为了兼容jackson
