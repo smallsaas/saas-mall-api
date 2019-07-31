@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.gen.persistence.dao.OrderMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.order.services.gen.persistence.model.Order">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="order_number" property="orderNumber" />
+		<result column="trade_number" property="tradeNumber" />
+		<result column="payment_type" property="paymentType" />
+		<result column="created_date" property="createdDate" />
+		<result column="pay_date" property="payDate" />
+		<result column="confirm_date" property="confirmDate" />
+		<result column="deliver_date" property="deliverDate" />
+		<result column="delivered_date" property="deliveredDate" />
+		<result column="deal_date" property="dealDate" />
+		<result column="deliver_order_number" property="deliverOrderNumber" />
+		<result column="status" property="status" />
+		<result column="total_price" property="totalPrice" />
+		<result column="freight" property="freight" />
+		<result column="description" property="description" />
+		<result column="remark" property="remark" />
+		<result column="invoice" property="invoice" />
+		<result column="invoice_title" property="invoiceTitle" />
+		<result column="receiving_time" property="receivingTime" />
+		<result column="zip" property="zip" />
+		<result column="contact_user" property="contactUser" />
+		<result column="phone" property="phone" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="district" property="district" />
+		<result column="street" property="street" />
+		<result column="detail" property="detail" />
+		<result column="cover" property="cover" />
+		<result column="express_number" property="expressNumber" />
+		<result column="express_company" property="expressCompany" />
+		<result column="express_code" property="expressCode" />
+		<result column="settled" property="settled" />
+		<result column="previous_status" property="previousStatus" />
+		<result column="is_deliver_reminder" property="isDeliverReminder" />
+		<result column="is_deleted" property="isDeleted" />
+		<result column="point_exchange_rate" property="pointExchangeRate" />
+		<result column="coupon_info" property="couponInfo" />
+		<result column="marketing" property="marketing" />
+		<result column="marketing_id" property="marketingId" />
+		<result column="marketing_description" property="marketingDescription" />
+		<result column="mid" property="mid" />
+		<result column="mname" property="mname" />
+		<result column="store_id" property="storeId" />
+		<result column="store_name" property="storeName" />
+		<result column="store_user_id" property="storeUserId" />
+		<result column="store_user_name" property="storeUserName" />
+		<result column="type" property="type" />
+		<result column="pay_credit" property="payCredit" />
+		<result column="delivery_type" property="deliveryType" />
+		<result column="origin" property="origin" />
+		<result column="store_user_code" property="storeUserCode" />
+		<result column="store_code" property="storeCode" />
+		<result column="store_cover" property="storeCover" />
+		<result column="store_guide_user_id" property="storeGuideUserId" />
+		<result column="store_guide_user_code" property="storeGuideUserCode" />
+		<result column="store_guide_user_name" property="storeGuideUserName" />
+		<result column="inviter_user_id" property="inviterUserId" />
+		<result column="inviter_user_name" property="inviterUserName" />
+		<result column="followed_store_id" property="followedStoreId" />
+		<result column="followed_store_code" property="followedStoreCode" />
+		<result column="followed_store_name" property="followedStoreName" />
+		<result column="followed_store_cover" property="followedStoreCover" />
+		<result column="comment_id" property="commentId" />
+		<result column="binding_store_id" property="bindingStoreId" />
+		<result column="binding_store_code" property="bindingStoreCode" />
+		<result column="binding_store_name" property="bindingStoreName" />
+		<result column="binding_store_cover" property="bindingStoreCover" />
+		<result column="refund_fee" property="refundFee" />
+		<result column="store_address" property="storeAddress" />
+		<result column="supplementary_fee" property="supplementaryFee" />
+		<result column="origin_price" property="originPrice" />
+		<result column="coupon_price" property="couponPrice" />
+		<result column="credit_price" property="creditPrice" />
+		<result column="ext_coupon_id" property="extCouponId" />
+		<result column="ext_user_type" property="extUserType" />
+		<result column="ext_coupon_type" property="extCouponType" />
+		<result column="ext_discount" property="extDiscount" />
+		<result column="ext_cuts" property="extCuts" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id AS userId, order_number AS orderNumber, trade_number AS tradeNumber, payment_type AS paymentType, created_date AS createdDate, pay_date AS payDate, confirm_date AS confirmDate, deliver_date AS deliverDate, delivered_date AS deliveredDate, deal_date AS dealDate, deliver_order_number AS deliverOrderNumber, status, total_price AS totalPrice, freight, description, remark, invoice, invoice_title AS invoiceTitle, receiving_time AS receivingTime, zip, contact_user AS contactUser, phone, province, city, district, street, detail, cover, express_number AS expressNumber, express_company AS expressCompany, express_code AS expressCode, settled, previous_status AS previousStatus, is_deliver_reminder AS isDeliverReminder, is_deleted AS isDeleted, point_exchange_rate AS pointExchangeRate, coupon_info AS couponInfo, marketing, marketing_id AS marketingId, marketing_description AS marketingDescription, mid, mname, store_id AS storeId, store_name AS storeName, store_user_id AS storeUserId, store_user_name AS storeUserName, type, pay_credit AS payCredit, delivery_type AS deliveryType, origin, store_user_code AS storeUserCode, store_code AS storeCode, store_cover AS storeCover, store_guide_user_id AS storeGuideUserId, store_guide_user_code AS storeGuideUserCode, store_guide_user_name AS storeGuideUserName, inviter_user_id AS inviterUserId, inviter_user_name AS inviterUserName, followed_store_id AS followedStoreId, followed_store_code AS followedStoreCode, followed_store_name AS followedStoreName, followed_store_cover AS followedStoreCover, comment_id AS commentId, binding_store_id AS bindingStoreId, binding_store_code AS bindingStoreCode, binding_store_name AS bindingStoreName, binding_store_cover AS bindingStoreCover, refund_fee AS refundFee, store_address AS storeAddress, supplementary_fee AS supplementaryFee, origin_price AS originPrice, coupon_price AS couponPrice, credit_price AS creditPrice, ext_coupon_id AS extCouponId, ext_user_type AS extUserType, ext_coupon_type AS extCouponType, ext_discount AS extDiscount, ext_cuts AS extCuts
+    </sql>
+
+</mapper>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderStatisticDao">
+                                                                                                                        <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                t_order_statistic.id, t_order_statistic.created_date AS createdDate, t_order_statistic.sales_amount AS salesAmount
+    </sql>
+
+
+
+    <select id="findOrderStatisticPage" resultType="OrderStatisticRecord" parameterType="OrderStatisticRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_order_statistic
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_order_statistic.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.createdDate != null and record.createdDate>0 ">
+                AND t_order_statistic.created_date LIKE CONCAT('%',#{record.createdDate},'%')
+            </if>
+                                                                                            <if test="record.salesAmount != null and record.salesAmount>0 ">
+                AND t_order_statistic.sales_amount LIKE CONCAT('%',#{record.salesAmount},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_order_statistic.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_order_statistic.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_order_statistic.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

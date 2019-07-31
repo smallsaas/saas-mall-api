@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderProcessLogDao">
+                                                                                                                                                            <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                        t_order_process_log.id, t_order_process_log.order_id AS orderId, t_order_process_log.process_date AS processDate, t_order_process_log.content
+    </sql>
+
+
+
+    <select id="findOrderProcessLogPage" resultType="OrderProcessLogRecord" parameterType="OrderProcessLogRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_order_process_log
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_order_process_log.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.orderId != null and record.orderId>0 ">
+                AND t_order_process_log.order_id LIKE CONCAT('%',#{record.orderId},'%')
+            </if>
+                                                                                            <if test="record.processDate != null and record.processDate>0 ">
+                AND t_order_process_log.process_date LIKE CONCAT('%',#{record.processDate},'%')
+            </if>
+                                <if test="record.content != null and record.content!= ''">
+                AND t_order_process_log.content LIKE CONCAT('%',#{record.content},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_order_process_log.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_order_process_log.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_order_process_log.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

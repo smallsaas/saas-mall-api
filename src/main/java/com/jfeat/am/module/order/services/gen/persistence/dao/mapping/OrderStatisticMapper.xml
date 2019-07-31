@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.gen.persistence.dao.OrderStatisticMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.order.services.gen.persistence.model.OrderStatistic">
+		<id column="id" property="id" />
+		<result column="created_date" property="createdDate" />
+		<result column="sales_amount" property="salesAmount" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, created_date AS createdDate, sales_amount AS salesAmount
+    </sql>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderCustomerServiceDao">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_order_customer_service.id, t_order_customer_service.order_id AS orderId, t_order_customer_service.created_date AS createdDate, t_order_customer_service.express_number AS expressNumber, t_order_customer_service.express_company AS expressCompany, t_order_customer_service.express_code AS expressCode, t_order_customer_service.reason, t_order_customer_service.service_type AS serviceType, t_order_customer_service.status, t_order_customer_service.log, t_order_customer_service.images, t_order_customer_service.refund_fee AS refundFee, t_order_customer_service.supplementary_fee AS supplementaryFee, t_order_customer_service.store_id AS storeId, t_order_customer_service.store_name AS storeName, t_order_customer_service.store_user_id AS storeUserId, t_order_customer_service.store_user_name AS storeUserName, t_order_customer_service.service_number AS serviceNumber, t_order_customer_service.result, t_order_customer_service.refund_way AS refundWay
+    </sql>
+
+
+
+    <select id="findOrderCustomerServicePage" resultType="OrderCustomerServiceRecord" parameterType="OrderCustomerServiceRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_order_customer_service
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_order_customer_service.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.orderId != null and record.orderId>0 ">
+                AND t_order_customer_service.order_id LIKE CONCAT('%',#{record.orderId},'%')
+            </if>
+                                                                                            <if test="record.createdDate != null and record.createdDate>0 ">
+                AND t_order_customer_service.created_date LIKE CONCAT('%',#{record.createdDate},'%')
+            </if>
+                                                                                            <if test="record.expressNumber != null and record.expressNumber!= ''">
+                AND t_order_customer_service.express_number LIKE CONCAT('%',#{record.expressNumber},'%')
+            </if>
+                                                                                            <if test="record.expressCompany != null and record.expressCompany!= ''">
+                AND t_order_customer_service.express_company LIKE CONCAT('%',#{record.expressCompany},'%')
+            </if>
+                                                                                            <if test="record.expressCode != null and record.expressCode!= ''">
+                AND t_order_customer_service.express_code LIKE CONCAT('%',#{record.expressCode},'%')
+            </if>
+                                <if test="record.reason != null and record.reason!= ''">
+                AND t_order_customer_service.reason LIKE CONCAT('%',#{record.reason},'%')
+            </if>
+                                                                                            <if test="record.serviceType != null and record.serviceType!= ''">
+                AND t_order_customer_service.service_type LIKE CONCAT('%',#{record.serviceType},'%')
+            </if>
+                                <if test="record.status != null and record.status!= ''">
+                AND t_order_customer_service.status LIKE CONCAT('%',#{record.status},'%')
+            </if>
+                                <if test="record.log != null and record.log!= ''">
+                AND t_order_customer_service.log LIKE CONCAT('%',#{record.log},'%')
+            </if>
+                                <if test="record.images != null and record.images!= ''">
+                AND t_order_customer_service.images LIKE CONCAT('%',#{record.images},'%')
+            </if>
+                                                                                            <if test="record.refundFee != null and record.refundFee>0 ">
+                AND t_order_customer_service.refund_fee LIKE CONCAT('%',#{record.refundFee},'%')
+            </if>
+                                                                                            <if test="record.supplementaryFee != null and record.supplementaryFee>0 ">
+                AND t_order_customer_service.supplementary_fee LIKE CONCAT('%',#{record.supplementaryFee},'%')
+            </if>
+                                                                                            <if test="record.storeId != null and record.storeId!= ''">
+                AND t_order_customer_service.store_id LIKE CONCAT('%',#{record.storeId},'%')
+            </if>
+                                                                                            <if test="record.storeName != null and record.storeName!= ''">
+                AND t_order_customer_service.store_name LIKE CONCAT('%',#{record.storeName},'%')
+            </if>
+                                                                                                            <if test="record.storeUserId != null and record.storeUserId!= ''">
+                AND t_order_customer_service.store_user_id LIKE CONCAT('%',#{record.storeUserId},'%')
+            </if>
+                                                                                                            <if test="record.storeUserName != null and record.storeUserName!= ''">
+                AND t_order_customer_service.store_user_name LIKE CONCAT('%',#{record.storeUserName},'%')
+            </if>
+                                                                                            <if test="record.serviceNumber != null and record.serviceNumber!= ''">
+                AND t_order_customer_service.service_number LIKE CONCAT('%',#{record.serviceNumber},'%')
+            </if>
+                                <if test="record.result != null and record.result!= ''">
+                AND t_order_customer_service.result LIKE CONCAT('%',#{record.result},'%')
+            </if>
+                                                                                            <if test="record.refundWay != null and record.refundWay!= ''">
+                AND t_order_customer_service.refund_way LIKE CONCAT('%',#{record.refundWay},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_order_customer_service.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_order_customer_service.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_order_customer_service.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>
