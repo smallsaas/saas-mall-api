@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryExpressDao">
+                                                                                                                                                                                                <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                        t_express.id, t_express.code, t_express.name, t_express.enabled, t_express.is_default AS isDefault
+    </sql>
+
+
+
+    <select id="findExpressPage" resultType="ExpressRecord" parameterType="ExpressRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_express
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_express.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                <if test="record.code != null and record.code!= ''">
+                AND t_express.code LIKE CONCAT('%',#{record.code},'%')
+            </if>
+                                <if test="record.name != null and record.name!= ''">
+                AND t_express.name LIKE CONCAT('%',#{record.name},'%')
+            </if>
+                                <if test="record.enabled != null and record.enabled>0 ">
+                AND t_express.enabled LIKE CONCAT('%',#{record.enabled},'%')
+            </if>
+                                                                                            <if test="record.isDefault != null and record.isDefault>0 ">
+                AND t_express.is_default LIKE CONCAT('%',#{record.isDefault},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_express.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_express.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_express.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>
