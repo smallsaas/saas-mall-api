@@ -334,5 +334,27 @@ CREATE TABLE `t_incl_postage_proviso`  (
   CONSTRAINT `t_incl_postage_proviso_ibfk_1` FOREIGN KEY (`fare_id`) REFERENCES `t_fare_template` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for t_carry_mode
+-- ----------------------------
+DROP TABLE IF EXISTS `t_carry_mode`;
+CREATE TABLE `t_carry_mode`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `fare_id` int(11) NOT NULL,
+  `region` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `first_piece` int(11) NULL DEFAULT NULL,
+  `first_weight` int(11) NULL DEFAULT NULL,
+  `first_bulk` int(11) NULL DEFAULT NULL,
+  `first_amount` decimal(18, 2) NOT NULL,
+  `second_piece` int(11) NULL DEFAULT NULL,
+  `second_weight` int(11) NULL DEFAULT NULL,
+  `second_bulk` int(11) NULL DEFAULT NULL,
+  `second_amount` decimal(18, 2) NOT NULL,
+  `carry_way` int(11) NULL DEFAULT 0,
+  `is_default` int(11) NULL DEFAULT 0,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `fare_id`(`fare_id`) USING BTREE,
+  CONSTRAINT `t_carry_mode_ibfk_1` FOREIGN KEY (`fare_id`) REFERENCES `t_fare_template` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 SET FOREIGN_KEY_CHECKS = 1;

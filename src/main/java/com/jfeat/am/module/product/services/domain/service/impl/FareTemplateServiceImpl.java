@@ -5,12 +5,12 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.product.services.domain.dao.QueryFareTemplateDao;
 import com.jfeat.am.module.product.services.domain.model.FareTemplateModel;
 import com.jfeat.am.module.product.services.domain.model.FareTemplateRecord;
+import com.jfeat.am.module.product.services.domain.service.CarryModeService;
 import com.jfeat.am.module.product.services.domain.service.FareTemplateService;
-import com.jfeat.am.module.product.services.domain.service.InclPostageProvisoService;
 import com.jfeat.am.module.product.services.gen.crud.service.impl.CRUDFareTemplateServiceImpl;
-import com.jfeat.am.module.product.services.gen.persistence.dao.InclPostageProvisoMapper;
+import com.jfeat.am.module.product.services.gen.persistence.dao.CarryModeMapper;
+import com.jfeat.am.module.product.services.gen.persistence.model.CarryMode;
 import com.jfeat.am.module.product.services.gen.persistence.model.FareTemplate;
-import com.jfeat.am.module.product.services.gen.persistence.model.InclPostageProviso;
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,9 +33,9 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
     @Resource
     QueryFareTemplateDao queryFareTemplateDao;
     @Resource
-    InclPostageProvisoService inclPostageProvisoService;
+    CarryModeService carryModeService;
     @Resource
-    InclPostageProvisoMapper inclPostageProvisoMapper;
+    CarryModeMapper carryModeMapper;
 
     @Override
     public List findFareTemplatePage(Page<FareTemplateRecord> page, FareTemplateRecord record,
@@ -49,11 +49,11 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
     public Integer createFareTemplate(FareTemplateModel entity) {
         int affected = 0;
         affected += this.createMaster(entity);
-        List<InclPostageProviso> inclPostageProvisoList = entity.getInclPostageProvisoList();
-        if(!CollectionUtils.isEmpty(inclPostageProvisoList)){
-            for(InclPostageProviso inclPostageProviso : inclPostageProvisoList){
-                inclPostageProviso.setFareId(entity.getId());
-                affected += inclPostageProvisoService.createMaster(inclPostageProviso);
+        List<CarryMode> carryModeList = entity.getCarryModeList();
+        if(!CollectionUtils.isEmpty(carryModeList)){
+            for(CarryMode carryMode : carryModeList){
+                carryMode.setFareId(entity.getId());
+                affected += carryModeService.createMaster(carryMode);
             }
         }
         return affected;
@@ -63,8 +63,8 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
     public FareTemplateModel getFareTemplate(Long id) {
         FareTemplate fareTemplate = this.retrieveMaster(id);
         FareTemplateModel fareTemplateModel = CRUD.castObject(fareTemplate, FareTemplateModel.class);
-        List<InclPostageProviso> inclPostageProvisoList = inclPostageProvisoMapper.selectList(new EntityWrapper<InclPostageProviso>().eq("fare_id", id));
-        fareTemplateModel.setInclPostageProvisoList(inclPostageProvisoList);
+        List<CarryMode> carryModeList = carryModeMapper.selectList(new EntityWrapper<CarryMode>().eq("fare_id", id));
+        fareTemplateModel.setCarryModeList(carryModeList);
         return fareTemplateModel;
     }
 
@@ -74,12 +74,12 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
         int affected = 0;
         affected += this.updateMaster(entity,false);
 
-        affected += inclPostageProvisoMapper.delete(new EntityWrapper<InclPostageProviso>().eq("fare_id",entity.getId()));
-        List<InclPostageProviso> inclPostageProvisoList = entity.getInclPostageProvisoList();
-        if(!CollectionUtils.isEmpty(inclPostageProvisoList)){
-            for(InclPostageProviso inclPostageProviso : inclPostageProvisoList){
-                inclPostageProviso.setFareId(entity.getId());
-                affected += inclPostageProvisoService.createMaster(inclPostageProviso);
+        affected += carryModeMapper.delete(new EntityWrapper<CarryMode>().eq("fare_id",entity.getId()));
+        List<CarryMode> carryModeList = entity.getCarryModeList();
+        if(!CollectionUtils.isEmpty(carryModeList)){
+            for(CarryMode carryMode : carryModeList){
+                carryMode.setFareId(entity.getId());
+                affected += carryModeService.createMaster(carryMode);
             }
         }
         return affected;

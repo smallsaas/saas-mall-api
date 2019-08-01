@@ -1,7 +1,7 @@
 package com.jfeat.am.module.product.services.domain.model;
 
+import com.jfeat.am.module.product.services.gen.persistence.model.CarryMode;
 import com.jfeat.am.module.product.services.gen.persistence.model.FareTemplate;
-import com.jfeat.am.module.product.services.gen.persistence.model.InclPostageProviso;
 
 import java.util.List;
 
@@ -11,13 +11,14 @@ import java.util.List;
  */
 public class FareTemplateModel extends FareTemplate {
 
-    private List<InclPostageProviso> inclPostageProvisoList;
+    private List<CarryMode> carryModeList;
 
-    public List<InclPostageProviso> getInclPostageProvisoList() {
-        return inclPostageProvisoList;
+
+    public List<CarryMode> getCarryModeList() {
+        return carryModeList;
     }
 
-    public void setInclPostageProvisoList(List<InclPostageProviso> inclPostageProvisoList) {
-        this.inclPostageProvisoList = inclPostageProvisoList;
+    public void setCarryModeList(List<CarryMode> carryModeList) {
+        this.carryModeList = carryModeList;
     }
 }
