@@ -107,6 +107,7 @@ public class ProductCategoryEndpoint {
                                        @RequestParam(name = "promotedProductCount", required = false) Integer promotedProductCount,
                                        @RequestParam(name = "wholesale", required = false) Integer wholesale,
                                        @RequestParam(name = "isShowProducts", required = false) Integer isShowProducts,
+                                       @RequestParam(name = "orgId", required = false) Long orgId,
                                        @RequestParam(name = "orderBy", required = false) String orderBy,
                                        @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -135,6 +136,7 @@ public class ProductCategoryEndpoint {
         record.setPromotedProductCount(promotedProductCount);
         record.setWholesale(wholesale);
         record.setIsShowProducts(isShowProducts);
+        record.setOrgId(orgId);
         page.setRecords(this.productCategoryService.findProductCategoryPage(page, record, search, orderBy, null, null));
         return SuccessTip.create(page);
     }

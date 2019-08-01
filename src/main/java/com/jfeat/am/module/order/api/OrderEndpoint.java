@@ -69,8 +69,8 @@ public class OrderEndpoint {
         return SuccessTip.create(orderService.updateMaster(entity));
     }
 
-    @PutMapping("/{id}/{orderStatus}")
-    @ApiOperation(value = "修改 Order", response = Order.class)
+    @PostMapping("/{id}/{orderStatus}")
+    @ApiOperation(value = "取消 Order", response = Order.class)
     public Tip updateOrderStatus(@PathVariable Integer id, @PathVariable String orderStatus) {
         try {
             //不报错，orderStatus参数正确
@@ -258,6 +258,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "extCouponType", required = false) String extCouponType,
                            @RequestParam(name = "extDiscount", required = false) Integer extDiscount,
                            @RequestParam(name = "extCuts", required = false) Integer extCuts,
+                           @RequestParam(name = "orgId", required = false) Long orgId,
                            @RequestParam(name = "orderBy", required = false) String orderBy,
                            @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -354,6 +355,7 @@ public class OrderEndpoint {
         record.setExtCouponType(extCouponType);
         record.setExtDiscount(extDiscount);
         record.setExtCuts(extCuts);
+        record.setOrgId(orgId);
         page.setRecords(this.orderService.findOrderPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

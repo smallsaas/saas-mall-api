@@ -15,11 +15,12 @@
 		<result column="title" property="title" />
 		<result column="content" property="content" />
 		<result column="message_format" property="messageFormat" />
+		<result column="org_id" property="orgId" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, shop_addr AS shopAddr, dispatch_time AS dispatchTime, is_incl_postage AS isInclPostage, valuation_model AS valuationModel, is_incl_postage_by_if AS isInclPostageByIf, last_modified_date AS lastModifiedDate, title, content, message_format AS messageFormat
+        id, name, shop_addr AS shopAddr, dispatch_time AS dispatchTime, is_incl_postage AS isInclPostage, valuation_model AS valuationModel, is_incl_postage_by_if AS isInclPostageByIf, last_modified_date AS lastModifiedDate, title, content, message_format AS messageFormat,org_id AS orgId
     </sql>
 
 </mapper>

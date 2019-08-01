@@ -109,6 +109,7 @@ public class FareTemplateEndpoint {
                                   @RequestParam(name = "title", required = false) String title,
                                   @RequestParam(name = "content", required = false) String content,
                                   @RequestParam(name = "messageFormat", required = false) String messageFormat,
+                                  @RequestParam(name = "orgId", required = false) Long orgId,
                                   @RequestParam(name = "orderBy", required = false) String orderBy,
                                   @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -136,6 +137,7 @@ public class FareTemplateEndpoint {
         record.setLastModifiedDate(lastModifiedDate);
         record.setTitle(title);
         record.setContent(content);
+        record.setOrgId(orgId);
         record.setMessageFormat(messageFormat);
         page.setRecords(this.fareTemplateService.findFareTemplatePage(page, record, search, orderBy, null, null));
 

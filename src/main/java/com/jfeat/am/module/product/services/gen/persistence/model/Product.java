@@ -1,15 +1,14 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -107,7 +106,8 @@ public class Product extends Model<Product> {
      */
 	@TableField("required_participate_exam")
 	private Integer requiredParticipateExam;
-
+	@TableField("org_id")
+	private Long orgId;
 
 	public Integer getId() {
 		return id;
@@ -538,5 +538,13 @@ public class Product extends Model<Product> {
 			", isVirtual=" + isVirtual +
 			", requiredParticipateExam=" + requiredParticipateExam +
 			"}";
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
 }

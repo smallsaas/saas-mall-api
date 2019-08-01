@@ -1,264 +1,266 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderDao">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_order.id, t_order.user_id AS userId, t_order.order_number AS orderNumber, t_order.trade_number AS tradeNumber, t_order.payment_type AS paymentType, t_order.created_date AS createdDate, t_order.pay_date AS payDate, t_order.confirm_date AS confirmDate, t_order.deliver_date AS deliverDate, t_order.delivered_date AS deliveredDate, t_order.deal_date AS dealDate, t_order.deliver_order_number AS deliverOrderNumber, t_order.status, t_order.total_price AS totalPrice, t_order.freight, t_order.description, t_order.remark, t_order.invoice, t_order.invoice_title AS invoiceTitle, t_order.receiving_time AS receivingTime, t_order.zip, t_order.contact_user AS contactUser, t_order.phone, t_order.province, t_order.city, t_order.district, t_order.street, t_order.detail, t_order.cover, t_order.express_number AS expressNumber, t_order.express_company AS expressCompany, t_order.express_code AS expressCode, t_order.settled, t_order.previous_status AS previousStatus, t_order.is_deliver_reminder AS isDeliverReminder, t_order.is_deleted AS isDeleted, t_order.point_exchange_rate AS pointExchangeRate, t_order.coupon_info AS couponInfo, t_order.marketing, t_order.marketing_id AS marketingId, t_order.marketing_description AS marketingDescription, t_order.mid, t_order.mname, t_order.store_id AS storeId, t_order.store_name AS storeName, t_order.store_user_id AS storeUserId, t_order.store_user_name AS storeUserName, t_order.type, t_order.pay_credit AS payCredit, t_order.delivery_type AS deliveryType, t_order.origin, t_order.store_user_code AS storeUserCode, t_order.store_code AS storeCode, t_order.store_cover AS storeCover, t_order.store_guide_user_id AS storeGuideUserId, t_order.store_guide_user_code AS storeGuideUserCode, t_order.store_guide_user_name AS storeGuideUserName, t_order.inviter_user_id AS inviterUserId, t_order.inviter_user_name AS inviterUserName, t_order.followed_store_id AS followedStoreId, t_order.followed_store_code AS followedStoreCode, t_order.followed_store_name AS followedStoreName, t_order.followed_store_cover AS followedStoreCover, t_order.comment_id AS commentId, t_order.binding_store_id AS bindingStoreId, t_order.binding_store_code AS bindingStoreCode, t_order.binding_store_name AS bindingStoreName, t_order.binding_store_cover AS bindingStoreCover, t_order.refund_fee AS refundFee, t_order.store_address AS storeAddress, t_order.supplementary_fee AS supplementaryFee, t_order.origin_price AS originPrice, t_order.coupon_price AS couponPrice, t_order.credit_price AS creditPrice, t_order.ext_coupon_id AS extCouponId, t_order.ext_user_type AS extUserType, t_order.ext_coupon_type AS extCouponType, t_order.ext_discount AS extDiscount, t_order.ext_cuts AS extCuts
+    <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_order.id, t_order.user_id AS userId, t_order.order_number AS orderNumber, t_order.trade_number AS tradeNumber, t_order.payment_type AS paymentType, t_order.created_date AS createdDate, t_order.pay_date AS payDate, t_order.confirm_date AS confirmDate, t_order.deliver_date AS deliverDate, t_order.delivered_date AS deliveredDate, t_order.deal_date AS dealDate, t_order.deliver_order_number AS deliverOrderNumber, t_order.status, t_order.total_price AS totalPrice, t_order.freight, t_order.description, t_order.remark, t_order.invoice, t_order.invoice_title AS invoiceTitle, t_order.receiving_time AS receivingTime, t_order.zip, t_order.contact_user AS contactUser, t_order.phone, t_order.province, t_order.city, t_order.district, t_order.street, t_order.detail, t_order.cover, t_order.express_number AS expressNumber, t_order.express_company AS expressCompany, t_order.express_code AS expressCode, t_order.settled, t_order.previous_status AS previousStatus, t_order.is_deliver_reminder AS isDeliverReminder, t_order.is_deleted AS isDeleted, t_order.point_exchange_rate AS pointExchangeRate, t_order.coupon_info AS couponInfo, t_order.marketing, t_order.marketing_id AS marketingId, t_order.marketing_description AS marketingDescription, t_order.mid, t_order.mname, t_order.store_id AS storeId, t_order.store_name AS storeName, t_order.store_user_id AS storeUserId, t_order.store_user_name AS storeUserName, t_order.type, t_order.pay_credit AS payCredit, t_order.delivery_type AS deliveryType, t_order.origin, t_order.store_user_code AS storeUserCode, t_order.store_code AS storeCode, t_order.store_cover AS storeCover, t_order.store_guide_user_id AS storeGuideUserId, t_order.store_guide_user_code AS storeGuideUserCode, t_order.store_guide_user_name AS storeGuideUserName, t_order.inviter_user_id AS inviterUserId, t_order.inviter_user_name AS inviterUserName, t_order.followed_store_id AS followedStoreId, t_order.followed_store_code AS followedStoreCode, t_order.followed_store_name AS followedStoreName, t_order.followed_store_cover AS followedStoreCover, t_order.comment_id AS commentId, t_order.binding_store_id AS bindingStoreId, t_order.binding_store_code AS bindingStoreCode, t_order.binding_store_name AS bindingStoreName, t_order.binding_store_cover AS bindingStoreCover, t_order.refund_fee AS refundFee, t_order.store_address AS storeAddress, t_order.supplementary_fee AS supplementaryFee, t_order.origin_price AS originPrice, t_order.coupon_price AS couponPrice, t_order.credit_price AS creditPrice, t_order.ext_coupon_id AS extCouponId, t_order.ext_user_type AS extUserType, t_order.ext_coupon_type AS extCouponType, t_order.ext_discount AS extDiscount, t_order.ext_cuts AS extCuts,org_id AS orgId
     </sql>
 
 
-
     <select id="findOrderPage" resultType="OrderRecord" parameterType="OrderRecord">
-            SELECT
-        <include refid="Base_Column_List" />
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM t_order
         WHERE 1=1
-                                <if test="record.id != null and record.id>0 ">
-                AND t_order.id LIKE CONCAT('%',#{record.id},'%')
-            </if>
-                                                                                            <if test="record.userId != null and record.userId>0 ">
-                AND t_order.user_id LIKE CONCAT('%',#{record.userId},'%')
-            </if>
-                                                                                            <if test="record.orderNumber != null and record.orderNumber!= ''">
-                AND t_order.order_number LIKE CONCAT('%',#{record.orderNumber},'%')
-            </if>
-                                                                                            <if test="record.tradeNumber != null and record.tradeNumber!= ''">
-                AND t_order.trade_number LIKE CONCAT('%',#{record.tradeNumber},'%')
-            </if>
-                                                                                            <if test="record.paymentType != null and record.paymentType!= ''">
-                AND t_order.payment_type LIKE CONCAT('%',#{record.paymentType},'%')
-            </if>
-                                                                                            <if test="record.createdDate != null and record.createdDate>0 ">
-                AND t_order.created_date LIKE CONCAT('%',#{record.createdDate},'%')
-            </if>
-                                                                                            <if test="record.payDate != null and record.payDate>0 ">
-                AND t_order.pay_date LIKE CONCAT('%',#{record.payDate},'%')
-            </if>
-                                                                                            <if test="record.confirmDate != null and record.confirmDate>0 ">
-                AND t_order.confirm_date LIKE CONCAT('%',#{record.confirmDate},'%')
-            </if>
-                                                                                            <if test="record.deliverDate != null and record.deliverDate>0 ">
-                AND t_order.deliver_date LIKE CONCAT('%',#{record.deliverDate},'%')
-            </if>
-                                                                                            <if test="record.deliveredDate != null and record.deliveredDate>0 ">
-                AND t_order.delivered_date LIKE CONCAT('%',#{record.deliveredDate},'%')
-            </if>
-                                                                                            <if test="record.dealDate != null and record.dealDate>0 ">
-                AND t_order.deal_date LIKE CONCAT('%',#{record.dealDate},'%')
-            </if>
-                                                                                                            <if test="record.deliverOrderNumber != null and record.deliverOrderNumber!= ''">
-                AND t_order.deliver_order_number LIKE CONCAT('%',#{record.deliverOrderNumber},'%')
-            </if>
-                                <if test="record.status != null and record.status!= ''">
-                AND t_order.status LIKE CONCAT('%',#{record.status},'%')
-            </if>
-                                                                                            <if test="record.totalPrice != null and record.totalPrice>0 ">
-                AND t_order.total_price LIKE CONCAT('%',#{record.totalPrice},'%')
-            </if>
-                                <if test="record.freight != null and record.freight>0 ">
-                AND t_order.freight LIKE CONCAT('%',#{record.freight},'%')
-            </if>
-                                <if test="record.description != null and record.description!= ''">
-                AND t_order.description LIKE CONCAT('%',#{record.description},'%')
-            </if>
-                                <if test="record.remark != null and record.remark!= ''">
-                AND t_order.remark LIKE CONCAT('%',#{record.remark},'%')
-            </if>
-                                <if test="record.invoice != null and record.invoice>0 ">
-                AND t_order.invoice LIKE CONCAT('%',#{record.invoice},'%')
-            </if>
-                                                                                            <if test="record.invoiceTitle != null and record.invoiceTitle!= ''">
-                AND t_order.invoice_title LIKE CONCAT('%',#{record.invoiceTitle},'%')
-            </if>
-                                                                                            <if test="record.receivingTime != null and record.receivingTime!= ''">
-                AND t_order.receiving_time LIKE CONCAT('%',#{record.receivingTime},'%')
-            </if>
-                                <if test="record.zip != null and record.zip!= ''">
-                AND t_order.zip LIKE CONCAT('%',#{record.zip},'%')
-            </if>
-                                                                                            <if test="record.contactUser != null and record.contactUser!= ''">
-                AND t_order.contact_user LIKE CONCAT('%',#{record.contactUser},'%')
-            </if>
-                                <if test="record.phone != null and record.phone!= ''">
-                AND t_order.phone LIKE CONCAT('%',#{record.phone},'%')
-            </if>
-                                <if test="record.province != null and record.province!= ''">
-                AND t_order.province LIKE CONCAT('%',#{record.province},'%')
-            </if>
-                                <if test="record.city != null and record.city!= ''">
-                AND t_order.city LIKE CONCAT('%',#{record.city},'%')
-            </if>
-                                <if test="record.district != null and record.district!= ''">
-                AND t_order.district LIKE CONCAT('%',#{record.district},'%')
-            </if>
-                                <if test="record.street != null and record.street!= ''">
-                AND t_order.street LIKE CONCAT('%',#{record.street},'%')
-            </if>
-                                <if test="record.detail != null and record.detail!= ''">
-                AND t_order.detail LIKE CONCAT('%',#{record.detail},'%')
-            </if>
-                                <if test="record.cover != null and record.cover!= ''">
-                AND t_order.cover LIKE CONCAT('%',#{record.cover},'%')
-            </if>
-                                                                                            <if test="record.expressNumber != null and record.expressNumber!= ''">
-                AND t_order.express_number LIKE CONCAT('%',#{record.expressNumber},'%')
-            </if>
-                                                                                            <if test="record.expressCompany != null and record.expressCompany!= ''">
-                AND t_order.express_company LIKE CONCAT('%',#{record.expressCompany},'%')
-            </if>
-                                                                                            <if test="record.expressCode != null and record.expressCode!= ''">
-                AND t_order.express_code LIKE CONCAT('%',#{record.expressCode},'%')
-            </if>
-                                <if test="record.settled != null and record.settled>0 ">
-                AND t_order.settled LIKE CONCAT('%',#{record.settled},'%')
-            </if>
-                                                                                            <if test="record.previousStatus != null and record.previousStatus!= ''">
-                AND t_order.previous_status LIKE CONCAT('%',#{record.previousStatus},'%')
-            </if>
-                                                                                                            <if test="record.isDeliverReminder != null and record.isDeliverReminder>0 ">
-                AND t_order.is_deliver_reminder LIKE CONCAT('%',#{record.isDeliverReminder},'%')
-            </if>
-                                                                                            <if test="record.isDeleted != null and record.isDeleted>0 ">
-                AND t_order.is_deleted LIKE CONCAT('%',#{record.isDeleted},'%')
-            </if>
-                                                                                                            <if test="record.pointExchangeRate != null and record.pointExchangeRate>0 ">
-                AND t_order.point_exchange_rate LIKE CONCAT('%',#{record.pointExchangeRate},'%')
-            </if>
-                                                                                            <if test="record.couponInfo != null and record.couponInfo!= ''">
-                AND t_order.coupon_info LIKE CONCAT('%',#{record.couponInfo},'%')
-            </if>
-                                <if test="record.marketing != null and record.marketing!= ''">
-                AND t_order.marketing LIKE CONCAT('%',#{record.marketing},'%')
-            </if>
-                                                                                            <if test="record.marketingId != null and record.marketingId>0 ">
-                AND t_order.marketing_id LIKE CONCAT('%',#{record.marketingId},'%')
-            </if>
-                                                                                            <if test="record.marketingDescription != null and record.marketingDescription!= ''">
-                AND t_order.marketing_description LIKE CONCAT('%',#{record.marketingDescription},'%')
-            </if>
-                                <if test="record.mid != null and record.mid>0 ">
-                AND t_order.mid LIKE CONCAT('%',#{record.mid},'%')
-            </if>
-                                <if test="record.mname != null and record.mname!= ''">
-                AND t_order.mname LIKE CONCAT('%',#{record.mname},'%')
-            </if>
-                                                                                            <if test="record.storeId != null and record.storeId!= ''">
-                AND t_order.store_id LIKE CONCAT('%',#{record.storeId},'%')
-            </if>
-                                                                                            <if test="record.storeName != null and record.storeName!= ''">
-                AND t_order.store_name LIKE CONCAT('%',#{record.storeName},'%')
-            </if>
-                                                                                                            <if test="record.storeUserId != null and record.storeUserId!= ''">
-                AND t_order.store_user_id LIKE CONCAT('%',#{record.storeUserId},'%')
-            </if>
-                                                                                                            <if test="record.storeUserName != null and record.storeUserName!= ''">
-                AND t_order.store_user_name LIKE CONCAT('%',#{record.storeUserName},'%')
-            </if>
-                                <if test="record.type != null and record.type!= ''">
-                AND t_order.type LIKE CONCAT('%',#{record.type},'%')
-            </if>
-                                                                                            <if test="record.payCredit != null and record.payCredit>0 ">
-                AND t_order.pay_credit LIKE CONCAT('%',#{record.payCredit},'%')
-            </if>
-                                                                                            <if test="record.deliveryType != null and record.deliveryType!= ''">
-                AND t_order.delivery_type LIKE CONCAT('%',#{record.deliveryType},'%')
-            </if>
-                                <if test="record.origin != null and record.origin!= ''">
-                AND t_order.origin LIKE CONCAT('%',#{record.origin},'%')
-            </if>
-                                                                                                            <if test="record.storeUserCode != null and record.storeUserCode!= ''">
-                AND t_order.store_user_code LIKE CONCAT('%',#{record.storeUserCode},'%')
-            </if>
-                                                                                            <if test="record.storeCode != null and record.storeCode!= ''">
-                AND t_order.store_code LIKE CONCAT('%',#{record.storeCode},'%')
-            </if>
-                                                                                            <if test="record.storeCover != null and record.storeCover!= ''">
-                AND t_order.store_cover LIKE CONCAT('%',#{record.storeCover},'%')
-            </if>
-                                                                                                                            <if test="record.storeGuideUserId != null and record.storeGuideUserId!= ''">
-                AND t_order.store_guide_user_id LIKE CONCAT('%',#{record.storeGuideUserId},'%')
-            </if>
-                                                                                                                            <if test="record.storeGuideUserCode != null and record.storeGuideUserCode!= ''">
-                AND t_order.store_guide_user_code LIKE CONCAT('%',#{record.storeGuideUserCode},'%')
-            </if>
-                                                                                                                            <if test="record.storeGuideUserName != null and record.storeGuideUserName!= ''">
-                AND t_order.store_guide_user_name LIKE CONCAT('%',#{record.storeGuideUserName},'%')
-            </if>
-                                                                                                            <if test="record.inviterUserId != null and record.inviterUserId!= ''">
-                AND t_order.inviter_user_id LIKE CONCAT('%',#{record.inviterUserId},'%')
-            </if>
-                                                                                                            <if test="record.inviterUserName != null and record.inviterUserName!= ''">
-                AND t_order.inviter_user_name LIKE CONCAT('%',#{record.inviterUserName},'%')
-            </if>
-                                                                                                            <if test="record.followedStoreId != null and record.followedStoreId!= ''">
-                AND t_order.followed_store_id LIKE CONCAT('%',#{record.followedStoreId},'%')
-            </if>
-                                                                                                            <if test="record.followedStoreCode != null and record.followedStoreCode!= ''">
-                AND t_order.followed_store_code LIKE CONCAT('%',#{record.followedStoreCode},'%')
-            </if>
-                                                                                                            <if test="record.followedStoreName != null and record.followedStoreName!= ''">
-                AND t_order.followed_store_name LIKE CONCAT('%',#{record.followedStoreName},'%')
-            </if>
-                                                                                                            <if test="record.followedStoreCover != null and record.followedStoreCover!= ''">
-                AND t_order.followed_store_cover LIKE CONCAT('%',#{record.followedStoreCover},'%')
-            </if>
-                                                                                            <if test="record.commentId != null and record.commentId!= ''">
-                AND t_order.comment_id LIKE CONCAT('%',#{record.commentId},'%')
-            </if>
-                                                                                                            <if test="record.bindingStoreId != null and record.bindingStoreId!= ''">
-                AND t_order.binding_store_id LIKE CONCAT('%',#{record.bindingStoreId},'%')
-            </if>
-                                                                                                            <if test="record.bindingStoreCode != null and record.bindingStoreCode!= ''">
-                AND t_order.binding_store_code LIKE CONCAT('%',#{record.bindingStoreCode},'%')
-            </if>
-                                                                                                            <if test="record.bindingStoreName != null and record.bindingStoreName!= ''">
-                AND t_order.binding_store_name LIKE CONCAT('%',#{record.bindingStoreName},'%')
-            </if>
-                                                                                                            <if test="record.bindingStoreCover != null and record.bindingStoreCover!= ''">
-                AND t_order.binding_store_cover LIKE CONCAT('%',#{record.bindingStoreCover},'%')
-            </if>
-                                                                                            <if test="record.refundFee != null and record.refundFee>0 ">
-                AND t_order.refund_fee LIKE CONCAT('%',#{record.refundFee},'%')
-            </if>
-                                                                                            <if test="record.storeAddress != null and record.storeAddress!= ''">
-                AND t_order.store_address LIKE CONCAT('%',#{record.storeAddress},'%')
-            </if>
-                                                                                            <if test="record.supplementaryFee != null and record.supplementaryFee>0 ">
-                AND t_order.supplementary_fee LIKE CONCAT('%',#{record.supplementaryFee},'%')
-            </if>
-                                                                                            <if test="record.originPrice != null and record.originPrice>0 ">
-                AND t_order.origin_price LIKE CONCAT('%',#{record.originPrice},'%')
-            </if>
-                                                                                            <if test="record.couponPrice != null and record.couponPrice>0 ">
-                AND t_order.coupon_price LIKE CONCAT('%',#{record.couponPrice},'%')
-            </if>
-                                                                                            <if test="record.creditPrice != null and record.creditPrice>0 ">
-                AND t_order.credit_price LIKE CONCAT('%',#{record.creditPrice},'%')
-            </if>
-                                                                                                            <if test="record.extCouponId != null and record.extCouponId!= ''">
-                AND t_order.ext_coupon_id LIKE CONCAT('%',#{record.extCouponId},'%')
-            </if>
-                                                                                                            <if test="record.extUserType != null and record.extUserType!= ''">
-                AND t_order.ext_user_type LIKE CONCAT('%',#{record.extUserType},'%')
-            </if>
-                                                                                                            <if test="record.extCouponType != null and record.extCouponType!= ''">
-                AND t_order.ext_coupon_type LIKE CONCAT('%',#{record.extCouponType},'%')
-            </if>
-                                                                                            <if test="record.extDiscount != null and record.extDiscount>0 ">
-                AND t_order.ext_discount LIKE CONCAT('%',#{record.extDiscount},'%')
-            </if>
-                                                                                            <if test="record.extCuts != null and record.extCuts>0 ">
-                AND t_order.ext_cuts LIKE CONCAT('%',#{record.extCuts},'%')
-            </if>
-                <if test="startTime != null">
+        <if test="record.id != null and record.id>0 ">
+            AND t_order.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.userId != null and record.userId>0 ">
+            AND t_order.user_id LIKE CONCAT('%',#{record.userId},'%')
+        </if>
+        <if test="record.orderNumber != null and record.orderNumber!= ''">
+            AND t_order.order_number LIKE CONCAT('%',#{record.orderNumber},'%')
+        </if>
+        <if test="record.tradeNumber != null and record.tradeNumber!= ''">
+            AND t_order.trade_number LIKE CONCAT('%',#{record.tradeNumber},'%')
+        </if>
+        <if test="record.paymentType != null and record.paymentType!= ''">
+            AND t_order.payment_type LIKE CONCAT('%',#{record.paymentType},'%')
+        </if>
+        <if test="record.createdDate != null and record.createdDate>0 ">
+            AND t_order.created_date LIKE CONCAT('%',#{record.createdDate},'%')
+        </if>
+        <if test="record.payDate != null and record.payDate>0 ">
+            AND t_order.pay_date LIKE CONCAT('%',#{record.payDate},'%')
+        </if>
+        <if test="record.confirmDate != null and record.confirmDate>0 ">
+            AND t_order.confirm_date LIKE CONCAT('%',#{record.confirmDate},'%')
+        </if>
+        <if test="record.deliverDate != null and record.deliverDate>0 ">
+            AND t_order.deliver_date LIKE CONCAT('%',#{record.deliverDate},'%')
+        </if>
+        <if test="record.deliveredDate != null and record.deliveredDate>0 ">
+            AND t_order.delivered_date LIKE CONCAT('%',#{record.deliveredDate},'%')
+        </if>
+        <if test="record.dealDate != null and record.dealDate>0 ">
+            AND t_order.deal_date LIKE CONCAT('%',#{record.dealDate},'%')
+        </if>
+        <if test="record.deliverOrderNumber != null and record.deliverOrderNumber!= ''">
+            AND t_order.deliver_order_number LIKE CONCAT('%',#{record.deliverOrderNumber},'%')
+        </if>
+        <if test="record.status != null and record.status!= ''">
+            AND t_order.status LIKE CONCAT('%',#{record.status},'%')
+        </if>
+        <if test="record.totalPrice != null and record.totalPrice>0 ">
+            AND t_order.total_price LIKE CONCAT('%',#{record.totalPrice},'%')
+        </if>
+        <if test="record.freight != null and record.freight>0 ">
+            AND t_order.freight LIKE CONCAT('%',#{record.freight},'%')
+        </if>
+        <if test="record.description != null and record.description!= ''">
+            AND t_order.description LIKE CONCAT('%',#{record.description},'%')
+        </if>
+        <if test="record.remark != null and record.remark!= ''">
+            AND t_order.remark LIKE CONCAT('%',#{record.remark},'%')
+        </if>
+        <if test="record.invoice != null and record.invoice>0 ">
+            AND t_order.invoice LIKE CONCAT('%',#{record.invoice},'%')
+        </if>
+        <if test="record.invoiceTitle != null and record.invoiceTitle!= ''">
+            AND t_order.invoice_title LIKE CONCAT('%',#{record.invoiceTitle},'%')
+        </if>
+        <if test="record.receivingTime != null and record.receivingTime!= ''">
+            AND t_order.receiving_time LIKE CONCAT('%',#{record.receivingTime},'%')
+        </if>
+        <if test="record.zip != null and record.zip!= ''">
+            AND t_order.zip LIKE CONCAT('%',#{record.zip},'%')
+        </if>
+        <if test="record.contactUser != null and record.contactUser!= ''">
+            AND t_order.contact_user LIKE CONCAT('%',#{record.contactUser},'%')
+        </if>
+        <if test="record.phone != null and record.phone!= ''">
+            AND t_order.phone LIKE CONCAT('%',#{record.phone},'%')
+        </if>
+        <if test="record.province != null and record.province!= ''">
+            AND t_order.province LIKE CONCAT('%',#{record.province},'%')
+        </if>
+        <if test="record.city != null and record.city!= ''">
+            AND t_order.city LIKE CONCAT('%',#{record.city},'%')
+        </if>
+        <if test="record.district != null and record.district!= ''">
+            AND t_order.district LIKE CONCAT('%',#{record.district},'%')
+        </if>
+        <if test="record.street != null and record.street!= ''">
+            AND t_order.street LIKE CONCAT('%',#{record.street},'%')
+        </if>
+        <if test="record.detail != null and record.detail!= ''">
+            AND t_order.detail LIKE CONCAT('%',#{record.detail},'%')
+        </if>
+        <if test="record.cover != null and record.cover!= ''">
+            AND t_order.cover LIKE CONCAT('%',#{record.cover},'%')
+        </if>
+        <if test="record.expressNumber != null and record.expressNumber!= ''">
+            AND t_order.express_number LIKE CONCAT('%',#{record.expressNumber},'%')
+        </if>
+        <if test="record.expressCompany != null and record.expressCompany!= ''">
+            AND t_order.express_company LIKE CONCAT('%',#{record.expressCompany},'%')
+        </if>
+        <if test="record.expressCode != null and record.expressCode!= ''">
+            AND t_order.express_code LIKE CONCAT('%',#{record.expressCode},'%')
+        </if>
+        <if test="record.settled != null and record.settled>0 ">
+            AND t_order.settled LIKE CONCAT('%',#{record.settled},'%')
+        </if>
+        <if test="record.previousStatus != null and record.previousStatus!= ''">
+            AND t_order.previous_status LIKE CONCAT('%',#{record.previousStatus},'%')
+        </if>
+        <if test="record.isDeliverReminder != null and record.isDeliverReminder>0 ">
+            AND t_order.is_deliver_reminder LIKE CONCAT('%',#{record.isDeliverReminder},'%')
+        </if>
+        <if test="record.isDeleted != null and record.isDeleted>0 ">
+            AND t_order.is_deleted LIKE CONCAT('%',#{record.isDeleted},'%')
+        </if>
+        <if test="record.pointExchangeRate != null and record.pointExchangeRate>0 ">
+            AND t_order.point_exchange_rate LIKE CONCAT('%',#{record.pointExchangeRate},'%')
+        </if>
+        <if test="record.couponInfo != null and record.couponInfo!= ''">
+            AND t_order.coupon_info LIKE CONCAT('%',#{record.couponInfo},'%')
+        </if>
+        <if test="record.marketing != null and record.marketing!= ''">
+            AND t_order.marketing LIKE CONCAT('%',#{record.marketing},'%')
+        </if>
+        <if test="record.marketingId != null and record.marketingId>0 ">
+            AND t_order.marketing_id LIKE CONCAT('%',#{record.marketingId},'%')
+        </if>
+        <if test="record.marketingDescription != null and record.marketingDescription!= ''">
+            AND t_order.marketing_description LIKE CONCAT('%',#{record.marketingDescription},'%')
+        </if>
+        <if test="record.mid != null and record.mid>0 ">
+            AND t_order.mid LIKE CONCAT('%',#{record.mid},'%')
+        </if>
+        <if test="record.mname != null and record.mname!= ''">
+            AND t_order.mname LIKE CONCAT('%',#{record.mname},'%')
+        </if>
+        <if test="record.storeId != null and record.storeId!= ''">
+            AND t_order.store_id LIKE CONCAT('%',#{record.storeId},'%')
+        </if>
+        <if test="record.storeName != null and record.storeName!= ''">
+            AND t_order.store_name LIKE CONCAT('%',#{record.storeName},'%')
+        </if>
+        <if test="record.storeUserId != null and record.storeUserId!= ''">
+            AND t_order.store_user_id LIKE CONCAT('%',#{record.storeUserId},'%')
+        </if>
+        <if test="record.storeUserName != null and record.storeUserName!= ''">
+            AND t_order.store_user_name LIKE CONCAT('%',#{record.storeUserName},'%')
+        </if>
+        <if test="record.type != null and record.type!= ''">
+            AND t_order.type LIKE CONCAT('%',#{record.type},'%')
+        </if>
+        <if test="record.payCredit != null and record.payCredit>0 ">
+            AND t_order.pay_credit LIKE CONCAT('%',#{record.payCredit},'%')
+        </if>
+        <if test="record.deliveryType != null and record.deliveryType!= ''">
+            AND t_order.delivery_type LIKE CONCAT('%',#{record.deliveryType},'%')
+        </if>
+        <if test="record.origin != null and record.origin!= ''">
+            AND t_order.origin LIKE CONCAT('%',#{record.origin},'%')
+        </if>
+        <if test="record.storeUserCode != null and record.storeUserCode!= ''">
+            AND t_order.store_user_code LIKE CONCAT('%',#{record.storeUserCode},'%')
+        </if>
+        <if test="record.storeCode != null and record.storeCode!= ''">
+            AND t_order.store_code LIKE CONCAT('%',#{record.storeCode},'%')
+        </if>
+        <if test="record.storeCover != null and record.storeCover!= ''">
+            AND t_order.store_cover LIKE CONCAT('%',#{record.storeCover},'%')
+        </if>
+        <if test="record.storeGuideUserId != null and record.storeGuideUserId!= ''">
+            AND t_order.store_guide_user_id LIKE CONCAT('%',#{record.storeGuideUserId},'%')
+        </if>
+        <if test="record.storeGuideUserCode != null and record.storeGuideUserCode!= ''">
+            AND t_order.store_guide_user_code LIKE CONCAT('%',#{record.storeGuideUserCode},'%')
+        </if>
+        <if test="record.storeGuideUserName != null and record.storeGuideUserName!= ''">
+            AND t_order.store_guide_user_name LIKE CONCAT('%',#{record.storeGuideUserName},'%')
+        </if>
+        <if test="record.inviterUserId != null and record.inviterUserId!= ''">
+            AND t_order.inviter_user_id LIKE CONCAT('%',#{record.inviterUserId},'%')
+        </if>
+        <if test="record.inviterUserName != null and record.inviterUserName!= ''">
+            AND t_order.inviter_user_name LIKE CONCAT('%',#{record.inviterUserName},'%')
+        </if>
+        <if test="record.followedStoreId != null and record.followedStoreId!= ''">
+            AND t_order.followed_store_id LIKE CONCAT('%',#{record.followedStoreId},'%')
+        </if>
+        <if test="record.followedStoreCode != null and record.followedStoreCode!= ''">
+            AND t_order.followed_store_code LIKE CONCAT('%',#{record.followedStoreCode},'%')
+        </if>
+        <if test="record.followedStoreName != null and record.followedStoreName!= ''">
+            AND t_order.followed_store_name LIKE CONCAT('%',#{record.followedStoreName},'%')
+        </if>
+        <if test="record.followedStoreCover != null and record.followedStoreCover!= ''">
+            AND t_order.followed_store_cover LIKE CONCAT('%',#{record.followedStoreCover},'%')
+        </if>
+        <if test="record.commentId != null and record.commentId!= ''">
+            AND t_order.comment_id LIKE CONCAT('%',#{record.commentId},'%')
+        </if>
+        <if test="record.bindingStoreId != null and record.bindingStoreId!= ''">
+            AND t_order.binding_store_id LIKE CONCAT('%',#{record.bindingStoreId},'%')
+        </if>
+        <if test="record.bindingStoreCode != null and record.bindingStoreCode!= ''">
+            AND t_order.binding_store_code LIKE CONCAT('%',#{record.bindingStoreCode},'%')
+        </if>
+        <if test="record.bindingStoreName != null and record.bindingStoreName!= ''">
+            AND t_order.binding_store_name LIKE CONCAT('%',#{record.bindingStoreName},'%')
+        </if>
+        <if test="record.bindingStoreCover != null and record.bindingStoreCover!= ''">
+            AND t_order.binding_store_cover LIKE CONCAT('%',#{record.bindingStoreCover},'%')
+        </if>
+        <if test="record.refundFee != null and record.refundFee>0 ">
+            AND t_order.refund_fee LIKE CONCAT('%',#{record.refundFee},'%')
+        </if>
+        <if test="record.storeAddress != null and record.storeAddress!= ''">
+            AND t_order.store_address LIKE CONCAT('%',#{record.storeAddress},'%')
+        </if>
+        <if test="record.supplementaryFee != null and record.supplementaryFee>0 ">
+            AND t_order.supplementary_fee LIKE CONCAT('%',#{record.supplementaryFee},'%')
+        </if>
+        <if test="record.originPrice != null and record.originPrice>0 ">
+            AND t_order.origin_price LIKE CONCAT('%',#{record.originPrice},'%')
+        </if>
+        <if test="record.couponPrice != null and record.couponPrice>0 ">
+            AND t_order.coupon_price LIKE CONCAT('%',#{record.couponPrice},'%')
+        </if>
+        <if test="record.creditPrice != null and record.creditPrice>0 ">
+            AND t_order.credit_price LIKE CONCAT('%',#{record.creditPrice},'%')
+        </if>
+        <if test="record.extCouponId != null and record.extCouponId!= ''">
+            AND t_order.ext_coupon_id LIKE CONCAT('%',#{record.extCouponId},'%')
+        </if>
+        <if test="record.extUserType != null and record.extUserType!= ''">
+            AND t_order.ext_user_type LIKE CONCAT('%',#{record.extUserType},'%')
+        </if>
+        <if test="record.extCouponType != null and record.extCouponType!= ''">
+            AND t_order.ext_coupon_type LIKE CONCAT('%',#{record.extCouponType},'%')
+        </if>
+        <if test="record.extDiscount != null and record.extDiscount>0 ">
+            AND t_order.ext_discount LIKE CONCAT('%',#{record.extDiscount},'%')
+        </if>
+        <if test="record.extCuts != null and record.extCuts>0 ">
+            AND t_order.ext_cuts LIKE CONCAT('%',#{record.extCuts},'%')
+        </if>
+        <if test="record.orgId != null ">
+            AND t_order.org_id = #{record.orgId}
+        </if>
+        <if test="startTime != null">
             <![CDATA[AND t_order.start_time >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_order.end_time <= DATE(#{endTime)]]>
         </if>
-            <!--
-        <if test="search != null and search != ''">
-            OR t_order.name LIKE CONCAT('%',#{search},'%')
-        </if>
-        -->
-                                    </select>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_order.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+    </select>
 </mapper>

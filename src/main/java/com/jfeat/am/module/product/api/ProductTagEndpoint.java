@@ -92,6 +92,7 @@ public class ProductTagEndpoint {
                                 @RequestParam(name = "identifier", required = false) String identifier,
                                 @RequestParam(name = "name", required = false) String name,
                                 @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
+                                @RequestParam(name = "orgId", required = false) Long orgId,
                                 @RequestParam(name = "orderBy", required = false) String orderBy,
                                 @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -113,6 +114,7 @@ public class ProductTagEndpoint {
         record.setIdentifier(identifier);
         record.setName(name);
         record.setSortOrder(sortOrder);
+        record.setOrgId(orgId);
         page.setRecords(this.productTagService.findProductTagPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

@@ -1,12 +1,11 @@
 package com.jfeat.am.module.order.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -40,7 +39,8 @@ public class Express extends Model<Express> {
 	private Integer enabled;
 	@TableField("is_default")
 	private Integer isDefault;
-
+	@TableField("org_id")
+	private Long orgId;
 
 	public Integer getId() {
 		return id;
@@ -111,5 +111,13 @@ public class Express extends Model<Express> {
 			", enabled=" + enabled +
 			", isDefault=" + isDefault +
 			"}";
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
 }

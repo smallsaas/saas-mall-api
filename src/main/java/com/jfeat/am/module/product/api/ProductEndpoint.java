@@ -159,6 +159,7 @@ public class ProductEndpoint {
                              @RequestParam(name = "credit", required = false) Integer credit,
                              @RequestParam(name = "isVirtual", required = false) Integer isVirtual,
                              @RequestParam(name = "requiredParticipateExam", required = false) Integer requiredParticipateExam,
+                             @RequestParam(name = "orgId", required = false) Long orgId,
                              @RequestParam(name = "orderBy", required = false) String orderBy,
                              @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -209,6 +210,7 @@ public class ProductEndpoint {
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
+        record.setOrgId(orgId);
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.productService.findProductPage(page, record, search, orderBy, null, null));

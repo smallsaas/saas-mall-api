@@ -1,12 +1,11 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -48,8 +47,8 @@ public class ProductTag extends Model<ProductTag> {
      */
 	@TableField("sort_order")
 	private Integer sortOrder;
-
-
+	@TableField("org_id")
+	private Long orgId;
 	public Integer getId() {
 		return id;
 	}
@@ -107,5 +106,13 @@ public class ProductTag extends Model<ProductTag> {
 			", name=" + name +
 			", sortOrder=" + sortOrder +
 			"}";
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
 }

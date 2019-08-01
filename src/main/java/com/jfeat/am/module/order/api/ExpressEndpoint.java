@@ -94,6 +94,7 @@ public class ExpressEndpoint {
                               @RequestParam(name = "name", required = false) String name,
                               @RequestParam(name = "enabled", required = false) Integer enabled,
                               @RequestParam(name = "isDefault", required = false) Integer isDefault,
+                              @RequestParam(name = "orgId", required = false) Long orgId,
                               @RequestParam(name = "orderBy", required = false) String orderBy,
                               @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -116,6 +117,7 @@ public class ExpressEndpoint {
         record.setName(name);
         record.setEnabled(enabled);
         record.setIsDefault(isDefault);
+        record.setOrgId(orgId);
         page.setRecords(this.expressService.findExpressPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

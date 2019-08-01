@@ -57,6 +57,7 @@ CREATE TABLE `t_product`  (
   `credit` int(11) NULL DEFAULT 0 COMMENT ''优惠活动-可用积分'',
   `is_virtual` int(11) NULL DEFAULT 0 COMMENT ''是否虚拟产品'',
   `required_participate_exam` int(11) NULL DEFAULT 0 COMMENT ''是否需要做了检测才可以购买'',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE,
   INDEX `fare_id`(`fare_id`) USING BTREE,
@@ -94,6 +95,7 @@ CREATE TABLE `t_product_category`  (
   `promoted_product_count` int(11) NULL DEFAULT 3,
   `wholesale` int(11) NULL DEFAULT 0,
   `is_show_products` int(11) NULL DEFAULT 1,
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parent_id`(`parent_id`) USING BTREE,
   CONSTRAINT `t_product_category_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `t_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -277,6 +279,7 @@ CREATE TABLE `t_product_tag`  (
   `identifier` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT ''标签标识'',
   `name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT ''标签名称'',
   `sort_order` int(11) NULL DEFAULT 1 COMMENT ''排序号'',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `identifier`(`identifier`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
@@ -312,6 +315,7 @@ CREATE TABLE `t_fare_template`  (
   `title` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `message_format` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 

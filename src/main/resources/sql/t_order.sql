@@ -101,6 +101,7 @@ CREATE TABLE `t_order`  (
   `ext_coupon_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '第三方优惠券的优惠券类型',
   `ext_discount` int(11) NULL DEFAULT NULL COMMENT '第三方优惠券的折扣率',
   `ext_cuts` int(11) NULL DEFAULT NULL COMMENT '第三方优惠券的优惠',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `user_id`(`user_id`) USING BTREE,
   CONSTRAINT `t_order_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -264,6 +265,7 @@ CREATE TABLE `t_express`  (
   `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `enabled` int(11) NOT NULL DEFAULT 1,
   `is_default` int(11) NOT NULL DEFAULT 0,
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
