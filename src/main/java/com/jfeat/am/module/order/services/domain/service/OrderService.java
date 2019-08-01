@@ -21,4 +21,12 @@ public interface OrderService extends CRUDOrderService{
      * @return
      */
     OrderModel getOrder(Long id);
+
+    /**
+     * 更新指定id数据的状态
+     * @param id
+     * @param orderStatus
+     * @return 数据库受影响的行数
+     */
+    Integer updateOrderStatus(Integer id, String orderStatus);
 }

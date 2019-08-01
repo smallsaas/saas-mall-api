@@ -73,16 +73,12 @@ public class OrderEndpoint {
     @ApiOperation(value = "修改 Order", response = Order.class)
     public Tip updateOrderStatus(@PathVariable Integer id, @PathVariable String orderStatus) {
         try {
-            OrderStatus existOrderStatus = OrderStatus.valueOf(orderStatus);
-            if(existOrderStatus!=null){
-
-            }
-
+            //不报错，orderStatus参数正确
+            OrderStatus.valueOf(orderStatus);
+            return SuccessTip.create(orderService.updateOrderStatus(id,orderStatus));
         }catch (Exception e){
             throw new BusinessException(BusinessCode.BadRequest);
         }
-        //todo
-        return SuccessTip.create(/*orderService.updateOrderStatus(id,orderStatus)*/);
     }
 
     @DeleteMapping("/{id}")
@@ -361,5 +357,12 @@ public class OrderEndpoint {
         page.setRecords(this.orderService.findOrderPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);
+    }
+
+    public static void main(String[] args) {
+        String orderStatus = "CREATED_PAY_PENDING";
+
+        OrderStatus existOrderStatus = OrderStatus.valueOf(orderStatus);
+        System.out.println(existOrderStatus);
     }
 }
