@@ -2,6 +2,7 @@ package com.jfeat.am.module.order.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.Order;
@@ -58,7 +59,7 @@ public class OrderEndpoint {
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Order", response = Order.class)
     public Tip getOrder(@PathVariable Long id) {
-        return SuccessTip.create(orderService.retrieveMaster(id));
+        return SuccessTip.create(orderService.getOrder(id));
     }
 
     @PutMapping("/{id}")
@@ -66,6 +67,22 @@ public class OrderEndpoint {
     public Tip updateOrder(@PathVariable Integer id, @RequestBody Order entity) {
         entity.setId(id);
         return SuccessTip.create(orderService.updateMaster(entity));
+    }
+
+    @PutMapping("/{id}/{orderStatus}")
+    @ApiOperation(value = "修改 Order", response = Order.class)
+    public Tip updateOrderStatus(@PathVariable Integer id, @PathVariable String orderStatus) {
+        try {
+            OrderStatus existOrderStatus = OrderStatus.valueOf(orderStatus);
+            if(existOrderStatus!=null){
+
+            }
+
+        }catch (Exception e){
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+        //todo
+        return SuccessTip.create(/*orderService.updateOrderStatus(id,orderStatus)*/);
     }
 
     @DeleteMapping("/{id}")

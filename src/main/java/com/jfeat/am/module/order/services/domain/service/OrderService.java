@@ -1,6 +1,7 @@
 package com.jfeat.am.module.order.services.domain.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.module.order.services.domain.model.OrderModel;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDOrderService;
 
@@ -13,4 +14,11 @@ import java.util.List;
 public interface OrderService extends CRUDOrderService{
     List findOrderPage(Page<OrderRecord> page, OrderRecord record, String search,
                            String orderBy, Date startTime, Date endTime);
+
+    /**
+     * 根据id获取订单详情
+     * @param id
+     * @return
+     */
+    OrderModel getOrder(Long id);
 }

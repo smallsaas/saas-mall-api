@@ -18,7 +18,7 @@ public class SwaggerConfig {
 
     @Bean
     public Docket helloApi() {
-        return (new Docket(DocumentationType.SWAGGER_2)).apiInfo(this.apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.jfeat.am.module.product.api")).paths(PathSelectors.any()).build();
+        return (new Docket(DocumentationType.SWAGGER_2)).apiInfo(this.apiInfo()).select().apis(RequestHandlerSelectors.basePackage("com.jfeat.am.module")).paths(PathSelectors.any()).build();
     }
 
     private ApiInfo apiInfo() {
