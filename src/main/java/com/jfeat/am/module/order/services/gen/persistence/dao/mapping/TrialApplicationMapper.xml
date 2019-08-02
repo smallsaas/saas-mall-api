@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.gen.persistence.dao.TrialApplicationMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.order.services.gen.persistence.model.TrialApplication">
+		<id column="id" property="id" />
+		<result column="trial_id" property="trialId" />
+		<result column="order_id" property="orderId" />
+		<result column="order_number" property="orderNumber" />
+		<result column="user_id" property="userId" />
+		<result column="created_time" property="createdTime" />
+		<result column="status" property="status" />
+		<result column="shipping_type" property="shippingType" />
+		<result column="note" property="note" />
+		<result column="version" property="version" />
+		<result column="org_id" property="orgId" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, trial_id AS trialId, order_id AS orderId, order_number AS orderNumber, user_id AS userId, created_time AS createdTime, status, shipping_type AS shippingType, note, version, org_id AS orgId
+    </sql>
+
+</mapper>

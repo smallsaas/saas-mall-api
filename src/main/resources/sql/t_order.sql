@@ -269,5 +269,24 @@ CREATE TABLE `t_express`  (
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for t_trial_application
+-- ----------------------------
+DROP TABLE IF EXISTS `t_trial_application`;
+CREATE TABLE `t_trial_application`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trial_id` int(11) NOT NULL COMMENT '试用活动id',
+  `order_id` int(11) NULL DEFAULT NULL COMMENT '订单id',
+  `order_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '订单号',
+  `user_id` int(11) NOT NULL COMMENT '申请人id',
+  `created_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '状态',
+  `shipping_type` int(11) NULL DEFAULT 0 COMMENT '0 包邮 1 根据产品计算',
+  `note` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '描述',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
 
 SET FOREIGN_KEY_CHECKS = 1;

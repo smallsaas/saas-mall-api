@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryTrialApplicationDao">
+                                                                                                                                                                                                                                                                                                                                                                                                                                        <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_trial_application.id, t_trial_application.trial_id AS trialId, t_trial_application.order_id AS orderId, t_trial_application.order_number AS orderNumber, t_trial_application.user_id AS userId, t_trial_application.created_time AS createdTime, t_trial_application.status, t_trial_application.shipping_type AS shippingType, t_trial_application.note, t_trial_application.version, t_trial_application.org_id AS orgId
+    </sql>
+
+
+
+    <select id="findTrialApplicationPage" resultType="TrialApplicationRecord" parameterType="TrialApplicationRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_trial_application
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_trial_application.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.trialId != null and record.trialId>0 ">
+                AND t_trial_application.trial_id LIKE CONCAT('%',#{record.trialId},'%')
+            </if>
+                                                                                            <if test="record.orderId != null and record.orderId>0 ">
+                AND t_trial_application.order_id LIKE CONCAT('%',#{record.orderId},'%')
+            </if>
+                                                                                            <if test="record.orderNumber != null and record.orderNumber!= ''">
+                AND t_trial_application.order_number LIKE CONCAT('%',#{record.orderNumber},'%')
+            </if>
+                                                                                            <if test="record.userId != null and record.userId>0 ">
+                AND t_trial_application.user_id LIKE CONCAT('%',#{record.userId},'%')
+            </if>
+                                                                                            <if test="record.createdTime != null and record.createdTime>0 ">
+                AND t_trial_application.created_time LIKE CONCAT('%',#{record.createdTime},'%')
+            </if>
+                                <if test="record.status != null and record.status!= ''">
+                AND t_trial_application.status LIKE CONCAT('%',#{record.status},'%')
+            </if>
+                                                                                            <if test="record.shippingType != null and record.shippingType>0 ">
+                AND t_trial_application.shipping_type LIKE CONCAT('%',#{record.shippingType},'%')
+            </if>
+                                <if test="record.note != null and record.note!= ''">
+                AND t_trial_application.note LIKE CONCAT('%',#{record.note},'%')
+            </if>
+                                <if test="record.version != null and record.version>0 ">
+                AND t_trial_application.version LIKE CONCAT('%',#{record.version},'%')
+            </if>
+                                                                                            <if test="record.orgId != null and record.orgId>0 ">
+                AND t_trial_application.org_id LIKE CONCAT('%',#{record.orgId},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_trial_application.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_trial_application.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_trial_application.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                                            ORDER BY created_time DESC
+                        </select>
+</mapper>
