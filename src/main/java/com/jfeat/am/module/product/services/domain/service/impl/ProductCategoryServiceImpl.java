@@ -14,10 +14,12 @@ import com.jfeat.am.module.product.services.gen.persistence.model.ProductCategor
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -78,4 +80,37 @@ public class ProductCategoryServiceImpl extends CRUDProductCategoryServiceImpl i
         });
         return affected;
     }
+
+    @Override
+    public List<ProductCategoryRecord> queryProductCategoryies() {
+
+        List<ProductCategory> productCategoryList = productCategoryMapper.selectList(new EntityWrapper<ProductCategory>().isNull("parent_id"));
+
+        return productCategoryList.stream().map(item -> {
+            ProductCategoryRecord record = CRUD.castObject(item, ProductCategoryRecord.class);
+            return addSubProductCategory(record);
+        }).collect(Collectors.toList());
+
+    }
+
+    /**
+     * 填充子类别
+     * @param productCategoryRecord
+     * @return
+     */
+    private ProductCategoryRecord addSubProductCategory(ProductCategoryRecord productCategoryRecord){
+
+        List<ProductCategory> productCategoryList = productCategoryMapper.selectList(new EntityWrapper<ProductCategory>().eq("parent_id", productCategoryRecord.getId()));
+
+        if(!CollectionUtils.isEmpty(productCategoryList)){
+            List<ProductCategoryRecord> productCategoryRecordList = productCategoryList.stream().map(item -> {
+                ProductCategoryRecord record = CRUD.castObject(item, ProductCategoryRecord.class);
+                return addSubProductCategory(record);
+            }).collect(Collectors.toList());
+            productCategoryRecord.setSubCategoryList(productCategoryRecordList);
+
+        }
+        return productCategoryRecord;
+    }
+
 }

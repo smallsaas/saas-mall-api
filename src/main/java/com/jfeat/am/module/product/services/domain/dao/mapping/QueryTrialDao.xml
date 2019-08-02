@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.product.services.domain.dao.QueryTrialDao">
+    <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_trial.id, t_trial.product_id AS productId, t_trial.price, t_trial.name, t_trial.short_note AS shortNote, t_trial.enabled, t_trial.start_time AS startTime, t_trial.end_time AS endTime, t_trial.cover, t_trial.note, t_trial.index, t_trial.shipping_type AS shippingType, t_trial.payment_type AS paymentType, t_trial.version,org_id AS orgId
+    </sql>
+
+
+    <select id="findTrialPage" resultType="TrialRecord" parameterType="TrialRecord">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_trial
+        WHERE 1=1
+        <if test="record.id != null and record.id>0 ">
+            AND t_trial.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.productId != null and record.productId>0 ">
+            AND t_trial.product_id LIKE CONCAT('%',#{record.productId},'%')
+        </if>
+        <if test="record.price != null and record.price>0 ">
+            AND t_trial.price LIKE CONCAT('%',#{record.price},'%')
+        </if>
+        <if test="record.name != null and record.name!= ''">
+            AND t_trial.name LIKE CONCAT('%',#{record.name},'%')
+        </if>
+        <if test="record.shortNote != null and record.shortNote!= ''">
+            AND t_trial.short_note LIKE CONCAT('%',#{record.shortNote},'%')
+        </if>
+        <if test="record.enabled != null and record.enabled>0 ">
+            AND t_trial.enabled LIKE CONCAT('%',#{record.enabled},'%')
+        </if>
+        <if test="record.startTime != null and record.startTime>0 ">
+            AND t_trial.start_time LIKE CONCAT('%',#{record.startTime},'%')
+        </if>
+        <if test="record.endTime != null and record.endTime>0 ">
+            AND t_trial.end_time LIKE CONCAT('%',#{record.endTime},'%')
+        </if>
+        <if test="record.cover != null and record.cover!= ''">
+            AND t_trial.cover LIKE CONCAT('%',#{record.cover},'%')
+        </if>
+        <if test="record.note != null and record.note!= ''">
+            AND t_trial.note LIKE CONCAT('%',#{record.note},'%')
+        </if>
+        <if test="record.index != null and record.index>0 ">
+            AND t_trial.index LIKE CONCAT('%',#{record.index},'%')
+        </if>
+        <if test="record.shippingType != null and record.shippingType>0 ">
+            AND t_trial.shipping_type LIKE CONCAT('%',#{record.shippingType},'%')
+        </if>
+        <if test="record.paymentType != null and record.paymentType!= ''">
+            AND t_trial.payment_type LIKE CONCAT('%',#{record.paymentType},'%')
+        </if>
+        <if test="record.version != null and record.version>0 ">
+            AND t_trial.version LIKE CONCAT('%',#{record.version},'%')
+        </if>
+        <if test="record.orgId != null ">
+            AND t_trial.org_id = #{record.orgId}
+        </if>
+        <if test="startTime != null">
+            <![CDATA[AND t_trial.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_trial.end_time <= DATE(#{endTime)]]>
+        </if>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_trial.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+    </select>
+</mapper>

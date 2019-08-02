@@ -272,7 +272,7 @@
                 <artifactId>sb-code-generator</artifactId>
                 <version>1.3.4</version>
                 <configuration>
-                    <moduleName>order</moduleName>
+                    <moduleName>product</moduleName>
                     <dbUrl>jdbc:mysql://120.79.49.72:3306/muaskin_MallWebapp?characterEncoding=utf-8</dbUrl>
                     <username>root</username>
                     <password>root</password>
@@ -280,8 +280,20 @@
                     <outputDir>src/main/java</outputDir>
                     <initialize>false</initialize>
                     <tables>
-                        <table>t_express</table>
+                        <table>t_trial</table>
+                        <table>t_trial_image</table>
                     </tables>
+                    <cruds>
+                        <crud>
+                            <mask>master</mask>
+                            <master>t_trial</master>
+                            <masterId>trial_id</masterId>
+                            <slaves>
+                                <slave>t_trial_image</slave>
+                            </slaves>
+                        </crud>
+                    </cruds>
+
                 </configuration>
             </plugin>
 

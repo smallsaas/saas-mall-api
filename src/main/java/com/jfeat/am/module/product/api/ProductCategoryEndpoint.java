@@ -1,7 +1,6 @@
 package com.jfeat.am.module.product.api;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.product.services.domain.model.ProductCategoryModel;
 import com.jfeat.am.module.product.services.domain.model.ProductCategoryRecord;
 import com.jfeat.am.module.product.services.domain.service.ProductCategoryService;
@@ -11,13 +10,12 @@ import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -72,7 +70,7 @@ public class ProductCategoryEndpoint {
         return SuccessTip.create(productCategoryService.deleteMaster(id));
     }
 
-    @ApiOperation(value = "ProductCategory 列表信息", response = ProductCategoryRecord.class)
+    /*@ApiOperation(value = "ProductCategory 列表信息", response = ProductCategoryRecord.class)
     @GetMapping
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", dataType = "Integer"),
@@ -139,6 +137,13 @@ public class ProductCategoryEndpoint {
         record.setOrgId(orgId);
         page.setRecords(this.productCategoryService.findProductCategoryPage(page, record, search, orderBy, null, null));
         return SuccessTip.create(page);
+    }*/
+
+    @ApiOperation(value = "返回所有ProductCategory", response = ProductCategoryRecord.class)
+    @GetMapping
+    public Tip queryProductCategoryies(){
+        List<ProductCategoryRecord> productCategoryRecordList =  productCategoryService.queryProductCategoryies();
+        return SuccessTip.create(productCategoryRecordList);
     }
 
 }

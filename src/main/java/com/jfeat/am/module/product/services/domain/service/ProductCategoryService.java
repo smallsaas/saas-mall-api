@@ -35,4 +35,10 @@ public interface ProductCategoryService extends CRUDProductCategoryService{
      * @return
      */
     Integer updateProductCategoryById(ProductCategoryModel entity);
+
+    /**
+     * 返回所欲产品类型
+     * @return
+     */
+    List<ProductCategoryRecord> queryProductCategoryies();
 }

@@ -361,4 +361,42 @@ CREATE TABLE `t_carry_mode`  (
   CONSTRAINT `t_carry_mode_ibfk_1` FOREIGN KEY (`fare_id`) REFERENCES `t_fare_template` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
+-- ----------------------------
+-- Table structure for t_trial
+-- ----------------------------
+DROP TABLE IF EXISTS `t_trial`;
+CREATE TABLE `t_trial`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `product_id` int(11) NOT NULL COMMENT '产品id',
+  `price` decimal(10, 2) NULL DEFAULT 0.00 COMMENT '价格',
+  `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '试用装名称',
+  `short_note` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '简短描述',
+  `enabled` int(11) NULL DEFAULT 0 COMMENT '是否启用',
+  `start_time` datetime(0) NULL DEFAULT NULL COMMENT '有效申请时间',
+  `end_time` datetime(0) NULL DEFAULT NULL COMMENT '过期时间',
+  `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '试用装封面',
+  `note` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '描述',
+  `index` int(11) NULL DEFAULT 100 COMMENT '排序号',
+  `shipping_type` int(11) NULL DEFAULT 0 COMMENT '运费支付 0 商家 1 顾客',
+  `payment_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付方式',
+  `version` int(11) NULL DEFAULT 1 COMMENT '版本号',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for t_trial_image
+-- ----------------------------
+DROP TABLE IF EXISTS `t_trial_image`;
+CREATE TABLE `t_trial_image`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `trial_id` int(11) NOT NULL,
+  `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sort_order` int(11) NULL DEFAULT 1,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `trial_id`(`trial_id`) USING BTREE,
+  CONSTRAINT `t_trial_image_ibfk_1` FOREIGN KEY (`trial_id`) REFERENCES `t_trial` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
+
+
 SET FOREIGN_KEY_CHECKS = 1;
