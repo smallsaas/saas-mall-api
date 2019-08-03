@@ -88,7 +88,7 @@ public class ProductTagRelationEndpoint {
                                         @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                         @RequestParam(name = "search", required = false) String search,
                                         @RequestParam(name = "id", required = false) Long id,
-                                        @RequestParam(name = "tagId", required = false) Integer tagId,
+                                        @RequestParam(name = "tagId", required = false) Long tagId,
                                         @RequestParam(name = "productId", required = false) Long productId,
                                         @RequestParam(name = "orderBy", required = false) String orderBy,
                                         @RequestParam(name = "sort", required = false) String sort) {
