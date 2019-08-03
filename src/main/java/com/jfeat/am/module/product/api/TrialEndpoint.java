@@ -47,7 +47,7 @@ public class TrialEndpoint {
         Integer affected = 0;
         try {
 
-            affected = trialOverModelService.createMaster(entity, null, null, null);
+            affected = trialOverModelService.createTrial(entity);
 
         } catch (DuplicateKeyException e) {
             throw new BusinessException(BusinessCode.DuplicateKey);

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.product.services.domain.dao.QueryTrialDao;
 import com.jfeat.am.module.product.services.domain.model.TrialRecord;
 import com.jfeat.am.module.product.services.domain.service.ProductService;
+import com.jfeat.am.module.product.services.domain.service.TrialImageService;
 import com.jfeat.am.module.product.services.domain.service.TrialOverModelService;
 import com.jfeat.am.module.product.services.gen.crud.model.TrialModel;
 import com.jfeat.am.module.product.services.gen.crud.service.impl.CRUDTrialOverModelServiceImpl;
@@ -14,6 +15,7 @@ import com.jfeat.am.module.product.services.gen.persistence.model.Trial;
 import com.jfeat.am.module.product.services.gen.persistence.model.TrialImage;
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -35,6 +37,8 @@ public class TrialOverModelServiceImpl extends CRUDTrialOverModelServiceImpl imp
     ProductService productService;
     @Resource
     TrialImageMapper trialImageMapper;
+    @Resource
+    TrialImageService trialImageService;
 
     @Override
     public List findTrialPage(Page<TrialRecord> page, TrialRecord record,
@@ -58,5 +62,19 @@ public class TrialOverModelServiceImpl extends CRUDTrialOverModelServiceImpl imp
         List<TrialImage> trialImageList= trialImageMapper.selectList(new EntityWrapper<TrialImage>().eq("trial_id", trial.getId()));
         trialModel.setItems(trialImageList);
         return trialModel;
+    }
+
+    @Override
+    public Integer createTrial(TrialModel entity) {
+        Integer affected = 0;
+        affected += this.createMaster(entity);
+        List<TrialImage> items = entity.getItems();
+        if(!CollectionUtils.isEmpty(items)){
+            for (TrialImage trialImage : items){
+                trialImage.setTrialId(entity.getId());
+                affected += trialImageService.createMaster(trialImage);
+            }
+        }
+        return affected;
     }
 }

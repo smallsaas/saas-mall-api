@@ -35,7 +35,7 @@ public class TrialImage extends Model<TrialImage> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
 	@TableField("trial_id")
-	private Integer trialId;
+	private Long trialId;
 	private String url;
 	@TableField("sort_order")
 	private Integer sortOrder;
@@ -50,11 +50,11 @@ public class TrialImage extends Model<TrialImage> {
 		return this;
 	}
 
-	public Integer getTrialId() {
+	public Long getTrialId() {
 		return trialId;
 	}
 
-	public TrialImage setTrialId(Integer trialId) {
+	public TrialImage setTrialId(Long trialId) {
 		this.trialId = trialId;
 		return this;
 	}

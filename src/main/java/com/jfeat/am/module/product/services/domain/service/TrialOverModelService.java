@@ -29,4 +29,11 @@ public interface TrialOverModelService extends CRUDTrialOverModelService{
      * @return
      */
     TrialModel getTrial(Long id);
+
+    /**
+     * 新建试用装
+     * @param entity
+     * @return
+     */
+    Integer createTrial(TrialModel entity);
 }
