@@ -35,7 +35,7 @@ public class Order extends Model<Order> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("user_id")
 	private Integer userId;
 	@TableField("order_number")
@@ -208,11 +208,11 @@ public class Order extends Model<Order> {
 	private Integer extCuts;
 	@TableField("org_id")
 	private Long orgId;
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public Order setId(Integer id) {
+	public Order setId(Long id) {
 		this.id = id;
 		return this;
 	}

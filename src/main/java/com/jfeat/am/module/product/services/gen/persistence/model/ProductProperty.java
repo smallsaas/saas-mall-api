@@ -1,12 +1,11 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -34,7 +33,7 @@ public class ProductProperty extends Model<ProductProperty> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("product_id")
 	private Integer productId;
 	@TableField("property_id")
@@ -43,11 +42,11 @@ public class ProductProperty extends Model<ProductProperty> {
 	private String propertyValue;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductProperty setId(Integer id) {
+	public ProductProperty setId(Long id) {
 		this.id = id;
 		return this;
 	}

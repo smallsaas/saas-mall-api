@@ -33,7 +33,7 @@ public class ProductCategory extends Model<ProductCategory> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("parent_id")
 	private Integer parentId;
 	private String name;
@@ -51,11 +51,11 @@ public class ProductCategory extends Model<ProductCategory> {
 	@TableField("org_id")
 	private Long orgId;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductCategory setId(Integer id) {
+	public ProductCategory setId(Long id) {
 		this.id = id;
 		return this;
 	}

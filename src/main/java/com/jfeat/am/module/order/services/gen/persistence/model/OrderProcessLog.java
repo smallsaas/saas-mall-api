@@ -35,7 +35,7 @@ public class OrderProcessLog extends Model<OrderProcessLog> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("order_id")
 	private Integer orderId;
 	@TableField("process_date")
@@ -43,11 +43,11 @@ public class OrderProcessLog extends Model<OrderProcessLog> {
 	private String content;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public OrderProcessLog setId(Integer id) {
+	public OrderProcessLog setId(Long id) {
 		this.id = id;
 		return this;
 	}

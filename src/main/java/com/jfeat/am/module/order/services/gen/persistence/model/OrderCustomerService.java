@@ -36,7 +36,7 @@ public class OrderCustomerService extends Model<OrderCustomerService> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("order_id")
 	private Integer orderId;
 	@TableField("created_date")
@@ -81,11 +81,11 @@ public class OrderCustomerService extends Model<OrderCustomerService> {
 	private String refundWay;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public OrderCustomerService setId(Integer id) {
+	public OrderCustomerService setId(Long id) {
 		this.id = id;
 		return this;
 	}

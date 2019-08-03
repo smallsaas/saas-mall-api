@@ -36,7 +36,7 @@ public class OrderItemReward extends Model<OrderItemReward> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("order_id")
 	private Integer orderId;
 	@TableField("order_number")
@@ -72,11 +72,11 @@ public class OrderItemReward extends Model<OrderItemReward> {
 	private Integer pointExchangeRate;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public OrderItemReward setId(Integer id) {
+	public OrderItemReward setId(Long id) {
 		this.id = id;
 		return this;
 	}

@@ -62,7 +62,7 @@ public Tip getProductSpecification(@PathVariable Long id){
 
 @PutMapping("/{id}")
 @ApiOperation(value = "修改 ProductSpecification",response = ProductSpecification.class)
-public Tip updateProductSpecification(@PathVariable Integer id,@RequestBody ProductSpecification entity){
+public Tip updateProductSpecification(@PathVariable Long id,@RequestBody ProductSpecification entity){
         entity.setId(id);
                 return SuccessTip.create(productSpecificationService.updateMaster(entity));
             }
@@ -99,7 +99,7 @@ public Tip queryProductSpecifications(Page<ProductSpecificationRecord> page,
 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
 @RequestParam(name = "search", required = false) String search,
-                                                                                                                @RequestParam(name = "id", required = false) Integer id,
+                                                                                                                @RequestParam(name = "id", required = false) Long id,
                                                                                                                                                 @RequestParam(name = "productId", required = false) Integer productId,
                                                                                                                                 @RequestParam(name = "name", required = false) String name,
                                                                                                                                                 @RequestParam(name = "stockBalance", required = false) Integer stockBalance,

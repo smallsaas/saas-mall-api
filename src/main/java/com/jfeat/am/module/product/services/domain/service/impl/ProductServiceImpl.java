@@ -97,7 +97,7 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
     }
 
     @Override
-    public ProductModel getProduct(Integer id) {
+    public ProductModel getProduct(Long id) {
         Product product = this.retrieveMaster(id);
         ProductModel productModel = CRUD.castObject(product, ProductModel.class);
         //添加images
@@ -151,7 +151,7 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
     }
 
     @Override
-    public Integer updateProductStatus(Integer id, String status) {
+    public Integer updateProductStatus(Long id, String status) {
         return productMapper.updateById(new Product().setId(id).setStatus(status));
     }
 }

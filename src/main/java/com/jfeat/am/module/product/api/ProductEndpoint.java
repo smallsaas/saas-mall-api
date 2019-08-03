@@ -59,13 +59,13 @@ public class ProductEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Product", response = Product.class)
-    public Tip getProduct(@PathVariable Integer id) {
+    public Tip getProduct(@PathVariable Long id) {
         return SuccessTip.create(productService.getProduct(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Product", response = Product.class)
-    public Tip updateProduct(@PathVariable Integer id, @RequestBody ProductModel entity) {
+    public Tip updateProduct(@PathVariable Long id, @RequestBody ProductModel entity) {
         entity.setId(id);
         return SuccessTip.create(productService.updateProduct(entity));
     }
@@ -124,7 +124,7 @@ public class ProductEndpoint {
                              @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                              @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                              @RequestParam(name = "search", required = false) String search,
-                             @RequestParam(name = "id", required = false) Integer id,
+                             @RequestParam(name = "id", required = false) Long id,
                              @RequestParam(name = "categoryId", required = false) Integer categoryId,
                              @RequestParam(name = "brandId", required = false) Integer brandId,
                              @RequestParam(name = "name", required = false) String name,
@@ -220,7 +220,7 @@ public class ProductEndpoint {
 
     @PutMapping("/{id}/{status}")
     @ApiOperation(value = "修改 Product 状态", response = Integer.class)
-    public Tip updateProduct(@PathVariable Integer id, @PathVariable String status) {
+    public Tip updateProduct(@PathVariable Long id, @PathVariable String status) {
         if(!ProductStatus.ONSELL.getStatus().equals(status) && !ProductStatus.OFFSELL.getStatus().equals(status)){
             throw new BusinessException(BusinessCode.BadRequest);
         }

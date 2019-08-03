@@ -64,14 +64,14 @@ public class OrderEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Order", response = Order.class)
-    public Tip updateOrder(@PathVariable Integer id, @RequestBody Order entity) {
+    public Tip updateOrder(@PathVariable Long id, @RequestBody Order entity) {
         entity.setId(id);
         return SuccessTip.create(orderService.updateMaster(entity));
     }
 
     @PostMapping("/{id}/{orderStatus}")
     @ApiOperation(value = "取消 Order", response = Order.class)
-    public Tip updateOrderStatus(@PathVariable Integer id, @PathVariable String orderStatus) {
+    public Tip updateOrderStatus(@PathVariable Long id, @PathVariable String orderStatus) {
         try {
             //不报错，orderStatus参数正确
             OrderStatus.valueOf(orderStatus);
@@ -179,7 +179,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                            @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                            @RequestParam(name = "search", required = false) String search,
-                           @RequestParam(name = "id", required = false) Integer id,
+                           @RequestParam(name = "id", required = false) Long id,
                            @RequestParam(name = "userId", required = false) Integer userId,
                            @RequestParam(name = "orderNumber", required = false) String orderNumber,
                            @RequestParam(name = "tradeNumber", required = false) String tradeNumber,

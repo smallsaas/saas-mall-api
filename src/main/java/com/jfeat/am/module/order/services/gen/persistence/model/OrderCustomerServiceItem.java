@@ -35,7 +35,7 @@ public class OrderCustomerServiceItem extends Model<OrderCustomerServiceItem> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
     /**
      * 售后单id
      */
@@ -112,11 +112,11 @@ public class OrderCustomerServiceItem extends Model<OrderCustomerServiceItem> {
 	private String marketingDescription;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public OrderCustomerServiceItem setId(Integer id) {
+	public OrderCustomerServiceItem setId(Long id) {
 		this.id = id;
 		return this;
 	}

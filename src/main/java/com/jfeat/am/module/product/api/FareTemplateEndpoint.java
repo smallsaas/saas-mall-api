@@ -63,7 +63,7 @@ public class FareTemplateEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FareTemplate", response = FareTemplate.class)
-    public Tip updateFareTemplate(@PathVariable Integer id, @RequestBody FareTemplateModel entity) {
+    public Tip updateFareTemplate(@PathVariable Long id, @RequestBody FareTemplateModel entity) {
         entity.setId(id);
         return SuccessTip.create(fareTemplateService.updateFareTemplate(entity));
     }
@@ -98,7 +98,7 @@ public class FareTemplateEndpoint {
                                   @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                   @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                   @RequestParam(name = "search", required = false) String search,
-                                  @RequestParam(name = "id", required = false) Integer id,
+                                  @RequestParam(name = "id", required = false) Long id,
                                   @RequestParam(name = "name", required = false) String name,
                                   @RequestParam(name = "shopAddr", required = false) String shopAddr,
                                   @RequestParam(name = "dispatchTime", required = false) String dispatchTime,

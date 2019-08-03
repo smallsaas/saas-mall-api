@@ -61,7 +61,7 @@ public class OrderCustomerServiceItemEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 OrderCustomerServiceItem", response = OrderCustomerServiceItem.class)
-    public Tip updateOrderCustomerServiceItem(@PathVariable Integer id, @RequestBody OrderCustomerServiceItem entity) {
+    public Tip updateOrderCustomerServiceItem(@PathVariable Long id, @RequestBody OrderCustomerServiceItem entity) {
         entity.setId(id);
         return SuccessTip.create(orderCustomerServiceItemService.updateMaster(entity));
     }
@@ -102,7 +102,7 @@ public class OrderCustomerServiceItemEndpoint {
                                               @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                               @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                               @RequestParam(name = "search", required = false) String search,
-                                              @RequestParam(name = "id", required = false) Integer id,
+                                              @RequestParam(name = "id", required = false) Long id,
                                               @RequestParam(name = "orderCustomerServiceId", required = false) Integer orderCustomerServiceId,
                                               @RequestParam(name = "refundFee", required = false) BigDecimal refundFee,
                                               @RequestParam(name = "type", required = false) String type,

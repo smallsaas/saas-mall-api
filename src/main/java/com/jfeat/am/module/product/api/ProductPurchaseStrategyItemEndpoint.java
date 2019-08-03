@@ -61,7 +61,7 @@ public Tip getProductPurchaseStrategyItem(@PathVariable Long id){
 
 @PutMapping("/{id}")
 @ApiOperation(value = "修改 ProductPurchaseStrategyItem",response = ProductPurchaseStrategyItem.class)
-public Tip updateProductPurchaseStrategyItem(@PathVariable Integer id,@RequestBody ProductPurchaseStrategyItem entity){
+public Tip updateProductPurchaseStrategyItem(@PathVariable Long id,@RequestBody ProductPurchaseStrategyItem entity){
         entity.setId(id);
                 return SuccessTip.create(productPurchaseStrategyItemService.updateMaster(entity));
             }
@@ -91,7 +91,7 @@ public Tip queryProductPurchaseStrategyItems(Page<ProductPurchaseStrategyItemRec
 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
 @RequestParam(name = "search", required = false) String search,
-                                                                                                                @RequestParam(name = "id", required = false) Integer id,
+                                                                                                                @RequestParam(name = "id", required = false) Long id,
                                                                                                                                                 @RequestParam(name = "strategyId", required = false) Integer strategyId,
                                                                                                                                 @RequestParam(name = "name", required = false) String name,
                                                                                                                                 @RequestParam(name = "operator", required = false) String operator,

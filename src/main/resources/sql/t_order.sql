@@ -22,8 +22,8 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order`;
 CREATE TABLE `t_order`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NULL DEFAULT NULL,
   `order_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `trade_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `payment_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
@@ -61,7 +61,7 @@ CREATE TABLE `t_order`  (
   `point_exchange_rate` int(11) NULL DEFAULT 100,
   `coupon_info` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `marketing` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `marketing_id` int(11) NULL DEFAULT NULL,
+  `marketing_id` bigint(20) NULL DEFAULT NULL,
   `marketing_description` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `mid` int(11) NULL DEFAULT NULL,
   `mname` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
@@ -112,8 +112,8 @@ CREATE TABLE `t_order`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order_customer_service`;
 CREATE TABLE `t_order_customer_service`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
   `created_date` datetime(0) NULL DEFAULT NULL,
   `express_number` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `express_company` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
@@ -142,11 +142,11 @@ CREATE TABLE `t_order_customer_service`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order_customer_service_item`;
 CREATE TABLE `t_order_customer_service_item`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_customer_service_id` int(11) NOT NULL COMMENT '售后单id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_customer_service_id` bigint(20) NOT NULL COMMENT '售后单id',
   `refund_fee` decimal(10, 2) NULL DEFAULT NULL COMMENT '退款金额(仅退回项使用)',
   `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'RETURN' COMMENT '项类型(RETURN 退回项 EXCHANGE 置换项)',
-  `product_id` int(11) NOT NULL COMMENT '产品id',
+  `product_id` bigint(20) NOT NULL COMMENT '产品id',
   `product_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '产品名称',
   `quantity` int(11) NOT NULL DEFAULT 1 COMMENT '退回项：退回数量/件 置换项：置换数量/件',
   `price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '单价',
@@ -154,10 +154,10 @@ CREATE TABLE `t_order_customer_service_item`  (
   `cost_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '成本价',
   `cover` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '产品封面',
   `product_specification_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '产品规格名',
-  `product_specification_id` int(11) NULL DEFAULT NULL COMMENT '产品规格id',
+  `product_specification_id` bigint(20) NULL DEFAULT NULL COMMENT '产品规格id',
   `weight` int(11) NULL DEFAULT 0 COMMENT '重量',
   `marketing` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '营销活动记录',
-  `marketing_id` int(11) NULL DEFAULT NULL COMMENT '营销活动id',
+  `marketing_id` bigint(20) NULL DEFAULT NULL COMMENT '营销活动id',
   `marketing_description` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '营销活动描述',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `order_customer_service_id`(`order_customer_service_id`) USING BTREE,
@@ -169,9 +169,9 @@ CREATE TABLE `t_order_customer_service_item`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order_item`;
 CREATE TABLE `t_order_item`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
-  `product_id` int(11) NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
+  `product_id` bigint(20) NULL DEFAULT NULL,
   `product_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `quantity` int(11) NOT NULL DEFAULT 1,
   `price` decimal(10, 2) NOT NULL DEFAULT 0.00,
@@ -181,13 +181,13 @@ CREATE TABLE `t_order_item`  (
   `cover` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `partner_level_zone` int(11) NULL DEFAULT NULL,
   `product_specification_name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `product_specification_id` int(11) NULL DEFAULT NULL,
+  `product_specification_id` bigint(20) NULL DEFAULT NULL,
   `weight` int(11) NULL DEFAULT 0,
   `bulk` int(11) NULL DEFAULT 0,
   `barcode` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `store_location` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `marketing` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
-  `marketing_id` int(11) NULL DEFAULT NULL,
+  `marketing_id` bigint(20) NULL DEFAULT NULL,
   `marketing_description` varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `sku_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'SKU ID',
   `warehouse_id` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT 'WAERHOUSE ID',
@@ -201,17 +201,17 @@ CREATE TABLE `t_order_item`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order_item_reward`;
 CREATE TABLE `t_order_item_reward`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NULL DEFAULT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NULL DEFAULT NULL,
   `order_number` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `order_total_price` decimal(10, 2) NULL DEFAULT NULL,
   `order_created_time` datetime(0) NULL DEFAULT NULL,
   `order_paid_time` datetime(0) NULL DEFAULT NULL,
-  `order_item_id` int(11) NULL DEFAULT NULL,
+  `order_item_id` bigint(20) NULL DEFAULT NULL,
   `order_profit` decimal(10, 2) NULL DEFAULT 0.00,
   `percent` int(11) NULL DEFAULT NULL,
   `reward` decimal(10, 2) NOT NULL DEFAULT 0.00,
-  `owner_id` int(11) NOT NULL,
+  `owner_id` bigint(20) NOT NULL,
   `level` int(11) NULL DEFAULT NULL,
   `state` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
@@ -235,8 +235,8 @@ CREATE TABLE `t_order_item_reward`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order_process_log`;
 CREATE TABLE `t_order_process_log`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) NOT NULL,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `order_id` bigint(20) NOT NULL,
   `process_date` timestamp(0) NULL DEFAULT NULL,
   `content` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
@@ -249,7 +249,7 @@ CREATE TABLE `t_order_process_log`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_order_statistic`;
 CREATE TABLE `t_order_statistic`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `created_date` datetime(0) NULL DEFAULT NULL,
   `sales_amount` decimal(10, 2) NOT NULL DEFAULT 0.00,
   PRIMARY KEY (`id`) USING BTREE
@@ -260,7 +260,7 @@ CREATE TABLE `t_order_statistic`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_express`;
 CREATE TABLE `t_express`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `name` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `enabled` int(11) NOT NULL DEFAULT 1,
@@ -274,11 +274,11 @@ CREATE TABLE `t_express`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_trial_application`;
 CREATE TABLE `t_trial_application`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `trial_id` int(11) NOT NULL COMMENT '试用活动id',
-  `order_id` int(11) NULL DEFAULT NULL COMMENT '订单id',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `trial_id` bigint(20) NOT NULL COMMENT '试用活动id',
+  `order_id` bigint(20) NULL DEFAULT NULL COMMENT '订单id',
   `order_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '订单号',
-  `user_id` int(11) NOT NULL COMMENT '申请人id',
+  `user_id` bigint(20) NOT NULL COMMENT '申请人id',
   `created_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `status` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '状态',
   `shipping_type` int(11) NULL DEFAULT 0 COMMENT '0 包邮 1 根据产品计算',

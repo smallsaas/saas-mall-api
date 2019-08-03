@@ -1,12 +1,11 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -34,7 +33,7 @@ public class TrialImage extends Model<TrialImage> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("trial_id")
 	private Integer trialId;
 	private String url;
@@ -42,11 +41,11 @@ public class TrialImage extends Model<TrialImage> {
 	private Integer sortOrder;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public TrialImage setId(Integer id) {
+	public TrialImage setId(Long id) {
 		this.id = id;
 		return this;
 	}

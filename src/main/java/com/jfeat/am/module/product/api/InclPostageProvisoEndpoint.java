@@ -61,7 +61,7 @@ public class InclPostageProvisoEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 InclPostageProviso", response = InclPostageProviso.class)
-    public Tip updateInclPostageProviso(@PathVariable Integer id, @RequestBody InclPostageProviso entity) {
+    public Tip updateInclPostageProviso(@PathVariable Long id, @RequestBody InclPostageProviso entity) {
         entity.setId(id);
         return SuccessTip.create(inclPostageProvisoService.updateMaster(entity));
     }
@@ -94,7 +94,7 @@ public class InclPostageProvisoEndpoint {
                                         @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                         @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                         @RequestParam(name = "search", required = false) String search,
-                                        @RequestParam(name = "id", required = false) Integer id,
+                                        @RequestParam(name = "id", required = false) Long id,
                                         @RequestParam(name = "fareId", required = false) Integer fareId,
                                         @RequestParam(name = "region", required = false) String region,
                                         @RequestParam(name = "pieceNo", required = false) Integer pieceNo,

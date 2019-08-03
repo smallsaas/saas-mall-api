@@ -61,7 +61,7 @@ public class OrderItemEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 OrderItem", response = OrderItem.class)
-    public Tip updateOrderItem(@PathVariable Integer id, @RequestBody OrderItem entity) {
+    public Tip updateOrderItem(@PathVariable Long id, @RequestBody OrderItem entity) {
         entity.setId(id);
         return SuccessTip.create(orderItemService.updateMaster(entity));
     }
@@ -107,7 +107,7 @@ public class OrderItemEndpoint {
                                @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                @RequestParam(name = "search", required = false) String search,
-                               @RequestParam(name = "id", required = false) Integer id,
+                               @RequestParam(name = "id", required = false) Long id,
                                @RequestParam(name = "orderId", required = false) Integer orderId,
                                @RequestParam(name = "productId", required = false) Integer productId,
                                @RequestParam(name = "productName", required = false) String productName,

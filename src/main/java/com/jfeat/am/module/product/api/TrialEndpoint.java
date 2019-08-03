@@ -65,14 +65,14 @@ public class TrialEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Trial", response = TrialModel.class)
-    public Tip updateTrial(@PathVariable Integer id, @RequestBody TrialModel entity) {
+    public Tip updateTrial(@PathVariable Long id, @RequestBody TrialModel entity) {
         entity.setId(id);
         return SuccessTip.create(trialOverModelService.updateMaster(entity, null, null, null));
     }
 
     @PostMapping("/{id}/{status}")
     @ApiOperation(value = "修改 Trial", response = TrialModel.class)
-    public Tip updateTrialStatus(@PathVariable Integer id, @PathVariable Integer status) {
+    public Tip updateTrialStatus(@PathVariable Long id, @PathVariable Integer status) {
         return SuccessTip.create(trialOverModelService.updateTrialStatus(id,status));
     }
 
@@ -109,7 +109,7 @@ public class TrialEndpoint {
                            @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                            @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                            @RequestParam(name = "search", required = false) String search,
-                           @RequestParam(name = "id", required = false) Integer id,
+                           @RequestParam(name = "id", required = false) Long id,
                            @RequestParam(name = "productId", required = false) Integer productId,
                            @RequestParam(name = "price", required = false) BigDecimal price,
                            @RequestParam(name = "name", required = false) String name,

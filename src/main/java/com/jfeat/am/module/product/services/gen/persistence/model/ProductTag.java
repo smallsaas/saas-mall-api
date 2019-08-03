@@ -33,7 +33,7 @@ public class ProductTag extends Model<ProductTag> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
     /**
      * 标签标识
      */
@@ -49,11 +49,11 @@ public class ProductTag extends Model<ProductTag> {
 	private Integer sortOrder;
 	@TableField("org_id")
 	private Long orgId;
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductTag setId(Integer id) {
+	public ProductTag setId(Long id) {
 		this.id = id;
 		return this;
 	}

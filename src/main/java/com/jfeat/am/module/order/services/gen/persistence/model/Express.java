@@ -33,7 +33,7 @@ public class Express extends Model<Express> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	private String code;
 	private String name;
 	private Integer enabled;
@@ -42,11 +42,11 @@ public class Express extends Model<Express> {
 	@TableField("org_id")
 	private Long orgId;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public Express setId(Integer id) {
+	public Express setId(Long id) {
 		this.id = id;
 		return this;
 	}

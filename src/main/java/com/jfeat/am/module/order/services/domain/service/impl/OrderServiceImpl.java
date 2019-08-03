@@ -55,7 +55,7 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     }
 
     @Override
-    public Integer updateOrderStatus(Integer id, String orderStatus) {
+    public Integer updateOrderStatus(Long id, String orderStatus) {
         return orderMapper.updateById(new Order().setId(id).setStatus(orderStatus));
     }
 }

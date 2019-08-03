@@ -1,14 +1,13 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import java.math.BigDecimal;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * <p>
@@ -35,9 +34,9 @@ public class CarryMode extends Model<CarryMode> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("fare_id")
-	private Integer fareId;
+	private Long fareId;
 	private String region;
 	@TableField("first_piece")
 	private Integer firstPiece;
@@ -61,20 +60,20 @@ public class CarryMode extends Model<CarryMode> {
 	private Integer isDefault;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public CarryMode setId(Integer id) {
+	public CarryMode setId(Long id) {
 		this.id = id;
 		return this;
 	}
 
-	public Integer getFareId() {
+	public Long getFareId() {
 		return fareId;
 	}
 
-	public CarryMode setFareId(Integer fareId) {
+	public CarryMode setFareId(Long fareId) {
 		this.fareId = fareId;
 		return this;
 	}

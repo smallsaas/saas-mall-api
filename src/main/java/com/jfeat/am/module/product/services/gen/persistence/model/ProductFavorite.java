@@ -1,14 +1,13 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -35,7 +34,7 @@ public class ProductFavorite extends Model<ProductFavorite> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("user_id")
 	private Integer userId;
 	@TableField("product_id")
@@ -44,11 +43,11 @@ public class ProductFavorite extends Model<ProductFavorite> {
 	private Date collectDate;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductFavorite setId(Integer id) {
+	public ProductFavorite setId(Long id) {
 		this.id = id;
 		return this;
 	}

@@ -1,11 +1,10 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -33,16 +32,16 @@ public class ProductHitWord extends Model<ProductHitWord> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	private String name;
 	private Integer hit;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductHitWord setId(Integer id) {
+	public ProductHitWord setId(Long id) {
 		this.id = id;
 		return this;
 	}

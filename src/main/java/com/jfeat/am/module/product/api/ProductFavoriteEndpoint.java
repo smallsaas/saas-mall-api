@@ -63,7 +63,7 @@ public Tip getProductFavorite(@PathVariable Long id){
 
 @PutMapping("/{id}")
 @ApiOperation(value = "修改 ProductFavorite",response = ProductFavorite.class)
-public Tip updateProductFavorite(@PathVariable Integer id,@RequestBody ProductFavorite entity){
+public Tip updateProductFavorite(@PathVariable Long id,@RequestBody ProductFavorite entity){
         entity.setId(id);
                 return SuccessTip.create(productFavoriteService.updateMaster(entity));
             }
@@ -91,7 +91,7 @@ public Tip queryProductFavorites(Page<ProductFavoriteRecord> page,
 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
 @RequestParam(name = "search", required = false) String search,
-                                                                                                                @RequestParam(name = "id", required = false) Integer id,
+                                                                                                                @RequestParam(name = "id", required = false) Long id,
                                                                                                                                                 @RequestParam(name = "userId", required = false) Integer userId,
                                                                                                                                                 @RequestParam(name = "productId", required = false) Integer productId,
                                                                                                                                                 @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss") Date collectDate,

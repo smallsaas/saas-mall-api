@@ -61,7 +61,7 @@ public class CarryModeEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 CarryMode", response = CarryMode.class)
-    public Tip updateCarryMode(@PathVariable Integer id, @RequestBody CarryMode entity) {
+    public Tip updateCarryMode(@PathVariable Long id, @RequestBody CarryMode entity) {
         entity.setId(id);
         return SuccessTip.create(carryModeService.updateMaster(entity));
     }
@@ -98,8 +98,8 @@ public class CarryModeEndpoint {
                                @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                @RequestParam(name = "search", required = false) String search,
-                               @RequestParam(name = "id", required = false) Integer id,
-                               @RequestParam(name = "fareId", required = false) Integer fareId,
+                               @RequestParam(name = "id", required = false) Long id,
+                               @RequestParam(name = "fareId", required = false) Long fareId,
                                @RequestParam(name = "region", required = false) String region,
                                @RequestParam(name = "firstPiece", required = false) Integer firstPiece,
                                @RequestParam(name = "firstWeight", required = false) Integer firstWeight,

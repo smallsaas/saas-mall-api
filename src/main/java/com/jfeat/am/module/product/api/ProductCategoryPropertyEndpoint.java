@@ -60,7 +60,7 @@ public class ProductCategoryPropertyEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ProductCategoryProperty", response = ProductCategoryProperty.class)
-    public Tip updateProductCategoryProperty(@PathVariable Integer id, @RequestBody ProductCategoryProperty entity) {
+    public Tip updateProductCategoryProperty(@PathVariable Long id, @RequestBody ProductCategoryProperty entity) {
         entity.setId(id);
         return SuccessTip.create(productCategoryPropertyService.updateMaster(entity));
     }
@@ -93,8 +93,8 @@ public class ProductCategoryPropertyEndpoint {
                                                @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                                @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                                @RequestParam(name = "search", required = false) String search,
-                                               @RequestParam(name = "id", required = false) Integer id,
-                                               @RequestParam(name = "categoryId", required = false) Integer categoryId,
+                                               @RequestParam(name = "id", required = false) Long id,
+                                               @RequestParam(name = "categoryId", required = false) Long categoryId,
                                                @RequestParam(name = "displayName", required = false) String displayName,
                                                @RequestParam(name = "valueType", required = false) String valueType,
                                                @RequestParam(name = "inputType", required = false) String inputType,

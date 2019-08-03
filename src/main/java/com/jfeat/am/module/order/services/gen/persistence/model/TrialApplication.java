@@ -35,7 +35,7 @@ public class TrialApplication extends Model<TrialApplication> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
     /**
      * 试用活动id
      */
@@ -82,11 +82,11 @@ public class TrialApplication extends Model<TrialApplication> {
 	private Long orgId;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public TrialApplication setId(Integer id) {
+	public TrialApplication setId(Long id) {
 		this.id = id;
 		return this;
 	}

@@ -60,7 +60,7 @@ public class ProductTagEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ProductTag", response = ProductTag.class)
-    public Tip updateProductTag(@PathVariable Integer id, @RequestBody ProductTag entity) {
+    public Tip updateProductTag(@PathVariable Long id, @RequestBody ProductTag entity) {
         entity.setId(id);
         return SuccessTip.create(productTagService.updateMaster(entity));
     }
@@ -88,7 +88,7 @@ public class ProductTagEndpoint {
                                 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(name = "search", required = false) String search,
-                                @RequestParam(name = "id", required = false) Integer id,
+                                @RequestParam(name = "id", required = false) Long id,
                                 @RequestParam(name = "identifier", required = false) String identifier,
                                 @RequestParam(name = "name", required = false) String name,
                                 @RequestParam(name = "sortOrder", required = false) Integer sortOrder,

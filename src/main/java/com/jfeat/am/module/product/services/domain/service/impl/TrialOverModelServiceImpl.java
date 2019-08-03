@@ -44,7 +44,7 @@ public class TrialOverModelServiceImpl extends CRUDTrialOverModelServiceImpl imp
     }
 
     @Override
-    public Integer updateTrialStatus(Integer id, Integer status) {
+    public Integer updateTrialStatus(Long id, Integer status) {
         return trialMapper.updateById(new Trial().setId(id).setEnabled(status));
     }
 

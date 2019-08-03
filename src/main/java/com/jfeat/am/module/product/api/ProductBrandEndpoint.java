@@ -61,7 +61,7 @@ public Tip getProductBrand(@PathVariable Long id){
 
 @PutMapping("/{id}")
 @ApiOperation(value = "修改 ProductBrand",response = ProductBrand.class)
-public Tip updateProductBrand(@PathVariable Integer id,@RequestBody ProductBrand entity){
+public Tip updateProductBrand(@PathVariable Long id,@RequestBody ProductBrand entity){
         entity.setId(id);
                 return SuccessTip.create(productBrandService.updateMaster(entity));
             }
@@ -89,7 +89,7 @@ public Tip queryProductBrands(Page<ProductBrandRecord> page,
 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
 @RequestParam(name = "search", required = false) String search,
-                                                                                                                @RequestParam(name = "id", required = false) Integer id,
+                                                                                                                @RequestParam(name = "id", required = false) Long id,
                                                                                                                                 @RequestParam(name = "name", required = false) String name,
                                                                                                                                 @RequestParam(name = "description", required = false) String description,
                                                                                                                                 @RequestParam(name = "logo", required = false) String logo,

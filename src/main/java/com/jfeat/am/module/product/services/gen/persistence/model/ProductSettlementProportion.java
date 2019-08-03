@@ -34,7 +34,7 @@ public class ProductSettlementProportion extends Model<ProductSettlementProporti
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("product_id")
 	private Integer productId;
 	private String name;
@@ -43,11 +43,11 @@ public class ProductSettlementProportion extends Model<ProductSettlementProporti
 	private Integer level;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductSettlementProportion setId(Integer id) {
+	public ProductSettlementProportion setId(Long id) {
 		this.id = id;
 		return this;
 	}

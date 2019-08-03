@@ -36,18 +36,18 @@ public class OrderStatistic extends Model<OrderStatistic> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("created_date")
 	private Date createdDate;
 	@TableField("sales_amount")
 	private BigDecimal salesAmount;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public OrderStatistic setId(Integer id) {
+	public OrderStatistic setId(Long id) {
 		this.id = id;
 		return this;
 	}

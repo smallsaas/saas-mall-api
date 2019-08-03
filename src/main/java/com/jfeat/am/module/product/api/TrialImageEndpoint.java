@@ -60,7 +60,7 @@ public class TrialImageEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 TrialImage", response = TrialImage.class)
-    public Tip updateTrialImage(@PathVariable Integer id, @RequestBody TrialImage entity) {
+    public Tip updateTrialImage(@PathVariable Long id, @RequestBody TrialImage entity) {
         entity.setId(id);
         return SuccessTip.create(trialImageService.updateMaster(entity));
     }
@@ -88,7 +88,7 @@ public class TrialImageEndpoint {
                                 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(name = "search", required = false) String search,
-                                @RequestParam(name = "id", required = false) Integer id,
+                                @RequestParam(name = "id", required = false) Long id,
                                 @RequestParam(name = "trialId", required = false) Integer trialId,
                                 @RequestParam(name = "url", required = false) String url,
                                 @RequestParam(name = "sortOrder", required = false) Integer sortOrder,

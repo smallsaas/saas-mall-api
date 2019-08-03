@@ -27,7 +27,7 @@ public interface ProductService extends CRUDProductService{
      * @param id
      * @return
      */
-    ProductModel getProduct(Integer id);
+    ProductModel getProduct(Long id);
 
     /**
      * 更新产品
@@ -42,5 +42,5 @@ public interface ProductService extends CRUDProductService{
      * @param status
      * @return 数据库受影响的行数
      */
-    Integer updateProductStatus(Integer id, String status);
+    Integer updateProductStatus(Long id, String status);
 }

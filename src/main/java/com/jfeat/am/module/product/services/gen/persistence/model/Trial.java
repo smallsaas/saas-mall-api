@@ -35,7 +35,7 @@ public class Trial extends Model<Trial> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
     /**
      * 产品id
      */
@@ -98,11 +98,11 @@ public class Trial extends Model<Trial> {
 	@TableField("org_id")
 	private Long orgId;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public Trial setId(Integer id) {
+	public Trial setId(Long id) {
 		this.id = id;
 		return this;
 	}

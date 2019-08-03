@@ -34,7 +34,7 @@ public class FareTemplate extends Model<FareTemplate> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	private String name;
 	@TableField("shop_addr")
 	private String shopAddr;
@@ -55,11 +55,11 @@ public class FareTemplate extends Model<FareTemplate> {
 	@TableField("org_id")
 	private Long orgId;
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public FareTemplate setId(Integer id) {
+	public FareTemplate setId(Long id) {
 		this.id = id;
 		return this;
 	}

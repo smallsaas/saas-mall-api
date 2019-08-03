@@ -63,7 +63,7 @@ public class OrderStatisticEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 OrderStatistic", response = OrderStatistic.class)
-    public Tip updateOrderStatistic(@PathVariable Integer id, @RequestBody OrderStatistic entity) {
+    public Tip updateOrderStatistic(@PathVariable Long id, @RequestBody OrderStatistic entity) {
         entity.setId(id);
         return SuccessTip.create(orderStatisticService.updateMaster(entity));
     }
@@ -90,7 +90,7 @@ public class OrderStatisticEndpoint {
                                     @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                     @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                     @RequestParam(name = "search", required = false) String search,
-                                    @RequestParam(name = "id", required = false) Integer id,
+                                    @RequestParam(name = "id", required = false) Long id,
                                     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdDate,
                                     @RequestParam(name = "salesAmount", required = false) BigDecimal salesAmount,
                                     @RequestParam(name = "orderBy", required = false) String orderBy,

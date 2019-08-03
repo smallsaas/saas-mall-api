@@ -61,7 +61,7 @@ public Tip getProductSettlementProportion(@PathVariable Long id){
 
 @PutMapping("/{id}")
 @ApiOperation(value = "修改 ProductSettlementProportion",response = ProductSettlementProportion.class)
-public Tip updateProductSettlementProportion(@PathVariable Integer id,@RequestBody ProductSettlementProportion entity){
+public Tip updateProductSettlementProportion(@PathVariable Long id,@RequestBody ProductSettlementProportion entity){
         entity.setId(id);
                 return SuccessTip.create(productSettlementProportionService.updateMaster(entity));
             }
@@ -91,7 +91,7 @@ public Tip queryProductSettlementProportions(Page<ProductSettlementProportionRec
 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
 @RequestParam(name = "search", required = false) String search,
-                                                                                                                @RequestParam(name = "id", required = false) Integer id,
+                                                                                                                @RequestParam(name = "id", required = false) Long id,
                                                                                                                                                 @RequestParam(name = "productId", required = false) Integer productId,
                                                                                                                                 @RequestParam(name = "name", required = false) String name,
                                                                                                                                 @RequestParam(name = "type", required = false) String type,

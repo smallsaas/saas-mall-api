@@ -35,7 +35,7 @@ public class OrderItem extends Model<OrderItem> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("order_id")
 	private Integer orderId;
 	@TableField("product_id")
@@ -78,11 +78,11 @@ public class OrderItem extends Model<OrderItem> {
 	private String warehouseId;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public OrderItem setId(Integer id) {
+	public OrderItem setId(Long id) {
 		this.id = id;
 		return this;
 	}

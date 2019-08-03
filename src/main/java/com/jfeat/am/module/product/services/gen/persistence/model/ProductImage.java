@@ -33,29 +33,29 @@ public class ProductImage extends Model<ProductImage> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("product_id")
-	private Integer productId;
+	private Long productId;
 	private Integer type;
 	private String url;
 	@TableField("sort_order")
 	private Integer sortOrder;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductImage setId(Integer id) {
+	public ProductImage setId(Long id) {
 		this.id = id;
 		return this;
 	}
 
-	public Integer getProductId() {
+	public Long getProductId() {
 		return productId;
 	}
 
-	public ProductImage setProductId(Integer productId) {
+	public ProductImage setProductId(Long productId) {
 		this.productId = productId;
 		return this;
 	}

@@ -1,12 +1,11 @@
 package com.jfeat.am.module.product.services.gen.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
 
 /**
@@ -34,9 +33,9 @@ public class ProductCategoryProperty extends Model<ProductCategoryProperty> {
     private static final long serialVersionUID = 1L;
 
 	@TableId(value="id", type= IdType.AUTO)
-	private Integer id;
+	private Long id;
 	@TableField("category_id")
-	private Integer categoryId;
+	private Long categoryId;
 	@TableField("display_name")
 	private String displayName;
 	@TableField("value_type")
@@ -53,20 +52,20 @@ public class ProductCategoryProperty extends Model<ProductCategoryProperty> {
 	private Integer sortOrder;
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public ProductCategoryProperty setId(Integer id) {
+	public ProductCategoryProperty setId(Long id) {
 		this.id = id;
 		return this;
 	}
 
-	public Integer getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
 
-	public ProductCategoryProperty setCategoryId(Integer categoryId) {
+	public ProductCategoryProperty setCategoryId(Long categoryId) {
 		this.categoryId = categoryId;
 		return this;
 	}

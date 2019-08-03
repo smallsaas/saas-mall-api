@@ -61,7 +61,7 @@ public Tip getProductHitWord(@PathVariable Long id){
 
 @PutMapping("/{id}")
 @ApiOperation(value = "修改 ProductHitWord",response = ProductHitWord.class)
-public Tip updateProductHitWord(@PathVariable Integer id,@RequestBody ProductHitWord entity){
+public Tip updateProductHitWord(@PathVariable Long id,@RequestBody ProductHitWord entity){
         entity.setId(id);
                 return SuccessTip.create(productHitWordService.updateMaster(entity));
             }
@@ -88,7 +88,7 @@ public Tip queryProductHitWords(Page<ProductHitWordRecord> page,
 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
 @RequestParam(name = "search", required = false) String search,
-                                                                                                                @RequestParam(name = "id", required = false) Integer id,
+                                                                                                                @RequestParam(name = "id", required = false) Long id,
                                                                                                                                 @RequestParam(name = "name", required = false) String name,
                                                                                                                                         @RequestParam(name = "hit", required = false) Integer hit,
                                     @RequestParam(name = "orderBy", required = false) String orderBy,

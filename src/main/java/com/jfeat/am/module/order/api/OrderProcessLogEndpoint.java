@@ -62,7 +62,7 @@ public class OrderProcessLogEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 OrderProcessLog", response = OrderProcessLog.class)
-    public Tip updateOrderProcessLog(@PathVariable Integer id, @RequestBody OrderProcessLog entity) {
+    public Tip updateOrderProcessLog(@PathVariable Long id, @RequestBody OrderProcessLog entity) {
         entity.setId(id);
         return SuccessTip.create(orderProcessLogService.updateMaster(entity));
     }
@@ -90,7 +90,7 @@ public class OrderProcessLogEndpoint {
                                      @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                      @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                      @RequestParam(name = "search", required = false) String search,
-                                     @RequestParam(name = "id", required = false) Integer id,
+                                     @RequestParam(name = "id", required = false) Long id,
                                      @RequestParam(name = "orderId", required = false) Integer orderId,
                                      @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date processDate,
                                      @RequestParam(name = "content", required = false) String content,

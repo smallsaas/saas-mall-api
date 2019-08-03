@@ -21,7 +21,7 @@ public interface TrialOverModelService extends CRUDTrialOverModelService{
      * @param status
      * @return 数据库中受影响的行数
      */
-    Integer updateTrialStatus(Integer id, Integer status);
+    Integer updateTrialStatus(Long id, Integer status);
 
     /**
      * 根据id获取试用装,包含image子项及product关联项

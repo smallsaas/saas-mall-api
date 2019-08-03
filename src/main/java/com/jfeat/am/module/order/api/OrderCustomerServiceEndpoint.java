@@ -63,7 +63,7 @@ public class OrderCustomerServiceEndpoint {
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 OrderCustomerService", response = OrderCustomerService.class)
-    public Tip updateOrderCustomerService(@PathVariable Integer id, @RequestBody OrderCustomerService entity) {
+    public Tip updateOrderCustomerService(@PathVariable Long id, @RequestBody OrderCustomerService entity) {
         entity.setId(id);
         return SuccessTip.create(orderCustomerServiceService.updateMaster(entity));
     }
@@ -107,7 +107,7 @@ public class OrderCustomerServiceEndpoint {
                                           @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                           @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                           @RequestParam(name = "search", required = false) String search,
-                                          @RequestParam(name = "id", required = false) Integer id,
+                                          @RequestParam(name = "id", required = false) Long id,
                                           @RequestParam(name = "orderId", required = false) Integer orderId,
                                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdDate,
                                           @RequestParam(name = "expressNumber", required = false) String expressNumber,
