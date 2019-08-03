@@ -2,6 +2,7 @@ package com.jfeat.am.module.product.services.domain.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.product.services.domain.model.TrialRecord;
+import com.jfeat.am.module.product.services.gen.crud.model.TrialModel;
 import com.jfeat.am.module.product.services.gen.crud.service.CRUDTrialOverModelService;
 
 import java.util.Date;
@@ -21,4 +22,11 @@ public interface TrialOverModelService extends CRUDTrialOverModelService{
      * @return 数据库中受影响的行数
      */
     Integer updateTrialStatus(Integer id, Integer status);
+
+    /**
+     * 根据id获取试用装,包含image子项及product关联项
+     * @param id
+     * @return
+     */
+    TrialModel getTrial(Long id);
 }

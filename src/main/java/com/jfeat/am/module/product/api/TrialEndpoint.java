@@ -9,7 +9,6 @@ import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
-import com.jfeat.crud.plus.CRUDObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -60,12 +59,8 @@ public class TrialEndpoint {
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Trial", response = TrialModel.class)
     public Tip getTrial(@PathVariable Long id) {
-        CRUDObject<TrialModel> entity = trialOverModelService.retrieveMaster(id, null, null, null);
-        if (entity != null) {
-            return SuccessTip.create(entity.toJSONObject());
-        } else {
-            return SuccessTip.create();
-        }
+        TrialModel entity = trialOverModelService.getTrial(id);
+        return SuccessTip.create(entity);
     }
 
     @PutMapping("/{id}")
