@@ -83,9 +83,9 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
             }
         }
         //保存标签
-        List<Integer> tagIds = entity.getTagIds();
+        List<Long> tagIds = entity.getTagIds();
         if(!CollectionUtils.isEmpty(tagIds)){
-            for(Integer tagId : tagIds){
+            for(Long tagId : tagIds){
                 ProductTagRelation productTagRelation = new ProductTagRelation();
                 productTagRelation.setProductId(entity.getId());
                 productTagRelation.setTagId(tagId);
@@ -137,9 +137,9 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
         }
         //更新标签
         affected += productTagRelationMapper.delete(new EntityWrapper<ProductTagRelation>().eq("product_id", entity.getId()));
-        List<Integer> tagIds = entity.getTagIds();
+        List<Long> tagIds = entity.getTagIds();
         if(!CollectionUtils.isEmpty(tagIds)){
-            for(Integer tagId : tagIds){
+            for(Long tagId : tagIds){
                 ProductTagRelation productTagRelation = new ProductTagRelation();
                 productTagRelation.setProductId(entity.getId());
                 productTagRelation.setTagId(tagId);
