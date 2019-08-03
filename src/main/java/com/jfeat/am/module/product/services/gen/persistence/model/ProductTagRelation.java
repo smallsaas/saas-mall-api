@@ -35,7 +35,7 @@ public class ProductTagRelation extends Model<ProductTagRelation> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
 	@TableField("tag_id")
-	private Integer tagId;
+	private Long tagId;
 	@TableField("product_id")
 	private Long productId;
 
@@ -49,11 +49,11 @@ public class ProductTagRelation extends Model<ProductTagRelation> {
 		return this;
 	}
 
-	public Integer getTagId() {
+	public Long getTagId() {
 		return tagId;
 	}
 
-	public ProductTagRelation setTagId(Integer tagId) {
+	public ProductTagRelation setTagId(Long tagId) {
 		this.tagId = tagId;
 		return this;
 	}

@@ -108,12 +108,11 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
         productModel.setProductDescription(productDescription);
         //添加标签
         List<ProductTagRelation> productTagRelationList = productTagRelationMapper.selectList(new EntityWrapper<ProductTagRelation>().eq("product_id", id));
-        List<ProductTag> productTagList = new ArrayList<>();
+        List<Long> tagIds = new ArrayList<>();
         productTagRelationList.forEach(item -> {
-            ProductTag productTag = productTagMapper.selectById(item.getTagId());
-            productTagList.add(productTag);
+            tagIds.add(item.getTagId());
         });
-
+        productModel.setTagIds(tagIds);
         return productModel;
     }
 

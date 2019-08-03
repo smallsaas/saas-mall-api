@@ -3,7 +3,6 @@ package com.jfeat.am.module.product.services.domain.model;
 import com.jfeat.am.module.product.services.gen.persistence.model.Product;
 import com.jfeat.am.module.product.services.gen.persistence.model.ProductDescription;
 import com.jfeat.am.module.product.services.gen.persistence.model.ProductImage;
-import com.jfeat.am.module.product.services.gen.persistence.model.ProductTag;
 
 import java.util.List;
 
@@ -15,17 +14,15 @@ public class ProductModel extends Product {
 
     private List<ProductImage> productImageList;
 
-    private List<Integer> tagIds;
-
-    private List<ProductTag> productTagList;
+    private List<Long> tagIds;
 
     private ProductDescription productDescription;
 
-    public List<Integer> getTagIds() {
+    public List<Long> getTagIds() {
         return tagIds;
     }
 
-    public void setTagIds(List<Integer> tagIds) {
+    public void setTagIds(List<Long> tagIds) {
         this.tagIds = tagIds;
     }
 
@@ -45,11 +42,4 @@ public class ProductModel extends Product {
         this.productDescription = productDescription;
     }
 
-    public List<ProductTag> getProductTagList() {
-        return productTagList;
-    }
-
-    public void setProductTagList(List<ProductTag> productTagList) {
-        this.productTagList = productTagList;
-    }
 }
