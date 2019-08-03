@@ -168,6 +168,7 @@ CREATE TABLE `t_product_image`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) NOT NULL,
   `type` int(11) NOT NULL DEFAULT 0,
+  `name` varchar(100) DEFAULT NULL COMMENT '图片名',
   `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `sort_order` int(11) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
@@ -391,6 +392,7 @@ DROP TABLE IF EXISTS `t_trial_image`;
 CREATE TABLE `t_trial_image`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `trial_id` bigint(20) NOT NULL,
+  `name` varchar(100) DEFAULT NULL COMMENT '图片名',
   `url` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `sort_order` int(11) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,

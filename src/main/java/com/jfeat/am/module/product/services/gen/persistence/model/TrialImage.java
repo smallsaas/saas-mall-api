@@ -36,6 +36,7 @@ public class TrialImage extends Model<TrialImage> {
 	private Long id;
 	@TableField("trial_id")
 	private Long trialId;
+	private String name;
 	private String url;
 	@TableField("sort_order")
 	private Integer sortOrder;
@@ -98,5 +99,13 @@ public class TrialImage extends Model<TrialImage> {
 			", url=" + url +
 			", sortOrder=" + sortOrder +
 			"}";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

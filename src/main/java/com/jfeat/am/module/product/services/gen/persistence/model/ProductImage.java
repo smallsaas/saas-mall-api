@@ -37,6 +37,7 @@ public class ProductImage extends Model<ProductImage> {
 	@TableField("product_id")
 	private Long productId;
 	private Integer type;
+	private String name;
 	private String url;
 	@TableField("sort_order")
 	private Integer sortOrder;
@@ -111,5 +112,13 @@ public class ProductImage extends Model<ProductImage> {
 			", url=" + url +
 			", sortOrder=" + sortOrder +
 			"}";
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }

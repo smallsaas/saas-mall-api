@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.product.services.domain.dao.QueryProductImageDao">
                                                                                                                                                                                                 <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_image.id, t_product_image.product_id AS productId, t_product_image.type, t_product_image.url, t_product_image.sort_order AS sortOrder
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_image.id, t_product_image.product_id AS productId, t_product_image.type, t_product_image.url, t_product_image.sort_order AS sortOrder,name
     </sql>
 
 
