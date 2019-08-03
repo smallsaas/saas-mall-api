@@ -89,7 +89,7 @@ public class TrialImageEndpoint {
                                 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(name = "search", required = false) String search,
                                 @RequestParam(name = "id", required = false) Long id,
-                                @RequestParam(name = "trialId", required = false) Integer trialId,
+                                @RequestParam(name = "trialId", required = false) Long trialId,
                                 @RequestParam(name = "url", required = false) String url,
                                 @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
                                 @RequestParam(name = "orderBy", required = false) String orderBy,
