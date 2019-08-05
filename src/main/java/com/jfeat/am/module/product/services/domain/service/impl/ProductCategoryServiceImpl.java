@@ -84,7 +84,7 @@ public class ProductCategoryServiceImpl extends CRUDProductCategoryServiceImpl i
     @Override
     public List<ProductCategoryRecord> queryProductCategoryies() {
 
-        List<ProductCategory> productCategoryList = productCategoryMapper.selectList(new EntityWrapper<ProductCategory>().isNull("parent_id"));
+        List<ProductCategory> productCategoryList = productCategoryMapper.selectList(new EntityWrapper<ProductCategory>().isNull("parent_id").orderBy("sort_order"));
 
         return productCategoryList.stream().map(item -> {
             ProductCategoryRecord record = CRUD.castObject(item, ProductCategoryRecord.class);
@@ -100,7 +100,7 @@ public class ProductCategoryServiceImpl extends CRUDProductCategoryServiceImpl i
      */
     private ProductCategoryRecord addSubProductCategory(ProductCategoryRecord productCategoryRecord){
 
-        List<ProductCategory> productCategoryList = productCategoryMapper.selectList(new EntityWrapper<ProductCategory>().eq("parent_id", productCategoryRecord.getId()));
+        List<ProductCategory> productCategoryList = productCategoryMapper.selectList(new EntityWrapper<ProductCategory>().eq("parent_id", productCategoryRecord.getId()).orderBy("sort_order"));
 
         if(!CollectionUtils.isEmpty(productCategoryList)){
             List<ProductCategoryRecord> productCategoryRecordList = productCategoryList.stream().map(item -> {
