@@ -6,10 +6,7 @@ import com.jfeat.am.module.product.constant.ProductStatus;
 import com.jfeat.am.module.product.services.domain.dao.QueryProductDao;
 import com.jfeat.am.module.product.services.domain.model.ProductModel;
 import com.jfeat.am.module.product.services.domain.model.ProductRecord;
-import com.jfeat.am.module.product.services.domain.service.ProductDescriptionService;
-import com.jfeat.am.module.product.services.domain.service.ProductImageService;
-import com.jfeat.am.module.product.services.domain.service.ProductService;
-import com.jfeat.am.module.product.services.domain.service.ProductTagRelationService;
+import com.jfeat.am.module.product.services.domain.service.*;
 import com.jfeat.am.module.product.services.gen.crud.service.impl.CRUDProductServiceImpl;
 import com.jfeat.am.module.product.services.gen.persistence.dao.ProductDescriptionMapper;
 import com.jfeat.am.module.product.services.gen.persistence.dao.ProductImageMapper;
@@ -52,6 +49,8 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
     ProductTagRelationMapper productTagRelationMapper;
     @Resource
     ProductTagMapper productTagMapper;
+    @Resource
+    ProductBrandService productBrandService;
 
     @Override
     public List findProductPage(Page<ProductRecord> page, ProductRecord record,
@@ -98,7 +97,8 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
 
     @Override
     public ProductModel getProduct(Long id) {
-        Product product = this.retrieveMaster(id);
+
+        Product product = queryProductDao.findProductModelById(id);
         ProductModel productModel = CRUD.castObject(product, ProductModel.class);
         //添加images
         List<ProductImage> productImageList = productImageMapper.selectList(new EntityWrapper<ProductImage>().eq("product_id", id));
@@ -113,6 +113,11 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
             tagIds.add(item.getTagId());
         });
         productModel.setTagIds(tagIds);
+        //添加品牌
+        if(product.getBrandId()!=null){
+            ProductBrand productBrand = productBrandService.retrieveMaster(product.getBrandId());
+            productModel.setProductBrand(productBrand);
+        }
         return productModel;
     }
 

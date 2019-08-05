@@ -1,6 +1,7 @@
 package com.jfeat.am.module.product.services.domain.model;
 
 import com.jfeat.am.module.product.services.gen.persistence.model.Product;
+import com.jfeat.am.module.product.services.gen.persistence.model.ProductBrand;
 import com.jfeat.am.module.product.services.gen.persistence.model.ProductDescription;
 import com.jfeat.am.module.product.services.gen.persistence.model.ProductImage;
 
@@ -11,6 +12,10 @@ import java.util.List;
  * @date 12:26
  */
 public class ProductModel extends Product {
+
+    private ProductBrand productBrand;
+
+    private String fareName;
 
     private List<ProductImage> productImageList;
 
@@ -42,4 +47,19 @@ public class ProductModel extends Product {
         this.productDescription = productDescription;
     }
 
+    public String getFareName() {
+        return fareName;
+    }
+
+    public void setFareName(String fareName) {
+        this.fareName = fareName;
+    }
+
+    public ProductBrand getProductBrand() {
+        return productBrand;
+    }
+
+    public void setProductBrand(ProductBrand productBrand) {
+        this.productBrand = productBrand;
+    }
 }

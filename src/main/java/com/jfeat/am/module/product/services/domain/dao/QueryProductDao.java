@@ -1,5 +1,6 @@
 package com.jfeat.am.module.product.services.domain.dao;
 
+import com.jfeat.am.module.product.services.domain.model.ProductModel;
 import com.jfeat.am.module.product.services.domain.model.ProductRecord;
 
 import com.baomidou.mybatisplus.plugins.Page;
@@ -16,4 +17,11 @@ public interface QueryProductDao extends BaseMapper<Product> {
     List<ProductRecord> findProductPage(Page<ProductRecord> page, @Param("record") ProductRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    /**
+     * 根据id获取ProductModel
+     * @param id
+     * @return
+     */
+    ProductModel findProductModelById(@Param("id") Long id);
 }
