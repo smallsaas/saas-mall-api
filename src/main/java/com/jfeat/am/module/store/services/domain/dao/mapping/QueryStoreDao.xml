@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.store.services.domain.dao.QueryStoreDao">
+    <sql id="Base_Column_List">
+        t_store.*
+    </sql>
+
+    <!--更新门店状态 BUSINESS | CLOSED | REST-->
+    <update id="toBusiness" parameterType="Long">
+        UPDATE t_store SET t_store.`status` = 'BUSINESS' WHERE t_store.id = #{id}
+    </update>
+    <update id="toClosed" parameterType="Long">
+        UPDATE t_store SET t_store.`status` = 'CLOSED' WHERE t_store.id = #{id}
+    </update>
+    <update id="toRest" parameterType="Long">
+        UPDATE t_store SET t_store.`status` = 'REST' WHERE t_store.id = #{id}
+    </update>
+
+
+    <resultMap id="BaseResultMap" type="com.jfeat.am.module.store.services.persistence.model.Store">
+        <id column="id" property="id"/>
+        <result column="warehouse_id" property="warehouseId"/>
+        <result column="type" property="type"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="avatar" property="avatar"/>
+        <result column="director" property="director"/>
+        <result column="longitude" property="longitude"/>
+        <result column="latitude" property="latitude"/>
+        <result column="address" property="address"/>
+        <result column="pcd" property="pcd"/>
+        <result column="province" property="province"/>
+        <result column="city" property="city"/>
+        <result column="district" property="district"/>
+        <result column="introduce" property="introduce"/>
+        <result column="telephone" property="telephone"/>
+        <result column="create_time" property="createTime"/>
+        <!--        <result column="distance" property="distance" />-->
+        <result column="status" property="status"/>
+    </resultMap>
+
+    <!--
+        private Long warehouseId;
+    private String warehouseName;
+    private String warehouseAddress;
+    private String warehousePCD;
+    private String warehouseCode;
+    -->
+    <resultMap id="StoreRecordMap" type="com.jfeat.am.module.store.services.domain.model.StoreRecord"
+               extends="BaseResultMap">
+        <result column="warehouse_name" property="warehouseName"/>
+        <result column="warehouse_address" property="warehouseAddress"/>
+        <result column="warehouse_PCD" property="warehousePCD"/>
+        <result column="warehouse_code" property="warehouseCode"/>
+        <result column="warehouse_charger" property="warehouseCharger"/>
+        <result column="distance" property="distance"/>
+        <result column="assistantCount" property="assistantCount"/>
+        <collection property="images" ofType="com.jfeat.images.services.persistence.model.StockImages" column="{stockId=id,stockType=type}"
+                select="findStockImage">
+            <id column="id" property="id"></id>
+            <result column="url" property="url"/>
+            <result column="stock_id" property="stockId"/>
+            <result column="stock_type" property="stockType"/>
+            <result column="is_primary" property="isPrimary"/>
+            <result column="create_time" property="createTime"/>
+        </collection>
+    </resultMap>
+    <select id="findStockImage" parameterType="java.util.Map" resultType="com.jfeat.images.services.persistence.model.StockImages">
+        SELECT * FROM t_stock_images WHERE t_stock_images.stock_id = #{stockId}
+        AND t_stock_images.stock_type = #{stockType}
+    </select>
+
+    <select id="findStoreInfo" resultMap="StoreRecordMap">
+        SELECT t_store.*,wms_warehouse.warehouse_name,wms_warehouse.warehouse_address,
+        wms_warehouse.warehouse_code,wms_warehouse.warehouse_PCD,wms_warehouse.warehouse_charger,
+                round(
+        6378.138 * 2 * asin(
+        sqrt(
+        pow(
+        sin(
+        (
+        #{latitude} * pi() / 180 - t_store.latitude * pi() / 180
+        ) / 2
+        ),
+        2
+        ) + cos(#{latitude} * pi() / 180) * cos(t_store.latitude * pi() / 180) * pow(
+        sin(
+        (
+        #{longitude} * pi() / 180 - t_store.longitude * pi() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        ) * 1000
+        ) as distance
+        FROM t_store
+        LEFT JOIN wms_warehouse ON t_store.warehouse_id = wms_warehouse.id
+        WHERE t_store.id=#{id}
+    </select>
+
+    <select id="findStorePage" resultMap="StoreRecordMap"
+            parameterType="com.jfeat.am.module.store.services.domain.model.StoreRecord">
+        SELECT t_store.*,concat(t_store.pcd,t_store.address) as storeAddress,
+        round(
+        6378.138 * 2 * asin(
+        sqrt(
+        pow(
+        sin(
+        (
+        #{latitude} * pi() / 180 - t_store.latitude * pi() / 180
+        ) / 2
+        ),
+        2
+        ) + cos(#{latitude} * pi() / 180) * cos(t_store.latitude * pi() / 180) * pow(
+        sin(
+        (
+        #{longitude} * pi() / 180 - t_store.longitude * pi() / 180
+        ) / 2
+        ),
+        2
+        )
+        )
+        ) * 1000
+        ) as distance,
+        count(t_store_assistant_relation.id) as assistantCount,
+        wms_warehouse.warehouse_name,
+        wms_warehouse.warehouse_address
+        FROM t_store
+        left join t_store_assistant_relation on t_store_assistant_relation.store_id = t_store.id
+        LEFT JOIN wms_warehouse
+        ON wms_warehouse.id = t_store.warehouse_id
+        WHERE 1=1
+        <if test="record.id != null and record.id>0 ">
+            AND t_store.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.warehouseId != null and record.warehouseId>0 ">
+            AND t_store.warehouse_id LIKE CONCAT('%',#{record.warehouseId},'%')
+        </if>
+        <if test="record.type != null and record.type!= ''">
+            AND t_store.type = #{record.type}
+        </if>
+        <if test="record.code != null and record.code!= ''">
+            <choose>
+                <when test="record.exact==true">
+                    AND t_store.code = #{record.code}
+                </when>
+                <otherwise>
+                    AND t_store.code LIKE CONCAT('%',#{record.code},'%')
+                </otherwise>
+            </choose>
+        </if>
+        <if test="record.name != null and record.name!= ''">
+            AND t_store.name LIKE CONCAT('%',#{record.name},'%')
+            or t_store.address LIKE CONCAT('%',#{record.name},'%')
+        </if>
+        <if test="record.avatar != null and record.avatar!= ''">
+            AND t_store.avatar LIKE CONCAT('%',#{record.avatar},'%')
+        </if>
+        <if test="record.director != null and record.director!= ''">
+            AND t_store.director LIKE CONCAT('%',#{record.director},'%')
+        </if>
+        <if test="record.longitude != null and record.longitude>0 ">
+            AND t_store.longitude LIKE CONCAT('%',#{record.longitude},'%')
+        </if>
+        <if test="record.latitude != null and record.latitude>0 ">
+            AND t_store.latitude LIKE CONCAT('%',#{record.latitude},'%')
+        </if>
+        <if test="record.address != null and record.address!= ''">
+            AND t_store.address LIKE CONCAT('%',#{record.address},'%')
+        </if>
+        <if test="record.pcd != null and record.pcd!= ''">
+            AND t_store.pcd LIKE CONCAT('%',#{record.pcd},'%')
+        </if>
+        <if test="record.province != null and record.province!= ''">
+            AND t_store.province LIKE CONCAT('%',#{record.province},'%')
+        </if>
+        <if test="record.city != null and record.city!= ''">
+            AND t_store.city LIKE CONCAT('%',#{record.city},'%')
+        </if>
+        <if test="record.district != null and record.district!= ''">
+            AND t_store.district LIKE CONCAT('%',#{record.district},'%')
+        </if>
+        <if test="record.introduce != null and record.introduce!= ''">
+            AND t_store.introduce LIKE CONCAT('%',#{record.introduce},'%')
+        </if>
+        <if test="record.telephone != null and record.telephone!= ''">
+            AND t_store.telephone LIKE CONCAT('%',#{record.telephone},'%')
+        </if>
+        <if test="status != null">
+            <if test="status.length > 0">
+                AND (
+                  t_store.status = #{status[0]}
+                  <if test="status.length > 1">
+                      OR t_store.status = #{status[1]}
+                  </if>
+                  <if test="status.length > 2">
+                    OR t_store.status = #{status[2]}
+                  </if>
+                )
+            </if>
+        </if>
+        <if test="record.status != null and record.status != '' ">
+            AND t_store.status = #{record.status}
+        </if>
+        <if test="search != null and search != '' ">
+            AND (
+            t_store.name LIKE CONCAT('%',#{search},'%')
+            OR t_store.code LIKE CONCAT('%',#{search},'%')
+            OR t_store.address LIKE CONCAT('%',#{search},'%')
+            OR t_store.province LIKE CONCAT('%',#{search},'%')
+            OR t_store.city LIKE CONCAT('%',#{search},'%')
+            OR t_store.district LIKE CONCAT('%',#{search},'%')
+            )
+        </if>
+        <if test="startTime != null and endTime != null">
+            AND t_store.create_time >= date(#{startTime}) AND
+            t_store.create_time &lt; DATE_ADD(date(#{endTime}),INTERVAL 1 DAY)
+        </if>
+        <if test="type != null">
+            <if test="type.length==1">
+                AND t_store.type = #{type[0]}
+            </if>
+            <if test="type.length==2">
+                AND ( t_store.type = #{type[0]} OR t_store.type = #{type[1]} )
+            </if>
+        </if>
+        GROUP BY t_store.id
+
+        ORDER BY
+        IF (ISNULL(distance), 1, 0),
+        distance ASC
+    </select>
+</mapper>

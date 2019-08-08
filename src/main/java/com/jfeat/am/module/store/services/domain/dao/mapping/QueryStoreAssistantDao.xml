@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.store.services.domain.dao.QueryStoreAssistantDao">
+    <sql id="Base_Column_List">
+        t_store_assistant.*
+    </sql>
+
+    <resultMap id="BaseResultMap" type="com.jfeat.am.module.store.services.domain.model.StoreAssistantModel">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="avatar" property="avatar" />
+        <result column="position" property="position" />
+        <result column="telephone" property="telephone" />
+        <result column="wechat" property="wechat" />
+        <result column="qq" property="qq" />
+        <result column="status" property="status" />
+        <result column="is_director" property="isDirector" />
+        <result column="director_id" property="directorId" />
+        <result column="store_id" property="storeId" />
+        <result column="user_id" property="userId" />
+
+        <collection property="stores" ofType="com.jfeat.am.module.store.services.persistence.model.Store"
+                    select="allStoresDetails" column="id" ></collection>
+    </resultMap>
+
+
+
+    <select id="assistantDetails" resultMap="BaseResultMap" parameterType="StoreAssistantModel">
+        SELECT t_store_assistant.*
+        FROM t_store_assistant
+        WHERE 1=1
+        AND t_store_assistant.id = #{id}
+    </select>
+
+    <select id="allStoresDetails" resultType="com.jfeat.am.module.store.services.persistence.model.Store" parameterType="long">
+        SELECT t_store.*
+        FROM t_store
+        left join t_store_assistant_relation on t_store_assistant_relation.store_id = t_store.id
+        left join t_store_assistant on t_store_assistant_relation.assistant_id = t_store_assistant.id
+        WHERE 1=1
+        AND t_store_assistant.id = #{id}
+    </select>
+
+
+
+
+
+    <resultMap id="BaseResultStoreAssistantPage" type="com.jfeat.am.module.store.services.domain.model.StoreAssistantRecord">
+        <id column="id" property="id" />
+        <result column="code" property="code" />
+        <result column="name" property="name" />
+        <result column="avatar" property="avatar" />
+        <result column="position" property="position" />
+        <result column="telephone" property="telephone" />
+        <result column="wechat" property="wechat" />
+        <result column="qq" property="qq" />
+        <result column="status" property="status" />
+        <result column="is_director" property="isDirector" />
+        <result column="director_id" property="directorId" />
+        <result column="store_id" property="storeId" />
+        <result column="user_id" property="userId" />
+
+        <result column="username" property="username" />
+        <result column="isShopkeeper" property="isShopkeeper" />
+
+    </resultMap>
+
+    <select id="findStoreAssistantPage" resultMap="BaseResultStoreAssistantPage" parameterType="StoreAssistantRecord">
+        SELECT t_store_assistant.*,
+        t_store_assistant_relation.is_shopkeeper as isShopkeeper
+        FROM t_store_assistant
+        left join t_store_assistant_relation on t_store_assistant_relation.assistant_id = t_store_assistant.id
+        WHERE 1=1
+
+
+        <if test="record.storeId != null and record.storeId>0 ">
+            AND t_store_assistant_relation.store_id =#{record.storeId}
+
+        </if>
+
+
+        <if test="record.id != null and record.id>0 ">
+            AND t_store_assistant.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.code != null and record.code!= ''">
+            <choose>
+                <when test="exact == true">
+                    AND t_store_assistant.code = #{record.code}
+                </when>
+                <otherwise>
+                    AND t_store_assistant.code LIKE CONCAT('%',#{record.code},'%')
+                </otherwise>
+            </choose>
+
+        </if>
+
+        <if test="record.name != null and record.name!= ''">
+            AND t_store_assistant.name LIKE CONCAT('%',#{record.name},'%')
+        </if>
+        <if test="record.avatar != null and record.avatar!= ''">
+            AND t_store_assistant.avatar LIKE CONCAT('%',#{record.avatar},'%')
+        </if>
+        <if test="record.position != null and record.position!= ''">
+            AND t_store_assistant.position LIKE CONCAT('%',#{record.position},'%')
+        </if>
+        <if test="record.telephone != null and record.telephone!= ''">
+            AND t_store_assistant.telephone LIKE CONCAT('%',#{record.telephone},'%')
+        </if>
+        <if test="record.wechat != null and record.wechat!= ''">
+            AND t_store_assistant.wechat LIKE CONCAT('%',#{record.wechat},'%')
+        </if>
+        <if test="record.qq != null and record.qq!= ''">
+            AND t_store_assistant.qq LIKE CONCAT('%',#{record.qq},'%')
+        </if>
+        <if test="record.status != null and record.status!= ''">
+            AND t_store_assistant.status LIKE CONCAT('%',#{record.status},'%')
+        </if>
+        <if test="record.isDirector != null and record.isDirector!= ''">
+            AND t_store_assistant.is_director LIKE CONCAT('%',#{record.isDirector},'%')
+        </if>
+        <if test="record.directorId != null and record.directorId>0 ">
+            AND t_store_assistant.director_id LIKE CONCAT('%',#{record.directorId},'%')
+        </if>
+
+        <if test="record.userId != null and record.userId>0 ">
+            AND t_store_assistant.user_id = #{record.userId}
+        </if>
+    </select>
+</mapper>

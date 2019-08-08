@@ -1,4 +1,4 @@
-package com.jfeat.am.module.product.config;
+package com.jfeat.am.module.config;
 
 import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;

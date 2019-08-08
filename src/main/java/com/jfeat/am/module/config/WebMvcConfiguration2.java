@@ -1,4 +1,4 @@
-package com.jfeat.am.module.product.config;
+package com.jfeat.am.module.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
  * @date 2018-05-14
  */
 @Configuration
-public class WebMvcConfiguration extends WebMvcConfigurerAdapter{
+public class WebMvcConfiguration2 extends WebMvcConfigurerAdapter{
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/statics/**").addResourceLocations("classpath:/statics/");

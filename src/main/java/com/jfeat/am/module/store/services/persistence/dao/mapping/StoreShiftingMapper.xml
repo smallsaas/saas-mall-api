@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.store.services.persistence.dao.StoreShiftingMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.store.services.persistence.model.StoreShifting">
+		<id column="id" property="id" />
+		<result column="store_id" property="storeId" />
+		<result column="cashier_client_id" property="cashierClientId" />
+		<result column="assistant_id" property="assistantId" />
+		<result column="cashier" property="cashier" />
+		<result column="next_assistant_id" property="nextAssistantId" />
+		<result column="next_cashier" property="nextCashier" />
+		<result column="status" property="status" />
+		<result column="on_duty_time" property="onDutyTime" />
+		<result column="log_time" property="logTime" />
+		<result column="on_duty_amount" property="onDutyAmount" />
+		<result column="log_amount" property="logAmount" />
+		<result column="apply_time" property="applyTime" />
+		<result column="confirm_time" property="confirmTime" />
+		<result column="org_id" property="orgId" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, store_id AS storeId, apply_time as applyTime, confirm_time as confirmTime,cashier_client_id AS cashierClientId, assistant_id AS assistantId, cashier, next_assistant_id AS nextAssistantId, next_cashier AS nextCashier, status, on_duty_time AS onDutyTime, log_time AS logTime, on_duty_amount AS onDutyAmount, log_amount AS logAmount,org_id AS orgId
+    </sql>
+
+</mapper>

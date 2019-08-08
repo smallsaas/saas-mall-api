@@ -18,6 +18,63 @@
 
     <dependencies>
 
+        <!--<dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>jwt-core</artifactId>
+            <version>0.0.2</version>
+        </dependency>-->
+
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>sb-base</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>jwt-core</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>perm-core</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>2.2.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>sb-printer</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>images-service</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>sb-account</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>appointment</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>sb-account</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>1.0.0</version>
+        </dependency>
+
         <!-- java11缺少的依赖-->
         <dependency>
             <groupId>javax.xml.bind</groupId>
