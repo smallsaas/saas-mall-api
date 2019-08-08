@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.store.services.domain.dao.QueryWarehouseDao">
+                                                                                                                                                                                                                                                                                <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                wms_warehouse.id, wms_warehouse.warehouse_code AS warehouseCode, wms_warehouse.warehouse_name AS warehouseName, wms_warehouse.warehouse_PCD AS warehousePCD, wms_warehouse.warehouse_address AS warehouseAddress, wms_warehouse.warehouse_charger AS warehouseCharger, wms_warehouse.org_id AS orgId
+    </sql>
+
+
+
+    <select id="findWarehousePage" resultType="WarehouseRecord" parameterType="WarehouseRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM wms_warehouse
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND wms_warehouse.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.warehouseCode != null and record.warehouseCode!= ''">
+                AND wms_warehouse.warehouse_code LIKE CONCAT('%',#{record.warehouseCode},'%')
+            </if>
+                                                                                            <if test="record.warehouseName != null and record.warehouseName!= ''">
+                AND wms_warehouse.warehouse_name LIKE CONCAT('%',#{record.warehouseName},'%')
+            </if>
+                                                                                            <if test="record.warehousePCD != null and record.warehousePCD!= ''">
+                AND wms_warehouse.warehouse_PCD LIKE CONCAT('%',#{record.warehousePCD},'%')
+            </if>
+                                                                                            <if test="record.warehouseAddress != null and record.warehouseAddress!= ''">
+                AND wms_warehouse.warehouse_address LIKE CONCAT('%',#{record.warehouseAddress},'%')
+            </if>
+                                                                                            <if test="record.warehouseCharger != null and record.warehouseCharger>0 ">
+                AND wms_warehouse.warehouse_charger LIKE CONCAT('%',#{record.warehouseCharger},'%')
+            </if>
+                                                                                            <if test="record.orgId != null and record.orgId>0 ">
+                AND wms_warehouse.org_id LIKE CONCAT('%',#{record.orgId},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND wms_warehouse.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND wms_warehouse.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR wms_warehouse.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

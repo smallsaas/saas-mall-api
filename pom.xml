@@ -18,11 +18,11 @@
 
     <dependencies>
 
-        <!--<dependency>
+        <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>jwt-core</artifactId>
             <version>0.0.2</version>
-        </dependency>-->
+        </dependency>
 
         <dependency>
             <groupId>com.jfeat</groupId>
@@ -329,15 +329,15 @@
                 <artifactId>sb-code-generator</artifactId>
                 <version>1.3.4</version>
                 <configuration>
-                    <moduleName>order</moduleName>
-                    <dbUrl>jdbc:mysql://120.79.49.72:3306/muaskin_MallWebapp?characterEncoding=utf-8</dbUrl>
+                    <moduleName>store</moduleName>
+                    <dbUrl>jdbc:mysql://120.79.49.72:3306/mall_product_order?characterEncoding=utf-8</dbUrl>
                     <username>root</username>
                     <password>root</password>
                     <parentPackage>com.jfeat.am.module</parentPackage>
                     <outputDir>src/main/java</outputDir>
                     <initialize>false</initialize>
                     <tables>
-                        <table>t_trial_application</table>
+                        <table>wms_warehouse</table>
                     </tables>
                     <!--<cruds>
                         <crud>
