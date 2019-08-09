@@ -56,6 +56,13 @@ public class ProductServiceImpl extends CRUDProductServiceImpl implements Produc
     public List findProductPage(Page<ProductRecord> page, ProductRecord record,
                                   String search, String orderBy, Date startTime, Date endTime) {
         List recordList = this.queryProductDao.findProductPage(page, record, search, orderBy, startTime, endTime);
+        recordList.forEach(item -> {
+            ProductRecord productRecord = (ProductRecord)item;
+            if(productRecord.getBrandId()!=null){
+                ProductBrand productBrand = productBrandService.retrieveMaster(productRecord.getBrandId());
+                productRecord.setProductBrand(productBrand);
+            }
+        });
         return this.getEavProxy().selectList(recordList, this.entityName());
     }
 

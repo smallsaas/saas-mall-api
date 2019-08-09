@@ -15,6 +15,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_product
+        LEFT JOIN t_product_brand ON t_product.brand_id=t_product_brand.id
         WHERE 1=1
         <if test="record.id != null and record.id>0 ">
             AND t_product.id LIKE CONCAT('%',#{record.id},'%')
@@ -24,6 +25,9 @@
         </if>
         <if test="record.brandId != null and record.brandId>0 ">
             AND t_product.brand_id LIKE CONCAT('%',#{record.brandId},'%')
+        </if>
+        <if test="record.brandName != null and record.brandName!= ''">
+            AND t_product_brand.name LIKE CONCAT('%',#{record.brandName},'%')
         </if>
         <if test="record.name != null and record.name!= ''">
             AND t_product.name LIKE CONCAT('%',#{record.name},'%')

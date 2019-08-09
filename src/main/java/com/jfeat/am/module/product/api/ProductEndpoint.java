@@ -154,6 +154,7 @@ public class ProductEndpoint {
                              @RequestParam(name = "skuName", required = false) String skuName,
                              @RequestParam(name = "skuCode", required = false) String skuCode,
                              @RequestParam(name = "barCode", required = false) String barCode,
+                             @RequestParam(name = "brandName", required = false) String brandName,
                              @RequestParam(name = "mid", required = false) Integer mid,
                              @RequestParam(name = "allowCoupon", required = false) Integer allowCoupon,
                              @RequestParam(name = "credit", required = false) Integer credit,
@@ -207,6 +208,7 @@ public class ProductEndpoint {
         record.setSkuName(skuName);
         record.setSkuCode(skuCode);
         record.setBarCode(barCode);
+        record.setBrandName(brandName);
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
