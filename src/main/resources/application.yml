@@ -20,6 +20,14 @@ jwt:
   #tll-mills:
   #token-type: Bearer
 
+###################  etcd配置  ###################
+etcd:
+  etcdEndpoints: http://192.168.3.28:2379
+  serviceName: product
+  serviceEndpoint: http://192.168.3.16:8080
+  provideService: false
+  subscribeServices: uaas
+
 ###################  项目启动端口  ###################
 server:
   port: 8080

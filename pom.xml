@@ -20,6 +20,18 @@
 
         <dependency>
             <groupId>com.jfeat</groupId>
+            <artifactId>etcd-client</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>crud-log</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>1.0.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfeat</groupId>
             <artifactId>jwt-core</artifactId>
             <version>0.0.2</version>
         </dependency>

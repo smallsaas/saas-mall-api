@@ -1,7 +1,6 @@
 package com.jfeat.am.module.config;
 
 import org.springframework.context.annotation.Configuration;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -20,7 +19,7 @@ public class WebMvcConfiguration2 extends WebMvcConfigurerAdapter{
         registry.addResourceHandler("/webjars/**").addResourceLocations("classpath:/META-INF/resources/webjars/");
     }
 
-    @Override
+    /*@Override
     public void addCorsMappings(CorsRegistry registry) {
         //设置允许跨域的路径
         registry.addMapping("/**")
@@ -34,6 +33,6 @@ public class WebMvcConfiguration2 extends WebMvcConfigurerAdapter{
                 .maxAge(3600);
         //cors.supportedHeaders
 
-    }
+    }*/
 
 }
