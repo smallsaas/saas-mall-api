@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="group_id" property="groupId" />
+		<result column="name" property="name" />
+		<result column="key_name" property="keyName" />
+		<result column="value_type" property="valueType" />
+		<result column="value" property="value" />
+		<result column="type" property="type" />
+		<result column="visible" property="visible" />
+		<result column="description" property="description" />
+		<result column="readonly" property="readonly" />
+		<result column="org_id" property="orgId" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id AS userId, group_id AS groupId, name, key_name AS keyName, value_type AS valueType, value, type, visible, description, readonly, org_id AS orgId
+    </sql>
+
+</mapper>
