@@ -2,11 +2,13 @@ package com.jfeat.am.module.advertisement.services.service.impl;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.jfeat.am.common.crud.CRUD;
 import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
 import com.jfeat.am.module.advertisement.services.persistence.dao.AdGroupMapper;
 import com.jfeat.am.module.advertisement.services.persistence.dao.AdMapper;
 import com.jfeat.am.module.advertisement.services.persistence.model.Ad;
 import com.jfeat.am.module.advertisement.services.persistence.model.AdGroup;
+import com.jfeat.am.module.advertisement.services.persistence.model.AdGroupedModel;
 import com.jfeat.am.module.advertisement.services.service.AdGroupService;
 import org.springframework.stereotype.Service;
 
@@ -34,12 +36,20 @@ public class AdGroupServiceImpl extends CRUDServiceOnlyImpl<AdGroup> implements 
     }
 
     @Override
-    public List<Ad> showAdGroupsById(Long id) {
-        return adMapper.selectList(new EntityWrapper<Ad>().eq("group_id", id));
+    public AdGroupedModel showAdGroupsById(Long id) {
+        AdGroup adGroup = this.adGroupMapper.selectById(id);
+        AdGroupedModel adGroupedModel = CRUD.castObject(adGroup, AdGroupedModel.class);
+        List<Ad> adList = adMapper.selectList(new EntityWrapper<Ad>().eq("group_id", id));
+        adGroupedModel.setAds(adList);
+        return adGroupedModel;
     }
 
     @Override
-    public List<Ad> showAdGroupsByIdCurrent(Long id) {
-        return adMapper.selectList(new EntityWrapper<Ad>().eq("group_id", id).eq("enabled",1));
+    public AdGroupedModel showAdGroupsByIdCurrent(Long id) {
+        AdGroup adGroup = this.adGroupMapper.selectById(id);
+        AdGroupedModel adGroupedModel = CRUD.castObject(adGroup, AdGroupedModel.class);
+        List<Ad> adList = adMapper.selectList(new EntityWrapper<Ad>().eq("group_id", id).eq("enabled", 1));
+        adGroupedModel.setAds(adList);
+        return adGroupedModel;
     }
 }

@@ -1,10 +1,8 @@
 package com.jfeat.am.module.advertisement.services.service;
 
 import com.jfeat.am.common.crud.CRUDServiceOnly;
-import com.jfeat.am.module.advertisement.services.persistence.model.Ad;
 import com.jfeat.am.module.advertisement.services.persistence.model.AdGroup;
-
-import java.util.List;
+import com.jfeat.am.module.advertisement.services.persistence.model.AdGroupedModel;
 
 /**
  * <p>
@@ -20,12 +18,12 @@ public interface AdGroupService extends CRUDServiceOnly<AdGroup> {
      * @param id
      * @return
      */
-    List<Ad> showAdGroupsById(Long id);
+    AdGroupedModel showAdGroupsById(Long id);
 
     /**
      * 查看该组在播广告
      * @param id
      * @return
      */
-    List<Ad> showAdGroupsByIdCurrent(Long id);
+    AdGroupedModel showAdGroupsByIdCurrent(Long id);
 }
