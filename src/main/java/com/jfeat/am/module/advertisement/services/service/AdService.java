@@ -1,7 +1,12 @@
 package com.jfeat.am.module.advertisement.services.service;
 
-import com.jfeat.am.common.crud.CRUDServiceOnly;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.module.advertisement.services.domain.model.record.AdRecord;
 import com.jfeat.am.module.advertisement.services.persistence.model.Ad;
+import com.jfeat.crud.plus.CRUDServiceOnly;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -17,5 +22,7 @@ public interface AdService extends CRUDServiceOnly<Ad> {
 
     Integer updateMaster(Ad ad);
 
+    List findAdPage(Page<AdRecord> page, AdRecord record, String search,
+                    String orderBy, Date startTime, Date endTime);
 }
 
