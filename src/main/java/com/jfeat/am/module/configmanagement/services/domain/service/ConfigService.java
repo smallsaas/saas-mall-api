@@ -6,6 +6,7 @@ import com.jfeat.am.module.configmanagement.services.gen.crud.service.CRUDConfig
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 /**
@@ -20,7 +21,7 @@ public interface ConfigService extends CRUDConfigOverModelService {
      * @param type
      * @return
      */
-    Properties getConfig(String type);
+    Map<String,String> getConfig(String type);
 
     /**
      * 更新指定类型配置

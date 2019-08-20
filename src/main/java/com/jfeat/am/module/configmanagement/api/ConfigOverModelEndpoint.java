@@ -11,6 +11,7 @@ import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -55,24 +56,45 @@ public class ConfigOverModelEndpoint {
     @GetMapping("/{type}")
     @ApiOperation(value = "查看 Config", response = Config.class)
     public Tip getConfig(@PathVariable String type) {
-        try {
-            ConfigType.valueOf(type);
-            return SuccessTip.create(configService.getConfig(type));
-        }catch (Exception e){
+        if(StringUtils.isEmpty(type)){
             throw new BusinessException(BusinessCode.BadRequest);
         }
+        ConfigType[] values = ConfigType.values();
+        boolean isExist = false;
+        for (int i = 0; i <values.length ; i++) {
+            if(values[i].toString().equals(type)){
+                isExist = true;
+                break;
+            }
+        }
+        if(!isExist){
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+        return SuccessTip.create(configService.getConfig(type));
+
     }
 
     @BusinessLog(name = "Config", value = "update 指定 Config")
     @PostMapping("/{type}")
     @ApiOperation(value = "修改 Config", response = Config.class)
     public Tip updateConfig(@PathVariable String type, @RequestBody Properties entity) {
-        try {
-            ConfigType.valueOf(type);
-            return SuccessTip.create(configService.updateConfig(type,entity));
-        }catch (Exception e){
+        if(StringUtils.isEmpty(type)){
             throw new BusinessException(BusinessCode.BadRequest);
         }
+        ConfigType[] values = ConfigType.values();
+        boolean isExist = false;
+        for (int i = 0; i <values.length ; i++) {
+            if(values[i].toString().equals(type)){
+                isExist = true;
+                break;
+            }
+        }
+        if(!isExist){
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
+
+        return SuccessTip.create(configService.updateConfig(type,entity));
+
     }
 
     /*@BusinessLog(name = "Config", value = "delete Config")

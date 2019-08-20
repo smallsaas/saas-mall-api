@@ -1,11 +1,26 @@
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.jfeat.AmApplication;
+import com.jfeat.am.module.configmanagement.api.ConfigOverModelEndpoint;
+import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigMapper;
+import com.jfeat.crud.base.tips.Tip;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.annotation.Resource;
+import java.util.Properties;
+
 /**
  * @author hero
  * @date 11:26
  */
-/*@RunWith(SpringRunner.class)
-@SpringBootTest(classes = AmApplication.class)*/
+@RunWith(SpringRunner.class)
+@SpringBootTest(classes = AmApplication.class)
 public class TestConfig {
-    /*@Resource
+    @Resource
     private ConfigMapper configMapper;
 
     @Resource
@@ -13,7 +28,7 @@ public class TestConfig {
 
     @Test
     public void test(){
-        Tip config = configOverModelEndpoint.getConfig(ConfigType.shopConfig.toString());
+        Tip config = configOverModelEndpoint.getConfig(ConfigType.otherConfig.toString());
         System.out.println(JSON.toJSONString(config));
     }
     @Test
@@ -39,5 +54,5 @@ public class TestConfig {
             }
         }
         System.out.println(sb.toString());
-    }*/
+    }
 }

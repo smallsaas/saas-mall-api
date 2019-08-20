@@ -10,10 +10,7 @@ import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Confi
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.Date;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * <p>
@@ -36,14 +33,14 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
     }
 
     @Override
-    public Properties getConfig(String type) {
+    public Map<String, String> getConfig(String type) {
         List<Config> configList = configMapper.selectList(new EntityWrapper<Config>().eq("type", type).eq("visible",1));
-        Properties properties = new Properties(configList.size());
+        Map<String,String> map = new HashMap<>(configList.size());
         configList.forEach(item -> {
-            properties.setProperty(item.getKeyName(),item.getValue());
+            map.put(item.getKeyName(),item.getValue());
         });
 
-        return properties;
+        return map;
     }
 
     @Override
