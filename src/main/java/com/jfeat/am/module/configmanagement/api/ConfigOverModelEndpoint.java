@@ -1,9 +1,7 @@
 package com.jfeat.am.module.configmanagement.api;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.core.jwt.JWTKit;
-import com.jfeat.am.module.configmanagement.services.domain.model.ConfigRecord;
+import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigService;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
 import com.jfeat.am.module.log.annotation.BusinessLog;
@@ -12,13 +10,11 @@ import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Properties;
 
 
 /**
@@ -39,7 +35,7 @@ public class ConfigOverModelEndpoint {
     @Resource
     ConfigService configService;
 
-    @BusinessLog(name = "Config", value = "create Config")
+    /*@BusinessLog(name = "Config", value = "create Config")
     @PostMapping
     @ApiOperation(value = "新建 Config", response = Config.class)
     public Tip createConfig(@RequestBody Config entity) {
@@ -53,31 +49,40 @@ public class ConfigOverModelEndpoint {
         }
 
         return SuccessTip.create(affected);
-    }
+    }*/
 
-    @BusinessLog(name = "Config", value = "查看 Config")
-    @GetMapping("/{id}")
+    @BusinessLog(name = "Config", value = "查看 指定 Config")
+    @GetMapping("/{type}")
     @ApiOperation(value = "查看 Config", response = Config.class)
-    public Tip getConfig(@PathVariable Long id) {
-        return SuccessTip.create(configService.retrieveMaster(id));
+    public Tip getConfig(@PathVariable String type) {
+        try {
+            ConfigType.valueOf(type);
+            return SuccessTip.create(configService.getConfig(type));
+        }catch (Exception e){
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
     }
 
-    @BusinessLog(name = "Config", value = "update Config")
-    @PutMapping("/{id}")
+    @BusinessLog(name = "Config", value = "update 指定 Config")
+    @PostMapping("/{type}")
     @ApiOperation(value = "修改 Config", response = Config.class)
-    public Tip updateConfig(@PathVariable Integer id, @RequestBody Config entity) {
-        entity.setId(id);
-        return SuccessTip.create(configService.updateMaster(entity));
+    public Tip updateConfig(@PathVariable String type, @RequestBody Properties entity) {
+        try {
+            ConfigType.valueOf(type);
+            return SuccessTip.create(configService.updateConfig(type,entity));
+        }catch (Exception e){
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
     }
 
-    @BusinessLog(name = "Config", value = "delete Config")
+    /*@BusinessLog(name = "Config", value = "delete Config")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 Config")
     public Tip deleteConfig(@PathVariable Long id) {
         return SuccessTip.create(configService.deleteMaster(id));
-    }
+    }*/
 
-    @BusinessLog(name = "Config", value = "delete Config")
+    /*@BusinessLog(name = "Config", value = "delete Config")
     @ApiOperation(value = "Config 列表信息", response = ConfigRecord.class)
     @GetMapping
     @ApiImplicitParams({
@@ -145,5 +150,5 @@ public class ConfigOverModelEndpoint {
         page.setRecords(this.configService.findConfigPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);
-    }
+    }*/
 }

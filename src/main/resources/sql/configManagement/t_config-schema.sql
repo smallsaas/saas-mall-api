@@ -34,6 +34,7 @@ CREATE TABLE `t_config`  (
   `description` varchar(225) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `readonly` int(11) NULL DEFAULT 0,
   `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
+  UNIQUE KEY (`type`,`key_name`),
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `group_id`(`group_id`) USING BTREE,
   CONSTRAINT `t_config_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `t_config_group` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
