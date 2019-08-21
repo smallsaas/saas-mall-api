@@ -1,24 +1,15 @@
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.jfeat.AmApplication;
 import com.jfeat.am.module.configmanagement.api.ConfigOverModelEndpoint;
-import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigMapper;
-import com.jfeat.crud.base.tips.Tip;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import com.jfeat.am.module.product.services.domain.service.ProductCategoryService;
 
 import javax.annotation.Resource;
-import java.util.Properties;
 
 /**
  * @author hero
  * @date 11:26
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = AmApplication.class)
+/*@RunWith(SpringRunner.class)
+@SpringBootTest(classes = AmApplication.class)*/
 public class TestConfig {
     @Resource
     private ConfigMapper configMapper;
@@ -26,18 +17,30 @@ public class TestConfig {
     @Resource
     private ConfigOverModelEndpoint configOverModelEndpoint;
 
-    @Test
+    @Resource
+    ProductCategoryService productCategoryService;
+
+    /*@Test
     public void test(){
         Tip config = configOverModelEndpoint.getConfig(ConfigType.otherConfig.toString());
         System.out.println(JSON.toJSONString(config));
-    }
-    @Test
+    }*/
+
+    /*@Test
     public void test2(){
         String json = "{\"redirectUrl\":\"\",\"payOrderTimeout\":\"15\",\"autoSelectCoupon\":\"true\",\"sellerAutoSellership\":\"true\",\"logoUrl\":\"https://www.muaskin.com/images/avatar/72ef0f7992d3c41cf559eeed46d37f81.png\",\"orderCreatedEnable\":\"true\",\"latestReturnTime\":\"7\",\"infoUrl\":\"https://www.muaskin.com/wx/static/static/noTest.f3c8af24.png\",\"autoOffsell\":\"false\",\"promotedProductCarousel\":\"60\",\"autoValidationReceivingDeadline\":\"8\",\"flashFreight\":\"10\"}";
         Properties properties = JSONObject.parseObject(json, Properties.class);
         Tip config = configOverModelEndpoint.updateConfig(ConfigType.shopConfig.toString(),properties);
         System.out.println(JSON.toJSONString(config));
-    }
+    }*/
+
+    /*@Test
+    public void test3(){
+        String json = "{\"name\":\"111111\",\"isShowProducts\":1,\"wholesale\":1,\"visible\":1,\"sortOrder\":\"1\",\"description\":\"good\",\"productCategoryPropertyList\":[{\"displayName\":\"test1\",\"valueType\":\"STRING\",\"inputType\":\"INPUT_TEXT\",\"defaultValue\":\"good\",\"isRequired\":0,\"sortOrder\":\"1\"}]}";
+        ProductCategoryModel productCategoryModel = JSONObject.parseObject(json, ProductCategoryModel.class);
+        Integer affected = productCategoryService.createProductCategory(productCategoryModel);
+        System.out.println(affected);
+    }*/
 
     public static void main(String[] args) {
         String keyName = "latestReturnTime"; // "mall.invitationqr.redirectUrl"; // "mall.url.personal_center";

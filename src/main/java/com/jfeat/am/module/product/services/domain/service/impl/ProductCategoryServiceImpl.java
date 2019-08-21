@@ -51,10 +51,14 @@ public class ProductCategoryServiceImpl extends CRUDProductCategoryServiceImpl i
         int affected  = 0;
         affected += this.createMaster(entity);
         List<ProductCategoryProperty> productCategoryPropertyList = entity.getProductCategoryPropertyList();
-        productCategoryPropertyList.forEach(item -> {
+        for (ProductCategoryProperty productCategoryProperty : productCategoryPropertyList){
+            productCategoryProperty.setCategoryId(entity.getId());
+            productCategoryPropertyService.createMaster(productCategoryProperty);
+        }
+        /*productCategoryPropertyList.forEach(item -> {
             item.setCategoryId(entity.getId());
             productCategoryPropertyService.createMaster(item);
-        });
+        });*/
         return affected;
     }
 
