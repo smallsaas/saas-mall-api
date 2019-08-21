@@ -2,6 +2,7 @@ package com.jfeat.am.module.product.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.product.services.domain.dao.QueryProductCategoryDao;
 import com.jfeat.am.module.product.services.domain.model.ProductCategoryModel;
 import com.jfeat.am.module.product.services.domain.model.ProductCategoryRecord;
@@ -49,16 +50,14 @@ public class ProductCategoryServiceImpl extends CRUDProductCategoryServiceImpl i
     @Transactional
     public Integer createProductCategory(ProductCategoryModel entity) {
         int affected  = 0;
-        affected += this.createMaster(entity);
+        entity.setOrgId(JWTKit.getOrgId());
+        affected += this.productCategoryMapper.insert(entity);
+        //affected += this.createMaster(entity);
         List<ProductCategoryProperty> productCategoryPropertyList = entity.getProductCategoryPropertyList();
-        for (ProductCategoryProperty productCategoryProperty : productCategoryPropertyList){
-            productCategoryProperty.setCategoryId(entity.getId());
-            productCategoryPropertyService.createMaster(productCategoryProperty);
-        }
-        /*productCategoryPropertyList.forEach(item -> {
+        productCategoryPropertyList.forEach(item -> {
             item.setCategoryId(entity.getId());
             productCategoryPropertyService.createMaster(item);
-        });*/
+        });
         return affected;
     }
 
