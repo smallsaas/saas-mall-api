@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.dao.WechatMessageTypePropMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.model.WechatMessageTypeProp">
+		<id column="id" property="id" />
+		<result column="message_id" property="messageId" />
+		<result column="name" property="name" />
+		<result column="display_attr" property="displayAttr" />
+		<result column="display_value" property="displayValue" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, message_id AS messageId, name, display_attr AS displayAttr, display_value AS displayValue
+    </sql>
+
+</mapper>

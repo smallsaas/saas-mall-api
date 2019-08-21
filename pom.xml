@@ -345,7 +345,7 @@
                 <artifactId>sb-code-generator</artifactId>
                 <version>1.3.4</version>
                 <configuration>
-                    <moduleName>configmanagement2</moduleName>
+                    <moduleName>wxTemplateMessage</moduleName>
                     <dbUrl>jdbc:mysql://120.79.49.72:3306/mall_product_order?characterEncoding=utf-8</dbUrl>
                     <username>root</username>
                     <password>root</password>
@@ -353,18 +353,19 @@
                     <outputDir>src/main/java</outputDir>
                     <initialize>false</initialize>
                     <tables>
-                        <table>t_ad</table>
+                        <table>t_wechat_template_message</table>
+                        <table>t_wechat_message_type_prop</table>
                     </tables>
-                    <!--<cruds>
+                    <cruds>
                         <crud>
                             <mask>master</mask>
-                            <master>t_config_group</master>
-                            <masterId>group_id</masterId>
+                            <master>t_wechat_template_message</master>
+                            <masterId>message_id</masterId>
                             <slaves>
-                                <slave>t_config</slave>
+                                <slave>t_wechat_message_type_prop</slave>
                             </slaves>
                         </crud>
-                    </cruds>-->
+                    </cruds>
 
                 </configuration>
             </plugin>

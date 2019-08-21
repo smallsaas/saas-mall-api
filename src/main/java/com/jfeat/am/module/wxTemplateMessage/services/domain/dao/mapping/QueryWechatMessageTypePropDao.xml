@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.wxTemplateMessage.services.domain.dao.QueryWechatMessageTypePropDao">
+                                                                                                                                                                                                <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_wechat_message_type_prop.id, t_wechat_message_type_prop.message_id AS messageId, t_wechat_message_type_prop.name, t_wechat_message_type_prop.display_attr AS displayAttr, t_wechat_message_type_prop.display_value AS displayValue
+    </sql>
+
+
+
+    <select id="findWechatMessageTypePropPage" resultType="WechatMessageTypePropRecord" parameterType="WechatMessageTypePropRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_wechat_message_type_prop
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_wechat_message_type_prop.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.messageId != null and record.messageId>0 ">
+                AND t_wechat_message_type_prop.message_id LIKE CONCAT('%',#{record.messageId},'%')
+            </if>
+                                <if test="record.name != null and record.name!= ''">
+                AND t_wechat_message_type_prop.name LIKE CONCAT('%',#{record.name},'%')
+            </if>
+                                                                                            <if test="record.displayAttr != null and record.displayAttr!= ''">
+                AND t_wechat_message_type_prop.display_attr LIKE CONCAT('%',#{record.displayAttr},'%')
+            </if>
+                                                                                            <if test="record.displayValue != null and record.displayValue!= ''">
+                AND t_wechat_message_type_prop.display_value LIKE CONCAT('%',#{record.displayValue},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_wechat_message_type_prop.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_wechat_message_type_prop.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_wechat_message_type_prop.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

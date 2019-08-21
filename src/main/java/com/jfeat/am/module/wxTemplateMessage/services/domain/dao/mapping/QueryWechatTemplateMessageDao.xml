@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.wxTemplateMessage.services.domain.dao.QueryWechatTemplateMessageDao">
+    <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_wechat_template_message.id, t_wechat_template_message.template_id AS templateId, t_wechat_template_message.type, t_wechat_template_message.name, t_wechat_template_message.enabled, t_wechat_template_message.org_id AS orgId
+    </sql>
+
+
+    <select id="findWechatTemplateMessagePage" resultType="WechatTemplateMessageRecord"
+            parameterType="WechatTemplateMessageRecord">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_wechat_template_message
+        WHERE 1=1
+        <if test="record.id != null and record.id>0 ">
+            AND t_wechat_template_message.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.templateId != null and record.templateId!= ''">
+            AND t_wechat_template_message.template_id LIKE CONCAT('%',#{record.templateId},'%')
+        </if>
+        <if test="record.type != null and record.type!= ''">
+            AND t_wechat_template_message.type LIKE CONCAT('%',#{record.type},'%')
+        </if>
+        <if test="record.name != null and record.name!= ''">
+            AND t_wechat_template_message.name LIKE CONCAT('%',#{record.name},'%')
+        </if>
+        <if test="record.enabled != null and record.enabled>0 ">
+            AND t_wechat_template_message.enabled LIKE CONCAT('%',#{record.enabled},'%')
+        </if>
+        <if test="record.orgId != null and record.orgId>0 ">
+            AND t_wechat_template_message.org_id LIKE CONCAT('%',#{record.orgId},'%')
+        </if>
+        <if test="startTime != null">
+            <![CDATA[AND t_wechat_template_message.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_wechat_template_message.end_time <= DATE(#{endTime)]]>
+        </if>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_wechat_template_message.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+    </select>
+</mapper>
