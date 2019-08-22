@@ -157,7 +157,7 @@ public class UserEndpoint {
                           @RequestParam(name = "invitationQrcode", required = false) String invitationQrcode,
                           @RequestParam(name = "wxUnionid", required = false) String wxUnionid,
                           @RequestParam(name = "wxaOpenid", required = false) String wxaOpenid,
-                          @RequestParam(name = "appUser", required = false) Integer appUser,
+                          //@RequestParam(name = "appUser", required = false) Integer appUser,
                           @RequestParam(name = "cabinCode", required = false) String cabinCode,
                           @RequestParam(name = "storeCode", required = false) String storeCode,
                           @RequestParam(name = "assistantCode", required = false) String assistantCode,
@@ -211,7 +211,7 @@ public class UserEndpoint {
         record.setInvitationQrcode(invitationQrcode);
         record.setWxUnionid(wxUnionid);
         record.setWxaOpenid(wxaOpenid);
-        record.setAppUser(appUser);
+        record.setAppUser(1);
         record.setCabinCode(cabinCode);
         record.setStoreCode(storeCode);
         record.setAssistantCode(assistantCode);

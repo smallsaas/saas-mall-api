@@ -1,9 +1,3 @@
-import com.jfeat.am.module.configmanagement.api.ConfigOverModelEndpoint;
-import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigMapper;
-import com.jfeat.am.module.product.services.domain.service.ProductCategoryService;
-
-import javax.annotation.Resource;
-
 /**
  * @author hero
  * @date 11:26
@@ -11,14 +5,14 @@ import javax.annotation.Resource;
 /*@RunWith(SpringRunner.class)
 @SpringBootTest(classes = AmApplication.class)*/
 public class TestConfig {
-    @Resource
+    /*@Resource
     private ConfigMapper configMapper;
 
     @Resource
     private ConfigOverModelEndpoint configOverModelEndpoint;
 
     @Resource
-    ProductCategoryService productCategoryService;
+    ProductCategoryService productCategoryService;*/
 
     /*@Test
     public void test(){
