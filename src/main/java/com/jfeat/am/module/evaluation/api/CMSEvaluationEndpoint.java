@@ -1,5 +1,6 @@
 package com.jfeat.am.module.evaluation.api;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
@@ -8,22 +9,30 @@ import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.core.shiro.ShiroKit;
-import com.jfeat.am.module.evaluation.services.definition.EvaluationType;
-import com.jfeat.am.module.evaluation.services.request.IdsRequest;
 import com.jfeat.am.module.evaluation.api.permission.EvaluationPermission;
 import com.jfeat.am.module.evaluation.services.crud.filter.StockEvaluationFilter;
+import com.jfeat.am.module.evaluation.services.definition.EvaluationType;
 import com.jfeat.am.module.evaluation.services.domain.dao.QueryStockEvaluationDao;
 import com.jfeat.am.module.evaluation.services.domain.model.StockEvaluationModel;
 import com.jfeat.am.module.evaluation.services.domain.model.record.StockEvaluationRecord;
 import com.jfeat.am.module.evaluation.services.domain.model.record.StockEvaluationStarRecord;
 import com.jfeat.am.module.evaluation.services.domain.service.StockEvaluationService;
+import com.jfeat.am.module.evaluation.services.model.StockEvaluationRecord2;
+import com.jfeat.am.module.evaluation.services.persistence.model.StockEvaluationStar;
+import com.jfeat.am.module.evaluation.services.request.IdsRequest;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.notification.services.crud.service.SubscriptionService;
 import com.jfeat.am.module.notification.services.crud.service.UserNotifyService;
 import com.jfeat.am.module.notification.services.persistence.model.Notify;
+import com.jfeat.am.module.order.services.gen.persistence.dao.OrderItemMapper;
+import com.jfeat.am.module.order.services.gen.persistence.dao.OrderMapper;
+import com.jfeat.am.module.order.services.gen.persistence.model.Order;
+import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
+import com.jfeat.crud.plus.CRUD;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.dao.DuplicateKeyException;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -59,6 +68,11 @@ public class CMSEvaluationEndpoint extends BaseController {
     @Resource
     QueryStockEvaluationDao queryStockEvaluationDao;
 
+    @Resource
+    private OrderItemMapper orderItemMapper;
+
+    @Resource
+    private OrderMapper orderMapper;
 
 
     /**
@@ -155,7 +169,7 @@ public class CMSEvaluationEndpoint extends BaseController {
                                      @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                      @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                      @RequestParam(name = "stockId", required = false) Long stockId,
-                                     @RequestParam(name = "stockType", required = false) String stockType,
+                                     @RequestParam(name = "stockType", required = false,defaultValue = "Product") String stockType,
                                      @RequestParam(name = "createTime", required = false) Date createTime,
                                      @RequestParam(name = "orderBy", required = false) String orderBy,
                                      @RequestParam(name = "sort", required = false) String sort,
@@ -194,9 +208,28 @@ public class CMSEvaluationEndpoint extends BaseController {
         record.setOriginId(originId);
         record.setIsDisplay(isDisplay);
         if(isLayered) {
-            page.setRecords(stockEvaluationService.evaluationsOnLayered(page, record, orderBy,memberId));
+            page.setRecords(null/*stockEvaluationService.evaluationsOnLayered(page, record, orderBy,memberId)*/);
         } else {
-            page.setRecords(stockEvaluationService.evaluations(page, record, orderBy,memberId));
+            List<StockEvaluationRecord> evaluations = stockEvaluationService.evaluations(page, record, orderBy, memberId);
+            List<StockEvaluationRecord> evaluationRecord2s = new ArrayList<>();
+            for (StockEvaluationRecord evaluationRecord : evaluations ){
+                Order order = orderMapper.selectOne(new Order().setOrderNumber(evaluationRecord.getTradeNumber()));
+                List<OrderItem> orderItemList = orderItemMapper.selectList(new EntityWrapper<OrderItem>().eq("order_id", order.getId()));
+                String[] productNames = new String[orderItemList.size()];
+                for (int i = 0; i < orderItemList.size() ; i++) {
+                    productNames[i] = orderItemList.get(i).getProductName();
+                }
+                Integer commentStar = null;
+                List<StockEvaluationStar> stockEvaluationStars = evaluationRecord.getStockEvaluationStars();
+                if(!CollectionUtils.isEmpty(stockEvaluationStars)){
+                    commentStar = stockEvaluationStars.get(0).getStarValue();
+                }
+                StockEvaluationRecord2 stockEvaluationRecord2 = CRUD.castObject(evaluationRecord, StockEvaluationRecord2.class);
+                stockEvaluationRecord2.setCommentStar(commentStar);
+                stockEvaluationRecord2.setProductNames(productNames);
+                evaluationRecord2s.add(stockEvaluationRecord2);
+            }
+            page.setRecords(evaluationRecord2s);
         }
         return SuccessTip.create(page);
     }
