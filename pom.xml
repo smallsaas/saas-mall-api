@@ -17,6 +17,28 @@
     <packaging>jar</packaging>
 
     <dependencies>
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>sb-notification</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>sb-account</artifactId>
+                </exclusion>
+            </exclusions>
+            <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>stock-evaluation</artifactId>
+            <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>sb-account</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
         <dependency>
             <groupId>com.jfeat</groupId>
