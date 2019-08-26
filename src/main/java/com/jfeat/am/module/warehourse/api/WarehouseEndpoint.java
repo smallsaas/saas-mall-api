@@ -1,12 +1,12 @@
-package com.jfeat.am.module.store.api;
+package com.jfeat.am.module.warehourse.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.log.annotation.BusinessLog;
-import com.jfeat.am.module.store.services.domain.model.WarehouseRecord;
-import com.jfeat.am.module.store.services.domain.service.WarehouseService;
-import com.jfeat.am.module.store.services.gen.persistence.model.Warehouse;
+import com.jfeat.am.module.warehourse.services.domain.model.WarehouseRecord;
+import com.jfeat.am.module.warehourse.services.domain.service.WarehouseService;
+import com.jfeat.am.module.warehourse.services.gen.persistence.model.Warehouse;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;

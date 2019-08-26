@@ -1,14 +1,11 @@
-package com.jfeat.am.module.store.services.gen.crud.service.impl;
+package com.jfeat.am.module.warehourse.services.gen.crud.service.impl;
             
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.jfeat.crud.plus.FIELD;
-import com.jfeat.am.module.store.services.gen.persistence.model.Warehouse;
-import com.jfeat.am.module.store.services.gen.persistence.dao.WarehouseMapper;
-import com.jfeat.am.module.store.services.gen.crud.service.CRUDWarehouseService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.jfeat.am.module.warehourse.services.gen.persistence.model.Warehouse;
+import com.jfeat.am.module.warehourse.services.gen.persistence.dao.WarehouseMapper;
+import com.jfeat.am.module.warehourse.services.gen.crud.service.CRUDWarehouseService;
 import org.springframework.stereotype.Service;
-import com.jfeat.crud.base.exception.BusinessCode;
-import com.jfeat.crud.base.exception.BusinessException;
+
 import javax.annotation.Resource;
 import com.jfeat.crud.plus.impl.CRUDServiceOnlyImpl;
 

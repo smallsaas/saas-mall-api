@@ -1,10 +1,10 @@
-package com.jfeat.am.module.store.services.domain.service.impl;
+package com.jfeat.am.module.warehourse.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.module.store.services.domain.dao.QueryWarehouseDao;
-import com.jfeat.am.module.store.services.domain.model.WarehouseRecord;
-import com.jfeat.am.module.store.services.domain.service.WarehouseService;
-import com.jfeat.am.module.store.services.gen.crud.service.impl.CRUDWarehouseServiceImpl;
+import com.jfeat.am.module.warehourse.services.domain.dao.QueryWarehouseDao;
+import com.jfeat.am.module.warehourse.services.domain.model.WarehouseRecord;
+import com.jfeat.am.module.warehourse.services.domain.service.WarehouseService;
+import com.jfeat.am.module.warehourse.services.gen.crud.service.impl.CRUDWarehouseServiceImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

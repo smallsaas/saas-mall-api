@@ -1,7 +1,7 @@
-package com.jfeat.am.module.store.services.domain.filter;
+package com.jfeat.am.module.warehourse.services.domain.filter;
 
 import com.jfeat.crud.plus.CRUDFilter;
-import com.jfeat.am.module.store.services.gen.persistence.model.Warehouse;
+import com.jfeat.am.module.warehourse.services.gen.persistence.model.Warehouse;
 
 
 /**

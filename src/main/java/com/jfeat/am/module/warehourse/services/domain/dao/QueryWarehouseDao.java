@@ -1,11 +1,11 @@
-package com.jfeat.am.module.store.services.domain.dao;
+package com.jfeat.am.module.warehourse.services.domain.dao;
 
-import com.jfeat.am.module.store.services.domain.model.WarehouseRecord;
+import com.jfeat.am.module.warehourse.services.domain.model.WarehouseRecord;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
-import com.jfeat.am.module.store.services.gen.persistence.model.Warehouse;
+import com.jfeat.am.module.warehourse.services.gen.persistence.model.Warehouse;
 import java.util.Date;
 import java.util.List;
 

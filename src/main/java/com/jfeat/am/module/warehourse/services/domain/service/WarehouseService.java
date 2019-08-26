@@ -1,8 +1,8 @@
-package com.jfeat.am.module.store.services.domain.service;
+package com.jfeat.am.module.warehourse.services.domain.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.module.store.services.domain.model.WarehouseRecord;
-import com.jfeat.am.module.store.services.gen.crud.service.CRUDWarehouseService;
+import com.jfeat.am.module.warehourse.services.domain.model.WarehouseRecord;
+import com.jfeat.am.module.warehourse.services.gen.crud.service.CRUDWarehouseService;
 
 import java.util.Date;
 import java.util.List;

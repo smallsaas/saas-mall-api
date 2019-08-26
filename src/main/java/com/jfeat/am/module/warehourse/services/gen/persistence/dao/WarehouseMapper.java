@@ -1,6 +1,6 @@
-package com.jfeat.am.module.store.services.gen.persistence.dao;
+package com.jfeat.am.module.warehourse.services.gen.persistence.dao;
 
-import com.jfeat.am.module.store.services.gen.persistence.model.Warehouse;
+import com.jfeat.am.module.warehourse.services.gen.persistence.model.Warehouse;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**

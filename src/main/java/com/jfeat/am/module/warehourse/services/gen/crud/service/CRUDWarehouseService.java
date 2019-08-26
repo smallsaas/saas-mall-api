@@ -1,6 +1,6 @@
-package com.jfeat.am.module.store.services.gen.crud.service;
+package com.jfeat.am.module.warehourse.services.gen.crud.service;
             import com.jfeat.crud.plus.CRUDServiceOnly;
-import com.jfeat.am.module.store.services.gen.persistence.model.Warehouse;
+import com.jfeat.am.module.warehourse.services.gen.persistence.model.Warehouse;
 
 /**
  * <p>
