@@ -139,6 +139,9 @@ public class CMSEvaluationEndpoint extends BaseController {
         StockEvaluationRecord record = new StockEvaluationRecord();
         record.setId(id);
         List<StockEvaluationRecord> evaluations = stockEvaluationService.evaluations(page, record, null, memberId);
+        if(CollectionUtils.isEmpty(evaluations)){
+            throw new BusinessException(BusinessCode.BadRequest);
+        }
         StockEvaluationRecord evaluationRecord = evaluations.get(0);
         Order order = orderMapper.selectOne(new Order().setOrderNumber(evaluationRecord.getTradeNumber()));
         List<OrderItem> orderItemList = orderItemMapper.selectList(new EntityWrapper<OrderItem>().eq("order_id", order.getId()));
