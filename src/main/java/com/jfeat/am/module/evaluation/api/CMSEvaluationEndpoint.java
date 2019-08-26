@@ -134,7 +134,29 @@ public class CMSEvaluationEndpoint extends BaseController {
     @GetMapping("/evaluations/{id}")
     @ApiOperation("查看评价")
     public Tip getStockEvaluation(@PathVariable Long id) {
-        return SuccessTip.create(stockEvaluationService.retrieveMaster(id, null, null, null));
+        Page<StockEvaluationRecord> page = new Page<StockEvaluationRecord>();
+        Long memberId = JWTKit.getUserId(getHttpServletRequest());
+        StockEvaluationRecord record = new StockEvaluationRecord();
+        record.setId(id);
+        List<StockEvaluationRecord> evaluations = stockEvaluationService.evaluations(page, record, null, memberId);
+        StockEvaluationRecord evaluationRecord = evaluations.get(0);
+        Order order = orderMapper.selectOne(new Order().setOrderNumber(evaluationRecord.getTradeNumber()));
+        List<OrderItem> orderItemList = orderItemMapper.selectList(new EntityWrapper<OrderItem>().eq("order_id", order.getId()));
+        String[] productNames = new String[orderItemList.size()];
+        for (int i = 0; i < orderItemList.size() ; i++) {
+            productNames[i] = orderItemList.get(i).getProductName();
+        }
+        Integer commentStar = null;
+        List<StockEvaluationStar> stockEvaluationStars = evaluationRecord.getStockEvaluationStars();
+        if(!CollectionUtils.isEmpty(stockEvaluationStars)){
+            commentStar = stockEvaluationStars.get(0).getStarValue();
+        }
+        StockEvaluationRecord2 stockEvaluationRecord2 = CRUD.castObject(evaluationRecord, StockEvaluationRecord2.class);
+        stockEvaluationRecord2.setCommentStar(commentStar);
+        stockEvaluationRecord2.setProductNames(productNames);
+
+        /*CRUDObject<StockEvaluationModel> stockEvaluationModelCRUDObject = stockEvaluationService.retrieveMaster(id, null, null, null);*/
+        return SuccessTip.create(stockEvaluationRecord2);
     }
 
     @BusinessLog(name = "StockEvaluation", value = "update StockEvaluation")
