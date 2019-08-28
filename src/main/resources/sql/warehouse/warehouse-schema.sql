@@ -322,7 +322,7 @@ CREATE TABLE `wms_sales` (
   `sales_others_payment` decimal(12,4) DEFAULT NULL COMMENT '销售订单其他支出',
   `sales_discount` int(11) DEFAULT NULL COMMENT '销售订单折扣',
   `sales_total` decimal(12,4) NOT NULL COMMENT '销售订单花费',
-  `total_count` int NOT NULL COMMENT 'product count',
+  `total_count` int NOT NULL COMMENT 'frontproduct count',
   `sales_time` datetime NOT NULL default current_timestamp COMMENT '销售订单时间',
   `sales_note` text COMMENT '销售订单备注',
   `sales_status` varchar(26) DEFAULT NULL COMMENT '销售订单状态',

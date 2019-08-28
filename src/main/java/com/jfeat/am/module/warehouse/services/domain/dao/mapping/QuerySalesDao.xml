@@ -1,0 +1,386 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.warehouse.services.domain.dao.QuerySalesDao">
+    <sql id="Base_Column_List">
+        wms_sales.*
+    </sql>
+
+    <!-- 单个sku所需要的总出库数total count-->
+    <select id="totalSkuCount" resultType="int">
+        SELECT
+            sum(wms_storage_out_item.transaction_quantities) AS totalCount
+        FROM
+            wms_storage_out_item
+        WHERE wms_storage_out_item.storage_out_id=#{salesId}
+            AND wms_storage_out_item.sku_id =#{skuId}
+            AND wms_storage_out_item.type='TRADER'
+    </select>
+
+    <!-- 单个sku已经完成的出库数-->
+    <select id="finishedCount" resultType="int">
+        SELECT
+        SUM(wms_storage_out_item.transaction_quantities) AS finishedCount
+        FROM
+        wms_storage_out_item
+        LEFT JOIN wms_storage_out on
+                                    (wms_storage_out.id = wms_storage_out_item.storage_out_id
+                                    AND wms_storage_out_item.type='STORAGEOUT'
+                                    and wms_storage_out.`status`='Done')
+        LEFT JOIN wms_sales ON (wms_storage_out.sales_id = wms_sales.id and wms_storage_out.transaction_type = 'CustomerStorageOut')
+        WHERE wms_sales.id=#{salesId}
+        AND wms_storage_out_item.sku_id=#{skuId}
+    </select>
+
+    <!-- 单个订单已经完成的总出库数-->
+    <select id="finishedTotalCount" resultType="int">
+        SELECT
+        SUM(wms_storage_out_item.transaction_quantities) AS finishedCount
+        FROM
+        wms_storage_out_item
+        LEFT JOIN wms_storage_out on
+        (wms_storage_out.id = wms_storage_out_item.storage_out_id
+        AND wms_storage_out_item.type='STORAGEOUT'
+        and wms_storage_out.`status`='Done')
+        LEFT JOIN wms_sales ON (wms_storage_out.sales_id = wms_sales.id and wms_storage_out.transaction_type = 'CustomerStorageOut')
+        WHERE wms_sales.id=#{salesId}
+    </select>
+
+    <!-- 已经完成审核但未出库的出库数-->
+    <select id="auditStorageOutPass" resultType="int">
+        SELECT
+        SUM(wms_storage_out_item.transaction_quantities) AS finishedCount
+        FROM
+        wms_storage_out_item
+        LEFT JOIN wms_storage_out on
+        (wms_storage_out.id = wms_storage_out_item.storage_out_id
+        AND wms_storage_out_item.type='STORAGEOUT'
+        and wms_storage_out.`status`='Audit_Passed')
+        LEFT JOIN wms_sales ON
+            (
+                wms_storage_out.sales_id = wms_sales.id
+                and wms_storage_out.transaction_type = 'CustomerStorageOut'
+            )
+        WHERE wms_sales.id=#{salesId}
+        AND wms_storage_out_item.sku_id=#{skuId}
+    </select>
+
+    <!-- 待审核的出库数-->
+    <select id="auditStorageOutCount" resultType="int">
+        SELECT
+            SUM(wms_storage_out_item.transaction_quantities) AS finishedCount
+        FROM
+            wms_storage_out_item
+            LEFT JOIN wms_storage_out on
+            (wms_storage_out.id = wms_storage_out_item.storage_out_id
+                AND wms_storage_out_item.type='STORAGEOUT'
+                and wms_storage_out.`status`='Wait_To_Audit')
+        LEFT JOIN wms_sales ON (wms_storage_out.sales_id = wms_sales.id and wms_storage_out.transaction_type = 'CustomerStorageOut')
+        WHERE wms_sales.id=#{salesId}
+        AND wms_storage_out_item.sku_id=#{skuId}
+    </select>
+
+    <!-- 单个分销商出库单的所需要的出库商品总数-->
+    <select id="totalCount" resultType="int">
+        SELECT
+        SUM(wms_storage_out_item.transaction_quantities) AS finishedCount
+        FROM
+        wms_storage_out_item
+
+            LEFT JOIN wms_sales ON
+                (
+                    wms_storage_out_item.storage_out_id = wms_sales.id
+                    and wms_storage_out_item.type = 'TRADER'
+                )
+        WHERE wms_sales.id=#{salesId}
+    </select>
+
+
+    <!--has been not storageOut yet-->
+    <select id="skuSalesCount" resultType="int">
+        SELECT wms_storage_out_item.transaction_quantities AS outCount
+        FROM wms_storage_out_item
+        LEFT JOIN wms_sales on
+        (wms_sales.id=wms_storage_out_item.storage_out_id
+        AND wms_storage_out_item.type='CustomerStorageOut')
+        WHERE wms_sales.id=#{salesId}
+        AND wms_storage_out_item.sku_id=#{skuId}
+    </select>
+
+
+    <!--has been storageOut-->
+    <select id="skuSalesOutCount" resultType="int">
+        SELECT
+        SUM(wms_storage_out_item.transaction_quantities) AS storageOutCount
+        FROM
+        wms_storage_out_item
+        LEFT JOIN wms_storage_out on
+        (wms_storage_out.id = wms_storage_out_item.storage_out_id
+        AND wms_storage_out_item.type = 'Others')
+        LEFT JOIN wms_sales ON (
+        wms_sales.id = wms_storage_out.sales_id
+        AND wms_storage_out.transaction_type = 'CustomerStorageOut'
+        )
+        WHERE wms_sales.id = #{salesId}
+        AND wms_storage_out_item.sku_id = #{skuId}
+    </select>
+
+
+    <!--  SalesStorageOutDetails-->
+    <resultMap id="SalesDetails" type="com.jfeat.am.module.warehouse.services.domain.model.SalesDetails">
+        <id column="id" property="id"/>
+        <result column="sales_code" property="salesCode"/>
+        <result column="trader_id" property="traderId"/>
+        <result column="sales_others_payment" property="salesOthersPayment"/>
+        <result column="sales_discount" property="salesDiscount"/>
+        <result column="sales_total" property="salesTotal"/>
+        <result column="sales_time" property="salesTime"/>
+        <result column="sales_note" property="salesNote"/>
+        <result column="sales_status" property="salesStatus"/>
+        <result column="transaction_by" property="transactionBy"/>
+        <result column="originator_id" property="originatorId"/>
+        <result column="originator_name" property="originatorName"/>
+        <result column="transaction_time" property="transactionTime"/>
+        <result column="field1" property="field1"/>
+        <result column="field2" property="field2"/>
+        <result column="delivered_address" property="deliveredAddress"/>
+        <result column="traderName" property="traderName"/>
+        <result column="traderContactPhone" property="traderContactPhone"/>
+        <result column="traderContactName" property="traderContactName"/>
+
+
+        <collection property="outItems"
+                    column="id"
+                    select="items"
+                    ofType="com.jfeat.am.module.warehouse.services.domain.model.StorageOutItemRecord">
+
+        </collection>
+
+
+
+    </resultMap>
+
+
+    <select id="salesDetails" resultMap="SalesDetails">
+        SELECT wms_sales.*,
+        wms_trader.trader_name as traderName,
+        wms_trader.trader_contact_phone as traderContactPhone,
+        wms_trader.trader_contact_name as traderContactName
+        FROM wms_sales
+        left JOIN wms_trader on wms_trader.id = wms_sales.trader_id
+        WHERE 1=1
+        and wms_sales.id = #{id}
+    </select>
+
+    <resultMap id="ItemRecord" type="com.jfeat.am.module.warehouse.services.domain.model.StorageOutItemRecord">
+        <id column="id" property="id"/>
+        <result column="storage_out_id" property="storageOutId"/>
+        <result column="sku_id" property="skuId"/>
+        <result column="transaction_sku_price" property="transactionSkuPrice"/>
+        <result column="transaction_quantities" property="transactionQuantities"/>
+        <result column="transaction_time" property="transactionTime"/>
+        <result column="warehouse_id" property="warehouseId"/>
+        <result column="slot_id" property="slotId"/>
+        <result column="demand_quantities" property="demandQuantities" />
+
+        <result column="skuName" property="skuName"/>
+        <result column="skuBarcode" property="skuBarcode"/>
+        <result column="skuCode" property="skuCode"/>
+        <result column="skuUnit" property="skuUnit"/>
+        <result column="finishedCount" property="finishedCount"/>
+
+    </resultMap>
+    <select id="items" resultMap="ItemRecord" parameterType="long">
+        SELECT wms_storage_out_item.*,
+        t_sku_product.sku_code as skuCode,
+        t_sku_product.bar_code as skuBarcode,
+        t_sku_product.sku_name as skuName,
+        t_sku_product.field1 as skuUnit
+        FROM wms_storage_out_item
+
+        left join wms_sales on
+        (wms_storage_out_item.storage_out_id = wms_sales.id
+        and wms_storage_out_item.type='TRADER')
+
+        LEFT JOIN t_sku_product ON wms_storage_out_item.sku_id = t_sku_product.id
+
+
+        WHERE
+        wms_sales.id = #{id}
+
+    </select>
+
+    <resultMap id="BaseStorageOutRecord" type="com.jfeat.am.module.warehouse.services.domain.model.StorageOutRecord">
+        <id column="id" property="id"/>
+        <result column="transaction_code" property="transactionCode"/>
+        <result column="transaction_type" property="transactionType"/>
+        <result column="transaction_time" property="transactionTime"/>
+        <result column="storage_out_time" property="storageOutTime"/>
+        <result column="batch_no" property="batchNo"/>
+        <result column="note" property="note"/>
+        <result column="status" property="status"/>
+        <result column="transaction_by" property="transactionBy"/>
+        <result column="originator_id" property="originatorId"/>
+        <result column="originator_name" property="originatorName"/>
+        <result column="warehouse_id" property="warehouseId"/>
+        <result column="slot_id" property="slotId"/>
+        <result column="field1" property="field1"/>
+        <result column="field2" property="field2"/>
+        <result column="out_order_num" property="outOrderNum"/>
+        <result column="distributor_customer" property="distributorCustomer"/>
+
+        <result column="warehouseName" property="warehouseName"/>
+        <result column="operatorName" property="operatorName"/>
+        <result column="slotName" property="slotName"/>
+
+        <collection property="storageOutItems"
+                    column="id"
+                    select="storageOutItems"
+                    ofType="com.jfeat.am.module.warehouse.services.domain.model.StorageOutItemRecord">
+
+        </collection>
+
+    </resultMap>
+    <select id="storagesOutDetails" resultMap="BaseStorageOutRecord" parameterType="long">
+        SELECT wms_storage_out.*,
+        wms_warehouse.warehouse_name as warehouseName,
+        wms_warehouse_slot.slot_name as slotName
+
+        FROM wms_storage_out
+        left join wms_warehouse on wms_warehouse.id = wms_storage_out.warehouse_id
+        left join wms_warehouse_slot on wms_warehouse_slot.id = wms_storage_out.slot_id
+        WHERE 1=1
+        AND wms_storage_out.id = #{id}
+    </select>
+
+    <resultMap id="BaseStorageOutItemRecord"
+               type="com.jfeat.am.module.warehouse.services.domain.model.StorageOutItemRecord">
+        <id column="id" property="id"/>
+        <result column="storage_out_id" property="storageOutId"/>
+        <result column="sku_id" property="skuId"/>
+        <result column="transaction_sku_price" property="transactionSkuPrice"/>
+        <result column="transaction_quantities" property="transactionQuantities"/>
+        <result column="transaction_time" property="transactionTime"/>
+        <result column="warehouse_id" property="warehouseId"/>
+        <result column="slot_id" property="slotId"/>
+        <result column="demand_quantities" property="demandQuantities" />
+
+
+        <result column="skuName" property="skuName"/>
+        <result column="skuBarcode" property="skuBarcode"/>
+        <result column="skuCode" property="skuCode"/>
+        <result column="skuUnit" property="skuUnit"/>
+        <result column="finishedCount" property="finishedCount"/>
+
+
+    </resultMap>
+
+    <select id="storageOutItems" parameterType="long" resultMap="BaseStorageOutItemRecord">
+        SELECT wms_storage_out_item.*,
+        t_sku_product.sku_code as skuCode,
+        t_sku_product.bar_code as skuBarcode,
+        t_sku_product.sku_name as skuName,
+        t_sku_product.field1 as skuUnit
+        FROM wms_storage_out_item
+
+        left join wms_storage_out on
+        (wms_storage_out_item.storage_out_id = wms_storage_out.id
+        and wms_storage_out_item.type='STORAGEOUT')
+
+        LEFT JOIN t_sku_product ON wms_storage_out_item.sku_id = t_sku_product.id
+
+
+        WHERE
+        wms_storage_out.id = #{id}
+
+    </select>
+
+
+    <resultMap id="BaseResultSalesMap" type="com.jfeat.am.module.warehouse.services.domain.model.SalesRecord">
+        <id column="id" property="id"/>
+        <result column="sales_code" property="salesCode"/>
+        <result column="trader_id" property="traderId"/>
+        <result column="sales_others_payment" property="salesOthersPayment"/>
+        <result column="sales_discount" property="salesDiscount"/>
+        <result column="sales_total" property="salesTotal"/>
+        <result column="sales_time" property="salesTime"/>
+        <result column="sales_note" property="salesNote"/>
+        <result column="sales_status" property="salesStatus"/>
+        <result column="transaction_by" property="transactionBy"/>
+        <result column="originator_id" property="originatorId"/>
+        <result column="originator_name" property="originatorName"/>
+        <result column="transaction_time" property="transactionTime"/>
+        <result column="field1" property="field1"/>
+        <result column="field2" property="field2"/>
+        <result column="traderName" property="traderName"/>
+    </resultMap>
+
+    <select id="findSalesPage" resultMap="BaseResultSalesMap"
+            parameterType="com.jfeat.am.module.warehouse.services.domain.model.SalesRecord">
+        SELECT wms_sales.sales_code,
+        wms_sales.id,
+        wms_sales.sales_total,
+        wms_sales.total_count,
+        wms_sales.transaction_time,
+        wms_sales.sales_status,
+        wms_trader.trader_name as traderName
+        FROM wms_sales
+        left JOIN wms_trader on wms_trader.id = wms_sales.trader_id
+        WHERE 1=1
+
+        <if test="traderName != null and traderName!= ''">
+            AND wms_trader.trader_name LIKE CONCAT('%',#{traderName},'%')
+        </if>
+
+        <if test="record.salesCode != null and record.salesCode!= ''">
+            AND wms_sales.sales_code LIKE CONCAT('%',#{record.salesCode},'%')
+        </if>
+        <if test="record.traderId != null and record.traderId>0 ">
+            AND wms_sales.trader_id LIKE CONCAT('%',#{record.traderId},'%')
+        </if>
+        <if test="record.salesOthersPayment != null and record.salesOthersPayment>0 ">
+            AND wms_sales.sales_others_payment LIKE CONCAT('%',#{record.salesOthersPayment},'%')
+        </if>
+        <if test="record.salesDiscount != null and record.salesDiscount>0 ">
+            AND wms_sales.sales_discount LIKE CONCAT('%',#{record.salesDiscount},'%')
+        </if>
+        <if test="record.salesTotal != null and record.salesTotal>0 ">
+            AND wms_sales.sales_total LIKE CONCAT('%',#{record.salesTotal},'%')
+        </if>
+        <if test="record.salesTime != null and record.salesTime>0 ">
+            AND wms_sales.sales_time LIKE CONCAT('%',#{record.salesTime},'%')
+        </if>
+        <if test="record.salesNote != null and record.salesNote!= ''">
+            AND wms_sales.sales_note LIKE CONCAT('%',#{record.salesNote},'%')
+        </if>
+        <if test="record.salesStatus != null and record.salesStatus!= ''">
+            AND wms_sales.sales_status LIKE CONCAT('%',#{record.salesStatus},'%')
+        </if>
+        <if test="record.transactionBy != null and record.transactionBy!= ''">
+            AND wms_sales.transaction_by LIKE CONCAT('%',#{record.transactionBy},'%')
+        </if>
+        <if test="record.originatorId != null and record.originatorId>0 ">
+            AND wms_sales.originator_id LIKE CONCAT('%',#{record.originatorId},'%')
+        </if>
+        <if test="record.originatorName != null and record.originatorName!= ''">
+            AND wms_sales.originator_name LIKE CONCAT('%',#{record.originatorName},'%')
+        </if>
+
+
+        <if test="startTime != null and endTime != null">
+            <![CDATA[
+                AND wms_sales.transaction_time >= date(#{startTime}) AND
+                wms_sales.transaction_time < DATE_ADD(date(#{endTime}),INTERVAL 1 DAY)
+            ]]>
+        </if>
+
+
+        <if test="record.field1 != null and record.field1!= ''">
+            AND wms_sales.field1 LIKE CONCAT('%',#{record.field1},'%')
+        </if>
+        <if test="record.field2 != null and record.field2!= ''">
+            AND wms_sales.field2 LIKE CONCAT('%',#{record.field2},'%')
+        </if>
+
+        order by wms_sales.transaction_time DESC
+    </select>
+</mapper>

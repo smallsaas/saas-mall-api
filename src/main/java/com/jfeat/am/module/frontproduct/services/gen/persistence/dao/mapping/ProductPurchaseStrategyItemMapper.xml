@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.gen.persistence.dao.ProductPurchaseStrategyItemMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductPurchaseStrategyItem">
+		<id column="id" property="id" />
+		<result column="strategy_id" property="strategyId" />
+		<result column="name" property="name" />
+		<result column="operator" property="operator" />
+		<result column="sort_order" property="sortOrder" />
+		<result column="param" property="param" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, strategy_id AS strategyId, name, operator, sort_order AS sortOrder, param
+    </sql>
+
+</mapper>

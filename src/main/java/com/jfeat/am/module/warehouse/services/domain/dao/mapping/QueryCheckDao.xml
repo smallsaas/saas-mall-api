@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.warehouse.services.domain.dao.QueryCheckDao">
+    <sql id="Base_Column_List">
+        wms_check.*
+    </sql>
+    <select id="findCheckPage" resultType="com.jfeat.am.module.warehouse.services.domain.model.CheckRecord"
+            parameterType="CheckRecord">
+        SELECT wms_check.*,
+        wms_warehouse.warehouse_name as warehouseName
+        FROM wms_check
+        left join wms_warehouse on wms_warehouse.id = wms_check.warehouse_id
+        WHERE 1=1
+        <if test="record.id != null and record.id>0 ">
+            AND wms_check.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+
+        <if test="warehouseId != null and warehouseId >0 ">
+            AND wms_warehouse.id = #{warehouseId}
+        </if>
+
+        <if test="record.checkCode != null and record.checkCode!= ''">
+            AND wms_check.check_code LIKE CONCAT('%',#{record.checkCode},'%')
+        </if>
+
+        <if test="record.checkTime != null and record.checkTime>0 ">
+            AND wms_check.check_time LIKE CONCAT('%',#{record.checkTime},'%')
+        </if>
+
+        <if test="record.profitLost != null and record.profitLost>0 ">
+            AND wms_check.profit_lost LIKE CONCAT('%',#{record.profitLost},'%')
+        </if>
+
+        <if test="record.checkNote != null and record.checkNote!= ''">
+            AND wms_check.check_note LIKE CONCAT('%',#{record.checkNote},'%')
+        </if>
+
+        <if test="record.transactionBy != null and record.transactionBy!= ''">
+            AND wms_check.transaction_by LIKE CONCAT('%',#{record.transactionBy},'%')
+        </if>
+
+        <if test="record.originatorId != null and record.originatorId>0 ">
+            AND wms_check.originator_id LIKE CONCAT('%',#{record.originatorId},'%')
+        </if>
+        <if test="record.field1 != null and record.field1!= ''">
+            AND wms_check.field1 LIKE CONCAT('%',#{record.field1},'%')
+        </if>
+        <if test="record.field2 != null and record.field2!= ''">
+            AND wms_check.field2 LIKE CONCAT('%',#{record.field2},'%')
+        </if>
+
+        order by wms_check.check_time DESC
+    </select>
+
+
+    <resultMap id="SkuRecords" type="com.jfeat.am.module.warehouse.services.domain.model.CheckSkuRecord">
+        <id column="id" property="id"/>
+        <result column="check_id" property="checkId"/>
+        <result column="sku_id" property="skuId"/>
+        <result column="warehouse_id" property="warehouseId"/>
+
+        <result column="profit_lost" property="profitLost"/>
+        <result column="fact_quantities" property="factQuantities"/>
+        <result column="deservedQuantities" property="deservedQuantities"/>
+        <result column="field1" property="field1"/>
+        <result column="field2" property="field2"/>
+
+
+        <result column="skuName" property="skuName"/>
+        <result column="skuBarcode" property="skuBarcode"/>
+        <result column="skuCode" property="skuCode"/>
+        <result column="skuUnit" property="skuUnit"/>
+        <result column="warehouseName" property="warehouseName"/>
+
+    </resultMap>
+
+    <select id="skuRecords" resultMap="SkuRecords" parameterType="long">
+        SELECT
+        wms_check_sku.*,
+        t_sku_product.sku_name as skuName,
+        t_sku_product.bar_code as skuBarcode,
+        t_sku_product.sku_code as skuCode,
+        t_sku_product.field1 as skuUnit,
+        wms_warehouse.warehouse_name as warehouseName,
+        CASE
+            WHEN
+                wms_check.`status` = 'Draft'
+                THEN
+                (
+                    SELECT
+                    wms_inventory.valid_sku
+                    FROM
+                    wms_inventory
+                    WHERE
+                    wms_inventory.sku_id = wms_check_sku.sku_id
+                    AND wms_inventory.warehouse_id = wms_warehouse.id
+                )
+            ELSE wms_check_sku.deserved_quantities END AS deservedQuantities
+        FROM wms_check_sku
+        left join t_sku_product on t_sku_product.id = wms_check_sku.sku_id
+        left join wms_warehouse on wms_warehouse.id = wms_check_sku.warehouse_id
+        left join wms_check on wms_check.id = wms_check_sku.check_id
+        WHERE 1=1
+        and wms_check.id =#{checkId}
+
+    </select>
+
+
+</mapper>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FareTemplateMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.frontproduct.services.gen.persistence.model.FareTemplate">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="shop_addr" property="shopAddr" />
+		<result column="dispatch_time" property="dispatchTime" />
+		<result column="is_incl_postage" property="isInclPostage" />
+		<result column="valuation_model" property="valuationModel" />
+		<result column="is_incl_postage_by_if" property="isInclPostageByIf" />
+		<result column="last_modified_date" property="lastModifiedDate" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<result column="message_format" property="messageFormat" />
+		<result column="org_id" property="orgId" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, name, shop_addr AS shopAddr, dispatch_time AS dispatchTime, is_incl_postage AS isInclPostage, valuation_model AS valuationModel, is_incl_postage_by_if AS isInclPostageByIf, last_modified_date AS lastModifiedDate, title, content, message_format AS messageFormat,org_id AS orgId
+    </sql>
+
+</mapper>

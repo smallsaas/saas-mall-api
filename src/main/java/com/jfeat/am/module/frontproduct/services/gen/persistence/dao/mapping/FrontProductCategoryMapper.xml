@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductCategoryMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductCategory">
+		<id column="id" property="id" />
+		<result column="parent_id" property="parentId" />
+		<result column="name" property="name" />
+		<result column="description" property="description" />
+		<result column="cover" property="cover" />
+		<result column="sort_order" property="sortOrder" />
+		<result column="promoted" property="promoted" />
+		<result column="visible" property="visible" />
+		<result column="promoted_product_count" property="promotedProductCount" />
+		<result column="wholesale" property="wholesale" />
+		<result column="is_show_products" property="isShowProducts" />
+		<result column="org_id" property="orgId" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, parent_id AS parentId, name, description, cover, sort_order AS sortOrder, promoted, visible, promoted_product_count AS promotedProductCount, wholesale, is_show_products AS isShowProducts,org_id AS orgId
+    </sql>
+
+</mapper>

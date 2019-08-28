@@ -12,7 +12,7 @@ public class TestConfig {
     private ConfigOverModelEndpoint configOverModelEndpoint;
 
     @Resource
-    ProductCategoryService productCategoryService;*/
+    FrontProductCategoryService productCategoryService;*/
 
     /*@Test
     public void test(){
@@ -31,7 +31,7 @@ public class TestConfig {
     /*@Test
     public void test3(){
         String json = "{\"name\":\"111111\",\"isShowProducts\":1,\"wholesale\":1,\"visible\":1,\"sortOrder\":\"1\",\"description\":\"good\",\"productCategoryPropertyList\":[{\"displayName\":\"test1\",\"valueType\":\"STRING\",\"inputType\":\"INPUT_TEXT\",\"defaultValue\":\"good\",\"isRequired\":0,\"sortOrder\":\"1\"}]}";
-        ProductCategoryModel productCategoryModel = JSONObject.parseObject(json, ProductCategoryModel.class);
+        FrontProductCategoryModel productCategoryModel = JSONObject.parseObject(json, FrontProductCategoryModel.class);
         Integer affected = productCategoryService.createProductCategory(productCategoryModel);
         System.out.println(affected);
     }*/

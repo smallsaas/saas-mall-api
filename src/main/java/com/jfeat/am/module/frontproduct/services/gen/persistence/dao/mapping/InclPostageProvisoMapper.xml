@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.gen.persistence.dao.InclPostageProvisoMapper">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.frontproduct.services.gen.persistence.model.InclPostageProviso">
+		<id column="id" property="id" />
+		<result column="fare_id" property="fareId" />
+		<result column="region" property="region" />
+		<result column="piece_no" property="pieceNo" />
+		<result column="weight_no" property="weightNo" />
+		<result column="bulk_no" property="bulkNo" />
+		<result column="amount" property="amount" />
+		<result column="carry_way" property="carryWay" />
+		<result column="type" property="type" />
+	</resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, fare_id AS fareId, region, piece_no AS pieceNo, weight_no AS weightNo, bulk_no AS bulkNo, amount, carry_way AS carryWay, type
+    </sql>
+
+</mapper>

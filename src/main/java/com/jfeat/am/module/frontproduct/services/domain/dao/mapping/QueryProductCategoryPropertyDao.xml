@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductCategoryPropertyDao">
+                                                                                                                                                                                                                                                                                                                                                <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_category_property.id, t_product_category_property.category_id AS categoryId, t_product_category_property.display_name AS displayName, t_product_category_property.value_type AS valueType, t_product_category_property.input_type AS inputType, t_product_category_property.candidate_values AS candidateValues, t_product_category_property.default_value AS defaultValue, t_product_category_property.is_required AS isRequired, t_product_category_property.sort_order AS sortOrder
+    </sql>
+
+
+
+    <select id="findProductCategoryPropertyPage" resultType="ProductCategoryPropertyRecord" parameterType="ProductCategoryPropertyRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_product_category_property
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_product_category_property.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.categoryId != null and record.categoryId>0 ">
+                AND t_product_category_property.category_id LIKE CONCAT('%',#{record.categoryId},'%')
+            </if>
+                                                                                            <if test="record.displayName != null and record.displayName!= ''">
+                AND t_product_category_property.display_name LIKE CONCAT('%',#{record.displayName},'%')
+            </if>
+                                                                                            <if test="record.valueType != null and record.valueType!= ''">
+                AND t_product_category_property.value_type LIKE CONCAT('%',#{record.valueType},'%')
+            </if>
+                                                                                            <if test="record.inputType != null and record.inputType!= ''">
+                AND t_product_category_property.input_type LIKE CONCAT('%',#{record.inputType},'%')
+            </if>
+                                                                                            <if test="record.candidateValues != null and record.candidateValues!= ''">
+                AND t_product_category_property.candidate_values LIKE CONCAT('%',#{record.candidateValues},'%')
+            </if>
+                                                                                            <if test="record.defaultValue != null and record.defaultValue!= ''">
+                AND t_product_category_property.default_value LIKE CONCAT('%',#{record.defaultValue},'%')
+            </if>
+                                                                                            <if test="record.isRequired != null and record.isRequired>0 ">
+                AND t_product_category_property.is_required LIKE CONCAT('%',#{record.isRequired},'%')
+            </if>
+                                                                                            <if test="record.sortOrder != null and record.sortOrder>0 ">
+                AND t_product_category_property.sort_order LIKE CONCAT('%',#{record.sortOrder},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_product_category_property.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_product_category_property.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_product_category_property.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

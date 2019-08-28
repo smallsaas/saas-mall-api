@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 -- Table structure for t_product
 -- ----------------------------
-DROP TABLE IF EXISTS `t_product`;
+DROP TABLE IF EXISTS `t_front_product`;
 CREATE TABLE `t_product`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) NOT NULL,
@@ -83,7 +83,7 @@ CREATE TABLE `t_product_brand`  (
 -- ----------------------------
 -- Table structure for t_product_category
 -- ----------------------------
-DROP TABLE IF EXISTS `t_product_category`;
+DROP TABLE IF EXISTS `t_front_product_category`;
 CREATE TABLE `t_product_category`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) NULL DEFAULT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE `t_product_category`  (
   `org_id` bigint(20) NOT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parent_id`(`parent_id`) USING BTREE,
-  CONSTRAINT `t_product_category_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `t_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_category_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `t_front_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -118,7 +118,7 @@ CREATE TABLE `t_product_category_property`  (
   `sort_order` int(11) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE,
-  CONSTRAINT `t_product_category_property_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `t_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_category_property_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `t_front_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -131,7 +131,7 @@ CREATE TABLE `t_product_description`  (
   `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `t_product_description_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_description_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -147,7 +147,7 @@ CREATE TABLE `t_product_favorite`  (
   INDEX `user_id`(`user_id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
   CONSTRAINT `t_product_favorite_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `t_user` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `t_product_favorite_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_favorite_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -174,7 +174,7 @@ CREATE TABLE `t_product_image`  (
   `sort_order` int(11) NULL DEFAULT 1,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `t_product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_image_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 68 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -189,7 +189,7 @@ CREATE TABLE `t_product_property`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
   INDEX `property_id`(`property_id`) USING BTREE,
-  CONSTRAINT `t_product_property_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `t_product_property_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `t_product_property_ibfk_2` FOREIGN KEY (`property_id`) REFERENCES `t_product_category_property` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -229,7 +229,7 @@ CREATE TABLE `t_product_purchase_strategy_relation`  (
   `strategy_id` bigint(20) NOT NULL,
   PRIMARY KEY (`product_id`, `strategy_id`) USING BTREE,
   INDEX `strategy_id`(`strategy_id`) USING BTREE,
-  CONSTRAINT `t_product_purchase_strategy_relation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `t_product_purchase_strategy_relation_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `t_product_purchase_strategy_relation_ibfk_2` FOREIGN KEY (`strategy_id`) REFERENCES `t_product_purchase_strategy` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
@@ -246,7 +246,7 @@ CREATE TABLE `t_product_settlement_proportion`  (
   `level` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `t_product_settlement_proportion_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_settlement_proportion_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 330 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -269,7 +269,7 @@ CREATE TABLE `t_product_specification`  (
   `bar_code` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
-  CONSTRAINT `t_product_specification_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_specification_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -298,7 +298,7 @@ CREATE TABLE `t_product_tag_relation`  (
   INDEX `tag_id`(`tag_id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
   CONSTRAINT `t_product_tag_relation_ibfk_1` FOREIGN KEY (`tag_id`) REFERENCES `t_product_tag` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `t_product_tag_relation_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_product_tag_relation_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `t_front_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

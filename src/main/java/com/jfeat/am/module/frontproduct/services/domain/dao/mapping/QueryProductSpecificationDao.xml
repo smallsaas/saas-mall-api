@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSpecificationDao">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_specification.id, t_product_specification.product_id AS productId, t_product_specification.name, t_product_specification.stock_balance AS stockBalance, t_product_specification.price, t_product_specification.cost_price AS costPrice, t_product_specification.suggested_price AS suggestedPrice, t_product_specification.weight, t_product_specification.bulk, t_product_specification.sku_id AS skuId, t_product_specification.sku_name AS skuName, t_product_specification.sku_code AS skuCode, t_product_specification.bar_code AS barCode
+    </sql>
+
+
+
+    <select id="findProductSpecificationPage" resultType="ProductSpecificationRecord" parameterType="ProductSpecificationRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_product_specification
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_product_specification.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.productId != null and record.productId>0 ">
+                AND t_product_specification.product_id LIKE CONCAT('%',#{record.productId},'%')
+            </if>
+                                <if test="record.name != null and record.name!= ''">
+                AND t_product_specification.name LIKE CONCAT('%',#{record.name},'%')
+            </if>
+                                                                                            <if test="record.stockBalance != null and record.stockBalance>0 ">
+                AND t_product_specification.stock_balance LIKE CONCAT('%',#{record.stockBalance},'%')
+            </if>
+                                <if test="record.price != null and record.price>0 ">
+                AND t_product_specification.price LIKE CONCAT('%',#{record.price},'%')
+            </if>
+                                                                                            <if test="record.costPrice != null and record.costPrice>0 ">
+                AND t_product_specification.cost_price LIKE CONCAT('%',#{record.costPrice},'%')
+            </if>
+                                                                                            <if test="record.suggestedPrice != null and record.suggestedPrice>0 ">
+                AND t_product_specification.suggested_price LIKE CONCAT('%',#{record.suggestedPrice},'%')
+            </if>
+                                <if test="record.weight != null and record.weight>0 ">
+                AND t_product_specification.weight LIKE CONCAT('%',#{record.weight},'%')
+            </if>
+                                <if test="record.bulk != null and record.bulk>0 ">
+                AND t_product_specification.bulk LIKE CONCAT('%',#{record.bulk},'%')
+            </if>
+                                                                                            <if test="record.skuId != null and record.skuId!= ''">
+                AND t_product_specification.sku_id LIKE CONCAT('%',#{record.skuId},'%')
+            </if>
+                                                                                            <if test="record.skuName != null and record.skuName!= ''">
+                AND t_product_specification.sku_name LIKE CONCAT('%',#{record.skuName},'%')
+            </if>
+                                                                                            <if test="record.skuCode != null and record.skuCode!= ''">
+                AND t_product_specification.sku_code LIKE CONCAT('%',#{record.skuCode},'%')
+            </if>
+                                                                                            <if test="record.barCode != null and record.barCode!= ''">
+                AND t_product_specification.bar_code LIKE CONCAT('%',#{record.barCode},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_product_specification.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_product_specification.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_product_specification.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

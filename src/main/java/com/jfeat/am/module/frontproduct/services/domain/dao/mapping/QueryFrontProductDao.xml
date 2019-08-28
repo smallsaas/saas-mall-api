@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductDao">
+    <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_front_product.id, t_front_product.category_id AS categoryId, t_front_product.brand_id AS brandId, t_front_product.name, t_front_product.short_name AS shortName, t_front_product.cover, t_front_product.stock_balance AS stockBalance, t_front_product.sales, t_front_product.status, t_front_product.created_date AS createdDate, t_front_product.last_modified_date AS lastModifiedDate, t_front_product.unit, t_front_product.price, t_front_product.cost_price AS costPrice, t_front_product.suggested_price AS suggestedPrice, t_front_product.promoted, t_front_product.freight, t_front_product.free_shipping AS freeShipping, t_front_product.sort_order AS sortOrder, t_front_product.partner_level_zone AS partnerLevelZone, t_front_product.view_count AS viewCount, t_front_product.fare_id AS fareId, t_front_product.barcode, t_front_product.store_location AS storeLocation, t_front_product.weight, t_front_product.bulk, t_front_product.sku_id AS skuId, t_front_product.sku_name AS skuName, t_front_product.sku_code AS skuCode, t_front_product.bar_code AS barCode, t_front_product.mid, t_front_product.allow_coupon AS allowCoupon, t_front_product.credit, t_front_product.is_virtual AS isVirtual, t_front_product.required_participate_exam AS requiredParticipateExam,t_front_product.org_id AS orgId
+    </sql>
+
+    <select id="findProductModelById" resultType="FrontProductModel">
+        SELECT <include refid="Base_Column_List"/>,t_fare_template.`name` AS fareName
+        FROM t_front_product LEFT JOIN t_fare_template ON t_front_product.fare_id=t_fare_template.id
+        WHERE t_front_product.id=#{id}
+    </select>
+
+    <select id="findProductPage" resultType="FrontProductRecord" parameterType="FrontProductRecord">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_front_product
+        LEFT JOIN t_product_brand ON t_front_product.brand_id=t_product_brand.id
+        WHERE 1=1
+        <if test="record.id != null and record.id>0 ">
+            AND t_front_product.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.categoryId != null and record.categoryId>0 ">
+            AND t_front_product.category_id LIKE CONCAT('%',#{record.categoryId},'%')
+        </if>
+        <if test="record.brandId != null and record.brandId>0 ">
+            AND t_front_product.brand_id LIKE CONCAT('%',#{record.brandId},'%')
+        </if>
+        <if test="record.brandName != null and record.brandName!= ''">
+            AND t_product_brand.name LIKE CONCAT('%',#{record.brandName},'%')
+        </if>
+        <if test="record.name != null and record.name!= ''">
+            AND t_front_product.name LIKE CONCAT('%',#{record.name},'%')
+        </if>
+        <if test="record.shortName != null and record.shortName!= ''">
+            AND t_front_product.short_name LIKE CONCAT('%',#{record.shortName},'%')
+        </if>
+        <if test="record.cover != null and record.cover!= ''">
+            AND t_front_product.cover LIKE CONCAT('%',#{record.cover},'%')
+        </if>
+        <if test="record.stockBalance != null and record.stockBalance>0 ">
+            AND t_front_product.stock_balance LIKE CONCAT('%',#{record.stockBalance},'%')
+        </if>
+        <if test="record.sales != null and record.sales>0 ">
+            AND t_front_product.sales LIKE CONCAT('%',#{record.sales},'%')
+        </if>
+        <if test="record.status != null and record.status!= ''">
+            AND t_front_product.status LIKE CONCAT('%',#{record.status},'%')
+        </if>
+        <if test="record.createdDate != null and record.createdDate>0 ">
+            AND t_front_product.created_date LIKE CONCAT('%',#{record.createdDate},'%')
+        </if>
+        <if test="record.lastModifiedDate != null and record.lastModifiedDate>0 ">
+            AND t_front_product.last_modified_date LIKE CONCAT('%',#{record.lastModifiedDate},'%')
+        </if>
+        <if test="record.unit != null and record.unit!= ''">
+            AND t_front_product.unit LIKE CONCAT('%',#{record.unit},'%')
+        </if>
+        <if test="record.price != null and record.price>0 ">
+            AND t_front_product.price LIKE CONCAT('%',#{record.price},'%')
+        </if>
+        <if test="record.costPrice != null and record.costPrice>0 ">
+            AND t_front_product.cost_price LIKE CONCAT('%',#{record.costPrice},'%')
+        </if>
+        <if test="record.suggestedPrice != null and record.suggestedPrice>0 ">
+            AND t_front_product.suggested_price LIKE CONCAT('%',#{record.suggestedPrice},'%')
+        </if>
+        <if test="record.promoted != null and record.promoted>0 ">
+            AND t_front_product.promoted LIKE CONCAT('%',#{record.promoted},'%')
+        </if>
+        <if test="record.freight != null and record.freight>0 ">
+            AND t_front_product.freight LIKE CONCAT('%',#{record.freight},'%')
+        </if>
+        <if test="record.freeShipping != null and record.freeShipping>0 ">
+            AND t_front_product.free_shipping LIKE CONCAT('%',#{record.freeShipping},'%')
+        </if>
+        <if test="record.sortOrder != null and record.sortOrder>0 ">
+            AND t_front_product.sort_order LIKE CONCAT('%',#{record.sortOrder},'%')
+        </if>
+        <if test="record.partnerLevelZone != null and record.partnerLevelZone>0 ">
+            AND t_front_product.partner_level_zone LIKE CONCAT('%',#{record.partnerLevelZone},'%')
+        </if>
+        <if test="record.viewCount != null and record.viewCount>0 ">
+            AND t_front_product.view_count LIKE CONCAT('%',#{record.viewCount},'%')
+        </if>
+        <if test="record.fareId != null and record.fareId>0 ">
+            AND t_front_product.fare_id LIKE CONCAT('%',#{record.fareId},'%')
+        </if>
+        <if test="record.barcode != null and record.barcode!= ''">
+            AND t_front_product.barcode LIKE CONCAT('%',#{record.barcode},'%')
+        </if>
+        <if test="record.storeLocation != null and record.storeLocation!= ''">
+            AND t_front_product.store_location LIKE CONCAT('%',#{record.storeLocation},'%')
+        </if>
+        <if test="record.weight != null and record.weight>0 ">
+            AND t_front_product.weight LIKE CONCAT('%',#{record.weight},'%')
+        </if>
+        <if test="record.bulk != null and record.bulk>0 ">
+            AND t_front_product.bulk LIKE CONCAT('%',#{record.bulk},'%')
+        </if>
+        <if test="record.skuId != null and record.skuId!= ''">
+            AND t_front_product.sku_id LIKE CONCAT('%',#{record.skuId},'%')
+        </if>
+        <if test="record.skuName != null and record.skuName!= ''">
+            AND t_front_product.sku_name LIKE CONCAT('%',#{record.skuName},'%')
+        </if>
+        <if test="record.skuCode != null and record.skuCode!= ''">
+            AND t_front_product.sku_code LIKE CONCAT('%',#{record.skuCode},'%')
+        </if>
+        <if test="record.barCode != null and record.barCode!= ''">
+            AND t_front_product.bar_code LIKE CONCAT('%',#{record.barCode},'%')
+        </if>
+        <if test="record.mid != null and record.mid>0 ">
+            AND t_front_product.mid LIKE CONCAT('%',#{record.mid},'%')
+        </if>
+        <if test="record.allowCoupon != null and record.allowCoupon>0 ">
+            AND t_front_product.allow_coupon LIKE CONCAT('%',#{record.allowCoupon},'%')
+        </if>
+        <if test="record.credit != null and record.credit>0 ">
+            AND t_front_product.credit LIKE CONCAT('%',#{record.credit},'%')
+        </if>
+        <if test="record.isVirtual != null and record.isVirtual>0 ">
+            AND t_front_product.is_virtual LIKE CONCAT('%',#{record.isVirtual},'%')
+        </if>
+        <if test="record.requiredParticipateExam != null and record.requiredParticipateExam>0 ">
+            AND t_front_product.required_participate_exam LIKE CONCAT('%',#{record.requiredParticipateExam},'%')
+        </if>
+        <if test="record.orgId != null">
+            AND t_front_product.org_id=#{record.orgId}
+        </if>
+        <if test="startTime != null">
+            <![CDATA[AND t_front_product.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_front_product.end_time <= DATE(#{endTime)]]>
+        </if>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_front_product.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+    </select>
+</mapper>

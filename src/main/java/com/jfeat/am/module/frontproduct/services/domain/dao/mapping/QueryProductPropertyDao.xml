@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductPropertyDao">
+                                                                                                                                                            <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_property.id, t_product_property.product_id AS productId, t_product_property.property_id AS propertyId, t_product_property.property_value AS propertyValue
+    </sql>
+
+
+
+    <select id="findProductPropertyPage" resultType="ProductPropertyRecord" parameterType="ProductPropertyRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_product_property
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                AND t_product_property.id LIKE CONCAT('%',#{record.id},'%')
+            </if>
+                                                                                            <if test="record.productId != null and record.productId>0 ">
+                AND t_product_property.product_id LIKE CONCAT('%',#{record.productId},'%')
+            </if>
+                                                                                            <if test="record.propertyId != null and record.propertyId>0 ">
+                AND t_product_property.property_id LIKE CONCAT('%',#{record.propertyId},'%')
+            </if>
+                                                                                            <if test="record.propertyValue != null and record.propertyValue!= ''">
+                AND t_product_property.property_value LIKE CONCAT('%',#{record.propertyValue},'%')
+            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_product_property.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_product_property.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_product_property.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>

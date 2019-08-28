@@ -194,7 +194,7 @@ public class CMSEvaluationEndpoint extends BaseController {
                                      @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                      @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                      @RequestParam(name = "stockId", required = false) Long stockId,
-                                     @RequestParam(name = "stockType", required = false,defaultValue = "Product") String stockType,
+                                     @RequestParam(name = "stockType", required = false,defaultValue = "FrontProduct") String stockType,
                                      @RequestParam(name = "createTime", required = false) Date createTime,
                                      @RequestParam(name = "orderBy", required = false) String orderBy,
                                      @RequestParam(name = "sort", required = false) String sort,
