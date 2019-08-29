@@ -111,6 +111,7 @@ CREATE TABLE `wms_procurement` (
   `transaction_time` timestamp not null default current_timestamp COMMENT '操作时间',
   `field1` varchar(255) DEFAULT NULL COMMENT '保留字段',
   `field2` varchar(255) DEFAULT NULL COMMENT '保留字段',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`),
   UNIQUE (`procurement_code`),
   FOREIGN KEY (`supplier_id`) REFERENCES `wms_suppliers` (`id`) ON DELETE RESTRICT

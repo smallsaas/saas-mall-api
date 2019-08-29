@@ -12,12 +12,10 @@ import com.jfeat.am.module.log.LogManager;
 import com.jfeat.am.module.log.LogTaskFactory;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.warehouse.services.definition.FormType;
-import com.jfeat.am.module.warehouse.services.definition.ProcurementStatus;
 import com.jfeat.am.module.warehouse.services.domain.dao.QueryProcurementDao;
 import com.jfeat.am.module.warehouse.services.domain.model.ProcurementModel;
 import com.jfeat.am.module.warehouse.services.domain.model.ProcurementRecord;
 import com.jfeat.am.module.warehouse.services.domain.service.ProcurementService;
-import com.jfeat.am.module.warehouse.services.persistence.model.Procurement;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.dao.DuplicateKeyException;
@@ -68,6 +66,8 @@ public class ProcurementEndpoint extends BaseController {
     public Tip createProcurement(@RequestBody ProcurementModel entity) {
         Integer affected = 0;
         try {
+            Long orgId = JWTKit.getOrgId();
+            entity.setOrgId(orgId);
             String userName = JWTKit.getAccount(getHttpServletRequest());
             entity.setOriginatorName(userName);
             affected = procurementService.addProcurement(userName,JWTKit.getUserId(getHttpServletRequest()),entity);
@@ -202,6 +202,10 @@ public class ProcurementEndpoint extends BaseController {
         record.setTransactionTime(transactionTime);
         record.setField1(field1);
         record.setField2(field2);
+        Long orgId = JWTKit.getOrgId();
+        if(orgId!=null){
+            record.setOrgId(orgId);
+        }
 
         page.setRecords(queryProcurementDao.findProcurementPage(page, record, orderBy,waitForStorageIn,search,status,startTime, endTime));
 
