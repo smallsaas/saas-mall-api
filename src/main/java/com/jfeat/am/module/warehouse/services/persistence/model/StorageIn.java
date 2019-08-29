@@ -1,18 +1,14 @@
 package com.jfeat.am.module.warehouse.services.persistence.model;
 
-import java.io.Serializable;
-
+import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
-
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
-
-import java.io.Serializable;
 
 /**
  * <p>
@@ -118,6 +114,12 @@ public class StorageIn extends Model<StorageIn> {
      */
     @TableField("out_order_num")
     private String outOrderNum;
+
+    /**
+     * 数据隔离
+     */
+    @TableField("org_id")
+    private Long orgId;
 
 
     public Long getId() {
@@ -355,5 +357,13 @@ public class StorageIn extends Model<StorageIn> {
                 ", distributorCustomer=" + distributorCustomer +
                 ", outOrderNum=" + outOrderNum +
                 "}";
+    }
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
     }
 }

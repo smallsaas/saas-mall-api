@@ -21,6 +21,7 @@ CREATE TABLE `wms_storage_in` (
   `field2` varchar(255) DEFAULT NULL COMMENT '保留字段',
   `out_order_num` varchar(32) DEFAULT null COMMENT '订单号信息',
   `distributor_customer` varchar(100) DEFAULT null COMMENT '分销商客户',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`),
   UNIQUE (`transaction_code`),
   FOREIGN KEY (`warehouse_id`) REFERENCES `wms_warehouse` (`id`) ON DELETE RESTRICT

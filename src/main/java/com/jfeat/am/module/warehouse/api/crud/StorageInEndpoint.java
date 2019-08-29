@@ -1,42 +1,31 @@
 package com.jfeat.am.module.warehouse.api.crud;
 
-import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.constant.tips.SuccessTip;
+import com.jfeat.am.common.constant.tips.Tip;
+import com.jfeat.am.common.controller.BaseController;
+import com.jfeat.am.common.exception.BusinessCode;
+import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.log.LogManager;
 import com.jfeat.am.module.log.LogTaskFactory;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.warehouse.services.definition.FormType;
 import com.jfeat.am.module.warehouse.services.definition.TransactionType;
+import com.jfeat.am.module.warehouse.services.domain.dao.QueryStorageInDao;
+import com.jfeat.am.module.warehouse.services.domain.model.StorageInModel;
+import com.jfeat.am.module.warehouse.services.domain.model.StorageInRecord;
 import com.jfeat.am.module.warehouse.services.domain.service.ProcurementService;
+import com.jfeat.am.module.warehouse.services.domain.service.StorageInService;
 import com.jfeat.am.module.warehouse.services.persistence.model.StorageIn;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import com.baomidou.mybatisplus.plugins.Page;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import com.jfeat.am.module.warehouse.services.domain.dao.QueryStorageInDao;
-import com.jfeat.am.common.constant.tips.SuccessTip;
-import com.jfeat.am.common.constant.tips.Tip;
-import com.jfeat.am.module.log.annotation.BusinessLog;
-import com.jfeat.am.common.exception.BusinessCode;
-import com.jfeat.am.common.exception.BusinessException;
-
-import java.math.BigDecimal;
-
-import com.jfeat.am.module.warehouse.services.domain.service.StorageInService;
-import com.jfeat.am.module.warehouse.services.domain.model.StorageInRecord;
-import com.jfeat.am.module.warehouse.services.domain.model.StorageInModel;
-
-import org.springframework.web.bind.annotation.RestController;
-import com.jfeat.am.common.controller.BaseController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -82,6 +71,9 @@ public class StorageInEndpoint extends BaseController {
     @PostMapping
     @ApiOperation(value = "新建入库单", response = StorageInModel.class)
     public Tip createStorageIn(@RequestBody StorageInModel entity) {
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresentOrElse(
+                orgId->entity.setOrgId(orgId),()->{throw new BusinessException(BusinessCode.BadRequest);}
+        );
         String userName = JWTKit.getAccount(getHttpServletRequest());
         entity.setOriginatorName(userName);
         if (entity.getWarehouseId() == null) {
@@ -241,6 +233,8 @@ public class StorageInEndpoint extends BaseController {
         record.setField1(field1);
         record.setField2(field2);
 
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresent(orgId->record.setOrgId(orgId));
+        
         page.setRecords(queryStorageInDao.findStorageInPage(page, record, orderBy));
 
         return SuccessTip.create(page);
