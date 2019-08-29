@@ -1,40 +1,31 @@
 package com.jfeat.am.module.warehouse.api.crud;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.constant.tips.SuccessTip;
+import com.jfeat.am.common.constant.tips.Tip;
+import com.jfeat.am.common.controller.BaseController;
+import com.jfeat.am.common.exception.BusinessCode;
+import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.log.LogManager;
 import com.jfeat.am.module.log.LogTaskFactory;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.warehouse.services.definition.FormType;
 import com.jfeat.am.module.warehouse.services.definition.TransactionType;
+import com.jfeat.am.module.warehouse.services.domain.dao.QueryStorageOutDao;
 import com.jfeat.am.module.warehouse.services.domain.model.BulkUpdateOrderCount;
-import com.jfeat.am.module.warehouse.services.domain.model.UpdateOrderCount;
+import com.jfeat.am.module.warehouse.services.domain.model.StorageOutModel;
+import com.jfeat.am.module.warehouse.services.domain.model.StorageOutRecord;
+import com.jfeat.am.module.warehouse.services.domain.service.StorageOutService;
 import com.jfeat.am.module.warehouse.services.persistence.model.StorageOut;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.web.bind.annotation.GetMapping;
-import com.baomidou.mybatisplus.plugins.Page;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import com.jfeat.am.module.warehouse.services.domain.dao.QueryStorageOutDao;
-import com.jfeat.am.common.constant.tips.SuccessTip;
-import com.jfeat.am.common.constant.tips.Tip;
-import com.jfeat.am.module.log.annotation.BusinessLog;
-import com.jfeat.am.common.exception.BusinessCode;
-import com.jfeat.am.common.exception.BusinessException;
-import com.jfeat.am.module.warehouse.services.domain.service.StorageOutService;
-import com.jfeat.am.module.warehouse.services.domain.model.StorageOutRecord;
-import com.jfeat.am.module.warehouse.services.domain.model.StorageOutModel;
-
-import org.springframework.web.bind.annotation.RestController;
-import com.jfeat.am.common.controller.BaseController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -79,6 +70,12 @@ public class StorageOutEndpoint extends BaseController {
     @ApiOperation(value = "新建出库单",response = StorageOutModel.class)
     public Tip createStorageOut(@RequestBody StorageOutModel entity) {
         String userName = JWTKit.getAccount(getHttpServletRequest());
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresentOrElse(
+                orgId -> entity.setOrgId(orgId),
+                ()-> {
+                    throw new BusinessException(BusinessCode.BadRequest);
+                }
+        );
         entity.setOriginatorName(userName);
         if (entity.getWarehouseId()==null){
             entity.setWarehouseId(1L);
@@ -241,6 +238,8 @@ public class StorageOutEndpoint extends BaseController {
         record.setOriginatorId(originatorId);
         record.setField1(field1);
         record.setField2(field2);
+
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresent(orgId -> record.setOrgId(orgId));
 
         page.setRecords(queryStorageOutDao.findStorageOutPage(page, record, orderBy));
 
