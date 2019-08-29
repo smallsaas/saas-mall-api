@@ -139,6 +139,7 @@ CREATE TABLE `wms_transfer` (
   `transfer_time` datetime not null comment 'transfer time--begin',
   `field1` varchar(255) DEFAULT NULL COMMENT '保留字段',
   `field2` varchar(255) DEFAULT NULL COMMENT '保留字段',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`),
   UNIQUE (`transaction_code`),
   FOREIGN KEY (`from_warehouse_id`) REFERENCES `wms_warehouse` (`id`) ON DELETE RESTRICT,

@@ -20,11 +20,12 @@
 		<result column="transfer_time" property="transferTime" />
 		<result column="field1" property="field1" />
 		<result column="field2" property="field2" />
+		<result column="org_id" property="orgId" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, transaction_code AS transactionCode, from_warehouse_id AS fromWarehouseId, to_warehouse_id AS toWarehouseId, transaction_time AS transactionTime, finish_time AS finishTime, storage_in_id AS storageInId, storage_out_id AS storageOutId, note, status, transaction_by AS transactionBy, originator_id AS originatorId, originator_name AS originatorName, transfer_time AS transferTime, field1, field2
+        id, transaction_code AS transactionCode, from_warehouse_id AS fromWarehouseId, to_warehouse_id AS toWarehouseId, transaction_time AS transactionTime, finish_time AS finishTime, storage_in_id AS storageInId, storage_out_id AS storageOutId, note, status, transaction_by AS transactionBy, originator_id AS originatorId, originator_name AS originatorName, transfer_time AS transferTime, field1, field2,org_id AS orgId
     </sql>
 
 </mapper>

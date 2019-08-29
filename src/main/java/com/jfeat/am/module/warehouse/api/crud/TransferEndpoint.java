@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -65,6 +66,10 @@ public class TransferEndpoint extends BaseController {
 
         Integer affected = 0;
         try {
+            Optional.ofNullable(JWTKit.getOrgId()).ifPresentOrElse(
+                    orgId -> entity.setOrgId(orgId),
+                    ()->{throw new BusinessException(BusinessCode.BadRequest);}
+            );
             String userName = JWTKit.getAccount(getHttpServletRequest());
             Long userId = JWTKit.getUserId(getHttpServletRequest());
             entity.setOriginatorId(userId);
@@ -216,6 +221,8 @@ public class TransferEndpoint extends BaseController {
         record.setOriginatorId(originatorId);
         record.setField1(field1);
         record.setField2(field2);
+
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresent(orgId -> record.setOrgId(orgId));
 
         page.setRecords(queryTransferDao.findTransferPage(page, warehouseId, record, orderBy, startTime, endTime));
 

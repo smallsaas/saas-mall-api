@@ -1,14 +1,13 @@
 package com.jfeat.am.module.warehouse.services.persistence.model;
 
-import java.io.Serializable;
-
-import com.baomidou.mybatisplus.enums.IdType;
-import java.util.Date;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.enums.IdType;
+
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -96,6 +95,12 @@ public class Transfer extends Model<Transfer> {
      * 保留字段
      */
 	private String field2;
+
+	/**
+	 * 数据隔离
+	 */
+	@TableField("org_id")
+	private Long orgId;
 
 
 	public Long getId() {
@@ -299,5 +304,13 @@ public class Transfer extends Model<Transfer> {
 			", field1=" + field1 +
 			", field2=" + field2 +
 			"}";
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
 	}
 }
