@@ -79,6 +79,9 @@
         <if test="record.field2 != null and record.field2!= ''">
             AND wms_refund.field2 LIKE CONCAT('%',#{record.field2},'%')
         </if>
+        <if test="record.orgId != null and record.orgId > 0">
+            AND wms_refund.org_id = #{orgId}
+        </if>
         
         order by wms_refund.product_refund_time DESC
     </select>

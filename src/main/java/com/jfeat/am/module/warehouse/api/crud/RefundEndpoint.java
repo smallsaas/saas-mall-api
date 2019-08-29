@@ -35,6 +35,7 @@ import com.jfeat.am.common.controller.BaseController;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -77,6 +78,10 @@ public class RefundEndpoint extends BaseController {
 
         Integer affected = 0;
         try {
+            Optional.ofNullable(JWTKit.getOrgId()).ifPresentOrElse(
+                    (orgId)->{ entity.setOrgId(orgId); }
+                    ,()-> {throw new BusinessException(BusinessCode.BadRequest);}
+            );
             String userName = JWTKit.getAccount(getHttpServletRequest());
             entity.setOriginatorName(userName);
             affected += refundService.createRefund(JWTKit.getUserId(getHttpServletRequest()),entity);
@@ -212,6 +217,8 @@ public class RefundEndpoint extends BaseController {
         record.setTransactionTime(transactionTime);
         record.setField1(field1);
         record.setField2(field2);
+
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresent(orgId -> record.setOrgId(orgId));
 
         page.setRecords(queryRefundDao.findRefundPage(page, record, orderBy,search,startTime, endTime));
 

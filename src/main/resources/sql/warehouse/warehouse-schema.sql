@@ -192,6 +192,7 @@ CREATE TABLE `wms_refund` (
   `field1` varchar(255) DEFAULT NULL COMMENT '保留字段',
   `field2` varchar(255) DEFAULT NULL COMMENT '保留字段',
   `supplier_id` bigint(20) NOT NULL COMMENT '供应商ID',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`),
   UNIQUE (`product_refund_code`),
   FOREIGN KEY (`storage_out_id`) REFERENCES `wms_storage_out` (`id`) ON DELETE RESTRICT,

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -202,11 +203,10 @@ public class ProcurementEndpoint extends BaseController {
         record.setTransactionTime(transactionTime);
         record.setField1(field1);
         record.setField2(field2);
-        Long orgId = JWTKit.getOrgId();
-        if(orgId!=null){
-            record.setOrgId(orgId);
-        }
 
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresent(orgId -> {
+            record.setOrgId(orgId);
+        });
         page.setRecords(queryProcurementDao.findProcurementPage(page, record, orderBy,waitForStorageIn,search,status,startTime, endTime));
 
         return SuccessTip.create(page);
