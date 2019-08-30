@@ -216,6 +216,7 @@ CREATE TABLE `wms_inventory` (
   `advance_quantities` int(11) DEFAULT '0' COMMENT '预购量',
   `transmit_quantities` int(11) DEFAULT '0' COMMENT '在途量',
   `order_count` int(11) NOT NULL DEFAULT '0' COMMENT '占用库存量',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`),
   UNIQUE(`warehouse_id`,`sku_id`),
   FOREIGN KEY (`sku_id`) REFERENCES `t_sku_product` (`id`) ON DELETE RESTRICT,

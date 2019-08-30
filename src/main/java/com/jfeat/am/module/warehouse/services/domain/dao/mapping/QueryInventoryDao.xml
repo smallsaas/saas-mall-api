@@ -42,6 +42,9 @@
         <if test="record.id != null and record.id>0 ">
             AND wms_inventory.id LIKE CONCAT('%',#{record.id},'%')
         </if>
+        <if test="record.orgId != null and record.orgId>0 ">
+            AND wms_inventory.org_id = #{record.orgId}
+        </if>
 
         <if test="warehouseName != null and warehouseName!= ''">
             AND wms_warehouse.warehouse_name = #{warehouseName}

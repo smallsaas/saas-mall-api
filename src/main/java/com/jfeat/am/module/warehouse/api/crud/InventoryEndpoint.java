@@ -1,35 +1,27 @@
 package com.jfeat.am.module.warehouse.api.crud;
 
-import com.jfeat.am.module.warehouse.services.domain.model.SkuStorageDetails;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
 import com.baomidou.mybatisplus.plugins.Page;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.dao.DuplicateKeyException;
-import com.jfeat.am.module.warehouse.services.domain.dao.QueryInventoryDao;
 import com.jfeat.am.common.constant.tips.SuccessTip;
 import com.jfeat.am.common.constant.tips.Tip;
-import com.jfeat.am.module.log.annotation.BusinessLog;
+import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.common.exception.BusinessCode;
 import com.jfeat.am.common.exception.BusinessException;
-
-import com.jfeat.am.module.warehouse.services.domain.service.InventoryService;
-import com.jfeat.am.module.warehouse.services.domain.model.InventoryRecord;
+import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.log.annotation.BusinessLog;
+import com.jfeat.am.module.warehouse.services.domain.dao.QueryInventoryDao;
 import com.jfeat.am.module.warehouse.services.domain.model.InventoryModel;
-
-import org.springframework.web.bind.annotation.RestController;
-import com.jfeat.am.common.controller.BaseController;
+import com.jfeat.am.module.warehouse.services.domain.model.InventoryRecord;
+import com.jfeat.am.module.warehouse.services.domain.model.SkuStorageDetails;
+import com.jfeat.am.module.warehouse.services.domain.service.InventoryService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -107,6 +99,10 @@ public class InventoryEndpoint extends BaseController {
 
         Integer affected = 0;
         try {
+            Optional.ofNullable(JWTKit.getOrgId()).ifPresentOrElse(
+                    orgId -> entity.setOrgId(orgId),
+                    ()->{throw new BusinessException(BusinessCode.BadRequest);}
+            );
             affected += inventoryService.createMaster(entity);
 
         } catch (DuplicateKeyException e) {
@@ -181,6 +177,8 @@ public class InventoryEndpoint extends BaseController {
         record.setValidSku(validSku);
         record.setAdvanceQuantities(advanceQuantities);
         record.setTransmitQuantities(transmitQuantities);
+
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresent(orgId -> record.setOrgId(orgId));
 
         page.setRecords(queryInventoryDao.findInventoryPage(page, warehouseName, skuName,search, record, orderBy));
 
