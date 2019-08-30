@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.Optional;
 
 
 /**
@@ -65,6 +66,10 @@ public class CheckEndpoint extends BaseController {
 
         Integer affected = 0;
         try {
+            Optional.ofNullable(JWTKit.getOrgId()).ifPresentOrElse(
+                    orgId -> entity.setOrgId(orgId),
+                    ()-> { throw new BusinessException(BusinessCode.BadRequest); }
+                    );
             String userName = JWTKit.getAccount(getHttpServletRequest());
             Long userId = JWTKit.getUserId(getHttpServletRequest());
             entity.setOriginatorName(userName);
@@ -181,6 +186,8 @@ public class CheckEndpoint extends BaseController {
         record.setOriginatorId(originatorId);
         record.setField1(field1);
         record.setField2(field2);
+
+        Optional.ofNullable(JWTKit.getOrgId()).ifPresent(orgId -> record.setOrgId(orgId));
 
         page.setRecords(queryCheckDao.findCheckPage(page, warehouseId, record, orderBy));
 

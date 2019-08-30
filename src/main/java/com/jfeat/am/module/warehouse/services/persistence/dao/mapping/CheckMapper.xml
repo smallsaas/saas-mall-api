@@ -18,11 +18,12 @@
 		<result column="status" property="status" />
 		<result column="field1" property="field1" />
 		<result column="field2" property="field2" />
+		<result column="org_id" property="orgId" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, check_code AS checkCode, check_time AS checkTime, finish_time AS finishTime, begin_time AS beginTime, warehouse_id AS warehouseId, profit_lost AS profitLost, check_note AS checkNote, transaction_by AS transactionBy, originator_id AS originatorId, originator_name AS originatorName, status, field1, field2
+        id, check_code AS checkCode, check_time AS checkTime, finish_time AS finishTime, begin_time AS beginTime, warehouse_id AS warehouseId, profit_lost AS profitLost, check_note AS checkNote, transaction_by AS transactionBy, originator_id AS originatorId, originator_name AS originatorName, status, field1, field2,org_id AS orgId
     </sql>
 
 </mapper>

@@ -24,7 +24,7 @@ jwt:
 etcd:
   etcdEndpoints: http://192.168.3.28:2379
   # etcdEndpoints: http://172.16.0.4:2379
-  serviceName: frontproduct
+  serviceName: product
   serviceEndpoint: http://192.168.3.16:8080
   # serviceEndpoint: http://106.12.212.64:8280
   provideService: false

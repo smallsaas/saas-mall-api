@@ -266,6 +266,7 @@ CREATE TABLE `wms_check` (
   `status` varchar(20) NOT NULL COMMENT 'check status',
   `field1` varchar(255) DEFAULT NULL COMMENT '保留字段',
   `field2` varchar(255) DEFAULT NULL COMMENT '保留字段',
+  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`),
   UNIQUE(`check_code`),
   FOREIGN KEY (`warehouse_id`) REFERENCES `wms_warehouse` (`id`) ON DELETE RESTRICT
