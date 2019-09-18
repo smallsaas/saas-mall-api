@@ -1,0 +1,11 @@
+version: "3"
+services:
+
+  small-api:
+    image: zelejs/app-openjre11
+    container_name: small-api
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - ~/small-api:/webapps
+    ports:
+      - '8088:8080'

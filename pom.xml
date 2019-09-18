@@ -12,7 +12,7 @@
     </parent>
 
     <groupId>com.jfeat</groupId>
-    <artifactId>mall-product</artifactId>
+    <artifactId>small-api</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
 
