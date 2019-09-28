@@ -18,8 +18,8 @@ import java.util.List;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConfig {
-    public SwaggerConfig() {
+public class SwaggerConfig2 {
+    public SwaggerConfig2() {
     }
 
     @Bean

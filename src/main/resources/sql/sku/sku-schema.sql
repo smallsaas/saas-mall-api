@@ -175,3 +175,4 @@ CREATE TABLE `wms_sku_suppliers_price` (
 PRIMARY KEY (`id`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+SET FOREIGN_KEY_CHECKS = 1;

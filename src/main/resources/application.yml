@@ -21,14 +21,14 @@ jwt:
   #token-type: Bearer
 
 ###################  etcd配置  ###################
-etcd:
-  etcdEndpoints: http://192.168.3.28:2379
-  # etcdEndpoints: http://172.16.0.4:2379
-  serviceName: product
-  serviceEndpoint: http://192.168.3.16:8080
-  # serviceEndpoint: http://106.12.212.64:8280
-  provideService: false
-  subscribeServices: uaas
+#etcd:
+#  etcdEndpoints: http://192.168.3.28:2379
+#  # etcdEndpoints: http://172.16.0.4:2379
+#  serviceName: product
+#  serviceEndpoint: http://192.168.3.16:8080
+#  # serviceEndpoint: http://106.12.212.64:8280
+#  provideService: false
+#  subscribeServices: uaas
 
 ###################  项目启动端口  ###################
 server:
@@ -108,11 +108,11 @@ spring:
   profiles: dev
   datasource:
       # url: jdbc:mysql://120.79.49.72:3306/muaskin_MallWebapp?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
-      url: jdbc:mysql://120.79.49.72:3306/mall_product_order?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+      url: jdbc:mysql://120.79.49.72:3306/mall_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
       username: root
       password: root
       filters: log4j,wall,mergeStat
-      initialize: false
+      initialize: true
       schema: classpath*:sql/**/*-schema.sql
       data: classpath*:sql/**/*-data.sql
 

@@ -21,7 +21,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for t_product
 -- ----------------------------
 DROP TABLE IF EXISTS `t_front_product`;
-CREATE TABLE `t_product`  (
+CREATE TABLE `t_front_product`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `category_id` bigint(20) NOT NULL,
   `brand_id` bigint(20) NULL DEFAULT NULL,
@@ -62,7 +62,7 @@ CREATE TABLE `t_product`  (
   INDEX `category_id`(`category_id`) USING BTREE,
   INDEX `fare_id`(`fare_id`) USING BTREE,
   INDEX `brand_id`(`brand_id`) USING BTREE,
-  CONSTRAINT `t_product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `t_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
+  CONSTRAINT `t_product_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `t_front_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT,
   CONSTRAINT `t_product_ibfk_2` FOREIGN KEY (`fare_id`) REFERENCES `t_fare_template` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT,
   CONSTRAINT `t_product_ibfk_3` FOREIGN KEY (`brand_id`) REFERENCES `t_product_brand` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 56 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
@@ -84,7 +84,7 @@ CREATE TABLE `t_product_brand`  (
 -- Table structure for t_product_category
 -- ----------------------------
 DROP TABLE IF EXISTS `t_front_product_category`;
-CREATE TABLE `t_product_category`  (
+CREATE TABLE `t_front_product_category`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `parent_id` bigint(20) NULL DEFAULT NULL,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -99,7 +99,7 @@ CREATE TABLE `t_product_category`  (
   `org_id` bigint(20) NOT NULL COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parent_id`(`parent_id`) USING BTREE,
-  CONSTRAINT `t_product_category_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `t_front_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
+  CONSTRAINT `t_front_product_category_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `t_front_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
 ) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------

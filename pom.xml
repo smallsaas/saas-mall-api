@@ -19,6 +19,18 @@
     <dependencies>
         <dependency>
             <groupId>com.jfeat</groupId>
+            <artifactId>uaas</artifactId>
+            <version>2.0.2</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>crud-log</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jfeat</groupId>
             <artifactId>Product</artifactId>
             <version>1.0.0</version>
             <exclusions>
@@ -102,7 +114,7 @@
             <version>1.0.0</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>images-service</artifactId>
             <exclusions>
@@ -112,7 +124,7 @@
                 </exclusion>
             </exclusions>
             <version>1.0.0</version>
-        </dependency>
+        </dependency>-->
 
         <dependency>
             <groupId>com.jfeat</groupId>

@@ -10,8 +10,8 @@ import org.springframework.context.annotation.Profile;
 @MapperScan(
         basePackages = {"com.jfeat.**.dao", "com.jfeat.**.mapper"}
 )
-public class MybatisConfig {
-    public MybatisConfig() {
+public class MybatisConfig2 {
+    public MybatisConfig2() {
     }
     /**
      * SQL执行效率插件
