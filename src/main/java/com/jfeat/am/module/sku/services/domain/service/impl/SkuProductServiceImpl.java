@@ -14,8 +14,6 @@ import com.jfeat.am.module.sku.services.crud.service.impl.CRUDSkuProductServiceI
 import com.jfeat.am.module.sku.services.domain.dao.QuerySkuProductDao;
 import com.jfeat.am.module.sku.services.domain.model.CreateSkuProductModel;
 import com.jfeat.am.module.sku.services.domain.service.SkuProductService;
-import com.jfeat.am.module.sku.services.mq.SkuMessage;
-import com.jfeat.am.module.sku.services.mq.SkuUpdateSender;
 import com.jfeat.am.module.sku.services.persistence.dao.*;
 import com.jfeat.am.module.sku.services.persistence.model.*;
 import org.slf4j.Logger;
@@ -28,8 +26,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
-import static com.jfeat.am.module.sku.services.utils.DataCheck.isUpdated;
 
 /**
  * <p>
@@ -62,8 +58,8 @@ public class SkuProductServiceImpl extends CRUDSkuProductServiceImpl implements 
     SkuTagRelationMapper skuTagRelationMapper;
     @Resource
     QuerySkuProductDao querySkuProductDao;
-    @Resource
-    SkuUpdateSender skuUpdateSender;
+    /*@Resource
+    SkuUpdateSender skuUpdateSender;*/
 
 
     @Transactional
@@ -171,7 +167,7 @@ public class SkuProductServiceImpl extends CRUDSkuProductServiceImpl implements 
         model.setId(originSkuProduct.getProductId());
         affect += productMapper.updateById(model);
 
-        SkuMessage message = null;
+        /*SkuMessage message = null;*/
 
         /*SkuPriceHistory history = new SkuPriceHistory();
         history.setSkuId(skuId);
@@ -237,7 +233,7 @@ public class SkuProductServiceImpl extends CRUDSkuProductServiceImpl implements 
              * set mq
              * {"type":"SKU", "data": { "id": 11, "skuName": "xxx", "skuCode": "xxxx", "barCode": "xxvv" } }
              **/
-            if(isUpdated(originSkuProduct.getSkuName(), model.getName())
+            /*if(isUpdated(originSkuProduct.getSkuName(), model.getName())
                     || isUpdated(originSkuProduct.getBarCode(), model.getBarCode())
                     || isUpdated(originSkuProduct.getSkuCode(), model.getProductCode())) {
                 message = new SkuMessage();
@@ -250,7 +246,7 @@ public class SkuProductServiceImpl extends CRUDSkuProductServiceImpl implements 
                 data.setSkuCode(model.getProductCode() == null ? model.getProductCode() : originSkuProduct.getSkuCode());
 
                 skuUpdateSender.sendUpdateMessage(message);
-            }
+            }*/
         }
 
         return affect;

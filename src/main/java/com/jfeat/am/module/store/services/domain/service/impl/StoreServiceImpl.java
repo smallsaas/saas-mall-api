@@ -1,7 +1,6 @@
 package com.jfeat.am.module.store.services.domain.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.jfeat.am.common.exception.BusinessException;
 import com.jfeat.am.module.store.services.crud.service.impl.CRUDStoreServiceImpl;
 import com.jfeat.am.module.store.services.definition.StoreStatus;
@@ -9,7 +8,6 @@ import com.jfeat.am.module.store.services.domain.dao.QueryStoreDao;
 import com.jfeat.am.module.store.services.domain.model.StoreModel;
 import com.jfeat.am.module.store.services.domain.model.StoreRecord;
 import com.jfeat.am.module.store.services.domain.service.StoreService;
-import com.jfeat.am.module.store.services.mq.StoreUpdateSender;
 import com.jfeat.am.module.store.services.persistence.dao.StoreMapper;
 import com.jfeat.am.module.store.services.persistence.model.Store;
 import com.jfeat.images.services.domain.service.StockImagesService;
@@ -40,8 +38,8 @@ public class StoreServiceImpl extends CRUDStoreServiceImpl implements StoreServi
     StoreMapper storeMapper;
     @Resource
     StockImagesService stockImagesService;
-    @Resource
-    StoreUpdateSender storeUpdateSender;
+    /*@Resource
+    StoreUpdateSender storeUpdateSender;*/
 
     @Override
     public StoreRecord findStoreInfo(Long id, BigDecimal latitude, BigDecimal longitude) {
@@ -100,14 +98,14 @@ public class StoreServiceImpl extends CRUDStoreServiceImpl implements StoreServi
                 data.put("oldCode", oldStoreData.getCode());
                 data.put("name", entity.getName());
                 data.put("code", entity.getCode());
-                JSONObject msg = new JSONObject();
+                /*JSONObject msg = new JSONObject();
                 msg.put("type", StoreUpdateSender.MESSAGE_TYPE);
                 msg.put("data", data);
                 try {
                     storeUpdateSender.send(msg);
                 } catch (JsonProcessingException e) {
                     logger.error("send message error! \n", e.getMessage());
-                }
+                }*/
             }
         }
         return affected;

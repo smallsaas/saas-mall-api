@@ -17,7 +17,6 @@ import com.jfeat.am.module.store.services.domain.dao.QueryStoreDao;
 import com.jfeat.am.module.store.services.domain.model.StoreModel;
 import com.jfeat.am.module.store.services.domain.model.StoreRecord;
 import com.jfeat.am.module.store.services.domain.service.StoreService;
-import com.jfeat.am.module.store.services.mq.StoreDeleteSender;
 import com.jfeat.am.module.store.services.persistence.model.Store;
 import com.jfeat.images.services.domain.service.StockImagesService;
 import com.jfeat.images.services.persistence.model.StockImages;
@@ -28,7 +27,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -56,8 +54,8 @@ public class StoreEndpoint extends BaseController {
     @Resource
     AppointmentTypeService appointmentTypeService;
 
-    @Resource
-    StoreDeleteSender storeDeleteSender;
+    /*@Resource
+    StoreDeleteSender storeDeleteSender;*/
 
     @ApiOperation(value = "新增店铺", response = Store.class)
     @BusinessLog(name = "Store", value = "create Store")
@@ -125,7 +123,7 @@ public class StoreEndpoint extends BaseController {
             affacted += stockImagesService.updateImage(id,"Store",null);
             affacted += storeService.deleteMaster(id);
 
-            storeDeleteSender.sendDeleteMessage(Arrays.asList(store.getCode()));
+            /*storeDeleteSender.sendDeleteMessage(Arrays.asList(store.getCode()));*/
         }
 
         return SuccessTip.create(affacted);
