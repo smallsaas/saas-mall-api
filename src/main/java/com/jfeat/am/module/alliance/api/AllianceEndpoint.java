@@ -35,6 +35,7 @@ import com.jfeat.am.module.alliance.services.gen.persistence.model.Alliance;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.rmi.ServerException;
 import java.util.Date;
 
 
@@ -55,11 +56,38 @@ public class AllianceEndpoint {
 
     @Resource
     AllianceService allianceService;
-    @BusinessLog(name = "Alliance", value = "update Alliance")
-    @PutMapping("/{id}")
+
+    @BusinessLog(name = "Alliance", value = "update Alliance Status")
+    @PutMapping("/changStatus/{id}")
     @ApiOperation(value = "修改 Alliance 状态 0：禁用，1：正常", response = Alliance.class)
-    public Tip updateAlliance(@PathVariable Long id) {
+    public Tip updateAllianceStatus(@PathVariable Long id) {
 
         return SuccessTip.create(allianceService.changeStatus(id));
+    }
+
+    @BusinessLog(name = "Alliance", value = "update Alliance allianceStoreAmount")
+    @PutMapping("/changAmount/{id}")
+    @ApiOperation(value = "修改 Alliance 入库金额", response = Alliance.class)
+    public Tip updateAllianceStoreAmount(@PathVariable Long id,@RequestParam BigDecimal allianceStoreAmount) {
+
+        return SuccessTip.create(allianceService.changAmount(id,allianceStoreAmount));
+    }
+
+    @BusinessLog(name = "Alliance", value = "update Alliance allianceStoreAmount")
+    @GetMapping("/findAllianceTags/{id}")
+    @ApiOperation(value = "特征标记（库存金额不足） Alliance ", response = Alliance.class)
+    public Tip findAllianceTags(@PathVariable Long id) throws ServerException {
+        Alliance alliance = allianceService.retrieveMaster(id);
+        if((alliance.getAllianceStoreAmount().compareTo(BigDecimal.ZERO))!=1){
+            throw new ServerException("库存金额不足");
+        }
+        return SuccessTip.create();
+    }
+    @BusinessLog(name = "Alliance", value = "推荐关系图")
+    @GetMapping("/findAllianceRecommendationDiagram/{id}")
+    @ApiOperation(value = "推荐关系图 Alliance ", response = Alliance.class)
+    public Tip findAllianceRecommendationDiagram(@PathVariable Long id) {
+
+        return SuccessTip.create(allianceService.findAllianceRecommendationDiagram(id));
     }
 }

@@ -14,11 +14,12 @@
 		<result column="stockholder_ship_time" property="stockholderShipTime" />
 		<result column="temp_alliance_expiry_time" property="tempAllianceExpiryTime" />
 		<result column="alliance_status" property="allianceStatus" />
+		<result column="alliance_store_amount" property="allianceStoreAmount" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id AS userId, invitor_alliance_id AS invitorAllianceId, alliance_ship AS allianceShip, stockholder_ship AS stockholderShip, creation_time AS creationTime, alliance_ship_time AS allianceShipTime, stockholder_ship_time AS stockholderShipTime, temp_alliance_expiry_time AS tempAllianceExpiryTime, alliance_status AS allianceStatus
+        id, user_id AS userId, invitor_alliance_id AS invitorAllianceId, alliance_ship AS allianceShip, stockholder_ship AS stockholderShip, creation_time AS creationTime, alliance_ship_time AS allianceShipTime, stockholder_ship_time AS stockholderShipTime, temp_alliance_expiry_time AS tempAllianceExpiryTime, alliance_status AS allianceStatus, alliance_store_amount AS allianceStoreAmount
     </sql>
 
 </mapper>

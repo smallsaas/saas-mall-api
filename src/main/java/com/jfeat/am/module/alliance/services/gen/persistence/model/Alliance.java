@@ -3,6 +3,7 @@ package com.jfeat.am.module.alliance.services.gen.persistence.model;
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.enums.IdType;
+import java.math.BigDecimal;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -54,26 +55,61 @@ public class Alliance extends Model<Alliance> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * id
+     */
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
+    /**
+     * 用户id
+     */
 	@TableField("user_id")
 	private Long userId;
+    /**
+     * �?请人id
+     */
 	@TableField("invitor_alliance_id")
 	private Integer invitorAllianceId;
+    /**
+     * 是否为盟�? 0:否，1:临时�?2:正式
+     */
 	@TableField("alliance_ship")
 	private Integer allianceShip;
+    /**
+     * 是否为股�? 0:否，1:�?
+     */
 	@TableField("stockholder_ship")
 	private Integer stockholderShip;
+    /**
+     * creation_time
+     */
 	@TableField("creation_time")
 	private Date creationTime;
+    /**
+     * 成为盟友的时�?
+     */
 	@TableField("alliance_ship_time")
 	private Date allianceShipTime;
+    /**
+     * 成为股东的时�?
+     */
 	@TableField("stockholder_ship_time")
 	private Date stockholderShipTime;
+    /**
+     * 临时盟友过期时间
+     */
 	@TableField("temp_alliance_expiry_time")
 	private Date tempAllianceExpiryTime;
+    /**
+     * 盟友状�?�，0:禁止�?1:正常
+     */
 	@TableField("alliance_status")
 	private Integer allianceStatus;
+    /**
+     * 入库金额
+     */
+	@TableField("alliance_store_amount")
+	private BigDecimal allianceStoreAmount;
 
 
 	public Long getId() {
@@ -166,6 +202,15 @@ public class Alliance extends Model<Alliance> {
 		return this;
 	}
 
+	public BigDecimal getAllianceStoreAmount() {
+		return allianceStoreAmount;
+	}
+
+	public Alliance setAllianceStoreAmount(BigDecimal allianceStoreAmount) {
+		this.allianceStoreAmount = allianceStoreAmount;
+		return this;
+	}
+
 	public static final String ID = "id";
 
 	public static final String USER_ID = "user_id";
@@ -186,6 +231,8 @@ public class Alliance extends Model<Alliance> {
 
 	public static final String ALLIANCE_STATUS = "alliance_status";
 
+	public static final String ALLIANCE_STORE_AMOUNT = "alliance_store_amount";
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -204,6 +251,7 @@ public class Alliance extends Model<Alliance> {
 			", stockholderShipTime=" + stockholderShipTime +
 			", tempAllianceExpiryTime=" + tempAllianceExpiryTime +
 			", allianceStatus=" + allianceStatus +
+			", allianceStoreAmount=" + allianceStoreAmount +
 			"}";
 	}
 }
