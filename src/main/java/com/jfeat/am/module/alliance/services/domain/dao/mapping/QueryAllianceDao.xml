@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.alliance.services.domain.dao.QueryAllianceDao">
+                                                                                                                                                                                                                                                                                                                                                                                    <sql id="Base_Column_List">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_alliance.id, t_alliance.user_id AS userId, t_alliance.invitor_alliance_id AS invitorAllianceId, t_alliance.alliance_ship AS allianceShip, t_alliance.stockholder_ship AS stockholderShip, t_alliance.creation_time AS creationTime, t_alliance.alliance_ship_time AS allianceShipTime, t_alliance.stockholder_ship_time AS stockholderShipTime, t_alliance.temp_alliance_expiry_time AS tempAllianceExpiryTime, t_alliance.alliance_status AS allianceStatus
+    </sql>
+
+    
+
+    <select id="findAlliancePage" resultType="AllianceRecord" parameterType="AllianceRecord">
+            SELECT
+        <include refid="Base_Column_List" />
+        FROM t_alliance
+        WHERE 1=1
+                                <if test="record.id != null and record.id>0 ">
+                                    AND t_alliance.id LIKE CONCAT('%',#{record.id},'%')
+                            </if>
+                                                                                            <if test="record.userId != null and record.userId>0 ">
+                                    AND t_alliance.user_id LIKE CONCAT('%',#{record.userId},'%')
+                            </if>
+                                                                                                            <if test="record.invitorAllianceId != null and record.invitorAllianceId>0 ">
+                                    AND t_alliance.invitor_alliance_id LIKE CONCAT('%',#{record.invitorAllianceId},'%')
+                            </if>
+                                                                                            <if test="record.allianceShip != null and record.allianceShip>0 ">
+                                    AND t_alliance.alliance_ship LIKE CONCAT('%',#{record.allianceShip},'%')
+                            </if>
+                                                                                            <if test="record.stockholderShip != null and record.stockholderShip>0 ">
+                                    AND t_alliance.stockholder_ship LIKE CONCAT('%',#{record.stockholderShip},'%')
+                            </if>
+                                                                                            <if test="record.creationTime != null and record.creationTime>0 ">
+                                    AND t_alliance.creation_time LIKE CONCAT('%',#{record.creationTime},'%')
+                            </if>
+                                                                                                            <if test="record.allianceShipTime != null and record.allianceShipTime>0 ">
+                                    AND t_alliance.alliance_ship_time LIKE CONCAT('%',#{record.allianceShipTime},'%')
+                            </if>
+                                                                                                            <if test="record.stockholderShipTime != null and record.stockholderShipTime>0 ">
+                                    AND t_alliance.stockholder_ship_time LIKE CONCAT('%',#{record.stockholderShipTime},'%')
+                            </if>
+                                                                                                                            <if test="record.tempAllianceExpiryTime != null and record.tempAllianceExpiryTime>0 ">
+                                    AND t_alliance.temp_alliance_expiry_time LIKE CONCAT('%',#{record.tempAllianceExpiryTime},'%')
+                            </if>
+                                                                                            <if test="record.allianceStatus != null and record.allianceStatus>0 ">
+                                    AND t_alliance.alliance_status LIKE CONCAT('%',#{record.allianceStatus},'%')
+                            </if>
+                <if test="startTime != null">
+            <![CDATA[AND t_alliance.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_alliance.end_time <= DATE(#{endTime)]]>
+        </if>
+            <!--
+        <if test="search != null and search != ''">
+            OR t_alliance.name LIKE CONCAT('%',#{search},'%')
+        </if>
+        -->
+                                    </select>
+</mapper>
