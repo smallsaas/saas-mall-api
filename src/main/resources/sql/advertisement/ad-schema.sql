@@ -17,8 +17,7 @@ CREATE TABLE IF NOT EXISTS t_ad (
     enabled smallint(5) not null default 1,
     target_url varchar(255) default null,
     `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
-    `strategy` varchar(100) DEFAULT NULL COMMENT '策略',
-    foreign key (group_id) references t_ad_group (id) on delete cascade
+    `strategy` varchar(100) DEFAULT NULL COMMENT '策略'
 ) ENGINE=InnoDB  DEFAULT CHARSET=UTF8;
 
 DROP TABLE IF EXISTS t_ad_link_definition;
