@@ -23,7 +23,6 @@ import java.util.List;
 public class FrontProductTagServiceImpl extends CRUDFrontProductTagServiceImpl implements FrontProductTagService {
     @Resource
     QueryFrontProductTagDao queryFrontProductTagDao;
-
     @Override
     public List findProductTagPage(Page<FrontProductTagRecord> page, FrontProductTagRecord record,
                                    String search, String orderBy, Date startTime, Date endTime) {

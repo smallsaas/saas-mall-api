@@ -1,6 +1,7 @@
 package com.jfeat.am.module.frontproduct.services.gen.persistence.model;
 
 import com.baomidou.mybatisplus.activerecord.Model;
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
@@ -30,6 +31,16 @@ public class ProductBrand extends Model<ProductBrand> {
 
 
     private static final long serialVersionUID = 1L;
+	@TableField("org_id")
+	private Long orgId;
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
+	}
 
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;

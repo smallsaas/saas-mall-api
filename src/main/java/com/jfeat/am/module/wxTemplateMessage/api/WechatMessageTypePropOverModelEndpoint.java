@@ -34,7 +34,6 @@ import javax.annotation.Resource;
 @RequestMapping("/api/crud/wxTemplateMessage/wechatMessageTypeProps")
 public class WechatMessageTypePropOverModelEndpoint {
 
-
     @Resource
     WechatMessageTypePropService wechatMessageTypePropService;
 

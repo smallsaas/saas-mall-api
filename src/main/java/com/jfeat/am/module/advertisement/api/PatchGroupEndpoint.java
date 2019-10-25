@@ -1,9 +1,8 @@
 package com.jfeat.am.module.advertisement.api;
 
-import com.jfeat.am.common.constant.tips.SuccessTip;
-import com.jfeat.am.common.constant.tips.Tip;
-import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.advertisement.services.service.PatchGroupService;
+import com.jfeat.crud.base.tips.SuccessTip;
+import com.jfeat.crud.base.tips.Tip;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,7 +19,7 @@ import javax.annotation.Resource;
  */
 @RestController
 @RequestMapping("/api/adm/ad/groups/data")
-public class PatchGroupEndpoint extends BaseController {
+public class PatchGroupEndpoint{
     @Resource
     private PatchGroupService patchGroupService;
 

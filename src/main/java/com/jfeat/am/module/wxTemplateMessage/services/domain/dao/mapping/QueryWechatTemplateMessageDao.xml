@@ -27,9 +27,9 @@
         <if test="record.enabled != null and record.enabled>0 ">
             AND t_wechat_template_message.enabled LIKE CONCAT('%',#{record.enabled},'%')
         </if>
-        <if test="record.orgId != null and record.orgId>0 ">
-            AND t_wechat_template_message.org_id LIKE CONCAT('%',#{record.orgId},'%')
-        </if>
+<!--        <if test="record.orgId != null and record.orgId>0 ">-->
+<!--            AND t_wechat_template_message.org_id LIKE CONCAT('%',#{record.orgId},'%')-->
+<!--        </if>-->
         <if test="startTime != null">
             <![CDATA[AND t_wechat_template_message.start_time >= DATE(#{startTime})]]>
         </if>

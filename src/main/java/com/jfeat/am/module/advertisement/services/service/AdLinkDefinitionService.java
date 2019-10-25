@@ -1,7 +1,7 @@
 package com.jfeat.am.module.advertisement.services.service;
 
 import com.jfeat.am.module.advertisement.services.persistence.model.AdLinkDefinition;
-import com.jfeat.am.common.crud.CRUDServiceOnly;
+import com.jfeat.crud.plus.CRUDServiceOnly;
 
 /**
  * <p>

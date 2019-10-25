@@ -1,5 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.filter;
 
+import com.alibaba.fastjson.JSONObject;
 import com.jfeat.crud.plus.CRUDFilter;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductCategory;
 
@@ -11,7 +12,7 @@ public class FrontProductCategoryFilter implements CRUDFilter<FrontProductCatego
 
     private String[] ignoreFields = new String[]{};
     private String[] updateIgnoreFields = new String[]{};
-
+    public JSONObject result;
     @Override
     public void filter(FrontProductCategory entity, boolean insertOrUpdate) {
 
@@ -34,5 +35,12 @@ public class FrontProductCategoryFilter implements CRUDFilter<FrontProductCatego
         }else {
             return updateIgnoreFields;
         }
+    }
+
+    public JSONObject result() {
+        if(this.result==null){
+            this.result=new JSONObject();
+        }
+        return this.result;
     }
 }

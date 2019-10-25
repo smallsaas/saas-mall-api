@@ -1,8 +1,7 @@
 package com.jfeat.am.module.termconfig.services.crud.service;
             
 import com.jfeat.am.module.termconfig.services.persistence.model.TermConfig;
-
-import com.jfeat.am.common.crud.CRUDServiceOnly;
+import com.jfeat.crud.plus.CRUDServiceOnly;
 
 
 /**

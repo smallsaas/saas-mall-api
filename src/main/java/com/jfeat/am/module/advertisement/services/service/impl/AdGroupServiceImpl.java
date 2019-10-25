@@ -2,14 +2,14 @@ package com.jfeat.am.module.advertisement.services.service.impl;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.jfeat.am.common.crud.CRUD;
-import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
 import com.jfeat.am.module.advertisement.services.persistence.dao.AdGroupMapper;
 import com.jfeat.am.module.advertisement.services.persistence.dao.AdMapper;
 import com.jfeat.am.module.advertisement.services.persistence.model.Ad;
 import com.jfeat.am.module.advertisement.services.persistence.model.AdGroup;
 import com.jfeat.am.module.advertisement.services.persistence.model.AdGroupedModel;
 import com.jfeat.am.module.advertisement.services.service.AdGroupService;
+import com.jfeat.crud.plus.CRUD;
+import com.jfeat.crud.plus.impl.CRUDServiceOnlyImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

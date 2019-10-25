@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jfeat.am.module.advertisement.services.persistence.model.AdLinkDefinition;
 import com.jfeat.am.module.advertisement.services.persistence.dao.AdLinkDefinitionMapper;
 import com.jfeat.am.module.advertisement.services.service.AdLinkDefinitionService;
-import com.jfeat.am.common.crud.impl.CRUDServiceOnlyImpl;
+import com.jfeat.crud.plus.impl.CRUDServiceOnlyImpl;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;

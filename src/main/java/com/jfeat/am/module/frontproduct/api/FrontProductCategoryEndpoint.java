@@ -1,6 +1,7 @@
 package com.jfeat.am.module.frontproduct.api;
 
 
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
@@ -39,7 +40,9 @@ public class FrontProductCategoryEndpoint {
     @PostMapping
     @ApiOperation(value = "新建 FrontProductCategory", response = FrontProductCategory.class)
     public Tip createProductCategory(@RequestBody FrontProductCategoryModel entity) {
-
+        Long orgId = JWTKit.getOrgId();
+        System.out.println(orgId);
+        entity.setOrgId(JWTKit.getOrgId());
         Integer affected = 0;
         try {
             affected = frontProductCategoryService.createProductCategory(entity);

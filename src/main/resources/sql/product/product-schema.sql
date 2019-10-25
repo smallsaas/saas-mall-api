@@ -23,7 +23,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 DROP TABLE IF EXISTS `t_front_product`;
 CREATE TABLE `t_front_product`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `category_id` bigint(20) NOT NULL,
+  `category_id` bigint(20) NOT NULL DEFAULT '0',
   `brand_id` bigint(20) NULL DEFAULT NULL,
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
   `short_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,

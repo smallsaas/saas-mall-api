@@ -1,10 +1,9 @@
 package com.jfeat.am.module.termconfig.api.crud;
 
-import com.jfeat.am.common.constant.tips.SuccessTip;
-import com.jfeat.am.common.constant.tips.Tip;
-import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.module.termconfig.services.crud.service.TermConfigService;
 import com.jfeat.am.module.termconfig.services.persistence.model.TermConfig;
+import com.jfeat.crud.base.tips.SuccessTip;
+import com.jfeat.crud.base.tips.Tip;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -26,11 +25,10 @@ import java.util.Date;
 @Api("termconfig-系统规则配置")
 @RestController
 @RequestMapping("/api/term/config")
-public class TermConfigEndpoint extends BaseController {
+public class TermConfigEndpoint{
 
     @Resource
     TermConfigService termConfigService;
-
 
     @ApiOperation(value = "通过规则类型，获取具体规则配置")
     @ApiImplicitParams({

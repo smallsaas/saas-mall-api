@@ -3,6 +3,7 @@ package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductCategoryDao;
+import com.jfeat.am.module.frontproduct.services.domain.filter.FrontProductCategoryFilter;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
@@ -51,12 +52,19 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
         int affected  = 0;
         /*entity.setOrgId(JWTKit.getOrgId());
         affected += this.frontProductCategoryMapper.insert(entity);*/
+//        FrontProductCategoryFilter filter = new FrontProductCategoryFilter ();
         affected += this.createMaster(entity);
+
+//        Long entityId = filter.result().containsKey("id")
+//                ? filter.result().getLong("id"): null;
+
         List<ProductCategoryProperty> productCategoryPropertyList = entity.getProductCategoryPropertyList();
-        productCategoryPropertyList.forEach(item -> {
-            item.setCategoryId(entity.getId());
-            productCategoryPropertyService.createMaster(item);
-        });
+        if(productCategoryPropertyList!=null){
+            productCategoryPropertyList.forEach(item -> {
+                item.setCategoryId(entity.getId());
+                productCategoryPropertyService.createMaster(item);
+            });
+        }
         return affected;
     }
 

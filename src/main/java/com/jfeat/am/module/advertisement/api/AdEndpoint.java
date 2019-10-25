@@ -1,9 +1,6 @@
 package com.jfeat.am.module.advertisement.api;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.common.constant.tips.SuccessTip;
-import com.jfeat.am.common.constant.tips.Tip;
-import com.jfeat.am.common.controller.BaseController;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.advertisement.services.domain.model.record.AdRecord;
 import com.jfeat.am.module.advertisement.services.persistence.dao.AdGroupMapper;
@@ -11,6 +8,8 @@ import com.jfeat.am.module.advertisement.services.persistence.model.Ad;
 import com.jfeat.am.module.advertisement.services.service.AdService;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
+import com.jfeat.crud.base.tips.SuccessTip;
+import com.jfeat.crud.base.tips.Tip;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -21,7 +20,7 @@ import javax.annotation.Resource;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author admin
@@ -30,7 +29,7 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/api")
 @Api("AD-轮播图")
-public class AdEndpoint extends BaseController {
+public class AdEndpoint {
 
     @Resource
     private AdService adService;
