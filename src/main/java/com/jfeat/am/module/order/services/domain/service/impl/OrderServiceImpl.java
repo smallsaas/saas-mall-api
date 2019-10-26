@@ -9,7 +9,7 @@ import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.crud.service.impl.CRUDOrderServiceImpl;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderItemMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderProcessLogMapper;
-import com.jfeat.am.module.order.services.gen.persistence.model.Order;
+import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderProcessLog;
 import com.jfeat.crud.plus.CRUD;
@@ -45,8 +45,8 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
     @Override
     public OrderModel getOrder(Long id) {
-        Order order = this.retrieveMaster(id);
-        OrderModel orderModel = CRUD.castObject(order, OrderModel.class);
+        TOrder TOrder = this.retrieveMaster(id);
+        OrderModel orderModel = CRUD.castObject(TOrder, OrderModel.class);
         List<OrderItem> orderItemList = orderItemMapper.selectList(new EntityWrapper<OrderItem>().eq("order_id", id));
         orderModel.setOrderItemList(orderItemList);
         List<OrderProcessLog> orderProcessLogList = orderProcessLogMapper.selectList(new EntityWrapper<OrderProcessLog>().eq("order_id", id));
@@ -56,6 +56,6 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
     @Override
     public Integer updateOrderStatus(Long id, String orderStatus) {
-        return orderMapper.updateById(new Order().setId(id).setStatus(orderStatus));
+        return orderMapper.updateById(new TOrder().setId(id).setStatus(orderStatus));
     }
 }

@@ -19,7 +19,7 @@ import java.util.Date;
  * @since 2019-07-31
  */
 @TableName("t_order")
-public class Order extends Model<Order> {
+public class TOrder extends Model<TOrder> {
 
     @com.baomidou.mybatisplus.annotations.TableField(exist = false)
     private com.alibaba.fastjson.JSONObject extra;
@@ -212,7 +212,7 @@ public class Order extends Model<Order> {
 		return id;
 	}
 
-	public Order setId(Long id) {
+	public TOrder setId(Long id) {
 		this.id = id;
 		return this;
 	}
@@ -221,7 +221,7 @@ public class Order extends Model<Order> {
 		return userId;
 	}
 
-	public Order setUserId(Integer userId) {
+	public TOrder setUserId(Integer userId) {
 		this.userId = userId;
 		return this;
 	}
@@ -230,7 +230,7 @@ public class Order extends Model<Order> {
 		return orderNumber;
 	}
 
-	public Order setOrderNumber(String orderNumber) {
+	public TOrder setOrderNumber(String orderNumber) {
 		this.orderNumber = orderNumber;
 		return this;
 	}
@@ -239,7 +239,7 @@ public class Order extends Model<Order> {
 		return tradeNumber;
 	}
 
-	public Order setTradeNumber(String tradeNumber) {
+	public TOrder setTradeNumber(String tradeNumber) {
 		this.tradeNumber = tradeNumber;
 		return this;
 	}
@@ -248,7 +248,7 @@ public class Order extends Model<Order> {
 		return paymentType;
 	}
 
-	public Order setPaymentType(String paymentType) {
+	public TOrder setPaymentType(String paymentType) {
 		this.paymentType = paymentType;
 		return this;
 	}
@@ -257,7 +257,7 @@ public class Order extends Model<Order> {
 		return createdDate;
 	}
 
-	public Order setCreatedDate(Date createdDate) {
+	public TOrder setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 		return this;
 	}
@@ -266,7 +266,7 @@ public class Order extends Model<Order> {
 		return payDate;
 	}
 
-	public Order setPayDate(Date payDate) {
+	public TOrder setPayDate(Date payDate) {
 		this.payDate = payDate;
 		return this;
 	}
@@ -275,7 +275,7 @@ public class Order extends Model<Order> {
 		return confirmDate;
 	}
 
-	public Order setConfirmDate(Date confirmDate) {
+	public TOrder setConfirmDate(Date confirmDate) {
 		this.confirmDate = confirmDate;
 		return this;
 	}
@@ -284,7 +284,7 @@ public class Order extends Model<Order> {
 		return deliverDate;
 	}
 
-	public Order setDeliverDate(Date deliverDate) {
+	public TOrder setDeliverDate(Date deliverDate) {
 		this.deliverDate = deliverDate;
 		return this;
 	}
@@ -293,7 +293,7 @@ public class Order extends Model<Order> {
 		return deliveredDate;
 	}
 
-	public Order setDeliveredDate(Date deliveredDate) {
+	public TOrder setDeliveredDate(Date deliveredDate) {
 		this.deliveredDate = deliveredDate;
 		return this;
 	}
@@ -302,7 +302,7 @@ public class Order extends Model<Order> {
 		return dealDate;
 	}
 
-	public Order setDealDate(Date dealDate) {
+	public TOrder setDealDate(Date dealDate) {
 		this.dealDate = dealDate;
 		return this;
 	}
@@ -311,7 +311,7 @@ public class Order extends Model<Order> {
 		return deliverOrderNumber;
 	}
 
-	public Order setDeliverOrderNumber(String deliverOrderNumber) {
+	public TOrder setDeliverOrderNumber(String deliverOrderNumber) {
 		this.deliverOrderNumber = deliverOrderNumber;
 		return this;
 	}
@@ -320,7 +320,7 @@ public class Order extends Model<Order> {
 		return status;
 	}
 
-	public Order setStatus(String status) {
+	public TOrder setStatus(String status) {
 		this.status = status;
 		return this;
 	}
@@ -329,7 +329,7 @@ public class Order extends Model<Order> {
 		return totalPrice;
 	}
 
-	public Order setTotalPrice(BigDecimal totalPrice) {
+	public TOrder setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
 		return this;
 	}
@@ -338,7 +338,7 @@ public class Order extends Model<Order> {
 		return freight;
 	}
 
-	public Order setFreight(BigDecimal freight) {
+	public TOrder setFreight(BigDecimal freight) {
 		this.freight = freight;
 		return this;
 	}
@@ -347,7 +347,7 @@ public class Order extends Model<Order> {
 		return description;
 	}
 
-	public Order setDescription(String description) {
+	public TOrder setDescription(String description) {
 		this.description = description;
 		return this;
 	}
@@ -356,7 +356,7 @@ public class Order extends Model<Order> {
 		return remark;
 	}
 
-	public Order setRemark(String remark) {
+	public TOrder setRemark(String remark) {
 		this.remark = remark;
 		return this;
 	}
@@ -365,7 +365,7 @@ public class Order extends Model<Order> {
 		return invoice;
 	}
 
-	public Order setInvoice(Integer invoice) {
+	public TOrder setInvoice(Integer invoice) {
 		this.invoice = invoice;
 		return this;
 	}
@@ -374,7 +374,7 @@ public class Order extends Model<Order> {
 		return invoiceTitle;
 	}
 
-	public Order setInvoiceTitle(String invoiceTitle) {
+	public TOrder setInvoiceTitle(String invoiceTitle) {
 		this.invoiceTitle = invoiceTitle;
 		return this;
 	}
@@ -383,7 +383,7 @@ public class Order extends Model<Order> {
 		return receivingTime;
 	}
 
-	public Order setReceivingTime(String receivingTime) {
+	public TOrder setReceivingTime(String receivingTime) {
 		this.receivingTime = receivingTime;
 		return this;
 	}
@@ -392,7 +392,7 @@ public class Order extends Model<Order> {
 		return zip;
 	}
 
-	public Order setZip(String zip) {
+	public TOrder setZip(String zip) {
 		this.zip = zip;
 		return this;
 	}
@@ -401,7 +401,7 @@ public class Order extends Model<Order> {
 		return contactUser;
 	}
 
-	public Order setContactUser(String contactUser) {
+	public TOrder setContactUser(String contactUser) {
 		this.contactUser = contactUser;
 		return this;
 	}
@@ -410,7 +410,7 @@ public class Order extends Model<Order> {
 		return phone;
 	}
 
-	public Order setPhone(String phone) {
+	public TOrder setPhone(String phone) {
 		this.phone = phone;
 		return this;
 	}
@@ -419,7 +419,7 @@ public class Order extends Model<Order> {
 		return province;
 	}
 
-	public Order setProvince(String province) {
+	public TOrder setProvince(String province) {
 		this.province = province;
 		return this;
 	}
@@ -428,7 +428,7 @@ public class Order extends Model<Order> {
 		return city;
 	}
 
-	public Order setCity(String city) {
+	public TOrder setCity(String city) {
 		this.city = city;
 		return this;
 	}
@@ -437,7 +437,7 @@ public class Order extends Model<Order> {
 		return district;
 	}
 
-	public Order setDistrict(String district) {
+	public TOrder setDistrict(String district) {
 		this.district = district;
 		return this;
 	}
@@ -446,7 +446,7 @@ public class Order extends Model<Order> {
 		return street;
 	}
 
-	public Order setStreet(String street) {
+	public TOrder setStreet(String street) {
 		this.street = street;
 		return this;
 	}
@@ -455,7 +455,7 @@ public class Order extends Model<Order> {
 		return detail;
 	}
 
-	public Order setDetail(String detail) {
+	public TOrder setDetail(String detail) {
 		this.detail = detail;
 		return this;
 	}
@@ -464,7 +464,7 @@ public class Order extends Model<Order> {
 		return cover;
 	}
 
-	public Order setCover(String cover) {
+	public TOrder setCover(String cover) {
 		this.cover = cover;
 		return this;
 	}
@@ -473,7 +473,7 @@ public class Order extends Model<Order> {
 		return expressNumber;
 	}
 
-	public Order setExpressNumber(String expressNumber) {
+	public TOrder setExpressNumber(String expressNumber) {
 		this.expressNumber = expressNumber;
 		return this;
 	}
@@ -482,7 +482,7 @@ public class Order extends Model<Order> {
 		return expressCompany;
 	}
 
-	public Order setExpressCompany(String expressCompany) {
+	public TOrder setExpressCompany(String expressCompany) {
 		this.expressCompany = expressCompany;
 		return this;
 	}
@@ -491,7 +491,7 @@ public class Order extends Model<Order> {
 		return expressCode;
 	}
 
-	public Order setExpressCode(String expressCode) {
+	public TOrder setExpressCode(String expressCode) {
 		this.expressCode = expressCode;
 		return this;
 	}
@@ -500,7 +500,7 @@ public class Order extends Model<Order> {
 		return settled;
 	}
 
-	public Order setSettled(Integer settled) {
+	public TOrder setSettled(Integer settled) {
 		this.settled = settled;
 		return this;
 	}
@@ -509,7 +509,7 @@ public class Order extends Model<Order> {
 		return previousStatus;
 	}
 
-	public Order setPreviousStatus(String previousStatus) {
+	public TOrder setPreviousStatus(String previousStatus) {
 		this.previousStatus = previousStatus;
 		return this;
 	}
@@ -518,7 +518,7 @@ public class Order extends Model<Order> {
 		return isDeliverReminder;
 	}
 
-	public Order setIsDeliverReminder(Integer isDeliverReminder) {
+	public TOrder setIsDeliverReminder(Integer isDeliverReminder) {
 		this.isDeliverReminder = isDeliverReminder;
 		return this;
 	}
@@ -527,7 +527,7 @@ public class Order extends Model<Order> {
 		return isDeleted;
 	}
 
-	public Order setIsDeleted(Integer isDeleted) {
+	public TOrder setIsDeleted(Integer isDeleted) {
 		this.isDeleted = isDeleted;
 		return this;
 	}
@@ -536,7 +536,7 @@ public class Order extends Model<Order> {
 		return pointExchangeRate;
 	}
 
-	public Order setPointExchangeRate(Integer pointExchangeRate) {
+	public TOrder setPointExchangeRate(Integer pointExchangeRate) {
 		this.pointExchangeRate = pointExchangeRate;
 		return this;
 	}
@@ -545,7 +545,7 @@ public class Order extends Model<Order> {
 		return couponInfo;
 	}
 
-	public Order setCouponInfo(String couponInfo) {
+	public TOrder setCouponInfo(String couponInfo) {
 		this.couponInfo = couponInfo;
 		return this;
 	}
@@ -554,7 +554,7 @@ public class Order extends Model<Order> {
 		return marketing;
 	}
 
-	public Order setMarketing(String marketing) {
+	public TOrder setMarketing(String marketing) {
 		this.marketing = marketing;
 		return this;
 	}
@@ -563,7 +563,7 @@ public class Order extends Model<Order> {
 		return marketingId;
 	}
 
-	public Order setMarketingId(Integer marketingId) {
+	public TOrder setMarketingId(Integer marketingId) {
 		this.marketingId = marketingId;
 		return this;
 	}
@@ -572,7 +572,7 @@ public class Order extends Model<Order> {
 		return marketingDescription;
 	}
 
-	public Order setMarketingDescription(String marketingDescription) {
+	public TOrder setMarketingDescription(String marketingDescription) {
 		this.marketingDescription = marketingDescription;
 		return this;
 	}
@@ -581,7 +581,7 @@ public class Order extends Model<Order> {
 		return mid;
 	}
 
-	public Order setMid(Integer mid) {
+	public TOrder setMid(Integer mid) {
 		this.mid = mid;
 		return this;
 	}
@@ -590,7 +590,7 @@ public class Order extends Model<Order> {
 		return mname;
 	}
 
-	public Order setMname(String mname) {
+	public TOrder setMname(String mname) {
 		this.mname = mname;
 		return this;
 	}
@@ -599,7 +599,7 @@ public class Order extends Model<Order> {
 		return storeId;
 	}
 
-	public Order setStoreId(String storeId) {
+	public TOrder setStoreId(String storeId) {
 		this.storeId = storeId;
 		return this;
 	}
@@ -608,7 +608,7 @@ public class Order extends Model<Order> {
 		return storeName;
 	}
 
-	public Order setStoreName(String storeName) {
+	public TOrder setStoreName(String storeName) {
 		this.storeName = storeName;
 		return this;
 	}
@@ -617,7 +617,7 @@ public class Order extends Model<Order> {
 		return storeUserId;
 	}
 
-	public Order setStoreUserId(String storeUserId) {
+	public TOrder setStoreUserId(String storeUserId) {
 		this.storeUserId = storeUserId;
 		return this;
 	}
@@ -626,7 +626,7 @@ public class Order extends Model<Order> {
 		return storeUserName;
 	}
 
-	public Order setStoreUserName(String storeUserName) {
+	public TOrder setStoreUserName(String storeUserName) {
 		this.storeUserName = storeUserName;
 		return this;
 	}
@@ -635,7 +635,7 @@ public class Order extends Model<Order> {
 		return type;
 	}
 
-	public Order setType(String type) {
+	public TOrder setType(String type) {
 		this.type = type;
 		return this;
 	}
@@ -644,7 +644,7 @@ public class Order extends Model<Order> {
 		return payCredit;
 	}
 
-	public Order setPayCredit(Integer payCredit) {
+	public TOrder setPayCredit(Integer payCredit) {
 		this.payCredit = payCredit;
 		return this;
 	}
@@ -653,7 +653,7 @@ public class Order extends Model<Order> {
 		return deliveryType;
 	}
 
-	public Order setDeliveryType(String deliveryType) {
+	public TOrder setDeliveryType(String deliveryType) {
 		this.deliveryType = deliveryType;
 		return this;
 	}
@@ -662,7 +662,7 @@ public class Order extends Model<Order> {
 		return origin;
 	}
 
-	public Order setOrigin(String origin) {
+	public TOrder setOrigin(String origin) {
 		this.origin = origin;
 		return this;
 	}
@@ -671,7 +671,7 @@ public class Order extends Model<Order> {
 		return storeUserCode;
 	}
 
-	public Order setStoreUserCode(String storeUserCode) {
+	public TOrder setStoreUserCode(String storeUserCode) {
 		this.storeUserCode = storeUserCode;
 		return this;
 	}
@@ -680,7 +680,7 @@ public class Order extends Model<Order> {
 		return storeCode;
 	}
 
-	public Order setStoreCode(String storeCode) {
+	public TOrder setStoreCode(String storeCode) {
 		this.storeCode = storeCode;
 		return this;
 	}
@@ -689,7 +689,7 @@ public class Order extends Model<Order> {
 		return storeCover;
 	}
 
-	public Order setStoreCover(String storeCover) {
+	public TOrder setStoreCover(String storeCover) {
 		this.storeCover = storeCover;
 		return this;
 	}
@@ -698,7 +698,7 @@ public class Order extends Model<Order> {
 		return storeGuideUserId;
 	}
 
-	public Order setStoreGuideUserId(String storeGuideUserId) {
+	public TOrder setStoreGuideUserId(String storeGuideUserId) {
 		this.storeGuideUserId = storeGuideUserId;
 		return this;
 	}
@@ -707,7 +707,7 @@ public class Order extends Model<Order> {
 		return storeGuideUserCode;
 	}
 
-	public Order setStoreGuideUserCode(String storeGuideUserCode) {
+	public TOrder setStoreGuideUserCode(String storeGuideUserCode) {
 		this.storeGuideUserCode = storeGuideUserCode;
 		return this;
 	}
@@ -716,7 +716,7 @@ public class Order extends Model<Order> {
 		return storeGuideUserName;
 	}
 
-	public Order setStoreGuideUserName(String storeGuideUserName) {
+	public TOrder setStoreGuideUserName(String storeGuideUserName) {
 		this.storeGuideUserName = storeGuideUserName;
 		return this;
 	}
@@ -725,7 +725,7 @@ public class Order extends Model<Order> {
 		return inviterUserId;
 	}
 
-	public Order setInviterUserId(String inviterUserId) {
+	public TOrder setInviterUserId(String inviterUserId) {
 		this.inviterUserId = inviterUserId;
 		return this;
 	}
@@ -734,7 +734,7 @@ public class Order extends Model<Order> {
 		return inviterUserName;
 	}
 
-	public Order setInviterUserName(String inviterUserName) {
+	public TOrder setInviterUserName(String inviterUserName) {
 		this.inviterUserName = inviterUserName;
 		return this;
 	}
@@ -743,7 +743,7 @@ public class Order extends Model<Order> {
 		return followedStoreId;
 	}
 
-	public Order setFollowedStoreId(String followedStoreId) {
+	public TOrder setFollowedStoreId(String followedStoreId) {
 		this.followedStoreId = followedStoreId;
 		return this;
 	}
@@ -752,7 +752,7 @@ public class Order extends Model<Order> {
 		return followedStoreCode;
 	}
 
-	public Order setFollowedStoreCode(String followedStoreCode) {
+	public TOrder setFollowedStoreCode(String followedStoreCode) {
 		this.followedStoreCode = followedStoreCode;
 		return this;
 	}
@@ -761,7 +761,7 @@ public class Order extends Model<Order> {
 		return followedStoreName;
 	}
 
-	public Order setFollowedStoreName(String followedStoreName) {
+	public TOrder setFollowedStoreName(String followedStoreName) {
 		this.followedStoreName = followedStoreName;
 		return this;
 	}
@@ -770,7 +770,7 @@ public class Order extends Model<Order> {
 		return followedStoreCover;
 	}
 
-	public Order setFollowedStoreCover(String followedStoreCover) {
+	public TOrder setFollowedStoreCover(String followedStoreCover) {
 		this.followedStoreCover = followedStoreCover;
 		return this;
 	}
@@ -779,7 +779,7 @@ public class Order extends Model<Order> {
 		return commentId;
 	}
 
-	public Order setCommentId(String commentId) {
+	public TOrder setCommentId(String commentId) {
 		this.commentId = commentId;
 		return this;
 	}
@@ -788,7 +788,7 @@ public class Order extends Model<Order> {
 		return bindingStoreId;
 	}
 
-	public Order setBindingStoreId(String bindingStoreId) {
+	public TOrder setBindingStoreId(String bindingStoreId) {
 		this.bindingStoreId = bindingStoreId;
 		return this;
 	}
@@ -797,7 +797,7 @@ public class Order extends Model<Order> {
 		return bindingStoreCode;
 	}
 
-	public Order setBindingStoreCode(String bindingStoreCode) {
+	public TOrder setBindingStoreCode(String bindingStoreCode) {
 		this.bindingStoreCode = bindingStoreCode;
 		return this;
 	}
@@ -806,7 +806,7 @@ public class Order extends Model<Order> {
 		return bindingStoreName;
 	}
 
-	public Order setBindingStoreName(String bindingStoreName) {
+	public TOrder setBindingStoreName(String bindingStoreName) {
 		this.bindingStoreName = bindingStoreName;
 		return this;
 	}
@@ -815,7 +815,7 @@ public class Order extends Model<Order> {
 		return bindingStoreCover;
 	}
 
-	public Order setBindingStoreCover(String bindingStoreCover) {
+	public TOrder setBindingStoreCover(String bindingStoreCover) {
 		this.bindingStoreCover = bindingStoreCover;
 		return this;
 	}
@@ -824,7 +824,7 @@ public class Order extends Model<Order> {
 		return refundFee;
 	}
 
-	public Order setRefundFee(BigDecimal refundFee) {
+	public TOrder setRefundFee(BigDecimal refundFee) {
 		this.refundFee = refundFee;
 		return this;
 	}
@@ -833,7 +833,7 @@ public class Order extends Model<Order> {
 		return storeAddress;
 	}
 
-	public Order setStoreAddress(String storeAddress) {
+	public TOrder setStoreAddress(String storeAddress) {
 		this.storeAddress = storeAddress;
 		return this;
 	}
@@ -842,7 +842,7 @@ public class Order extends Model<Order> {
 		return supplementaryFee;
 	}
 
-	public Order setSupplementaryFee(BigDecimal supplementaryFee) {
+	public TOrder setSupplementaryFee(BigDecimal supplementaryFee) {
 		this.supplementaryFee = supplementaryFee;
 		return this;
 	}
@@ -851,7 +851,7 @@ public class Order extends Model<Order> {
 		return originPrice;
 	}
 
-	public Order setOriginPrice(BigDecimal originPrice) {
+	public TOrder setOriginPrice(BigDecimal originPrice) {
 		this.originPrice = originPrice;
 		return this;
 	}
@@ -860,7 +860,7 @@ public class Order extends Model<Order> {
 		return couponPrice;
 	}
 
-	public Order setCouponPrice(BigDecimal couponPrice) {
+	public TOrder setCouponPrice(BigDecimal couponPrice) {
 		this.couponPrice = couponPrice;
 		return this;
 	}
@@ -869,7 +869,7 @@ public class Order extends Model<Order> {
 		return creditPrice;
 	}
 
-	public Order setCreditPrice(BigDecimal creditPrice) {
+	public TOrder setCreditPrice(BigDecimal creditPrice) {
 		this.creditPrice = creditPrice;
 		return this;
 	}
@@ -878,7 +878,7 @@ public class Order extends Model<Order> {
 		return extCouponId;
 	}
 
-	public Order setExtCouponId(String extCouponId) {
+	public TOrder setExtCouponId(String extCouponId) {
 		this.extCouponId = extCouponId;
 		return this;
 	}
@@ -887,7 +887,7 @@ public class Order extends Model<Order> {
 		return extUserType;
 	}
 
-	public Order setExtUserType(String extUserType) {
+	public TOrder setExtUserType(String extUserType) {
 		this.extUserType = extUserType;
 		return this;
 	}
@@ -896,7 +896,7 @@ public class Order extends Model<Order> {
 		return extCouponType;
 	}
 
-	public Order setExtCouponType(String extCouponType) {
+	public TOrder setExtCouponType(String extCouponType) {
 		this.extCouponType = extCouponType;
 		return this;
 	}
@@ -905,7 +905,7 @@ public class Order extends Model<Order> {
 		return extDiscount;
 	}
 
-	public Order setExtDiscount(Integer extDiscount) {
+	public TOrder setExtDiscount(Integer extDiscount) {
 		this.extDiscount = extDiscount;
 		return this;
 	}
@@ -914,7 +914,7 @@ public class Order extends Model<Order> {
 		return extCuts;
 	}
 
-	public Order setExtCuts(Integer extCuts) {
+	public TOrder setExtCuts(Integer extCuts) {
 		this.extCuts = extCuts;
 		return this;
 	}

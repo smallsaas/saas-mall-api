@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
-import com.jfeat.am.module.order.services.gen.persistence.model.Order;
+import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -42,8 +42,8 @@ public class OrderEndpoint {
     OrderService orderService;
 
     @PostMapping
-    @ApiOperation(value = "新建 Order", response = Order.class)
-    public Tip createOrder(@RequestBody Order entity) {
+    @ApiOperation(value = "新建 Order", response = TOrder.class)
+    public Tip createOrder(@RequestBody TOrder entity) {
 
         Integer affected = 0;
         try {
@@ -57,20 +57,20 @@ public class OrderEndpoint {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "查看 Order", response = Order.class)
+    @ApiOperation(value = "查看 Order", response = TOrder.class)
     public Tip getOrder(@PathVariable Long id) {
         return SuccessTip.create(orderService.getOrder(id));
     }
 
     @PutMapping("/{id}")
-    @ApiOperation(value = "修改 Order", response = Order.class)
-    public Tip updateOrder(@PathVariable Long id, @RequestBody Order entity) {
+    @ApiOperation(value = "修改 Order", response = TOrder.class)
+    public Tip updateOrder(@PathVariable Long id, @RequestBody TOrder entity) {
         entity.setId(id);
         return SuccessTip.create(orderService.updateMaster(entity));
     }
 
     @PostMapping("/{id}/{orderStatus}")
-    @ApiOperation(value = "取消 Order", response = Order.class)
+    @ApiOperation(value = "取消 Order", response = TOrder.class)
     public Tip updateOrderStatus(@PathVariable Long id, @PathVariable String orderStatus) {
         try {
             //不报错，orderStatus参数正确

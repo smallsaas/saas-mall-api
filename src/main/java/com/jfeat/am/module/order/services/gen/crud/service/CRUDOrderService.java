@@ -1,6 +1,6 @@
 package com.jfeat.am.module.order.services.gen.crud.service;
             import com.jfeat.crud.plus.CRUDServiceOnly;
-import com.jfeat.am.module.order.services.gen.persistence.model.Order;
+import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 
 /**
  * <p>
@@ -12,6 +12,6 @@ import com.jfeat.am.module.order.services.gen.persistence.model.Order;
  * Master: ${cfg.masterModel}
   * Slave : t_order
   */
-public interface CRUDOrderService  extends CRUDServiceOnly<Order> {
+public interface CRUDOrderService  extends CRUDServiceOnly<TOrder> {
 
 }

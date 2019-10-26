@@ -18,7 +18,7 @@
     </parent>
 
     <properties>
-	<skipStandalone>true</skipStandalone>
+	    <skipStandalone>true</skipStandalone>
         <crud-plus.version>0.0.6</crud-plus.version>
         <crud-core.version>0.0.2</crud-core.version>
         <crud-dev.version>0.0.1</crud-dev.version>
@@ -35,12 +35,7 @@
             <artifactId>crud-core</artifactId>
             <version>${crud-core.version}</version>
         </dependency>
-        <dependency>
-            <groupId>com.jfeat</groupId>
-            <artifactId>uaas</artifactId>
-            <version>2.1.0</version>
-        </dependency>
-        <dependency>
+       <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>etcd-client</artifactId>
             <version>1.0.0</version>
@@ -49,7 +44,6 @@
             <groupId>com.jfeat</groupId>
             <artifactId>crud-dev</artifactId>
             <version>${crud-dev.version}</version>
-	        <scope>provided</scope>
         </dependency>
     </dependencies>
 

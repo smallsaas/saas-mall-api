@@ -1,19 +1,19 @@
 package com.jfeat.am.module.order.services.domain.filter;
 
 import com.jfeat.crud.plus.CRUDFilter;
-import com.jfeat.am.module.order.services.gen.persistence.model.Order;
+import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 
 
 /**
  * Created by Code Generator on 2019-07-31
  */
-public class OrderFilter implements CRUDFilter<Order> {
+public class OrderFilter implements CRUDFilter<TOrder> {
 
     private String[] ignoreFields = new String[]{};
     private String[] updateIgnoreFields = new String[]{};
 
     @Override
-    public void filter(Order entity, boolean insertOrUpdate) {
+    public void filter(TOrder entity, boolean insertOrUpdate) {
 
         //if insertOrUpdate is true,means for insert, do this
         if (insertOrUpdate){

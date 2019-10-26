@@ -3,7 +3,7 @@
 <mapper namespace="com.jfeat.am.module.order.services.gen.persistence.dao.OrderMapper">
 
 	<!-- 通用查询映射结果 -->
-	<resultMap id="BaseResultMap" type="com.jfeat.am.module.order.services.gen.persistence.model.Order">
+	<resultMap id="BaseResultMap" type="com.jfeat.am.module.order.services.gen.persistence.model.TOrder">
 		<id column="id" property="id" />
 		<result column="user_id" property="userId" />
 		<result column="order_number" property="orderNumber" />

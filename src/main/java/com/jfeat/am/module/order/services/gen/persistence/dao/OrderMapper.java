@@ -1,6 +1,6 @@
 package com.jfeat.am.module.order.services.gen.persistence.dao;
 
-import com.jfeat.am.module.order.services.gen.persistence.model.Order;
+import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author Code Generator
  * @since 2019-07-31
  */
-public interface OrderMapper extends BaseMapper<Order> {
+public interface OrderMapper extends BaseMapper<TOrder> {
 
 }

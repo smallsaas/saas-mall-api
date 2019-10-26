@@ -1,6 +1,6 @@
 package com.jfeat.am.module.order.services.domain.model;
 
-import com.jfeat.am.module.order.services.gen.persistence.model.Order;
+import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderProcessLog;
 
@@ -10,7 +10,7 @@ import java.util.List;
  * @author hero
  * @date 17:40
  */
-public class OrderModel extends Order {
+public class OrderModel extends TOrder {
     private List<OrderItem> orderItemList;
 
     private List<OrderProcessLog> orderProcessLogList;
