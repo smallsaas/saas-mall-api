@@ -21,8 +21,8 @@ public class AmApplication extends WebMvcConfigurerAdapter {
     protected final static Logger logger = LoggerFactory.getLogger(AmApplication.class);
 
     public static void main(String[] args) {
-        META.enabledSaaS(true);
+        //META.enabledSaaS(true);
         SpringApplication.run(AmApplication.class, args);
-        logger.info("product modular is success!");
+        logger.info("saas-mall-api subsystem run success !");
     }
 }
