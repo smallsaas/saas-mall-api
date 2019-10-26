@@ -90,8 +90,8 @@ spring:
       username: sa
       password:
       filters: log4j,wall,mergeStat
-      schema: classpath*:sql.sql/*-schema.sql.sql
-      data: classpath*:sql.sql/*-data.sql.sql
+      schema: classpath*:sql/**/*-schema.sql
+      data: classpath*:sql/**/*-data.sql
 
 logging:
   level: debug
