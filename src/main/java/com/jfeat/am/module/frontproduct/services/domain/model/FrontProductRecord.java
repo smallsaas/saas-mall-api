@@ -1,5 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.model;
 
+import com.baomidou.mybatisplus.annotations.TableField;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductBrand;
 
@@ -7,6 +8,8 @@ import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductBr
  * Created by Code Generator on 2019-07-25
  */
 public class FrontProductRecord extends FrontProduct {
+
+    private  String categoryName;
 
     private String brandName;
 
@@ -26,5 +29,13 @@ public class FrontProductRecord extends FrontProduct {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
     }
 }

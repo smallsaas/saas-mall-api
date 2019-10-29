@@ -55,15 +55,24 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     @Override
     public List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record,
                                 String search, String orderBy, Date startTime, Date endTime) {
-        List recordList = this.queryFrontProductDao.findProductPage(page, record, search, orderBy, startTime, endTime);
+        List<FrontProductRecord> recordList = this.queryFrontProductDao.findProductPage(page, record, search, orderBy, startTime, endTime);
         recordList.forEach(item -> {
+
             FrontProductRecord frontProductRecord = (FrontProductRecord) item;
+
+            System.out.println("================================");
+            System.out.println(frontProductRecord.getBrandId());
+            System.out.println(frontProductRecord.getCreatedDate());
+            System.out.println("================================");
+
             if(frontProductRecord.getBrandId()!=null){
                 ProductBrand productBrand = productBrandService.retrieveMaster(frontProductRecord.getBrandId());
                 frontProductRecord.setProductBrand(productBrand);
             }
         });
-        return this.getEavProxy().selectList(recordList, this.entityName());
+
+       // return this.getEavProxy().selectList(recordList, this.entityName());
+        return recordList;
     }
 
     @Override
@@ -105,7 +114,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     @Override
     public FrontProductModel getProduct(Long id) {
 
-        FrontProduct frontProduct = queryFrontProductDao.findProductModelById(id);
+        FrontProductModel frontProduct = queryFrontProductDao.findProductModelById(id);
         FrontProductModel frontProductModel = CRUD.castObject(frontProduct, FrontProductModel.class);
         //添加images
         List<ProductImage> productImageList = productImageMapper.selectList(new EntityWrapper<ProductImage>().eq("product_id", id));

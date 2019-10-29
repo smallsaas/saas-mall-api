@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
@@ -33,7 +34,6 @@ import java.util.Date;
  * @since 2019-07-25
  */
 @RestController
-
 @Api("FrontProduct")
 @RequestMapping("/api/crud/product/products")
 public class FrontProductEndpoint {
@@ -45,9 +45,13 @@ public class FrontProductEndpoint {
     @PostMapping
     @ApiOperation(value = "新建 FrontProduct", response = FrontProduct.class)
     public Tip createProduct(@RequestBody FrontProductModel entity) {
-
+        if(entity.getOrgId()==null){
+            entity.setOrgId(JWTKit.getOrgId());
+        }
         Integer affected = 0;
         try {
+            entity.setCreatedDate(new Date());
+            entity.setLastModifiedDate(new Date());
             affected = frontProductService.createProduct(entity);
 
         } catch (DuplicateKeyException e) {
@@ -75,6 +79,7 @@ public class FrontProductEndpoint {
     public Tip deleteProduct(@PathVariable Long id) {
         return SuccessTip.create(frontProductService.deleteMaster(id));
     }
+
 
     @ApiOperation(value = "FrontProduct 列表信息", response = FrontProductRecord.class)
     @GetMapping
@@ -200,7 +205,7 @@ public class FrontProductEndpoint {
         record.setPartnerLevelZone(partnerLevelZone);
         record.setViewCount(viewCount);
         record.setFareId(fareId);
-        record.setBarcode(barcode);
+
         record.setStoreLocation(storeLocation);
         record.setWeight(weight);
         record.setBulk(bulk);
@@ -216,7 +221,10 @@ public class FrontProductEndpoint {
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
-
+        System.out.println("================================");
+        System.out.println(page.getRecords().get(1).getCreatedDate());
+        System.out.println();
+        System.out.println("================================");
         return SuccessTip.create(page);
     }
 
