@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -61,11 +62,13 @@ public class Trial extends Model<Trial> {
     /**
      * 有效申请时间
      */
+   @JsonFormat(pattern = "yyyy-MM-dd")
 	@TableField("start_time")
 	private Date startTime;
     /**
      * 过期时间
      */
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	@TableField("end_time")
 	private Date endTime;
     /**
@@ -79,7 +82,7 @@ public class Trial extends Model<Trial> {
     /**
      * 排序号
      */
-	private Integer index;
+	private Integer sortNum;
     /**
      * 运费支付 0 商家 1 顾客
      */
@@ -188,16 +191,16 @@ public class Trial extends Model<Trial> {
 		return this;
 	}
 
-	public Integer getIndex() {
-		return index;
-	}
 
-	public Trial setIndex(Integer index) {
-		this.index = index;
-		return this;
-	}
+    public Integer getSortNum() {
+        return sortNum;
+    }
 
-	public Integer getShippingType() {
+    public void setSortNum(Integer sortNum) {
+        this.sortNum = sortNum;
+    }
+
+    public Integer getShippingType() {
 		return shippingType;
 	}
 
@@ -244,7 +247,7 @@ public class Trial extends Model<Trial> {
 
 	public static final String NOTE = "note";
 
-	public static final String INDEX = "index";
+	public static final String SORTNUM = "sort_num";
 
 	public static final String SHIPPING_TYPE = "shipping_type";
 
@@ -270,7 +273,7 @@ public class Trial extends Model<Trial> {
 			", endTime=" + endTime +
 			", cover=" + cover +
 			", note=" + note +
-			", index=" + index +
+			", sortNum=" + sortNum +
 			", shippingType=" + shippingType +
 			", paymentType=" + paymentType +
 			", version=" + version +

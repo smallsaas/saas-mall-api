@@ -40,5 +40,5 @@ public interface FrontProductCategoryService extends CRUDFrontProductCategorySer
      * 返回所欲产品类型
      * @return
      */
-    List<FrontProductCategoryRecord> queryProductCategoryies();
+    List<FrontProductCategoryRecord> queryProductCategoryies(String name);
 }

@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.domain.model.TrialRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.TrialOverModelService;
 import com.jfeat.am.module.frontproduct.services.gen.crud.model.TrialModel;
@@ -44,6 +45,10 @@ public class TrialEndpoint {
     @ApiOperation(value = "新建 Trial", response = TrialModel.class)
     public Tip createTrial(@RequestBody TrialModel entity) {
 
+       //JWTKit.getOrgId()
+        if(entity.getOrgId()==null){
+            entity.setOrgId(JWTKit.getOrgId());
+        }
         Integer affected = 0;
         try {
 
@@ -119,7 +124,7 @@ public class TrialEndpoint {
                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endTime,
                            @RequestParam(name = "cover", required = false) String cover,
                            @RequestParam(name = "note", required = false) String note,
-                           @RequestParam(name = "index", required = false) Integer index,
+                           @RequestParam(name = "sortNum", required = false) Integer sortNum,
                            @RequestParam(name = "shippingType", required = false) Integer shippingType,
                            @RequestParam(name = "paymentType", required = false) String paymentType,
                            @RequestParam(name = "version", required = false) Integer version,
@@ -151,14 +156,15 @@ public class TrialEndpoint {
         record.setEndTime(endTime);
         record.setCover(cover);
         record.setNote(note);
-        record.setIndex(index);
+        record.setSortNum(sortNum);
         record.setShippingType(shippingType);
         record.setPaymentType(paymentType);
         record.setVersion(version);
         record.setOrgId(orgId);
         page.setRecords(this.trialOverModelService.findTrialPage(page, record, search, orderBy, null, null));
+        SuccessTip tip=SuccessTip.create(page);
 
-        return SuccessTip.create(page);
+        return tip;
     }
 
 }

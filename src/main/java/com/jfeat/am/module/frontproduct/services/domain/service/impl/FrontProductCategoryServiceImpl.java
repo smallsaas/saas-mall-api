@@ -92,10 +92,18 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
     }
 
     @Override
-    public List<FrontProductCategoryRecord> queryProductCategoryies() {
+    public List<FrontProductCategoryRecord> queryProductCategoryies(String name) {
 
-        List<FrontProductCategory> frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>().isNull("parent_id").orderBy("sort_order"));
+        List<FrontProductCategory> frontProductCategoryList;
+        if (name!=null && !name.equals("")){
+            frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>()
+                    .eq("name",name)
+                    .isNull("parent_id").orderBy("sort_order"));
 
+        }
+        else {
+            frontProductCategoryList  = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>().isNull("parent_id").orderBy("sort_order"));
+        }
         return frontProductCategoryList.stream().map(item -> {
             FrontProductCategoryRecord record = CRUD.castObject(item, FrontProductCategoryRecord.class);
             return addSubProductCategory(record);

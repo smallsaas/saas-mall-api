@@ -5,7 +5,6 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -13,16 +12,16 @@ import java.util.Date;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author Code Generator
- * @since 2019-07-31
+ * @since 2019-10-17
  */
 @TableName("t_order")
-public class TOrder extends Model<TOrder> {
+public class Order2 extends Model<Order2> {
 
-    @com.baomidou.mybatisplus.annotations.TableField(exist = false)
+    @TableField(exist = false)
     private com.alibaba.fastjson.JSONObject extra;
 
     public com.alibaba.fastjson.JSONObject getExtra() {
@@ -38,42 +37,28 @@ public class TOrder extends Model<TOrder> {
 	@TableId(value="id", type= IdType.AUTO)
 	private Long id;
 	@TableField("user_id")
-	private Integer userId;
-	@TableField("order_number")
-	private String orderNumber;
+	private Long userId;
+	@TableField("Order2_number")
+	private String Order2Number;
 	@TableField("trade_number")
 	private String tradeNumber;
 	@TableField("payment_type")
 	private String paymentType;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField("created_date")
 	private Date createdDate;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField("pay_date")
 	private Date payDate;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField("confirm_date")
 	private Date confirmDate;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField("deliver_date")
 	private Date deliverDate;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField("delivered_date")
 	private Date deliveredDate;
-
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField("deal_date")
 	private Date dealDate;
-	@TableField("deliver_order_number")
-	private String deliverOrderNumber;
+	@TableField("deliver_Order2_number")
+	private String deliverOrder2Number;
 	private String status;
-
-	//价格
 	@TableField("total_price")
 	private BigDecimal totalPrice;
 	private BigDecimal freight;
@@ -170,14 +155,14 @@ public class TOrder extends Model<TOrder> {
 	@TableField("binding_store_cover")
 	private String bindingStoreCover;
     /**
-     * 退货款金额
+     * �?货款金额
      */
 	@TableField("refund_fee")
 	private BigDecimal refundFee;
 	@TableField("store_address")
 	private String storeAddress;
     /**
-     * 换货补差价金额
+     * 换货补差价金�?
      */
 	@TableField("supplementary_fee")
 	private BigDecimal supplementaryFee;
@@ -187,7 +172,7 @@ public class TOrder extends Model<TOrder> {
 	@TableField("origin_price")
 	private BigDecimal originPrice;
     /**
-     * 优惠券价钱
+     * 优惠券价�?
      */
 	@TableField("coupon_price")
 	private BigDecimal couponPrice;
@@ -196,57 +181,32 @@ public class TOrder extends Model<TOrder> {
      */
 	@TableField("credit_price")
 	private BigDecimal creditPrice;
-    /**
-     * 第三方优惠券的优惠券ID
-     */
-	@TableField("ext_coupon_id")
-	private String extCouponId;
-    /**
-     * 第三方优惠券的用户类型
-     */
-	@TableField("ext_user_type")
-	private String extUserType;
-    /**
-     * 第三方优惠券的优惠券类型
-     */
-	@TableField("ext_coupon_type")
-	private String extCouponType;
-    /**
-     * 第三方优惠券的折扣率
-     */
-	@TableField("ext_discount")
-	private Integer extDiscount;
-    /**
-     * 第三方优惠券的优惠
-     */
-	@TableField("ext_cuts")
-	private Integer extCuts;
-	@TableField("org_id")
-	private Long orgId;
+
+
 	public Long getId() {
 		return id;
 	}
 
-	public TOrder setId(Long id) {
+	public Order2 setId(Long id) {
 		this.id = id;
 		return this;
 	}
 
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public TOrder setUserId(Integer userId) {
+	public Order2 setUserId(Long userId) {
 		this.userId = userId;
 		return this;
 	}
 
-	public String getOrderNumber() {
-		return orderNumber;
+	public String getOrder2Number() {
+		return Order2Number;
 	}
 
-	public TOrder setOrderNumber(String orderNumber) {
-		this.orderNumber = orderNumber;
+	public Order2 setOrder2Number(String Order2Number) {
+		this.Order2Number = Order2Number;
 		return this;
 	}
 
@@ -254,7 +214,7 @@ public class TOrder extends Model<TOrder> {
 		return tradeNumber;
 	}
 
-	public TOrder setTradeNumber(String tradeNumber) {
+	public Order2 setTradeNumber(String tradeNumber) {
 		this.tradeNumber = tradeNumber;
 		return this;
 	}
@@ -263,7 +223,7 @@ public class TOrder extends Model<TOrder> {
 		return paymentType;
 	}
 
-	public TOrder setPaymentType(String paymentType) {
+	public Order2 setPaymentType(String paymentType) {
 		this.paymentType = paymentType;
 		return this;
 	}
@@ -272,7 +232,7 @@ public class TOrder extends Model<TOrder> {
 		return createdDate;
 	}
 
-	public TOrder setCreatedDate(Date createdDate) {
+	public Order2 setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 		return this;
 	}
@@ -281,7 +241,7 @@ public class TOrder extends Model<TOrder> {
 		return payDate;
 	}
 
-	public TOrder setPayDate(Date payDate) {
+	public Order2 setPayDate(Date payDate) {
 		this.payDate = payDate;
 		return this;
 	}
@@ -290,7 +250,7 @@ public class TOrder extends Model<TOrder> {
 		return confirmDate;
 	}
 
-	public TOrder setConfirmDate(Date confirmDate) {
+	public Order2 setConfirmDate(Date confirmDate) {
 		this.confirmDate = confirmDate;
 		return this;
 	}
@@ -299,7 +259,7 @@ public class TOrder extends Model<TOrder> {
 		return deliverDate;
 	}
 
-	public TOrder setDeliverDate(Date deliverDate) {
+	public Order2 setDeliverDate(Date deliverDate) {
 		this.deliverDate = deliverDate;
 		return this;
 	}
@@ -308,7 +268,7 @@ public class TOrder extends Model<TOrder> {
 		return deliveredDate;
 	}
 
-	public TOrder setDeliveredDate(Date deliveredDate) {
+	public Order2 setDeliveredDate(Date deliveredDate) {
 		this.deliveredDate = deliveredDate;
 		return this;
 	}
@@ -317,17 +277,17 @@ public class TOrder extends Model<TOrder> {
 		return dealDate;
 	}
 
-	public TOrder setDealDate(Date dealDate) {
+	public Order2 setDealDate(Date dealDate) {
 		this.dealDate = dealDate;
 		return this;
 	}
 
-	public String getDeliverOrderNumber() {
-		return deliverOrderNumber;
+	public String getDeliverOrder2Number() {
+		return deliverOrder2Number;
 	}
 
-	public TOrder setDeliverOrderNumber(String deliverOrderNumber) {
-		this.deliverOrderNumber = deliverOrderNumber;
+	public Order2 setDeliverOrder2Number(String deliverOrder2Number) {
+		this.deliverOrder2Number = deliverOrder2Number;
 		return this;
 	}
 
@@ -335,7 +295,7 @@ public class TOrder extends Model<TOrder> {
 		return status;
 	}
 
-	public TOrder setStatus(String status) {
+	public Order2 setStatus(String status) {
 		this.status = status;
 		return this;
 	}
@@ -344,7 +304,7 @@ public class TOrder extends Model<TOrder> {
 		return totalPrice;
 	}
 
-	public TOrder setTotalPrice(BigDecimal totalPrice) {
+	public Order2 setTotalPrice(BigDecimal totalPrice) {
 		this.totalPrice = totalPrice;
 		return this;
 	}
@@ -353,7 +313,7 @@ public class TOrder extends Model<TOrder> {
 		return freight;
 	}
 
-	public TOrder setFreight(BigDecimal freight) {
+	public Order2 setFreight(BigDecimal freight) {
 		this.freight = freight;
 		return this;
 	}
@@ -362,7 +322,7 @@ public class TOrder extends Model<TOrder> {
 		return description;
 	}
 
-	public TOrder setDescription(String description) {
+	public Order2 setDescription(String description) {
 		this.description = description;
 		return this;
 	}
@@ -371,7 +331,7 @@ public class TOrder extends Model<TOrder> {
 		return remark;
 	}
 
-	public TOrder setRemark(String remark) {
+	public Order2 setRemark(String remark) {
 		this.remark = remark;
 		return this;
 	}
@@ -380,7 +340,7 @@ public class TOrder extends Model<TOrder> {
 		return invoice;
 	}
 
-	public TOrder setInvoice(Integer invoice) {
+	public Order2 setInvoice(Integer invoice) {
 		this.invoice = invoice;
 		return this;
 	}
@@ -389,7 +349,7 @@ public class TOrder extends Model<TOrder> {
 		return invoiceTitle;
 	}
 
-	public TOrder setInvoiceTitle(String invoiceTitle) {
+	public Order2 setInvoiceTitle(String invoiceTitle) {
 		this.invoiceTitle = invoiceTitle;
 		return this;
 	}
@@ -398,7 +358,7 @@ public class TOrder extends Model<TOrder> {
 		return receivingTime;
 	}
 
-	public TOrder setReceivingTime(String receivingTime) {
+	public Order2 setReceivingTime(String receivingTime) {
 		this.receivingTime = receivingTime;
 		return this;
 	}
@@ -407,7 +367,7 @@ public class TOrder extends Model<TOrder> {
 		return zip;
 	}
 
-	public TOrder setZip(String zip) {
+	public Order2 setZip(String zip) {
 		this.zip = zip;
 		return this;
 	}
@@ -416,7 +376,7 @@ public class TOrder extends Model<TOrder> {
 		return contactUser;
 	}
 
-	public TOrder setContactUser(String contactUser) {
+	public Order2 setContactUser(String contactUser) {
 		this.contactUser = contactUser;
 		return this;
 	}
@@ -425,7 +385,7 @@ public class TOrder extends Model<TOrder> {
 		return phone;
 	}
 
-	public TOrder setPhone(String phone) {
+	public Order2 setPhone(String phone) {
 		this.phone = phone;
 		return this;
 	}
@@ -434,7 +394,7 @@ public class TOrder extends Model<TOrder> {
 		return province;
 	}
 
-	public TOrder setProvince(String province) {
+	public Order2 setProvince(String province) {
 		this.province = province;
 		return this;
 	}
@@ -443,7 +403,7 @@ public class TOrder extends Model<TOrder> {
 		return city;
 	}
 
-	public TOrder setCity(String city) {
+	public Order2 setCity(String city) {
 		this.city = city;
 		return this;
 	}
@@ -452,7 +412,7 @@ public class TOrder extends Model<TOrder> {
 		return district;
 	}
 
-	public TOrder setDistrict(String district) {
+	public Order2 setDistrict(String district) {
 		this.district = district;
 		return this;
 	}
@@ -461,7 +421,7 @@ public class TOrder extends Model<TOrder> {
 		return street;
 	}
 
-	public TOrder setStreet(String street) {
+	public Order2 setStreet(String street) {
 		this.street = street;
 		return this;
 	}
@@ -470,7 +430,7 @@ public class TOrder extends Model<TOrder> {
 		return detail;
 	}
 
-	public TOrder setDetail(String detail) {
+	public Order2 setDetail(String detail) {
 		this.detail = detail;
 		return this;
 	}
@@ -479,7 +439,7 @@ public class TOrder extends Model<TOrder> {
 		return cover;
 	}
 
-	public TOrder setCover(String cover) {
+	public Order2 setCover(String cover) {
 		this.cover = cover;
 		return this;
 	}
@@ -488,7 +448,7 @@ public class TOrder extends Model<TOrder> {
 		return expressNumber;
 	}
 
-	public TOrder setExpressNumber(String expressNumber) {
+	public Order2 setExpressNumber(String expressNumber) {
 		this.expressNumber = expressNumber;
 		return this;
 	}
@@ -497,7 +457,7 @@ public class TOrder extends Model<TOrder> {
 		return expressCompany;
 	}
 
-	public TOrder setExpressCompany(String expressCompany) {
+	public Order2 setExpressCompany(String expressCompany) {
 		this.expressCompany = expressCompany;
 		return this;
 	}
@@ -506,7 +466,7 @@ public class TOrder extends Model<TOrder> {
 		return expressCode;
 	}
 
-	public TOrder setExpressCode(String expressCode) {
+	public Order2 setExpressCode(String expressCode) {
 		this.expressCode = expressCode;
 		return this;
 	}
@@ -515,7 +475,7 @@ public class TOrder extends Model<TOrder> {
 		return settled;
 	}
 
-	public TOrder setSettled(Integer settled) {
+	public Order2 setSettled(Integer settled) {
 		this.settled = settled;
 		return this;
 	}
@@ -524,7 +484,7 @@ public class TOrder extends Model<TOrder> {
 		return previousStatus;
 	}
 
-	public TOrder setPreviousStatus(String previousStatus) {
+	public Order2 setPreviousStatus(String previousStatus) {
 		this.previousStatus = previousStatus;
 		return this;
 	}
@@ -533,7 +493,7 @@ public class TOrder extends Model<TOrder> {
 		return isDeliverReminder;
 	}
 
-	public TOrder setIsDeliverReminder(Integer isDeliverReminder) {
+	public Order2 setIsDeliverReminder(Integer isDeliverReminder) {
 		this.isDeliverReminder = isDeliverReminder;
 		return this;
 	}
@@ -542,7 +502,7 @@ public class TOrder extends Model<TOrder> {
 		return isDeleted;
 	}
 
-	public TOrder setIsDeleted(Integer isDeleted) {
+	public Order2 setIsDeleted(Integer isDeleted) {
 		this.isDeleted = isDeleted;
 		return this;
 	}
@@ -551,7 +511,7 @@ public class TOrder extends Model<TOrder> {
 		return pointExchangeRate;
 	}
 
-	public TOrder setPointExchangeRate(Integer pointExchangeRate) {
+	public Order2 setPointExchangeRate(Integer pointExchangeRate) {
 		this.pointExchangeRate = pointExchangeRate;
 		return this;
 	}
@@ -560,7 +520,7 @@ public class TOrder extends Model<TOrder> {
 		return couponInfo;
 	}
 
-	public TOrder setCouponInfo(String couponInfo) {
+	public Order2 setCouponInfo(String couponInfo) {
 		this.couponInfo = couponInfo;
 		return this;
 	}
@@ -569,7 +529,7 @@ public class TOrder extends Model<TOrder> {
 		return marketing;
 	}
 
-	public TOrder setMarketing(String marketing) {
+	public Order2 setMarketing(String marketing) {
 		this.marketing = marketing;
 		return this;
 	}
@@ -578,7 +538,7 @@ public class TOrder extends Model<TOrder> {
 		return marketingId;
 	}
 
-	public TOrder setMarketingId(Integer marketingId) {
+	public Order2 setMarketingId(Integer marketingId) {
 		this.marketingId = marketingId;
 		return this;
 	}
@@ -587,7 +547,7 @@ public class TOrder extends Model<TOrder> {
 		return marketingDescription;
 	}
 
-	public TOrder setMarketingDescription(String marketingDescription) {
+	public Order2 setMarketingDescription(String marketingDescription) {
 		this.marketingDescription = marketingDescription;
 		return this;
 	}
@@ -596,7 +556,7 @@ public class TOrder extends Model<TOrder> {
 		return mid;
 	}
 
-	public TOrder setMid(Integer mid) {
+	public Order2 setMid(Integer mid) {
 		this.mid = mid;
 		return this;
 	}
@@ -605,7 +565,7 @@ public class TOrder extends Model<TOrder> {
 		return mname;
 	}
 
-	public TOrder setMname(String mname) {
+	public Order2 setMname(String mname) {
 		this.mname = mname;
 		return this;
 	}
@@ -614,7 +574,7 @@ public class TOrder extends Model<TOrder> {
 		return storeId;
 	}
 
-	public TOrder setStoreId(String storeId) {
+	public Order2 setStoreId(String storeId) {
 		this.storeId = storeId;
 		return this;
 	}
@@ -623,7 +583,7 @@ public class TOrder extends Model<TOrder> {
 		return storeName;
 	}
 
-	public TOrder setStoreName(String storeName) {
+	public Order2 setStoreName(String storeName) {
 		this.storeName = storeName;
 		return this;
 	}
@@ -632,7 +592,7 @@ public class TOrder extends Model<TOrder> {
 		return storeUserId;
 	}
 
-	public TOrder setStoreUserId(String storeUserId) {
+	public Order2 setStoreUserId(String storeUserId) {
 		this.storeUserId = storeUserId;
 		return this;
 	}
@@ -641,7 +601,7 @@ public class TOrder extends Model<TOrder> {
 		return storeUserName;
 	}
 
-	public TOrder setStoreUserName(String storeUserName) {
+	public Order2 setStoreUserName(String storeUserName) {
 		this.storeUserName = storeUserName;
 		return this;
 	}
@@ -650,7 +610,7 @@ public class TOrder extends Model<TOrder> {
 		return type;
 	}
 
-	public TOrder setType(String type) {
+	public Order2 setType(String type) {
 		this.type = type;
 		return this;
 	}
@@ -659,7 +619,7 @@ public class TOrder extends Model<TOrder> {
 		return payCredit;
 	}
 
-	public TOrder setPayCredit(Integer payCredit) {
+	public Order2 setPayCredit(Integer payCredit) {
 		this.payCredit = payCredit;
 		return this;
 	}
@@ -668,7 +628,7 @@ public class TOrder extends Model<TOrder> {
 		return deliveryType;
 	}
 
-	public TOrder setDeliveryType(String deliveryType) {
+	public Order2 setDeliveryType(String deliveryType) {
 		this.deliveryType = deliveryType;
 		return this;
 	}
@@ -677,7 +637,7 @@ public class TOrder extends Model<TOrder> {
 		return origin;
 	}
 
-	public TOrder setOrigin(String origin) {
+	public Order2 setOrigin(String origin) {
 		this.origin = origin;
 		return this;
 	}
@@ -686,7 +646,7 @@ public class TOrder extends Model<TOrder> {
 		return storeUserCode;
 	}
 
-	public TOrder setStoreUserCode(String storeUserCode) {
+	public Order2 setStoreUserCode(String storeUserCode) {
 		this.storeUserCode = storeUserCode;
 		return this;
 	}
@@ -695,7 +655,7 @@ public class TOrder extends Model<TOrder> {
 		return storeCode;
 	}
 
-	public TOrder setStoreCode(String storeCode) {
+	public Order2 setStoreCode(String storeCode) {
 		this.storeCode = storeCode;
 		return this;
 	}
@@ -704,7 +664,7 @@ public class TOrder extends Model<TOrder> {
 		return storeCover;
 	}
 
-	public TOrder setStoreCover(String storeCover) {
+	public Order2 setStoreCover(String storeCover) {
 		this.storeCover = storeCover;
 		return this;
 	}
@@ -713,7 +673,7 @@ public class TOrder extends Model<TOrder> {
 		return storeGuideUserId;
 	}
 
-	public TOrder setStoreGuideUserId(String storeGuideUserId) {
+	public Order2 setStoreGuideUserId(String storeGuideUserId) {
 		this.storeGuideUserId = storeGuideUserId;
 		return this;
 	}
@@ -722,7 +682,7 @@ public class TOrder extends Model<TOrder> {
 		return storeGuideUserCode;
 	}
 
-	public TOrder setStoreGuideUserCode(String storeGuideUserCode) {
+	public Order2 setStoreGuideUserCode(String storeGuideUserCode) {
 		this.storeGuideUserCode = storeGuideUserCode;
 		return this;
 	}
@@ -731,7 +691,7 @@ public class TOrder extends Model<TOrder> {
 		return storeGuideUserName;
 	}
 
-	public TOrder setStoreGuideUserName(String storeGuideUserName) {
+	public Order2 setStoreGuideUserName(String storeGuideUserName) {
 		this.storeGuideUserName = storeGuideUserName;
 		return this;
 	}
@@ -740,7 +700,7 @@ public class TOrder extends Model<TOrder> {
 		return inviterUserId;
 	}
 
-	public TOrder setInviterUserId(String inviterUserId) {
+	public Order2 setInviterUserId(String inviterUserId) {
 		this.inviterUserId = inviterUserId;
 		return this;
 	}
@@ -749,7 +709,7 @@ public class TOrder extends Model<TOrder> {
 		return inviterUserName;
 	}
 
-	public TOrder setInviterUserName(String inviterUserName) {
+	public Order2 setInviterUserName(String inviterUserName) {
 		this.inviterUserName = inviterUserName;
 		return this;
 	}
@@ -758,7 +718,7 @@ public class TOrder extends Model<TOrder> {
 		return followedStoreId;
 	}
 
-	public TOrder setFollowedStoreId(String followedStoreId) {
+	public Order2 setFollowedStoreId(String followedStoreId) {
 		this.followedStoreId = followedStoreId;
 		return this;
 	}
@@ -767,7 +727,7 @@ public class TOrder extends Model<TOrder> {
 		return followedStoreCode;
 	}
 
-	public TOrder setFollowedStoreCode(String followedStoreCode) {
+	public Order2 setFollowedStoreCode(String followedStoreCode) {
 		this.followedStoreCode = followedStoreCode;
 		return this;
 	}
@@ -776,7 +736,7 @@ public class TOrder extends Model<TOrder> {
 		return followedStoreName;
 	}
 
-	public TOrder setFollowedStoreName(String followedStoreName) {
+	public Order2 setFollowedStoreName(String followedStoreName) {
 		this.followedStoreName = followedStoreName;
 		return this;
 	}
@@ -785,7 +745,7 @@ public class TOrder extends Model<TOrder> {
 		return followedStoreCover;
 	}
 
-	public TOrder setFollowedStoreCover(String followedStoreCover) {
+	public Order2 setFollowedStoreCover(String followedStoreCover) {
 		this.followedStoreCover = followedStoreCover;
 		return this;
 	}
@@ -794,7 +754,7 @@ public class TOrder extends Model<TOrder> {
 		return commentId;
 	}
 
-	public TOrder setCommentId(String commentId) {
+	public Order2 setCommentId(String commentId) {
 		this.commentId = commentId;
 		return this;
 	}
@@ -803,7 +763,7 @@ public class TOrder extends Model<TOrder> {
 		return bindingStoreId;
 	}
 
-	public TOrder setBindingStoreId(String bindingStoreId) {
+	public Order2 setBindingStoreId(String bindingStoreId) {
 		this.bindingStoreId = bindingStoreId;
 		return this;
 	}
@@ -812,7 +772,7 @@ public class TOrder extends Model<TOrder> {
 		return bindingStoreCode;
 	}
 
-	public TOrder setBindingStoreCode(String bindingStoreCode) {
+	public Order2 setBindingStoreCode(String bindingStoreCode) {
 		this.bindingStoreCode = bindingStoreCode;
 		return this;
 	}
@@ -821,7 +781,7 @@ public class TOrder extends Model<TOrder> {
 		return bindingStoreName;
 	}
 
-	public TOrder setBindingStoreName(String bindingStoreName) {
+	public Order2 setBindingStoreName(String bindingStoreName) {
 		this.bindingStoreName = bindingStoreName;
 		return this;
 	}
@@ -830,7 +790,7 @@ public class TOrder extends Model<TOrder> {
 		return bindingStoreCover;
 	}
 
-	public TOrder setBindingStoreCover(String bindingStoreCover) {
+	public Order2 setBindingStoreCover(String bindingStoreCover) {
 		this.bindingStoreCover = bindingStoreCover;
 		return this;
 	}
@@ -839,7 +799,7 @@ public class TOrder extends Model<TOrder> {
 		return refundFee;
 	}
 
-	public TOrder setRefundFee(BigDecimal refundFee) {
+	public Order2 setRefundFee(BigDecimal refundFee) {
 		this.refundFee = refundFee;
 		return this;
 	}
@@ -848,7 +808,7 @@ public class TOrder extends Model<TOrder> {
 		return storeAddress;
 	}
 
-	public TOrder setStoreAddress(String storeAddress) {
+	public Order2 setStoreAddress(String storeAddress) {
 		this.storeAddress = storeAddress;
 		return this;
 	}
@@ -857,7 +817,7 @@ public class TOrder extends Model<TOrder> {
 		return supplementaryFee;
 	}
 
-	public TOrder setSupplementaryFee(BigDecimal supplementaryFee) {
+	public Order2 setSupplementaryFee(BigDecimal supplementaryFee) {
 		this.supplementaryFee = supplementaryFee;
 		return this;
 	}
@@ -866,7 +826,7 @@ public class TOrder extends Model<TOrder> {
 		return originPrice;
 	}
 
-	public TOrder setOriginPrice(BigDecimal originPrice) {
+	public Order2 setOriginPrice(BigDecimal originPrice) {
 		this.originPrice = originPrice;
 		return this;
 	}
@@ -875,7 +835,7 @@ public class TOrder extends Model<TOrder> {
 		return couponPrice;
 	}
 
-	public TOrder setCouponPrice(BigDecimal couponPrice) {
+	public Order2 setCouponPrice(BigDecimal couponPrice) {
 		this.couponPrice = couponPrice;
 		return this;
 	}
@@ -884,53 +844,8 @@ public class TOrder extends Model<TOrder> {
 		return creditPrice;
 	}
 
-	public TOrder setCreditPrice(BigDecimal creditPrice) {
+	public Order2 setCreditPrice(BigDecimal creditPrice) {
 		this.creditPrice = creditPrice;
-		return this;
-	}
-
-	public String getExtCouponId() {
-		return extCouponId;
-	}
-
-	public TOrder setExtCouponId(String extCouponId) {
-		this.extCouponId = extCouponId;
-		return this;
-	}
-
-	public String getExtUserType() {
-		return extUserType;
-	}
-
-	public TOrder setExtUserType(String extUserType) {
-		this.extUserType = extUserType;
-		return this;
-	}
-
-	public String getExtCouponType() {
-		return extCouponType;
-	}
-
-	public TOrder setExtCouponType(String extCouponType) {
-		this.extCouponType = extCouponType;
-		return this;
-	}
-
-	public Integer getExtDiscount() {
-		return extDiscount;
-	}
-
-	public TOrder setExtDiscount(Integer extDiscount) {
-		this.extDiscount = extDiscount;
-		return this;
-	}
-
-	public Integer getExtCuts() {
-		return extCuts;
-	}
-
-	public TOrder setExtCuts(Integer extCuts) {
-		this.extCuts = extCuts;
 		return this;
 	}
 
@@ -938,7 +853,7 @@ public class TOrder extends Model<TOrder> {
 
 	public static final String USER_ID = "user_id";
 
-	public static final String ORDER_NUMBER = "order_number";
+	public static final String Order2_NUMBER = "Order2_number";
 
 	public static final String TRADE_NUMBER = "trade_number";
 
@@ -956,7 +871,7 @@ public class TOrder extends Model<TOrder> {
 
 	public static final String DEAL_DATE = "deal_date";
 
-	public static final String DELIVER_ORDER_NUMBER = "deliver_order_number";
+	public static final String DELIVER_Order2_NUMBER = "deliver_Order2_number";
 
 	public static final String STATUS = "status";
 
@@ -1082,16 +997,6 @@ public class TOrder extends Model<TOrder> {
 
 	public static final String CREDIT_PRICE = "credit_price";
 
-	public static final String EXT_COUPON_ID = "ext_coupon_id";
-
-	public static final String EXT_USER_TYPE = "ext_user_type";
-
-	public static final String EXT_COUPON_TYPE = "ext_coupon_type";
-
-	public static final String EXT_DISCOUNT = "ext_discount";
-
-	public static final String EXT_CUTS = "ext_cuts";
-
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -1099,10 +1004,10 @@ public class TOrder extends Model<TOrder> {
 
 	@Override
 	public String toString() {
-		return "Order{" +
+		return "Order2{" +
 			"id=" + id +
 			", userId=" + userId +
-			", orderNumber=" + orderNumber +
+			", Order2Number=" + Order2Number +
 			", tradeNumber=" + tradeNumber +
 			", paymentType=" + paymentType +
 			", createdDate=" + createdDate +
@@ -1111,7 +1016,7 @@ public class TOrder extends Model<TOrder> {
 			", deliverDate=" + deliverDate +
 			", deliveredDate=" + deliveredDate +
 			", dealDate=" + dealDate +
-			", deliverOrderNumber=" + deliverOrderNumber +
+			", deliverOrder2Number=" + deliverOrder2Number +
 			", status=" + status +
 			", totalPrice=" + totalPrice +
 			", freight=" + freight +
@@ -1174,19 +1079,6 @@ public class TOrder extends Model<TOrder> {
 			", originPrice=" + originPrice +
 			", couponPrice=" + couponPrice +
 			", creditPrice=" + creditPrice +
-			", extCouponId=" + extCouponId +
-			", extUserType=" + extUserType +
-			", extCouponType=" + extCouponType +
-			", extDiscount=" + extDiscount +
-			", extCuts=" + extCuts +
 			"}";
-	}
-
-	public Long getOrgId() {
-		return orgId;
-	}
-
-	public void setOrgId(Long orgId) {
-		this.orgId = orgId;
 	}
 }

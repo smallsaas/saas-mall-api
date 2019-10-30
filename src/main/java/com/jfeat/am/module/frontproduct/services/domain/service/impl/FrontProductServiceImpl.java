@@ -60,10 +60,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
 
             FrontProductRecord frontProductRecord = (FrontProductRecord) item;
 
-            System.out.println("================================");
-            System.out.println(frontProductRecord.getBrandId());
-            System.out.println(frontProductRecord.getCreatedDate());
-            System.out.println("================================");
+
 
             if(frontProductRecord.getBrandId()!=null){
                 ProductBrand productBrand = productBrandService.retrieveMaster(frontProductRecord.getBrandId());

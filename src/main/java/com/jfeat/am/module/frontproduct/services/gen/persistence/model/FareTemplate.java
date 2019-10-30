@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -46,6 +47,8 @@ public class FareTemplate extends Model<FareTemplate> {
 	private Integer valuationModel;
 	@TableField("is_incl_postage_by_if")
 	private Integer isInclPostageByIf;
+
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	@TableField("last_modified_date")
 	private Date lastModifiedDate;
 	private String title;

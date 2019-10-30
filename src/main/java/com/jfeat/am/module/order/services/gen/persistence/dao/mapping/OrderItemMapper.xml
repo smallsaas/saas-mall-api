@@ -20,6 +20,7 @@
 		<result column="weight" property="weight" />
 		<result column="bulk" property="bulk" />
 		<result column="barcode" property="barcode" />
+
 		<result column="store_location" property="storeLocation" />
 		<result column="marketing" property="marketing" />
 		<result column="marketing_id" property="marketingId" />
@@ -30,7 +31,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, order_id AS orderId, product_id AS productId, product_name AS productName, quantity, price, final_price AS finalPrice, status, cost_price AS costPrice, cover, partner_level_zone AS partnerLevelZone, product_specification_name AS productSpecificationName, product_specification_id AS productSpecificationId, weight, bulk, barcode, store_location AS storeLocation, marketing, marketing_id AS marketingId, marketing_description AS marketingDescription, sku_id AS skuId, warehouse_id AS warehouseId
+        id, order_id AS orderId, product_id AS productId, product_name AS productName, quantity, price, final_price AS finalPrice, status, cost_price AS costPrice, cover, partner_level_zone AS partnerLevelZone, product_specification_name AS productSpecificationName, product_specification_id AS productSpecificationId, weight, bulk, store_location AS storeLocation, marketing, marketing_id AS marketingId, marketing_description AS marketingDescription, sku_id AS skuId, warehouse_id AS warehouseId
     </sql>
 
 </mapper>

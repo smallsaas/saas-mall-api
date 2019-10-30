@@ -58,7 +58,7 @@ public class OrderItem extends Model<OrderItem> {
 	private Integer productSpecificationId;
 	private Integer weight;
 	private Integer bulk;
-	private String barCode;
+	private String barcode;
 	@TableField("store_location")
 	private String storeLocation;
 	private String marketing;
@@ -214,12 +214,11 @@ public class OrderItem extends Model<OrderItem> {
 	}
 
 	public String getBarcode() {
-		return barCode;
+		return barcode;
 	}
 
-	public OrderItem setBarcode(String barCode) {
-		this.barCode = barCode;
-		return this;
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
 	}
 
 	public String getStoreLocation() {
@@ -343,7 +342,7 @@ public class OrderItem extends Model<OrderItem> {
 			", productSpecificationId=" + productSpecificationId +
 			", weight=" + weight +
 			", bulk=" + bulk +
-			", barcode=" + barCode +
+			", barcode=" + barcode +
 			", storeLocation=" + storeLocation +
 			", marketing=" + marketing +
 			", marketingId=" + marketingId +

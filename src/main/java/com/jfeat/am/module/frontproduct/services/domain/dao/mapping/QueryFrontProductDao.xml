@@ -36,7 +36,9 @@
 		t_front_product.sku_id AS skuId,
 		t_front_product.sku_name AS skuName,
 		t_front_product.sku_code AS skuCode,
-		t_front_product.bar_code AS barCode,
+
+		t_front_product.barcode AS barcode,
+
 		t_front_product.mid,
 		t_front_product.allow_coupon AS allowCoupon,
 		t_front_product.credit,
@@ -86,7 +88,8 @@
         t_front_product.sku_id AS skuId,
         t_front_product.sku_name AS skuName,
         t_front_product.sku_code AS skuCode,
-        t_front_product.bar_code AS barCode,
+
+        t_front_product.barcode AS barcode,
         t_front_product.mid,
         t_front_product.allow_coupon AS allowCoupon,
         t_front_product.credit,
@@ -99,6 +102,10 @@
         LEFT JOIN t_product_brand ON t_front_product.brand_id=t_product_brand.id
         LEFT JOIN t_front_product_category category ON category.id = t_front_product.category_id
         WHERE 1=1
+        <if test="record.categoryName != null and record.categoryName!= ''">
+            AND category.name LIKE CONCAT('%',#{record.categoryName},'%')
+        </if>
+
         <if test="record.id != null and record.id>0 ">
             AND t_front_product.id LIKE CONCAT('%',#{record.id},'%')
         </if>
@@ -187,8 +194,8 @@
         <if test="record.skuCode != null and record.skuCode!= ''">
             AND t_front_product.sku_code LIKE CONCAT('%',#{record.skuCode},'%')
         </if>
-        <if test="record.barCode != null and record.barCode!= ''">
-            AND t_front_product.bar_code LIKE CONCAT('%',#{record.barCode},'%')
+        <if test="record.barcode != null and record.barcode!= ''">
+            AND t_front_product.barcode LIKE CONCAT('%',#{record.barcode},'%')
         </if>
         <if test="record.mid != null and record.mid>0 ">
             AND t_front_product.mid LIKE CONCAT('%',#{record.mid},'%')

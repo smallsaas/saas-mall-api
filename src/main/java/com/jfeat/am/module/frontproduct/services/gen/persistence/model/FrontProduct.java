@@ -83,8 +83,10 @@ public class FrontProduct extends Model<FrontProduct> {
 	private String skuCode;
 
 
-	@TableField("bar_code")
-	private String barCode;
+	@TableField("barcode")
+	private String barcode;
+
+	/*private String barCode;*/
     /**
      * 商家id
      */
@@ -110,6 +112,15 @@ public class FrontProduct extends Model<FrontProduct> {
 	private Integer requiredParticipateExam;
 	@TableField("org_id")
 	private Long orgId;
+
+
+	public String getBarcode() {
+		return barcode;
+	}
+
+	public void setBarcode(String barcode) {
+		this.barcode = barcode;
+	}
 
 	public Long getId() {
 		return id;
@@ -365,14 +376,14 @@ public class FrontProduct extends Model<FrontProduct> {
 		return this;
 	}
 
-	public String getBarCode() {
+/*	public String getBarCode() {
 		return barCode;
 	}
 
 	public FrontProduct setBarCode(String barCode) {
 		this.barCode = barCode;
 		return this;
-	}
+	}*/
 
 	public Integer getMid() {
 		return mid;
@@ -463,6 +474,7 @@ public class FrontProduct extends Model<FrontProduct> {
 
 	public static final String FARE_ID = "fare_id";
 
+	public static final String BARCODE = "barcode";
 
 	public static final String STORE_LOCATION = "store_location";
 
@@ -518,14 +530,14 @@ public class FrontProduct extends Model<FrontProduct> {
 			", partnerLevelZone=" + partnerLevelZone +
 			", viewCount=" + viewCount +
 			", fareId=" + fareId +
-
+				", barcode=" + barcode +
 			", storeLocation=" + storeLocation +
 			", weight=" + weight +
 			", bulk=" + bulk +
 			", skuId=" + skuId +
 			", skuName=" + skuName +
 			", skuCode=" + skuCode +
-			", barCode=" + barCode +
+/*			", barCode=" + barCode +*/
 			", mid=" + mid +
 			", allowCoupon=" + allowCoupon +
 			", credit=" + credit +
