@@ -45,8 +45,7 @@ public class FareTemplateEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 FareTemplate", response = FareTemplate.class)
-    public Tip createFareTemplate(@RequestParam(name = "items", required = false)
-                                              List<CarryMode> items,
+    public Tip createFareTemplate(
                                   @RequestBody FareTemplateModel entity) {
         Long orgId = JWTKit.getOrgId();
         if (entity.getOrgId()==null){
@@ -56,7 +55,7 @@ public class FareTemplateEndpoint {
 
         Integer affected = 0;
         try {
-            entity.setCarryModeList(items);
+
             entity.setLastModifiedDate(new Date());
             affected = fareTemplateService.createFareTemplate(entity);
 

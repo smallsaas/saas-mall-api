@@ -11,14 +11,14 @@ import java.util.List;
  */
 public class FareTemplateModel extends FareTemplate {
 
-    private List<CarryMode> carryModeList;
+    private List<CarryMode> items;
 
 
-    public List<CarryMode> getCarryModeList() {
-        return carryModeList;
+    public List<CarryMode> getItems() {
+        return items;
     }
 
-    public void setCarryModeList(List<CarryMode> carryModeList) {
-        this.carryModeList = carryModeList;
+    public void setItems(List<CarryMode> items) {
+        this.items = items;
     }
 }
