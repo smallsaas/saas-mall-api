@@ -4,6 +4,7 @@ package com.jfeat.am.module.order.api;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
+import com.jfeat.am.module.order.services.domain.model.OrderRequest;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.crud.base.exception.BusinessCode;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.rmi.ServerException;
 import java.util.Date;
 
 
@@ -55,6 +57,24 @@ public class OrderEndpoint {
 
         return SuccessTip.create(affected);
     }
+
+    @PostMapping("/storeOrder")
+    @ApiOperation(value = "新建 线下订单", response = TOrder.class)
+    public Tip createStoreOrder(@RequestBody OrderRequest entity) throws ServerException {
+
+        Integer affected = 0;
+        try {
+            /*    entity.setType("STORE_ORDER");
+            affected = orderService.createMaster(entity);
+            */
+
+        } catch (DuplicateKeyException e) {
+            throw new BusinessException(BusinessCode.DuplicateKey);
+        }
+
+        return SuccessTip.create(affected);
+    }
+
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Order", response = TOrder.class)

@@ -144,8 +144,8 @@ public class FrontProductCategoryEndpoint {
 
     @ApiOperation(value = "返回所有ProductCategory", response = FrontProductCategoryRecord.class)
     @GetMapping
-    public Tip queryProductCategoryies(){
-        List<FrontProductCategoryRecord> frontProductCategoryRecordList =  frontProductCategoryService.queryProductCategoryies();
+    public Tip queryProductCategoryies(@RequestParam(name = "name", required = false)  String name){
+        List<FrontProductCategoryRecord> frontProductCategoryRecordList =  frontProductCategoryService.queryProductCategoryies(name);
         return SuccessTip.create(frontProductCategoryRecordList);
     }
 

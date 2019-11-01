@@ -61,7 +61,7 @@ public class ProductPatchEndpoint {
             @ApiImplicitParam(name = "partnerLevelZone", dataType = "Integer"),
             @ApiImplicitParam(name = "viewCount", dataType = "Long"),
             @ApiImplicitParam(name = "fareId", dataType = "Integer"),
-            @ApiImplicitParam(name = "barcode", dataType = "String"),
+
             @ApiImplicitParam(name = "storeLocation", dataType = "String"),
             @ApiImplicitParam(name = "weight", dataType = "Integer"),
             @ApiImplicitParam(name = "bulk", dataType = "Integer"),
@@ -102,14 +102,14 @@ public class ProductPatchEndpoint {
                              @RequestParam(name = "partnerLevelZone", required = false) Integer partnerLevelZone,
                              @RequestParam(name = "viewCount", required = false) Long viewCount,
                              @RequestParam(name = "fareId", required = false) Integer fareId,
-                             @RequestParam(name = "barcode", required = false) String barcode,
+
                              @RequestParam(name = "storeLocation", required = false) String storeLocation,
                              @RequestParam(name = "weight", required = false) Integer weight,
                              @RequestParam(name = "bulk", required = false) Integer bulk,
                              @RequestParam(name = "skuId", required = false) String skuId,
                              @RequestParam(name = "skuName", required = false) String skuName,
                              @RequestParam(name = "skuCode", required = false) String skuCode,
-                             @RequestParam(name = "barCode", required = false) String barCode,
+                             @RequestParam(name = "barcode", required = false) String barcode,
                              @RequestParam(name = "brandName", required = false) String brandName,
                              @RequestParam(name = "mid", required = false) Integer mid,
                              @RequestParam(name = "allowCoupon", required = false) Integer allowCoupon,
@@ -156,14 +156,14 @@ public class ProductPatchEndpoint {
         record.setPartnerLevelZone(partnerLevelZone);
         record.setViewCount(viewCount);
         record.setFareId(fareId);
-        record.setBarcode(barcode);
+
         record.setStoreLocation(storeLocation);
         record.setWeight(weight);
         record.setBulk(bulk);
         record.setSkuId(skuId);
         record.setSkuName(skuName);
         record.setSkuCode(skuCode);
-        record.setBarCode(barCode);
+        record.setBarcode(barcode);
         record.setBrandName(brandName);
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);

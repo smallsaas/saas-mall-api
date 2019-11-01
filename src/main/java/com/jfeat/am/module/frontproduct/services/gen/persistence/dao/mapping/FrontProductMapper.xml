@@ -26,7 +26,6 @@
 		<result column="partner_level_zone" property="partnerLevelZone" />
 		<result column="view_count" property="viewCount" />
 		<result column="fare_id" property="fareId" />
-		<result column="barcode" property="barcode" />
 		<result column="store_location" property="storeLocation" />
 		<result column="weight" property="weight" />
 		<result column="bulk" property="bulk" />
@@ -44,7 +43,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, category_id AS categoryId, brand_id AS brandId, name, short_name AS shortName, cover, stock_balance AS stockBalance, sales, status, created_date AS createdDate, last_modified_date AS lastModifiedDate, unit, price, cost_price AS costPrice, suggested_price AS suggestedPrice, promoted, freight, free_shipping AS freeShipping, sort_order AS sortOrder, partner_level_zone AS partnerLevelZone, view_count AS viewCount, fare_id AS fareId, barcode, store_location AS storeLocation, weight, bulk, sku_id AS skuId, sku_name AS skuName, sku_code AS skuCode, bar_code AS barCode, mid, allow_coupon AS allowCoupon, credit, is_virtual AS isVirtual, required_participate_exam AS requiredParticipateExam,org_id AS orgId
+        id, category_id AS categoryId, brand_id AS brandId, name, short_name AS shortName, cover, stock_balance AS stockBalance, sales, status, created_date AS createdDate, last_modified_date AS lastModifiedDate, unit, price, cost_price AS costPrice, suggested_price AS suggestedPrice, promoted, freight, free_shipping AS freeShipping, sort_order AS sortOrder, partner_level_zone AS partnerLevelZone, view_count AS viewCount, fare_id AS fareId, store_location AS storeLocation, weight, bulk, sku_id AS skuId, sku_name AS skuName, sku_code AS skuCode, bar_code AS barCode, mid, allow_coupon AS allowCoupon, credit, is_virtual AS isVirtual, required_participate_exam AS requiredParticipateExam,org_id AS orgId
     </sql>
 
 </mapper>

@@ -13,6 +13,12 @@ import java.util.List;
  */
 public class FrontProductModel extends FrontProduct {
 
+
+
+    private  String categoryName;
+
+    private String brandName;
+
     private ProductBrand productBrand;
 
     private String fareName;
@@ -61,5 +67,21 @@ public class FrontProductModel extends FrontProduct {
 
     public void setProductBrand(ProductBrand productBrand) {
         this.productBrand = productBrand;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getBrandName() {
+        return brandName;
+    }
+
+    public void setBrandName(String brandName) {
+        this.brandName = brandName;
     }
 }

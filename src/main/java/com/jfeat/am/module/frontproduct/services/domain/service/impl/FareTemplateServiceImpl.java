@@ -49,7 +49,7 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
     public Integer createFareTemplate(FareTemplateModel entity) {
         int affected = 0;
         affected += this.createMaster(entity);
-        List<CarryMode> carryModeList = entity.getCarryModeList();
+        List<CarryMode> carryModeList = entity.getItems();
         if(!CollectionUtils.isEmpty(carryModeList)){
             for(CarryMode carryMode : carryModeList){
                 carryMode.setFareId(entity.getId());
@@ -64,7 +64,7 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
         FareTemplate fareTemplate = this.retrieveMaster(id);
         FareTemplateModel fareTemplateModel = CRUD.castObject(fareTemplate, FareTemplateModel.class);
         List<CarryMode> carryModeList = carryModeMapper.selectList(new EntityWrapper<CarryMode>().eq("fare_id", id));
-        fareTemplateModel.setCarryModeList(carryModeList);
+        fareTemplateModel.setItems(carryModeList);
         return fareTemplateModel;
     }
 
@@ -75,7 +75,7 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
         affected += this.updateMaster(entity,false);
 
         affected += carryModeMapper.delete(new EntityWrapper<CarryMode>().eq("fare_id",entity.getId()));
-        List<CarryMode> carryModeList = entity.getCarryModeList();
+        List<CarryMode> carryModeList = entity.getItems();
         if(!CollectionUtils.isEmpty(carryModeList)){
             for(CarryMode carryMode : carryModeList){
                 carryMode.setFareId(entity.getId());

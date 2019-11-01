@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryTrialDao">
     <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_trial.id, t_trial.product_id AS productId, t_trial.price, t_trial.name, t_trial.short_note AS shortNote, t_trial.enabled, t_trial.start_time AS startTime, t_trial.end_time AS endTime, t_trial.cover, t_trial.note, t_trial.index, t_trial.shipping_type AS shippingType, t_trial.payment_type AS paymentType, t_trial.version,org_id AS orgId
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_trial.id, t_trial.product_id AS productId, t_trial.price, t_trial.name, t_trial.short_note AS shortNote, t_trial.enabled, t_trial.start_time AS startTime, t_trial.end_time AS endTime, t_trial.cover, t_trial.note,  t_trial.shipping_type AS shippingType, t_trial.payment_type AS paymentType, t_trial.version,org_id AS orgId
     </sql>
 
 
@@ -41,9 +41,7 @@
         <if test="record.note != null and record.note!= ''">
             AND t_trial.note LIKE CONCAT('%',#{record.note},'%')
         </if>
-        <if test="record.index != null and record.index>0 ">
-            AND t_trial.index LIKE CONCAT('%',#{record.index},'%')
-        </if>
+
         <if test="record.shippingType != null and record.shippingType>0 ">
             AND t_trial.shipping_type LIKE CONCAT('%',#{record.shippingType},'%')
         </if>

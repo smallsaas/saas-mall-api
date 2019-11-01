@@ -263,4 +263,21 @@
     </if>
     -->
     </select>
+
+
+    <select id="selectUserId" parameterType="java.lang.String" resultType="java.lang.Long">
+        select id from t_sys_user where name=#{name}
+    </select>
+
+    <select id="selectProductId" parameterType="java.lang.String" resultType="java.lang.String">
+    select id from t_front_product where bar_code=#{barCode}
+    </select>
+
+    <insert id="insertOrderItem" parameterType="java.util.Map">
+        insert into t_order_item (order_id,barcode,product_name,quantity,final_price) value
+         (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice})
+    </insert>
+
+
+
 </mapper>

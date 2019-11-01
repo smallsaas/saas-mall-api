@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
@@ -33,7 +34,6 @@ import java.util.Date;
  * @since 2019-07-25
  */
 @RestController
-
 @Api("FrontProduct")
 @RequestMapping("/api/crud/product/products")
 public class FrontProductEndpoint {
@@ -45,9 +45,13 @@ public class FrontProductEndpoint {
     @PostMapping
     @ApiOperation(value = "新建 FrontProduct", response = FrontProduct.class)
     public Tip createProduct(@RequestBody FrontProductModel entity) {
-
+        if(entity.getOrgId()==null){
+            entity.setOrgId(JWTKit.getOrgId());
+        }
         Integer affected = 0;
         try {
+            entity.setCreatedDate(new Date());
+            entity.setLastModifiedDate(new Date());
             affected = frontProductService.createProduct(entity);
 
         } catch (DuplicateKeyException e) {
@@ -75,6 +79,7 @@ public class FrontProductEndpoint {
     public Tip deleteProduct(@PathVariable Long id) {
         return SuccessTip.create(frontProductService.deleteMaster(id));
     }
+
 
     @ApiOperation(value = "FrontProduct 列表信息", response = FrontProductRecord.class)
     @GetMapping
@@ -111,6 +116,7 @@ public class FrontProductEndpoint {
             @ApiImplicitParam(name = "skuId", dataType = "String"),
             @ApiImplicitParam(name = "skuName", dataType = "String"),
             @ApiImplicitParam(name = "skuCode", dataType = "String"),
+
             @ApiImplicitParam(name = "barCode", dataType = "String"),
             @ApiImplicitParam(name = "mid", dataType = "Integer"),
             @ApiImplicitParam(name = "allowCoupon", dataType = "Integer"),
@@ -125,6 +131,7 @@ public class FrontProductEndpoint {
                              @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                              @RequestParam(name = "search", required = false) String search,
                              @RequestParam(name = "id", required = false) Long id,
+                             @RequestParam(name = "categoryName", required = false) String categoryName,
                              @RequestParam(name = "categoryId", required = false) Integer categoryId,
                              @RequestParam(name = "brandId", required = false) Integer brandId,
                              @RequestParam(name = "name", required = false) String name,
@@ -178,6 +185,7 @@ public class FrontProductEndpoint {
         page.setSize(pageSize);
 
         FrontProductRecord record = new FrontProductRecord();
+        record.setCategoryName(categoryName);
         record.setId(id);
         record.setCategoryId(categoryId);
         record.setBrandId(brandId);
@@ -200,14 +208,14 @@ public class FrontProductEndpoint {
         record.setPartnerLevelZone(partnerLevelZone);
         record.setViewCount(viewCount);
         record.setFareId(fareId);
-        record.setBarcode(barcode);
+
         record.setStoreLocation(storeLocation);
         record.setWeight(weight);
         record.setBulk(bulk);
         record.setSkuId(skuId);
         record.setSkuName(skuName);
         record.setSkuCode(skuCode);
-        record.setBarCode(barCode);
+        record.setBarcode(barcode);
         record.setBrandName(brandName);
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
@@ -216,7 +224,9 @@ public class FrontProductEndpoint {
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
+        System.out.println("================================");
 
+        System.out.println("================================");
         return SuccessTip.create(page);
     }
 

@@ -217,9 +217,8 @@ public class OrderItem extends Model<OrderItem> {
 		return barcode;
 	}
 
-	public OrderItem setBarcode(String barcode) {
+	public void setBarcode(String barcode) {
 		this.barcode = barcode;
-		return this;
 	}
 
 	public String getStoreLocation() {
@@ -306,7 +305,7 @@ public class OrderItem extends Model<OrderItem> {
 
 	public static final String BULK = "bulk";
 
-	public static final String BARCODE = "barcode";
+	public static final String BARCODE = "barCode";
 
 	public static final String STORE_LOCATION = "store_location";
 

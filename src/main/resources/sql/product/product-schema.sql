@@ -378,7 +378,7 @@ CREATE TABLE `t_trial`  (
   `end_time` datetime(0) NULL DEFAULT NULL COMMENT '过期时间',
   `cover` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '试用装封面',
   `note` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL COMMENT '描述',
-  `index` int(11) NULL DEFAULT 100 COMMENT '排序号',
+  `sort_num` int(11) NULL DEFAULT 100 COMMENT '排序号',
   `shipping_type` int(11) NULL DEFAULT 0 COMMENT '运费支付 0 商家 1 顾客',
   `payment_type` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '支付方式',
   `version` int(11) NULL DEFAULT 1 COMMENT '版本号',

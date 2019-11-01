@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductTagRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductTagService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductTag;
@@ -38,8 +39,12 @@ public class FrontProductTagEndpoint {
     FrontProductTagService frontProductTagService;
 
     @PostMapping
-    @ApiOperation(value = "新建 FrontProductTag", response = FrontProductTag.class)
+    @ApiOperation(value = "新建 产品标签", response = FrontProductTag.class)
     public Tip createProductTag(@RequestBody FrontProductTag entity) {
+
+        if(entity.getOrgId()==null){
+            entity.setOrgId(JWTKit.getOrgId()); };
+
 
         Integer affected = 0;
         try {

@@ -2,9 +2,11 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FareTemplateService;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.model.CarryMode;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FareTemplate;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -42,10 +45,18 @@ public class FareTemplateEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 FareTemplate", response = FareTemplate.class)
-    public Tip createFareTemplate(@RequestBody FareTemplateModel entity) {
+    public Tip createFareTemplate(
+                                  @RequestBody FareTemplateModel entity) {
+        Long orgId = JWTKit.getOrgId();
+        if (entity.getOrgId()==null){
+            entity.setOrgId(orgId);
+        }
+
 
         Integer affected = 0;
         try {
+
+            entity.setLastModifiedDate(new Date());
             affected = fareTemplateService.createFareTemplate(entity);
 
         } catch (DuplicateKeyException e) {
@@ -65,6 +76,7 @@ public class FareTemplateEndpoint {
     @ApiOperation(value = "修改 FareTemplate", response = FareTemplate.class)
     public Tip updateFareTemplate(@PathVariable Long id, @RequestBody FareTemplateModel entity) {
         entity.setId(id);
+        entity.setLastModifiedDate(new Date());
         return SuccessTip.create(fareTemplateService.updateFareTemplate(entity));
     }
 

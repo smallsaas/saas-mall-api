@@ -39,8 +39,12 @@ public class ProductBrandEndpoint {
     ProductBrandService productBrandService;
 
     @PostMapping
-    @ApiOperation(value = "新建 ProductBrand", response = ProductBrand.class)
+    @ApiOperation(value = "新建 产品品牌", response = ProductBrand.class)
     public Tip createProductBrand(@RequestBody ProductBrand entity) {
+        if(entity.getOrgId()==null){
+            entity.setOrgId(JWTKit.getOrgId());
+        }
+
         Integer affected = 0;
         try {
             affected = productBrandService.createMaster(entity);
