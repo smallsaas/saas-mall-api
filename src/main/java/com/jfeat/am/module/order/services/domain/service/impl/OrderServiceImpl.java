@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 
-import com.jfeat.am.module.order.services.domain.dao.QueryOverOrderDao;
 import com.jfeat.am.module.order.services.domain.model.OrderModel;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.model.OrderRequest;
@@ -12,7 +11,6 @@ import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.crud.service.impl.CRUDOrderServiceImpl;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderItemMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderProcessLogMapper;
-import com.jfeat.am.module.order.services.gen.persistence.model.Order2;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderProcessLog;
