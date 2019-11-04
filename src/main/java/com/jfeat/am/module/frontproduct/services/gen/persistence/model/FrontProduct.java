@@ -114,8 +114,20 @@ public class FrontProduct extends Model<FrontProduct> {
 	@TableField("distribution_price")
 	private BigDecimal distributionPrice;
 
+
+	@TableField("org_id")
+	private Long orgId;
+
+
 	private Long presale;
 
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
+	}
 
 	public String getBarcode() {
 		return barcode;
