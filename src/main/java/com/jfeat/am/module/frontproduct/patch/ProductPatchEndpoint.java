@@ -168,10 +168,7 @@ public class ProductPatchEndpoint {
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
-        if (EtcdExtandService.getTenantId() == null) {
-            throw new BusinessException(BusinessCode.BadRequest, "orgId不存在");
-        }
-        record.setOrgId(EtcdExtandService.getTenantId());
+
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));

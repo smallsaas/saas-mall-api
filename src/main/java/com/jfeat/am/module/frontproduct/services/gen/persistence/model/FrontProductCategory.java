@@ -16,7 +16,7 @@ import java.io.Serializable;
  * @author Code Generator
  * @since 2019-07-25
  */
-@TableName("t_front_product_category")
+@TableName("t_product_category")
 public class FrontProductCategory extends Model<FrontProductCategory> {
 
     @com.baomidou.mybatisplus.annotations.TableField(exist = false)

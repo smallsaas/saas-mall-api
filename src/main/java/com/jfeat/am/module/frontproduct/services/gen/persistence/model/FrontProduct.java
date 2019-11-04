@@ -18,7 +18,7 @@ import java.util.Date;
  * @author Code Generator
  * @since 2019-07-25
  */
-@TableName("t_front_product")
+@TableName("t_product")
 public class FrontProduct extends Model<FrontProduct> {
 
     @com.baomidou.mybatisplus.annotations.TableField(exist = false)
@@ -110,8 +110,11 @@ public class FrontProduct extends Model<FrontProduct> {
      */
 	@TableField("required_participate_exam")
 	private Integer requiredParticipateExam;
-	@TableField("org_id")
-	private Long orgId;
+
+	@TableField("distribution_price")
+	private BigDecimal distributionPrice;
+
+	private Long presale;
 
 
 	public String getBarcode() {
@@ -546,11 +549,19 @@ public class FrontProduct extends Model<FrontProduct> {
 			"}";
 	}
 
-	public Long getOrgId() {
-		return orgId;
+	public BigDecimal getDistributionPrice() {
+		return distributionPrice;
 	}
 
-	public void setOrgId(Long orgId) {
-		this.orgId = orgId;
+	public void setDistributionPrice(BigDecimal distributionPrice) {
+		this.distributionPrice = distributionPrice;
+	}
+
+	public Long getPresale() {
+		return presale;
+	}
+
+	public void setPresale(Long presale) {
+		this.presale = presale;
 	}
 }

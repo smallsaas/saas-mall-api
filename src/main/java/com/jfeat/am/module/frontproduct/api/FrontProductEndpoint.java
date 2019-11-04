@@ -45,9 +45,7 @@ public class FrontProductEndpoint {
     @PostMapping
     @ApiOperation(value = "新建 FrontProduct", response = FrontProduct.class)
     public Tip createProduct(@RequestBody FrontProductModel entity) {
-        if(entity.getOrgId()==null){
-            entity.setOrgId(JWTKit.getOrgId());
-        }
+
         Integer affected = 0;
         try {
             entity.setCreatedDate(new Date());
@@ -167,7 +165,7 @@ public class FrontProductEndpoint {
                              @RequestParam(name = "credit", required = false) Integer credit,
                              @RequestParam(name = "isVirtual", required = false) Integer isVirtual,
                              @RequestParam(name = "requiredParticipateExam", required = false) Integer requiredParticipateExam,
-                             @RequestParam(name = "orgId", required = false) Long orgId,
+
                              @RequestParam(name = "orderBy", required = false) String orderBy,
                              @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -220,7 +218,7 @@ public class FrontProductEndpoint {
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
-        record.setOrgId(orgId);
+
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
