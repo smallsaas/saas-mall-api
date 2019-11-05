@@ -1,7 +1,6 @@
 package com.jfeat.am.module.frontproduct.patch;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.etcd.service.EtcdExtandService;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
 import com.jfeat.crud.base.exception.BusinessCode;
@@ -26,6 +25,7 @@ import java.util.Date;
  * @author hero
  * @date 18:05
  */
+@Deprecated
 @RestController
 @Api("FrontProduct")
 @RequestMapping("/api/pub/product/products")

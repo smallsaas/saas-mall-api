@@ -37,11 +37,11 @@
             <artifactId>crud-core</artifactId>
             <version>${crud-core.version}</version>
         </dependency>
-       <dependency>
+       <!--<dependency>
             <groupId>com.jfeat</groupId>
-            <artifactId>etcd-client</artifactId>
+            <artifasctId>etcd-client</artifactId>
             <version>1.0.0</version>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>crud-dev</artifactId>
