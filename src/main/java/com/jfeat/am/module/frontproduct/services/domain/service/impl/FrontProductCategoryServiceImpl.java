@@ -12,6 +12,8 @@ import com.jfeat.am.module.frontproduct.services.gen.crud.service.impl.CRUDFront
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.ProductCategoryPropertyMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductCategory;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductCategoryProperty;
+import com.jfeat.crud.base.exception.BusinessCode;
+import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -72,6 +74,9 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
     public FrontProductCategoryModel getProductCategoryById(Long id) {
         FrontProductCategory frontProductCategory = this.retrieveMaster(id);
         List<ProductCategoryProperty> categoryPropertyList = productCategoryPropertyMapper.selectList(new EntityWrapper<ProductCategoryProperty>().eq("category_id", id));
+        if(frontProductCategory==null){
+            throw new BusinessException(BusinessCode.BadRequest, "目标Id对应的实体不存在");
+        }
         FrontProductCategoryModel frontProductCategoryModel = CRUD.castObject(frontProductCategory, FrontProductCategoryModel.class);
         frontProductCategoryModel.setProductCategoryPropertyList(categoryPropertyList);
         return frontProductCategoryModel;

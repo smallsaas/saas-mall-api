@@ -13,6 +13,8 @@ import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.ProductImag
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductTagMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductTagRelationMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.*;
+import com.jfeat.crud.base.exception.BusinessCode;
+import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -112,6 +114,9 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     public FrontProductModel getProduct(Long id) {
 
         FrontProductModel frontProduct = queryFrontProductDao.findProductModelById(id);
+        if(frontProduct==null){
+            throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE);
+        }
         FrontProductModel frontProductModel = CRUD.castObject(frontProduct, FrontProductModel.class);
         //添加images
         List<ProductImage> productImageList = productImageMapper.selectList(new EntityWrapper<ProductImage>().eq("product_id", id));

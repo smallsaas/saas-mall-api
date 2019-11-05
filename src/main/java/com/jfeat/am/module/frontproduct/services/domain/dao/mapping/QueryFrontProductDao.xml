@@ -45,7 +45,7 @@
 		t_product.is_virtual AS isVirtual,
 		t_product.required_participate_exam AS requiredParticipateExam,
 
-		t_fare_template.`name` AS fareName,
+		t_fare_template. name AS fareName,
 	    t_product_brand. NAME AS brandName,
 	    category. NAME AS categoryName
 	FROM
@@ -55,7 +55,7 @@
 	  LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
 
 	WHERE
-		t_product.id =56
+		t_product.id =#{id}
     </select>
 
     <select id="findProductPage" resultType="FrontProductRecord" parameterType="FrontProductRecord">
