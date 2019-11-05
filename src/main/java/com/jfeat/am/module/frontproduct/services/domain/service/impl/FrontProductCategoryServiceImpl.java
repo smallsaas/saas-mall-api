@@ -86,7 +86,15 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
     @Transactional
     public Integer updateProductCategoryById(FrontProductCategoryModel entity) {
         int affected = 0;
+
+        //父id不为空 且 父id 等于 当前Id
+        if(entity.getParentId()!=null && entity.getId() == entity.getParentId().longValue() ){
+            entity.setParentId(null);
+         }
+
         affected += this.updateMaster(entity,false);
+
+
         affected += productCategoryPropertyMapper.delete(new EntityWrapper<ProductCategoryProperty>().eq("category_id",entity.getId()));
         List<ProductCategoryProperty> productCategoryPropertyList = entity.getProductCategoryPropertyList();
         productCategoryPropertyList.forEach(item -> {
