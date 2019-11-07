@@ -1,19 +1,19 @@
 package com.jfeat.am.module.configmanagement.services.domain.filter;
 
 import com.jfeat.crud.plus.CRUDFilter;
-import com.jfeat.am.module.configmanagement.services.gen.persistence.model.ConfigGroup;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.model.MallConfigGroup;
 
 
 /**
  * Created by Code Generator on 2019-08-13
  */
-public class ConfigGroupFilter implements CRUDFilter<ConfigGroup> {
+public class ConfigGroupFilter implements CRUDFilter<MallConfigGroup> {
 
     private String[] ignoreFields = new String[]{};
     private String[] updateIgnoreFields = new String[]{};
 
     @Override
-    public void filter(ConfigGroup entity, boolean insertOrUpdate) {
+    public void filter(MallConfigGroup entity, boolean insertOrUpdate) {
 
         //if insertOrUpdate is true,means for insert, do this
         if (insertOrUpdate){

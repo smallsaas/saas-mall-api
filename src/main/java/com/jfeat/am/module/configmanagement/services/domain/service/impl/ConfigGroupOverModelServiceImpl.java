@@ -3,13 +3,13 @@ package com.jfeat.am.module.configmanagement.services.domain.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.configmanagement.services.domain.dao.QueryConfigGroupDao;
-import com.jfeat.am.module.configmanagement.services.domain.model.ConfigGroupRecord;
+import com.jfeat.am.module.configmanagement.services.domain.model.MallConfigGroupRecord;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigGroupOverModelService;
-import com.jfeat.am.module.configmanagement.services.gen.crud.model.ConfigGroupModel;
+import com.jfeat.am.module.configmanagement.services.gen.crud.model.MallConfigGroupModel;
 import com.jfeat.am.module.configmanagement.services.gen.crud.service.impl.CRUDConfigGroupOverModelServiceImpl;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigMapper;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
-import com.jfeat.am.module.configmanagement.services.gen.persistence.model.ConfigGroup;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.model.MallConfigGroup;
 import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 
@@ -34,19 +34,19 @@ public class ConfigGroupOverModelServiceImpl extends CRUDConfigGroupOverModelSer
     ConfigMapper configMapper;
 
     @Override
-    public List findConfigGroupPage(Page<ConfigGroupRecord> page, ConfigGroupRecord record,
-                                  String search, String orderBy, Date startTime, Date endTime) {
+    public List findConfigGroupPage(Page<MallConfigGroupRecord> page, MallConfigGroupRecord record,
+                                    String search, String orderBy, Date startTime, Date endTime) {
         List recordList = this.queryConfigGroupDao.findConfigGroupPage(page, record, search, orderBy, startTime, endTime);
         return this.getEavProxy().selectList(recordList, this.entityName());
     }
 
     @Override
-    public List<ConfigGroupModel> getAllConfigGroup() {
-        List<ConfigGroupModel> configGroupModelList = new ArrayList<>();
-        List<ConfigGroup> configGroupList = configGroupMapper.selectList(null);
-        configGroupList.forEach(item -> {
+    public List<MallConfigGroupModel> getAllConfigGroup() {
+        List<MallConfigGroupModel> configGroupModelList = new ArrayList<>();
+        List<MallConfigGroup> mallConfigGroupList = mallConfigGroupMapper.selectList(null);
+        mallConfigGroupList.forEach(item -> {
             List<Config> configList = configMapper.selectList(new EntityWrapper<Config>().eq("group_id", item.getId()));
-            ConfigGroupModel configGroupModel = CRUD.castObject(item, ConfigGroupModel.class);
+            MallConfigGroupModel configGroupModel = CRUD.castObject(item, MallConfigGroupModel.class);
             configGroupModel.setItems(configList);
             configGroupModelList.add(configGroupModel);
         });

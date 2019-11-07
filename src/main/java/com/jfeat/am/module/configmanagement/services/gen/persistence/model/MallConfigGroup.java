@@ -17,7 +17,7 @@ import java.io.Serializable;
  * @since 2019-08-13
  */
 @TableName("t_config_group")
-public class ConfigGroup extends Model<ConfigGroup> {
+public class MallConfigGroup extends Model<MallConfigGroup> {
 
     @com.baomidou.mybatisplus.annotations.TableField(exist = false)
     private com.alibaba.fastjson.JSONObject extra;
@@ -48,7 +48,7 @@ public class ConfigGroup extends Model<ConfigGroup> {
 		return id;
 	}
 
-	public ConfigGroup setId(Integer id) {
+	public MallConfigGroup setId(Integer id) {
 		this.id = id;
 		return this;
 	}
@@ -57,7 +57,7 @@ public class ConfigGroup extends Model<ConfigGroup> {
 		return name;
 	}
 
-	public ConfigGroup setName(String name) {
+	public MallConfigGroup setName(String name) {
 		this.name = name;
 		return this;
 	}
@@ -66,7 +66,7 @@ public class ConfigGroup extends Model<ConfigGroup> {
 		return protecte;
 	}
 
-	public ConfigGroup setProtected(Integer protecte) {
+	public MallConfigGroup setProtected(Integer protecte) {
 		this.protecte = protecte;
 		return this;
 	}
@@ -75,7 +75,7 @@ public class ConfigGroup extends Model<ConfigGroup> {
 		return orgId;
 	}
 
-	public ConfigGroup setOrgId(Long orgId) {
+	public MallConfigGroup setOrgId(Long orgId) {
 		this.orgId = orgId;
 		return this;
 	}

@@ -1,6 +1,6 @@
 package com.jfeat.am.module.configmanagement.services.gen.persistence.dao;
 
-import com.jfeat.am.module.configmanagement.services.gen.persistence.model.ConfigGroup;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.model.MallConfigGroup;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author Code Generator
  * @since 2019-08-13
  */
-public interface ConfigGroupMapper extends BaseMapper<ConfigGroup> {
+public interface MallConfigGroupMapper extends BaseMapper<MallConfigGroup> {
 
 }

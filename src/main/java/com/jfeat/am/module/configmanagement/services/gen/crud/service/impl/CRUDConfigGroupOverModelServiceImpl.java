@@ -2,18 +2,17 @@ package com.jfeat.am.module.configmanagement.services.gen.crud.service.impl;
             
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import com.jfeat.crud.plus.FIELD;
-import com.jfeat.am.module.configmanagement.services.gen.persistence.model.ConfigGroup;
-import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigGroupMapper;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.model.MallConfigGroup;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.MallConfigGroupMapper;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigMapper;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
 import com.jfeat.am.module.configmanagement.services.gen.crud.service.CRUDConfigGroupOverModelService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import javax.annotation.Resource;
 import com.jfeat.crud.plus.impl.CRUDServiceOverModelImpl;
-import com.jfeat.am.module.configmanagement.services.gen.crud.model.ConfigGroupModel;
+import com.jfeat.am.module.configmanagement.services.gen.crud.model.MallConfigGroupModel;
 
 /**
  * <p>
@@ -25,7 +24,7 @@ import com.jfeat.am.module.configmanagement.services.gen.crud.model.ConfigGroupM
  */
 
 @Service
-public class CRUDConfigGroupOverModelServiceImpl  extends CRUDServiceOverModelImpl<ConfigGroup,ConfigGroupModel> implements CRUDConfigGroupOverModelService {
+public class CRUDConfigGroupOverModelServiceImpl  extends CRUDServiceOverModelImpl<MallConfigGroup,MallConfigGroupModel> implements CRUDConfigGroupOverModelService {
 
 
 
@@ -36,22 +35,22 @@ public class CRUDConfigGroupOverModelServiceImpl  extends CRUDServiceOverModelIm
 
 
     @Resource
-    protected ConfigGroupMapper configGroupMapper;
+    protected MallConfigGroupMapper mallConfigGroupMapper;
 
     
     @Override
-    protected BaseMapper<ConfigGroup> getMasterMapper() {
-        return configGroupMapper;
+    protected BaseMapper<MallConfigGroup> getMasterMapper() {
+        return mallConfigGroupMapper;
     }
 
     @Override
-    protected Class<ConfigGroup> masterClassName() {
-        return ConfigGroup.class;
+    protected Class<MallConfigGroup> masterClassName() {
+        return MallConfigGroup.class;
     }
 
     @Override
-    protected Class<ConfigGroupModel> modelClassName() {
-        return ConfigGroupModel.class;
+    protected Class<MallConfigGroupModel> modelClassName() {
+        return MallConfigGroupModel.class;
     }
 
 

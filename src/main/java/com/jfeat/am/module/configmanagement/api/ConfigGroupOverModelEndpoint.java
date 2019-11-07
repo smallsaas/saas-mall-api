@@ -3,9 +3,9 @@ package com.jfeat.am.module.configmanagement.api;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.core.jwt.JWTKit;
-import com.jfeat.am.module.configmanagement.services.domain.model.ConfigGroupRecord;
+import com.jfeat.am.module.configmanagement.services.domain.model.MallConfigGroupRecord;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigGroupOverModelService;
-import com.jfeat.am.module.configmanagement.services.gen.crud.model.ConfigGroupModel;
+import com.jfeat.am.module.configmanagement.services.gen.crud.model.MallConfigGroupModel;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
@@ -43,8 +43,8 @@ public class ConfigGroupOverModelEndpoint {
 
     @BusinessLog(name = "ConfigGroup", value = "create ConfigGroup")
     @PostMapping
-    @ApiOperation(value = "新建 ConfigGroup", response = ConfigGroupModel.class)
-    public Tip createConfigGroup(@RequestBody ConfigGroupModel entity) {
+    @ApiOperation(value = "新建 ConfigGroup", response = MallConfigGroupModel.class)
+    public Tip createConfigGroup(@RequestBody MallConfigGroupModel entity) {
 
         Integer affected = 0;
         try {
@@ -59,9 +59,9 @@ public class ConfigGroupOverModelEndpoint {
 
     @BusinessLog(name = "ConfigGroup", value = "查看 ConfigGroupModel")
     @GetMapping("/{id}")
-    @ApiOperation(value = "查看 ConfigGroup", response = ConfigGroupModel.class)
+    @ApiOperation(value = "查看 ConfigGroup", response = MallConfigGroupModel.class)
     public Tip getConfigGroup(@PathVariable Long id) {
-        CRUDObject<ConfigGroupModel> entity = configGroupOverModelService.retrieveMaster(id, null, null, null);
+        CRUDObject<MallConfigGroupModel> entity = configGroupOverModelService.retrieveMaster(id, null, null, null);
         if (entity != null) {
             return SuccessTip.create(entity.toJSONObject());
         } else {
@@ -71,16 +71,16 @@ public class ConfigGroupOverModelEndpoint {
 
     @BusinessLog(name = "ConfigGroup", value = "查看所有 ConfigGroupModel")
     @GetMapping("/all")
-    @ApiOperation(value = "查看所有 ConfigGroup", response = ConfigGroupModel.class)
+    @ApiOperation(value = "查看所有 ConfigGroup", response = MallConfigGroupModel.class)
     public Tip getAllConfigGroup() {
-        List<ConfigGroupModel> configGroupModelList = configGroupOverModelService.getAllConfigGroup();
+        List<MallConfigGroupModel> configGroupModelList = configGroupOverModelService.getAllConfigGroup();
         return SuccessTip.create(configGroupModelList);
     }
 
     @BusinessLog(name = "ConfigGroup", value = "update ConfigGroup")
     @PutMapping("/{id}")
-    @ApiOperation(value = "修改 ConfigGroup", response = ConfigGroupModel.class)
-    public Tip updateConfigGroup(@PathVariable Integer id, @RequestBody ConfigGroupModel entity) {
+    @ApiOperation(value = "修改 ConfigGroup", response = MallConfigGroupModel.class)
+    public Tip updateConfigGroup(@PathVariable Integer id, @RequestBody MallConfigGroupModel entity) {
         entity.setId(id);
         return SuccessTip.create(configGroupOverModelService.updateMaster(entity, null, null, null));
     }
@@ -93,7 +93,7 @@ public class ConfigGroupOverModelEndpoint {
     }
 
     @BusinessLog(name = "ConfigGroup", value = "delete ConfigGroup")
-    @ApiOperation(value = "ConfigGroup 列表信息", response = ConfigGroupRecord.class)
+    @ApiOperation(value = "ConfigGroup 列表信息", response = MallConfigGroupRecord.class)
     @GetMapping
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", dataType = "Integer"),
@@ -105,7 +105,7 @@ public class ConfigGroupOverModelEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
-    public Tip queryConfigGroups(Page<ConfigGroupRecord> page,
+    public Tip queryConfigGroups(Page<MallConfigGroupRecord> page,
                                  @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                  @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                  @RequestParam(name = "search", required = false) String search,
@@ -128,7 +128,7 @@ public class ConfigGroupOverModelEndpoint {
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
-        ConfigGroupRecord record = new ConfigGroupRecord();
+        MallConfigGroupRecord record = new MallConfigGroupRecord();
         record.setId(id);
         record.setName(name);
         record.setProtected(protecte);
