@@ -6,7 +6,7 @@
     </sql>
 
 
-    <select id="findConfigGroupPage" resultType="ConfigGroupRecord" parameterType="ConfigGroupRecord">
+    <select id="findConfigGroupPage" resultType="com.jfeat.am.module.configmanagement.services.domain.model.MallConfigGroupRecord" parameterType="com.jfeat.am.module.configmanagement.services.domain.model.MallConfigGroupRecord">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_config_group

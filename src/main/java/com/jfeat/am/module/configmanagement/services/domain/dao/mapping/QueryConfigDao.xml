@@ -1,63 +1,64 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.configmanagement.services.domain.dao.QueryConfigDao">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_config.id, t_config.user_id AS userId, t_config.group_id AS groupId, t_config.name, t_config.key_name AS keyName, t_config.value_type AS valueType, t_config.value, t_config.type, t_config.visible, t_config.description, t_config.readonly, t_config.org_id AS orgId
+    <sql id="Base_Column_List">
+        t_config.id, t_config.user_id AS userId, t_config.group_id AS groupId, t_config.name, t_config.key_name AS
+        keyName, t_config.value_type AS valueType, t_config.value, t_config.type, t_config.visible,
+        t_config.description, t_config.readonly, t_config.org_id AS orgId
     </sql>
 
 
-
     <select id="findConfigPage" resultType="ConfigRecord" parameterType="ConfigRecord">
-            SELECT
-        <include refid="Base_Column_List" />
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM t_config
         WHERE 1=1
-                                <if test="record.id != null and record.id>0 ">
-                AND t_config.id LIKE CONCAT('%',#{record.id},'%')
-            </if>
-                                                                                            <if test="record.userId != null and record.userId>0 ">
-                AND t_config.user_id LIKE CONCAT('%',#{record.userId},'%')
-            </if>
-                                                                                            <if test="record.groupId != null and record.groupId>0 ">
-                AND t_config.group_id LIKE CONCAT('%',#{record.groupId},'%')
-            </if>
-                                <if test="record.name != null and record.name!= ''">
-                AND t_config.name LIKE CONCAT('%',#{record.name},'%')
-            </if>
-                                                                                            <if test="record.keyName != null and record.keyName!= ''">
-                AND t_config.key_name LIKE CONCAT('%',#{record.keyName},'%')
-            </if>
-                                                                                            <if test="record.valueType != null and record.valueType!= ''">
-                AND t_config.value_type LIKE CONCAT('%',#{record.valueType},'%')
-            </if>
-                                <if test="record.value != null and record.value!= ''">
-                AND t_config.value LIKE CONCAT('%',#{record.value},'%')
-            </if>
-                                <if test="record.type != null and record.type!= ''">
-                AND t_config.type LIKE CONCAT('%',#{record.type},'%')
-            </if>
-                                <if test="record.visible != null and record.visible>0 ">
-                AND t_config.visible LIKE CONCAT('%',#{record.visible},'%')
-            </if>
-                                <if test="record.description != null and record.description!= ''">
-                AND t_config.description LIKE CONCAT('%',#{record.description},'%')
-            </if>
-                                <if test="record.readonly != null and record.readonly>0 ">
-                AND t_config.readonly LIKE CONCAT('%',#{record.readonly},'%')
-            </if>
-                                                                                            <if test="record.orgId != null and record.orgId>0 ">
-                AND t_config.org_id LIKE CONCAT('%',#{record.orgId},'%')
-            </if>
-                <if test="startTime != null">
+        <if test="record.id != null and record.id>0 ">
+            AND t_config.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.userId != null and record.userId>0 ">
+            AND t_config.user_id LIKE CONCAT('%',#{record.userId},'%')
+        </if>
+        <if test="record.groupId != null and record.groupId>0 ">
+            AND t_config.group_id LIKE CONCAT('%',#{record.groupId},'%')
+        </if>
+        <if test="record.name != null and record.name!= ''">
+            AND t_config.name LIKE CONCAT('%',#{record.name},'%')
+        </if>
+        <if test="record.keyName != null and record.keyName!= ''">
+            AND t_config.key_name LIKE CONCAT('%',#{record.keyName},'%')
+        </if>
+        <if test="record.valueType != null and record.valueType!= ''">
+            AND t_config.value_type LIKE CONCAT('%',#{record.valueType},'%')
+        </if>
+        <if test="record.value != null and record.value!= ''">
+            AND t_config.value LIKE CONCAT('%',#{record.value},'%')
+        </if>
+        <if test="record.type != null and record.type!= ''">
+            AND t_config.type LIKE CONCAT('%',#{record.type},'%')
+        </if>
+        <if test="record.visible != null and record.visible>0 ">
+            AND t_config.visible LIKE CONCAT('%',#{record.visible},'%')
+        </if>
+        <if test="record.description != null and record.description!= ''">
+            AND t_config.description LIKE CONCAT('%',#{record.description},'%')
+        </if>
+        <if test="record.readonly != null and record.readonly>0 ">
+            AND t_config.readonly LIKE CONCAT('%',#{record.readonly},'%')
+        </if>
+        <if test="record.orgId != null and record.orgId>0 ">
+            AND t_config.org_id LIKE CONCAT('%',#{record.orgId},'%')
+        </if>
+        <if test="startTime != null">
             <![CDATA[AND t_config.start_time >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_config.end_time <= DATE(#{endTime)]]>
         </if>
-            <!--
-        <if test="search != null and search != ''">
-            OR t_config.name LIKE CONCAT('%',#{search},'%')
-        </if>
-        -->
-                                    </select>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_config.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+    </select>
 </mapper>
