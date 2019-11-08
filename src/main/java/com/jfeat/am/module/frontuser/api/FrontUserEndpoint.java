@@ -228,7 +228,7 @@ public class FrontUserEndpoint {
         record.setContactPhone(contactPhone);
         record.setContactWxNumber(contactWxNumber);
         record.setLastModifiedTime(lastModifiedTime);
-        record.setOrgId(JWTKit.getOrgId());
+//        record.setOrgId(JWTKit.getOrgId());
         page.setRecords(this.queryFrontUserDao.findUserPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

@@ -122,9 +122,9 @@
         <if test="record.lastModifiedTime != null and record.lastModifiedTime>0 ">
             AND t_user.last_modified_time LIKE CONCAT('%',#{record.lastModifiedTime},'%')
         </if>
-        <if test="record.orgId != null and record.orgId>0 ">
+<!--        <if test="record.orgId != null and record.orgId>0 ">
             AND t_user.org_id LIKE CONCAT('%',#{record.orgId},'%')
-        </if>
+        </if>-->
 
         <if test="startTime != null">
             <![CDATA[AND t_user.start_time >= DATE(#{startTime})]]>
