@@ -3,6 +3,7 @@ package com.jfeat.am.module.frontuser.api;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.frontuser.services.domain.dao.QueryFrontUserDao;
 import com.jfeat.am.module.frontuser.services.domain.model.FrontUserRecord;
 import com.jfeat.am.module.frontuser.services.domain.service.FrontUserService;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
@@ -40,6 +41,12 @@ public class FrontUserEndpoint {
 
     @Resource
     FrontUserService frontUserService;
+
+
+
+    @Resource
+    QueryFrontUserDao queryFrontUserDao;
+
 
     @BusinessLog(name = "FrontUser", value = "create FrontUser")
     @PostMapping
@@ -222,7 +229,7 @@ public class FrontUserEndpoint {
         record.setContactWxNumber(contactWxNumber);
         record.setLastModifiedTime(lastModifiedTime);
         record.setOrgId(JWTKit.getOrgId());
-        page.setRecords(this.frontUserService.findUserPage(page, record, search, orderBy, null, null));
+        page.setRecords(this.queryFrontUserDao.findUserPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);
     }
