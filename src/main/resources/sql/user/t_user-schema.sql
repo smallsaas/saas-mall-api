@@ -59,7 +59,7 @@ CREATE TABLE `t_user`  (
   `contact_phone` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '员工联系电话',
   `contact_wx_number` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '员工联系微信号',
   `last_modified_time` datetime(0) NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP(0),
-  `org_id` bigint(20) DEFAULT NULL COMMENT '组织(部门)ID',
+  `org_id` bigint(20) DEFAULT 0 COMMENT '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE INDEX `login_name`(`login_name`) USING BTREE,
   UNIQUE INDEX `email`(`email`) USING BTREE,
