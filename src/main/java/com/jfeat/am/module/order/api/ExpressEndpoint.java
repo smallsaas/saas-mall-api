@@ -38,7 +38,7 @@ public class ExpressEndpoint {
     ExpressService expressService;
 
     @PostMapping
-    @ApiOperation(value = "新建 Express", response = Express.class)
+    @ApiOperation(value = "新建 快递", response = Express.class)
     public Tip createExpress(@RequestBody Express entity) {
 
         Integer affected = 0;
@@ -53,7 +53,7 @@ public class ExpressEndpoint {
     }
 
     @GetMapping("/{id}")
-    @ApiOperation(value = "查看 Express", response = Express.class)
+    @ApiOperation(value = "查看 快递", response = Express.class)
     public Tip getExpress(@PathVariable Long id) {
         return SuccessTip.create(expressService.retrieveMaster(id));
     }
