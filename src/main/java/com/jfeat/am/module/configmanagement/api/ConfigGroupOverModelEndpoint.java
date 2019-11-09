@@ -46,7 +46,7 @@ public class ConfigGroupOverModelEndpoint {
     @BusinessLog(name = "ConfigGroup", value = "create ConfigGroup")
     @PostMapping
     @ApiOperation(value = "新建 ConfigGroup", response = MallConfigGroupModel.class)
-    @Permission(ConfigPermission.CONFIGGROUP_ADD)
+    /*@Permission(ConfigPermission.CONFIGGROUP_ADD)*/
     public Tip createConfigGroup(@RequestBody MallConfigGroupModel entity) {
 
         Integer affected = 0;
@@ -63,7 +63,7 @@ public class ConfigGroupOverModelEndpoint {
     @BusinessLog(name = "ConfigGroup", value = "查看 ConfigGroupModel")
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 ConfigGroup", response = MallConfigGroupModel.class)
-    @Permission(ConfigPermission.CONFIGGROUP_VIEW)
+    /*@Permission(ConfigPermission.CONFIGGROUP_VIEW)*/
     public Tip getConfigGroup(@PathVariable Long id) {
         CRUDObject<MallConfigGroupModel> entity = configGroupOverModelService.retrieveMaster(id, null, null, null);
         if (entity != null) {
@@ -76,7 +76,7 @@ public class ConfigGroupOverModelEndpoint {
     @BusinessLog(name = "ConfigGroup", value = "查看所有 ConfigGroupModel")
     @GetMapping("/all")
     @ApiOperation(value = "查看所有 ConfigGroup", response = MallConfigGroupModel.class)
-    @Permission(ConfigPermission.CONFIGGROUP_VIEW)
+    /*@Permission(ConfigPermission.CONFIGGROUP_VIEW)*/
     public Tip getAllConfigGroup() {
         List<MallConfigGroupModel> configGroupModelList = configGroupOverModelService.getAllConfigGroup();
         return SuccessTip.create(configGroupModelList);
@@ -85,7 +85,7 @@ public class ConfigGroupOverModelEndpoint {
     @BusinessLog(name = "ConfigGroup", value = "update ConfigGroup")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ConfigGroup", response = MallConfigGroupModel.class)
-    @Permission(ConfigPermission.CONFIGGROUP_EDIT)
+   /* @Permission(ConfigPermission.CONFIGGROUP_EDIT)*/
     public Tip updateConfigGroup(@PathVariable Integer id, @RequestBody MallConfigGroupModel entity) {
         entity.setId(id);
         return SuccessTip.create(configGroupOverModelService.updateMaster(entity, null, null, null));
@@ -94,7 +94,7 @@ public class ConfigGroupOverModelEndpoint {
     @BusinessLog(name = "ConfigGroup", value = "delete ConfigGroup")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 ConfigGroup")
-    @Permission(ConfigPermission.CONFIGGROUP_DEL)
+    /*@Permission(ConfigPermission.CONFIGGROUP_DEL)*/
     public Tip deleteConfigGroup(@PathVariable Long id) {
         return SuccessTip.create(configGroupOverModelService.deleteMaster(id));
     }

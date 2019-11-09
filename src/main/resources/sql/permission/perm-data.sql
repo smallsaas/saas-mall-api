@@ -2,12 +2,8 @@
 
 INSERT INTO sys_perm_group(`id`, `org_id`, `pid`, `identifier`, `name`)
 VALUES ('100000000000000008', '100000000000000001', '100000000000000001', 'config.management', '配置管理');
-INSERT INTO sys_perm(`id`, `group_id`, `identifier`, `name`,`tag`) VALUES('100000000000008001',  '100000000000000008', 'ConfigGroup.edit',  '编辑配置组', '0');
-INSERT INTO sys_perm(`id`, `group_id`, `identifier`, `name`,`tag`) VALUES('100000000000008002' , '100000000000000008', 'ConfigGroup.delete','删除配置组', '0');
-INSERT INTO sys_perm(`id`, `group_id`, `identifier`, `name`,`tag`) VALUES('100000000000008003' , '100000000000000008', 'ConfigGroup.view',  '查看配置组', '0');
-INSERT INTO sys_perm(`id`, `group_id`, `identifier`, `name`,`tag`) VALUES('100000000000008004' , '100000000000000008', 'ConfigGroup.new',   '新增配置组', '0');
-INSERT INTO sys_perm(`id`, `group_id`, `identifier`, `name`,`tag`) VALUES('100000000000008005' , '100000000000000008', 'Config.view',  '查看配置', '0');
 
+INSERT INTO sys_perm(`id`, `group_id`, `identifier`, `name`,`tag`) VALUES('100000000000008005' , '100000000000000008', 'Config.view',  '查看配置', '0');
 INSERT INTO sys_perm(`id`, `group_id`, `identifier`, `name`,`tag`) VALUES('100000000000008007' , '100000000000000008', 'Config.edit',  '修改配置', '0');
 
  INSERT INTO sys_perm_group(`id`, `org_id`, `pid`, `identifier`, `name`)
