@@ -2,6 +2,8 @@ package com.jfeat.am.module.order.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.Permission;
+import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.model.OrderRequest;
@@ -45,6 +47,7 @@ public class OrderEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 Order", response = TOrder.class)
+    @Permission(OrderPermission.ORDER_ADD)
     public Tip createOrder(@RequestBody TOrder entity) {
 
         Integer affected = 0;
@@ -60,6 +63,7 @@ public class OrderEndpoint {
 
     @PostMapping("/storeOrder")
     @ApiOperation(value = "新建 线下订单", response = TOrder.class)
+    @Permission(OrderPermission.ORDER_ADD)
     public Tip createStoreOrder(@RequestBody OrderRequest entity) throws ServerException {
 
         Integer affected = 0;
@@ -78,12 +82,14 @@ public class OrderEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Order", response = TOrder.class)
+    @Permission(OrderPermission.ORDER_VIEW)
     public Tip getOrder(@PathVariable Long id) {
         return SuccessTip.create(orderService.getOrder(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Order", response = TOrder.class)
+
     public Tip updateOrder(@PathVariable Long id, @RequestBody TOrder entity) {
         entity.setId(id);
         return SuccessTip.create(orderService.updateMaster(entity));
@@ -91,6 +97,7 @@ public class OrderEndpoint {
 
     @PostMapping("/{id}/{orderStatus}")
     @ApiOperation(value = "取消 Order", response = TOrder.class)
+
     public Tip updateOrderStatus(@PathVariable Long id, @PathVariable String orderStatus) {
         try {
             //不报错，orderStatus参数正确
@@ -103,6 +110,7 @@ public class OrderEndpoint {
 
     @DeleteMapping("/{id}")
     @ApiOperation("删除 Order")
+    @Permission(OrderPermission.ORDER_DEL)
     public Tip deleteOrder(@PathVariable Long id) {
         return SuccessTip.create(orderService.deleteMaster(id));
     }
@@ -195,6 +203,7 @@ public class OrderEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
+    @Permission(OrderPermission.ORDER_VIEW)
     public Tip queryOrders(Page<OrderRecord> page,
                            @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                            @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,

@@ -1,7 +1,9 @@
 package com.jfeat.am.module.frontproduct.api;
 
 
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
@@ -39,6 +41,7 @@ public class FrontProductCategoryEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 FrontProductCategory", response = FrontProductCategory.class)
+    @Permission(FrontProductPermission.PRODUCTCATEGORY_ADD)
     public Tip createProductCategory(@RequestBody FrontProductCategoryModel entity) {
         Long orgId = JWTKit.getOrgId();
         System.out.println(orgId);
@@ -56,12 +59,14 @@ public class FrontProductCategoryEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontProductCategory", response = FrontProductCategory.class)
+    @Permission(FrontProductPermission.PRODUCTCATEGORY_VIEW)
     public Tip getProductCategory(@PathVariable Long id) {
         return SuccessTip.create(frontProductCategoryService.getProductCategoryById(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontProductCategory", response = FrontProductCategory.class)
+    @Permission(FrontProductPermission.PRODUCTCATEGORY_EDIT)
     public Tip updateProductCategory(@PathVariable Long id, @RequestBody FrontProductCategoryModel entity) {
         entity.setId(id);
         return SuccessTip.create(frontProductCategoryService.updateProductCategoryById(entity));
@@ -69,6 +74,7 @@ public class FrontProductCategoryEndpoint {
 
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FrontProductCategory")
+    @Permission(FrontProductPermission.PRODUCTCATEGORY_DEL)
     public Tip deleteProductCategory(@PathVariable Long id) {
         return SuccessTip.create(frontProductCategoryService.deleteMaster(id));
     }
@@ -144,6 +150,7 @@ public class FrontProductCategoryEndpoint {
 
     @ApiOperation(value = "返回所有ProductCategory", response = FrontProductCategoryRecord.class)
     @GetMapping
+    @Permission(FrontProductPermission.PRODUCTCATEGORY_VIEW)
     public Tip queryProductCategoryies(@RequestParam(name = "name", required = false)  String name){
         List<FrontProductCategoryRecord> frontProductCategoryRecordList =  frontProductCategoryService.queryProductCategoryies(name);
         return SuccessTip.create(frontProductCategoryRecordList);

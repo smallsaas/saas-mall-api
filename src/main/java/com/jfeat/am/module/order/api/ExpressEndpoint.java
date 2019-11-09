@@ -2,6 +2,8 @@ package com.jfeat.am.module.order.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.Permission;
+import com.jfeat.am.module.order.definition.ExpressPermission;
 import com.jfeat.am.module.order.services.domain.model.ExpressRecord;
 import com.jfeat.am.module.order.services.domain.service.ExpressService;
 import com.jfeat.am.module.order.services.gen.persistence.model.Express;
@@ -39,6 +41,7 @@ public class ExpressEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 快递", response = Express.class)
+    @Permission(ExpressPermission.EXPRESS_ADD)
     public Tip createExpress(@RequestBody Express entity) {
 
         Integer affected = 0;
@@ -54,12 +57,14 @@ public class ExpressEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 快递", response = Express.class)
+    @Permission(ExpressPermission.EXPRESS_VIEW)
     public Tip getExpress(@PathVariable Long id) {
         return SuccessTip.create(expressService.retrieveMaster(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Express", response = Express.class)
+    @Permission(ExpressPermission.EXPRESS_EDIT)
     public Tip updateExpress(@PathVariable Long id, @RequestBody Express entity) {
         entity.setId(id);
         return SuccessTip.create(expressService.updateMaster(entity));
@@ -67,9 +72,11 @@ public class ExpressEndpoint {
 
     @DeleteMapping("/{id}")
     @ApiOperation("删除 Express")
+    @Permission(ExpressPermission.EXPRESS_DEL)
     public Tip deleteExpress(@PathVariable Long id) {
         return SuccessTip.create(expressService.deleteMaster(id));
     }
+
 
     @ApiOperation(value = "Express 列表信息", response = ExpressRecord.class)
     @GetMapping
@@ -85,6 +92,7 @@ public class ExpressEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
+    @Permission(ExpressPermission.EXPRESS_VIEW)
     public Tip queryExpresses(Page<ExpressRecord> page,
                               @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                               @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,

@@ -2,7 +2,9 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.frontproduct.definition.BrandPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductBrandRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductBrandService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductBrand;
@@ -40,6 +42,7 @@ public class ProductBrandEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 产品品牌", response = ProductBrand.class)
+    @Permission(BrandPermission.BRAND_ADD)
     public Tip createProductBrand(@RequestBody ProductBrand entity) {
         if(entity.getOrgId()==null){
             entity.setOrgId(JWTKit.getOrgId());
@@ -58,12 +61,14 @@ public class ProductBrandEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 ProductBrand", response = ProductBrand.class)
+    @Permission(BrandPermission.BRAND_VIEW)
     public Tip getProductBrand(@PathVariable Long id) {
         return SuccessTip.create(productBrandService.retrieveMaster(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ProductBrand", response = ProductBrand.class)
+    @Permission(BrandPermission.BRAND_EDIT)
     public Tip updateProductBrand(@PathVariable Long id, @RequestBody ProductBrand entity) {
         entity.setId(id);
         return SuccessTip.create(productBrandService.updateMaster(entity));
@@ -71,6 +76,7 @@ public class ProductBrandEndpoint {
 
     @DeleteMapping("/{id}")
     @ApiOperation("删除 ProductBrand")
+    @Permission(BrandPermission.BRAND_DEL)
     public Tip deleteProductBrand(@PathVariable Long id) {
         return SuccessTip.create(productBrandService.deleteMaster(id));
     }
@@ -88,6 +94,7 @@ public class ProductBrandEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
+    @Permission(BrandPermission.BRAND_VIEW)
     public Tip queryProductBrands(Page<ProductBrandRecord> page,
                                   @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                   @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,

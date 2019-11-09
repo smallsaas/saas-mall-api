@@ -2,7 +2,9 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductTagRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductTagService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductTag;
@@ -40,6 +42,7 @@ public class FrontProductTagEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 产品标签", response = FrontProductTag.class)
+    @Permission(FrontProductPermission.PRODUCTTAG_ADD)
     public Tip createProductTag(@RequestBody FrontProductTag entity) {
 
         if(entity.getOrgId()==null){
@@ -59,12 +62,14 @@ public class FrontProductTagEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontProductTag", response = FrontProductTag.class)
+    @Permission(FrontProductPermission.PRODUCTTAG_VIEW)
     public Tip getProductTag(@PathVariable Long id) {
         return SuccessTip.create(frontProductTagService.retrieveMaster(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontProductTag", response = FrontProductTag.class)
+    @Permission(FrontProductPermission.PRODUCTTAG_EDIT)
     public Tip updateProductTag(@PathVariable Long id, @RequestBody FrontProductTag entity) {
         entity.setId(id);
         return SuccessTip.create(frontProductTagService.updateMaster(entity));
@@ -72,6 +77,7 @@ public class FrontProductTagEndpoint {
 
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FrontProductTag")
+    @Permission(FrontProductPermission.PRODUCTTAG_DEL)
     public Tip deleteProductTag(@PathVariable Long id) {
         return SuccessTip.create(frontProductTagService.deleteMaster(id));
     }
@@ -89,6 +95,7 @@ public class FrontProductTagEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
+    @Permission(FrontProductPermission.PRODUCTTAG_VIEW)
     public Tip queryProductTags(Page<FrontProductTagRecord> page,
                                 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,

@@ -2,7 +2,9 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.frontproduct.definition.FareTemplatePermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FareTemplateService;
@@ -45,6 +47,7 @@ public class FareTemplateEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 FareTemplate", response = FareTemplate.class)
+    @Permission(FareTemplatePermission.FARETEMPLATE_ADD)
     public Tip createFareTemplate(
                                   @RequestBody FareTemplateModel entity) {
         Long orgId = JWTKit.getOrgId();
@@ -68,12 +71,14 @@ public class FareTemplateEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FareTemplate", response = FareTemplate.class)
+    @Permission(FareTemplatePermission.FARETEMPLATE_VIEW)
     public Tip getFareTemplate(@PathVariable Long id) {
         return SuccessTip.create(fareTemplateService.getFareTemplate(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FareTemplate", response = FareTemplate.class)
+    @Permission(FareTemplatePermission.FARETEMPLATE_EDIT)
     public Tip updateFareTemplate(@PathVariable Long id, @RequestBody FareTemplateModel entity) {
         entity.setId(id);
         entity.setLastModifiedDate(new Date());
@@ -82,6 +87,7 @@ public class FareTemplateEndpoint {
 
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FareTemplate")
+    @Permission(FareTemplatePermission.FARETEMPLATE_DEL)
     public Tip deleteFareTemplate(@PathVariable Long id) {
         return SuccessTip.create(fareTemplateService.deleteMaster(id));
     }
@@ -106,6 +112,7 @@ public class FareTemplateEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
+    @Permission(FareTemplatePermission.FARETEMPLATE_VIEW)
     public Tip queryFareTemplates(Page<FareTemplateRecord> page,
                                   @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                   @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,

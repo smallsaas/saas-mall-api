@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontuser.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontuser.services.domain.dao.QueryFrontUserDao;
 import com.jfeat.am.module.frontuser.services.domain.model.FrontUserRecord;
@@ -19,6 +20,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
+import com.jfeat.am.module.frontuser.definition.*;
 
 import javax.annotation.Resource;
 import java.util.Date;
@@ -67,6 +69,7 @@ public class FrontUserEndpoint {
     @BusinessLog(name = "FrontUser", value = "查看 FrontUser")
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontUser", response = FrontUser.class)
+    @Permission(FrontUserPermission.FRONTUSER_VIEW)
     public Tip getUser(@PathVariable Long id) {
         return SuccessTip.create(frontUserService.retrieveMaster(id));
     }
@@ -133,6 +136,7 @@ public class FrontUserEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
+    @Permission(FrontUserPermission.FRONTUSER_VIEW)
     public Tip queryUsers(Page<FrontUserRecord> page,
                           @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                           @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
@@ -184,6 +188,7 @@ public class FrontUserEndpoint {
                 }
             } else {
                 sort = "ASC";
+
             }
             orderBy = "`" + orderBy + "`" + " " + sort;
         }

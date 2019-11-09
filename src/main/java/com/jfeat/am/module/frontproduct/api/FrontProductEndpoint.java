@@ -2,8 +2,10 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
+import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
@@ -44,6 +46,7 @@ public class FrontProductEndpoint {
 
     @PostMapping
     @ApiOperation(value = "新建 FrontProduct", response = FrontProduct.class)
+    @Permission(FrontProductPermission.PRODUCT_ADD)
     public Tip createProduct(@RequestBody FrontProductModel entity) {
 
         Integer affected = 0;
@@ -61,12 +64,14 @@ public class FrontProductEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontProduct", response = FrontProduct.class)
+    @Permission(FrontProductPermission.PRODUCT_VIEW)
     public Tip getProduct(@PathVariable Long id) {
         return SuccessTip.create(frontProductService.getProduct(id));
     }
 
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontProduct", response = FrontProduct.class)
+    @Permission(FrontProductPermission.PRODUCT_EDIT)
     public Tip updateProduct(@PathVariable Long id, @RequestBody FrontProductModel entity) {
         entity.setId(id);
         return SuccessTip.create(frontProductService.updateProduct(entity));
@@ -74,6 +79,7 @@ public class FrontProductEndpoint {
 
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FrontProduct")
+    @Permission(FrontProductPermission.PRODUCT_DEL)
     public Tip deleteProduct(@PathVariable Long id) {
         return SuccessTip.create(frontProductService.deleteMaster(id));
     }
@@ -124,6 +130,7 @@ public class FrontProductEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
+    @Permission(FrontProductPermission.PRODUCT_VIEW)
     public Tip queryProducts(Page<FrontProductRecord> page,
                              @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                              @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
@@ -230,6 +237,7 @@ public class FrontProductEndpoint {
 
     @PutMapping("/{id}/{status}")
     @ApiOperation(value = "修改 FrontProduct 状态", response = Integer.class)
+    @Permission(FrontProductPermission.PRODUCT_STATUS)
     public Tip updateProduct(@PathVariable Long id, @PathVariable String status) {
         if(!ProductStatus.ONSELL.getStatus().equals(status) && !ProductStatus.OFFSELL.getStatus().equals(status)){
             throw new BusinessException(BusinessCode.BadRequest);

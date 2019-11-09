@@ -1,6 +1,8 @@
 package com.jfeat.am.module.configmanagement.api;
 
 
+import com.jfeat.am.common.annotation.Permission;
+import com.jfeat.am.module.configmanagement.definition.ConfigPermission;
 import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigService;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
@@ -55,6 +57,7 @@ public class ConfigOverModelEndpoint {
     @BusinessLog(name = "Config", value = "查看 指定 Config")
     @GetMapping("/{type}")
     @ApiOperation(value = "查看 Config", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_VIEW)
     public Tip getConfig(@PathVariable String type) {
         if(StringUtils.isEmpty(type)){
             throw new BusinessException(BusinessCode.BadRequest);
@@ -77,6 +80,7 @@ public class ConfigOverModelEndpoint {
     @BusinessLog(name = "Config", value = "update 指定 Config")
     @PostMapping("/{type}")
     @ApiOperation(value = "修改 Config", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_EDIT)
     public Tip updateConfig(@PathVariable String type, @RequestBody Properties entity) {
         if(StringUtils.isEmpty(type)){
             throw new BusinessException(BusinessCode.BadRequest);
