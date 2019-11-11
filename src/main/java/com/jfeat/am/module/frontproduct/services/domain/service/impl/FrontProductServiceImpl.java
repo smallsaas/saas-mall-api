@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
@@ -81,6 +82,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         if(entity.getStatus()==null){
             entity.setStatus(ProductStatus.OFFSELL.getStatus());
         }
+        entity.setOrgId(JWTKit.getOrgId());
         affected += this.createMaster(entity);
         //保存描述
         ProductDescription productDescription = new ProductDescription();
