@@ -83,8 +83,10 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         }
         affected += this.createMaster(entity);
         //保存描述
-        ProductDescription productDescription = entity.getProductDescription();
-        if(productDescription!=null){
+        ProductDescription productDescription = new ProductDescription();
+        productDescription.setProductId(entity.getId());
+        productDescription.setDescription(entity.getDescription());
+        if(productDescription!=null&&productDescription.getDescription()!=null){
             productDescription.setProductId(entity.getId());
             affected += productDescriptionService.createMaster(productDescription);
         }
@@ -123,6 +125,8 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         frontProductModel.setProductImageList(productImageList);
         //添加description
         ProductDescription productDescription = productDescriptionMapper.selectOne(new ProductDescription().setProductId(id));
+        String description = productDescription.getDescription();
+        frontProductModel.setDescription(description);
         frontProductModel.setProductDescription(productDescription);
         //添加标签
         List<FrontProductTagRelation> frontProductTagRelationList = frontProductTagRelationMapper.selectList(new EntityWrapper<FrontProductTagRelation>().eq("product_id", id));
@@ -145,7 +149,12 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         int affected = 0;
         affected += this.updateMaster(entity, false);
         //更新描述
-        ProductDescription productDescription = entity.getProductDescription();
+       List<ProductDescription> productDescriptions = productDescriptionMapper.selectList(new EntityWrapper<ProductDescription>().eq("product_id",entity.getId()));
+        ProductDescription productDescription = new ProductDescription();
+       if (productDescriptions!=null&&productDescriptions.size()!=0){
+            productDescription = productDescriptions.get(0);
+       }
+        productDescription.setDescription(entity.getDescription());
         if(productDescription!=null){
             affected += productDescriptionService.updateMaster(productDescription,false);
         }

@@ -29,6 +29,8 @@ public class FrontProductModel extends FrontProduct {
 
     private ProductDescription productDescription;
 
+    private String description;
+
     public List<Long> getTagIds() {
         return tagIds;
     }
@@ -83,5 +85,13 @@ public class FrontProductModel extends FrontProduct {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

@@ -51,8 +51,9 @@ public class FrontProductEndpoint {
 
         Integer affected = 0;
         try {
-            entity.setCreatedDate(new Date());
-            entity.setLastModifiedDate(new Date());
+            Date date = new Date();
+            entity.setCreatedDate(date);
+            entity.setLastModifiedDate(date);
             affected = frontProductService.createProduct(entity);
 
         } catch (DuplicateKeyException e) {
@@ -73,7 +74,9 @@ public class FrontProductEndpoint {
     @ApiOperation(value = "修改 FrontProduct", response = FrontProduct.class)
     @Permission(FrontProductPermission.PRODUCT_EDIT)
     public Tip updateProduct(@PathVariable Long id, @RequestBody FrontProductModel entity) {
+        Date date = new Date();
         entity.setId(id);
+        entity.setLastModifiedDate(date);
         return SuccessTip.create(frontProductService.updateProduct(entity));
     }
 
