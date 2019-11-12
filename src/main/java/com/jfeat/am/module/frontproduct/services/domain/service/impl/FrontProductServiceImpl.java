@@ -127,9 +127,12 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         frontProductModel.setProductImageList(productImageList);
         //添加description
         ProductDescription productDescription = productDescriptionMapper.selectOne(new ProductDescription().setProductId(id));
-        String description = productDescription.getDescription();
-        frontProductModel.setDescription(description);
-        frontProductModel.setProductDescription(productDescription);
+        if(productDescription!=null&&productDescription.getDescription()!=""){
+            String description = productDescription.getDescription();
+            frontProductModel.setDescription(description);
+            frontProductModel.setProductDescription(productDescription);
+        }
+
         //添加标签
         List<FrontProductTagRelation> frontProductTagRelationList = frontProductTagRelationMapper.selectList(new EntityWrapper<FrontProductTagRelation>().eq("product_id", id));
         List<Long> tagIds = new ArrayList<>();

@@ -237,9 +237,6 @@ public class FrontProductEndpoint {
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
-        System.out.println("================================");
-
-        System.out.println("================================");
         return SuccessTip.create(page);
     }
 
