@@ -50,7 +50,7 @@ public class FrontUserEndpoint {
     QueryFrontUserDao queryFrontUserDao;
 
 
-    @BusinessLog(name = "FrontUser", value = "create FrontUser")
+    @BusinessLog(name = "微信用户模块", value = "新建微信用户")
     @PostMapping
     @ApiOperation(value = "新建 FrontUser", response = FrontUser.class)
     public Tip createUser(@RequestBody FrontUser entity) {
@@ -66,7 +66,7 @@ public class FrontUserEndpoint {
         return SuccessTip.create(affected);
     }
 
-    @BusinessLog(name = "FrontUser", value = "查看 FrontUser")
+    @BusinessLog(name = "微信用户模块", value = "查看 微信用户")
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontUser", response = FrontUser.class)
     @Permission(FrontUserPermission.FRONTUSER_VIEW)
@@ -74,7 +74,7 @@ public class FrontUserEndpoint {
         return SuccessTip.create(frontUserService.retrieveMaster(id));
     }
 
-    @BusinessLog(name = "FrontUser", value = "update FrontUser")
+    @BusinessLog(name = "微信用户模块", value = "更新 微信用户")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontUser", response = FrontUser.class)
     public Tip updateUser(@PathVariable Long id, @RequestBody FrontUser entity) {
@@ -82,14 +82,14 @@ public class FrontUserEndpoint {
         return SuccessTip.create(frontUserService.updateMaster(entity));
     }
 
-    @BusinessLog(name = "FrontUser", value = "delete FrontUser")
+    @BusinessLog(name = "微信用户模块", value = "删除 微信用户")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FrontUser")
     public Tip deleteUser(@PathVariable Long id) {
         return SuccessTip.create(frontUserService.deleteMaster(id));
     }
 
-    @BusinessLog(name = "FrontUser", value = "delete FrontUser")
+    @BusinessLog(name = "微信用户模块", value = "查看 用户模块")
     @ApiOperation(value = "FrontUser 列表信息", response = FrontUserRecord.class)
     @GetMapping
     @ApiImplicitParams({
