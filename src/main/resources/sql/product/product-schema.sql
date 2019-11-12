@@ -57,7 +57,7 @@ CREATE TABLE `t_product`  (
   `credit` int(11) NULL DEFAULT 0 COMMENT '优惠活动-可用积分',
   `is_virtual` int(11) NULL DEFAULT 0 COMMENT '是否虚拟产品',
   `required_participate_exam` int(11) NULL DEFAULT 0 COMMENT '是否需要做了检测才可以购买',
-  `org_id` bigint(20) NOT NULL COMMENT '组织(部门)ID',
+  `org_id` bigint(20) default null COMMENT '组织部门',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE,
   INDEX `fare_id`(`fare_id`) USING BTREE,
@@ -96,7 +96,7 @@ CREATE TABLE `t_product_category`  (
   `promoted_product_count` int(11) NULL DEFAULT 3,
   `wholesale` int(11) NULL DEFAULT 0,
   `is_show_products` int(11) NULL DEFAULT 1,
-  `org_id` bigint(20) NOT NULL COMMENT '组织(部门)ID',
+  `org_id` bigint(20) default null comment '组织(部门)ID',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `parent_id`(`parent_id`) USING BTREE,
   CONSTRAINT `t_product_category_ibfk_1` FOREIGN KEY (`parent_id`) REFERENCES `t_product_category` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
@@ -128,7 +128,7 @@ DROP TABLE IF EXISTS `t_product_description`;
 CREATE TABLE `t_product_description`  (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `product_id` bigint(20) NOT NULL,
-  `description` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
+  `description` text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `product_id`(`product_id`) USING BTREE,
   CONSTRAINT `t_product_description_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `t_product` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
