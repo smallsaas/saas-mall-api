@@ -10,6 +10,7 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -44,8 +45,9 @@ public class FrontProductEndpoint {
     @Resource
     FrontProductService frontProductService;
 
+    @BusinessLog(name = "产品", value = "新建产品")
     @PostMapping
-    @ApiOperation(value = "新建 FrontProduct", response = FrontProduct.class)
+    @ApiOperation(value = "新建 产品", response = FrontProduct.class)
     @Permission(FrontProductPermission.PRODUCT_ADD)
     public Tip createProduct(@RequestBody FrontProductModel entity) {
 
@@ -63,6 +65,7 @@ public class FrontProductEndpoint {
         return SuccessTip.create(affected);
     }
 
+
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontProduct", response = FrontProduct.class)
     @Permission(FrontProductPermission.PRODUCT_VIEW)
@@ -70,6 +73,7 @@ public class FrontProductEndpoint {
         return SuccessTip.create(frontProductService.getProduct(id));
     }
 
+    @BusinessLog(name = "产品", value = "修改产品")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontProduct", response = FrontProduct.class)
     @Permission(FrontProductPermission.PRODUCT_EDIT)
@@ -80,6 +84,7 @@ public class FrontProductEndpoint {
         return SuccessTip.create(frontProductService.updateProduct(entity));
     }
 
+    @BusinessLog(name = "产品", value = "删除产品")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FrontProduct")
     @Permission(FrontProductPermission.PRODUCT_DEL)
@@ -238,6 +243,7 @@ public class FrontProductEndpoint {
         return SuccessTip.create(page);
     }
 
+    @BusinessLog(name = "产品", value = "修改产品状态")
     @PutMapping("/{id}/{status}")
     @ApiOperation(value = "修改 FrontProduct 状态", response = Integer.class)
     @Permission(FrontProductPermission.PRODUCT_STATUS)

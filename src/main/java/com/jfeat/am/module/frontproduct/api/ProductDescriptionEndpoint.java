@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductDescriptionRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductDescriptionService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductDescription;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -37,6 +38,7 @@ public class ProductDescriptionEndpoint {
     @Resource
     ProductDescriptionService productDescriptionService;
 
+
     @PostMapping
     @ApiOperation(value = "新建 ProductDescription", response = ProductDescription.class)
     public Tip createProductDescription(@RequestBody ProductDescription entity) {
@@ -58,6 +60,7 @@ public class ProductDescriptionEndpoint {
         return SuccessTip.create(productDescriptionService.retrieveMaster(id));
     }
 
+    @BusinessLog(name = "产品描述", value = "修改产品描述")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ProductDescription", response = ProductDescription.class)
     public Tip updateProductDescription(@PathVariable Long id, @RequestBody ProductDescription entity) {

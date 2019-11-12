@@ -54,7 +54,7 @@ public class ConfigOverModelEndpoint {
         return SuccessTip.create(affected);
     }*/
 
-    @BusinessLog(name = "Config", value = "查看 指定 Config")
+
     @GetMapping("/{type}")
     @ApiOperation(value = "查看 Config", response = Config.class)
     @Permission(ConfigPermission.CONFIG_VIEW)
@@ -77,7 +77,7 @@ public class ConfigOverModelEndpoint {
 
     }
 
-    @BusinessLog(name = "Config", value = "update 指定 Config")
+    @BusinessLog(name = "系统配置", value = "更改系统配置")
     @PostMapping("/{type}")
     @ApiOperation(value = "修改 Config", response = Config.class)
     @Permission(ConfigPermission.CONFIG_EDIT)

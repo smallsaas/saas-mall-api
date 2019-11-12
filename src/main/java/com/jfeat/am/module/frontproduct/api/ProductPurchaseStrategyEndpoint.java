@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductPurchaseStrategyRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductPurchaseStrategyService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductPurchaseStrategy;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -37,6 +38,7 @@ public class ProductPurchaseStrategyEndpoint {
     @Resource
     ProductPurchaseStrategyService productPurchaseStrategyService;
 
+    @BusinessLog(name = "产品采购策略", value = "新建产品采购策略")
     @PostMapping
     @ApiOperation(value = "新建 ProductPurchaseStrategy", response = ProductPurchaseStrategy.class)
     public Tip createProductPurchaseStrategy(@RequestBody ProductPurchaseStrategy entity) {
@@ -58,6 +60,7 @@ public class ProductPurchaseStrategyEndpoint {
         return SuccessTip.create(productPurchaseStrategyService.retrieveMaster(id));
     }
 
+    @BusinessLog(name = "产品采购策略", value = "修改产品采购策略")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ProductPurchaseStrategy", response = ProductPurchaseStrategy.class)
     public Tip updateProductPurchaseStrategy(@PathVariable Long id, @RequestBody ProductPurchaseStrategy entity) {
@@ -65,6 +68,7 @@ public class ProductPurchaseStrategyEndpoint {
         return SuccessTip.create(productPurchaseStrategyService.updateMaster(entity));
     }
 
+    @BusinessLog(name = "产品采购策略", value = "删除产品采购策略")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 ProductPurchaseStrategy")
     public Tip deleteProductPurchaseStrategy(@PathVariable Long id) {

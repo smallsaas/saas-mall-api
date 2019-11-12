@@ -8,6 +8,7 @@ import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductTagRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductTagService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductTag;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -40,6 +41,7 @@ public class FrontProductTagEndpoint {
     @Resource
     FrontProductTagService frontProductTagService;
 
+    @BusinessLog(name = "产品标签", value = "新建产品标签")
     @PostMapping
     @ApiOperation(value = "新建 产品标签", response = FrontProductTag.class)
     @Permission(FrontProductPermission.PRODUCTTAG_ADD)
@@ -60,6 +62,7 @@ public class FrontProductTagEndpoint {
         return SuccessTip.create(affected);
     }
 
+
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontProductTag", response = FrontProductTag.class)
     @Permission(FrontProductPermission.PRODUCTTAG_VIEW)
@@ -67,6 +70,7 @@ public class FrontProductTagEndpoint {
         return SuccessTip.create(frontProductTagService.retrieveMaster(id));
     }
 
+    @BusinessLog(name = "产品标签", value = "修改产品标签")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontProductTag", response = FrontProductTag.class)
     @Permission(FrontProductPermission.PRODUCTTAG_EDIT)
@@ -75,12 +79,14 @@ public class FrontProductTagEndpoint {
         return SuccessTip.create(frontProductTagService.updateMaster(entity));
     }
 
+    @BusinessLog(name = "产品标签", value = "删除产品标签")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FrontProductTag")
     @Permission(FrontProductPermission.PRODUCTTAG_DEL)
     public Tip deleteProductTag(@PathVariable Long id) {
         return SuccessTip.create(frontProductTagService.deleteMaster(id));
     }
+
 
     @ApiOperation(value = "FrontProductTag 列表信息", response = FrontProductTagRecord.class)
     @GetMapping

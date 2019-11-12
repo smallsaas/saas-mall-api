@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.CarryModeRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.CarryModeService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.CarryMode;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -38,6 +39,7 @@ public class CarryModeEndpoint {
     @Resource
     CarryModeService carryModeService;
 
+    @BusinessLog(name = "快递模式", value = "新建快递模式")
     @PostMapping
     @ApiOperation(value = "新建 CarryMode", response = CarryMode.class)
     public Tip createCarryMode(@RequestBody CarryMode entity) {
@@ -59,6 +61,7 @@ public class CarryModeEndpoint {
         return SuccessTip.create(carryModeService.retrieveMaster(id));
     }
 
+    @BusinessLog(name = "快递模式", value = "修改快递模式")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 CarryMode", response = CarryMode.class)
     public Tip updateCarryMode(@PathVariable Long id, @RequestBody CarryMode entity) {
@@ -66,6 +69,7 @@ public class CarryModeEndpoint {
         return SuccessTip.create(carryModeService.updateMaster(entity));
     }
 
+    @BusinessLog(name = "快递模式", value = "删除快递模式")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 CarryMode")
     public Tip deleteCarryMode(@PathVariable Long id) {

@@ -3,6 +3,7 @@ package com.jfeat.am.module.order.api;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.common.annotation.Permission;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
@@ -45,6 +46,7 @@ public class OrderEndpoint {
     @Resource
     OrderService orderService;
 
+    @BusinessLog(name = "订单", value = "新增线上订单")
     @PostMapping
     @ApiOperation(value = "新建 Order", response = TOrder.class)
     @Permission(OrderPermission.ORDER_ADD)
@@ -61,6 +63,7 @@ public class OrderEndpoint {
         return SuccessTip.create(affected);
     }
 
+    @BusinessLog(name = "订单", value = "新增线下订单")
     @PostMapping("/storeOrder")
     @ApiOperation(value = "新建 线下订单", response = TOrder.class)
     @Permission(OrderPermission.ORDER_ADD)
@@ -87,17 +90,18 @@ public class OrderEndpoint {
         return SuccessTip.create(orderService.getOrder(id));
     }
 
+    @BusinessLog(name = "订单", value = "修改订单")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Order", response = TOrder.class)
-
     public Tip updateOrder(@PathVariable Long id, @RequestBody TOrder entity) {
         entity.setId(id);
         return SuccessTip.create(orderService.updateMaster(entity));
     }
 
+
+    @BusinessLog(name = "订单", value = "取消订单")
     @PostMapping("/{id}/{orderStatus}")
     @ApiOperation(value = "取消 Order", response = TOrder.class)
-
     public Tip updateOrderStatus(@PathVariable Long id, @PathVariable String orderStatus) {
         try {
             //不报错，orderStatus参数正确
@@ -108,6 +112,7 @@ public class OrderEndpoint {
         }
     }
 
+    @BusinessLog(name = "订单", value = "删除订单")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 Order")
     @Permission(OrderPermission.ORDER_DEL)

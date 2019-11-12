@@ -43,7 +43,7 @@ public class ConfigGroupOverModelEndpoint {
     @Resource
     ConfigGroupOverModelService configGroupOverModelService;
 
-    @BusinessLog(name = "ConfigGroup", value = "create ConfigGroup")
+    @BusinessLog(name = "权限组", value = "新建权限组")
     @PostMapping
     @ApiOperation(value = "新建 ConfigGroup", response = MallConfigGroupModel.class)
     /*@Permission(ConfigPermission.CONFIGGROUP_ADD)*/
@@ -60,7 +60,7 @@ public class ConfigGroupOverModelEndpoint {
         return SuccessTip.create(affected);
     }
 
-    @BusinessLog(name = "ConfigGroup", value = "查看 ConfigGroupModel")
+
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 ConfigGroup", response = MallConfigGroupModel.class)
     /*@Permission(ConfigPermission.CONFIGGROUP_VIEW)*/
@@ -73,7 +73,7 @@ public class ConfigGroupOverModelEndpoint {
         }
     }
 
-    @BusinessLog(name = "ConfigGroup", value = "查看所有 ConfigGroupModel")
+
     @GetMapping("/all")
     @ApiOperation(value = "查看所有 ConfigGroup", response = MallConfigGroupModel.class)
     /*@Permission(ConfigPermission.CONFIGGROUP_VIEW)*/
@@ -82,16 +82,16 @@ public class ConfigGroupOverModelEndpoint {
         return SuccessTip.create(configGroupModelList);
     }
 
-    @BusinessLog(name = "ConfigGroup", value = "update ConfigGroup")
+    @BusinessLog(name = "权限组", value = "更新权限组")
     @PutMapping("/{id}")
-    @ApiOperation(value = "修改 ConfigGroup", response = MallConfigGroupModel.class)
+    @ApiOperation(value = "修改 权限组", response = MallConfigGroupModel.class)
    /* @Permission(ConfigPermission.CONFIGGROUP_EDIT)*/
     public Tip updateConfigGroup(@PathVariable Integer id, @RequestBody MallConfigGroupModel entity) {
         entity.setId(id);
         return SuccessTip.create(configGroupOverModelService.updateMaster(entity, null, null, null));
     }
 
-    @BusinessLog(name = "ConfigGroup", value = "delete ConfigGroup")
+    @BusinessLog(name = "权限组", value = "删除权限组")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 ConfigGroup")
     /*@Permission(ConfigPermission.CONFIGGROUP_DEL)*/
@@ -99,7 +99,7 @@ public class ConfigGroupOverModelEndpoint {
         return SuccessTip.create(configGroupOverModelService.deleteMaster(id));
     }
 
-    @BusinessLog(name = "ConfigGroup", value = "delete ConfigGroup")
+
     @ApiOperation(value = "ConfigGroup 列表信息", response = MallConfigGroupRecord.class)
     @GetMapping
     @ApiImplicitParams({

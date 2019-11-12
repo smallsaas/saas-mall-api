@@ -8,6 +8,7 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCatego
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductCategory;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -39,6 +40,7 @@ public class FrontProductCategoryEndpoint {
     @Resource
     FrontProductCategoryService frontProductCategoryService;
 
+    @BusinessLog(name = "产品分类", value = "新建产品分类")
     @PostMapping
     @ApiOperation(value = "新建 FrontProductCategory", response = FrontProductCategory.class)
     @Permission(FrontProductPermission.PRODUCTCATEGORY_ADD)
@@ -64,6 +66,7 @@ public class FrontProductCategoryEndpoint {
         return SuccessTip.create(frontProductCategoryService.getProductCategoryById(id));
     }
 
+    @BusinessLog(name = "产品分类", value = "修改产品分类")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontProductCategory", response = FrontProductCategory.class)
     @Permission(FrontProductPermission.PRODUCTCATEGORY_EDIT)
@@ -72,6 +75,7 @@ public class FrontProductCategoryEndpoint {
         return SuccessTip.create(frontProductCategoryService.updateProductCategoryById(entity));
     }
 
+    @BusinessLog(name = "产品分类", value = "删除产品分类")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FrontProductCategory")
     @Permission(FrontProductPermission.PRODUCTCATEGORY_DEL)

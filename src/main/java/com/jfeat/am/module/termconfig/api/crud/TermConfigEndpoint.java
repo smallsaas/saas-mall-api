@@ -1,5 +1,6 @@
 package com.jfeat.am.module.termconfig.api.crud;
 
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.termconfig.services.crud.service.TermConfigService;
 import com.jfeat.am.module.termconfig.services.persistence.model.TermConfig;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -30,6 +31,7 @@ public class TermConfigEndpoint{
     @Resource
     TermConfigService termConfigService;
 
+
     @ApiOperation(value = "通过规则类型，获取具体规则配置")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "type", value = "规则类型/名称", required = true, dataType = "String", paramType = "query")})
@@ -38,6 +40,7 @@ public class TermConfigEndpoint{
         return SuccessTip.create(termConfigService.getTermConfigByType(type));
     }
 
+    @BusinessLog(name = "规则配置", value = "创建规则配置")
     @ApiOperation(value = "创建规则配置", response = TermConfig.class)
     @PostMapping
     public Tip createTermConfig(@RequestBody TermConfig entity) {
@@ -48,12 +51,14 @@ public class TermConfigEndpoint{
         return SuccessTip.create(termConfigService.createMaster(entity));
     }
 
+
     @ApiOperation("获取规则配置详情")
     @GetMapping("/{id}")
     public Tip getTermConfig(@PathVariable Long id) {
         return SuccessTip.create(termConfigService.retrieveMaster(id));
     }
 
+    @BusinessLog(name = "规则配置", value = "更新规则配置")
     @ApiOperation(value = "更新规则配置", response = TermConfig.class)
     @PutMapping("/{id}")
     public Tip updateTermConfig(@PathVariable Long id, @RequestBody TermConfig entity) {
@@ -64,6 +69,7 @@ public class TermConfigEndpoint{
         return SuccessTip.create(termConfigService.updateMaster(entity));
     }
 
+    @BusinessLog(name = "规则配置", value = "删除规则配置")
     @ApiOperation("删除规则配置")
     @DeleteMapping("/{id}")
     public Tip deleteTermConfig(@PathVariable Long id) {

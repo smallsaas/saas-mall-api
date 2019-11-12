@@ -66,7 +66,7 @@ public class FrontUserEndpoint {
         return SuccessTip.create(affected);
     }
 
-    @BusinessLog(name = "微信用户模块", value = "查看 微信用户")
+
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontUser", response = FrontUser.class)
     @Permission(FrontUserPermission.FRONTUSER_VIEW)
@@ -89,7 +89,7 @@ public class FrontUserEndpoint {
         return SuccessTip.create(frontUserService.deleteMaster(id));
     }
 
-    @BusinessLog(name = "微信用户模块", value = "查看 用户模块")
+
     @ApiOperation(value = "FrontUser 列表信息", response = FrontUserRecord.class)
     @GetMapping
     @ApiImplicitParams({

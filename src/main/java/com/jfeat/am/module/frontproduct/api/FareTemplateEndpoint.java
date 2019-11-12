@@ -10,6 +10,7 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateRecord
 import com.jfeat.am.module.frontproduct.services.domain.service.FareTemplateService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.CarryMode;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FareTemplate;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -45,6 +46,7 @@ public class FareTemplateEndpoint {
     @Resource
     FareTemplateService fareTemplateService;
 
+    @BusinessLog(name = "运费模板", value = "新建运费模板")
     @PostMapping
     @ApiOperation(value = "新建 FareTemplate", response = FareTemplate.class)
     @Permission(FareTemplatePermission.FARETEMPLATE_ADD)
@@ -69,6 +71,7 @@ public class FareTemplateEndpoint {
         return SuccessTip.create(affected);
     }
 
+
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FareTemplate", response = FareTemplate.class)
     @Permission(FareTemplatePermission.FARETEMPLATE_VIEW)
@@ -76,6 +79,7 @@ public class FareTemplateEndpoint {
         return SuccessTip.create(fareTemplateService.getFareTemplate(id));
     }
 
+    @BusinessLog(name = "运费模板", value = "修改运费模板")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FareTemplate", response = FareTemplate.class)
     @Permission(FareTemplatePermission.FARETEMPLATE_EDIT)
@@ -85,6 +89,7 @@ public class FareTemplateEndpoint {
         return SuccessTip.create(fareTemplateService.updateFareTemplate(entity));
     }
 
+    @BusinessLog(name = "运费模板", value = "删除运费模板")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 FareTemplate")
     @Permission(FareTemplatePermission.FARETEMPLATE_DEL)

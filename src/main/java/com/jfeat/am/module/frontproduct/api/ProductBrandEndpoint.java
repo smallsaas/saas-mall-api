@@ -8,6 +8,7 @@ import com.jfeat.am.module.frontproduct.definition.BrandPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductBrandRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductBrandService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductBrand;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -40,6 +41,7 @@ public class ProductBrandEndpoint {
     @Resource
     ProductBrandService productBrandService;
 
+    @BusinessLog(name = "品牌", value = "新建品牌")
     @PostMapping
     @ApiOperation(value = "新建 产品品牌", response = ProductBrand.class)
     @Permission(BrandPermission.BRAND_ADD)
@@ -66,6 +68,7 @@ public class ProductBrandEndpoint {
         return SuccessTip.create(productBrandService.retrieveMaster(id));
     }
 
+    @BusinessLog(name = "品牌", value = "修改品牌")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ProductBrand", response = ProductBrand.class)
     @Permission(BrandPermission.BRAND_EDIT)
@@ -74,6 +77,7 @@ public class ProductBrandEndpoint {
         return SuccessTip.create(productBrandService.updateMaster(entity));
     }
 
+    @BusinessLog(name = "品牌", value = "删除品牌")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 ProductBrand")
     @Permission(BrandPermission.BRAND_DEL)
