@@ -294,7 +294,12 @@ public class OrderEndpoint {
                            @RequestParam(name = "extCuts", required = false) Integer extCuts,
                            @RequestParam(name = "orgId", required = false) Long orgId,
                            @RequestParam(name = "orderBy", required = false) String orderBy,
-                           @RequestParam(name = "sort", required = false) String sort) {
+                           @RequestParam(name = "sort", required = false) String sort,
+                           @RequestParam(name = "pName", required = false) String pName,
+                           @RequestParam(name = "barcode", required = false) String barcode,
+     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
+     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime )
+                           {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -310,6 +315,8 @@ public class OrderEndpoint {
         page.setSize(pageSize);
 
         OrderRecord record = new OrderRecord();
+        record.setBarcode(barcode);
+        record.setpName(pName);
         record.setId(id);
         record.setUserId(userId);
         record.setOrderNumber(orderNumber);
@@ -390,7 +397,7 @@ public class OrderEndpoint {
         record.setExtDiscount(extDiscount);
         record.setExtCuts(extCuts);
         record.setOrgId(orgId);
-        page.setRecords(this.orderService.findOrderPage(page, record, search, orderBy, null, null));
+        page.setRecords(this.orderService.findOrderPage(page, record, search, orderBy, startTime, endTime));
 
         return SuccessTip.create(page);
     }

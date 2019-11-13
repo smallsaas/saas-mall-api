@@ -11,6 +11,19 @@
         <include refid="Base_Column_List"/>
         FROM t_order
         WHERE 1=1
+        <if test="record.pName != null and record.pName!= '' ">
+        and t_order.id in (select t_order.id
+                               from t_order  join t_order_item on t_order_item.order_id= t_order.id
+                               and t_order_item.product_name like CONCAT('%',#{record.pName},'%')
+                               )
+        </if>
+        <if test="record.barcode != null and record.barcode!= '' ">
+            and t_order.id in (select t_order.id
+                               from t_order  join t_order_item on t_order_item.order_id= t_order.id
+                                and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+                              )
+        </if>
+
         <if test="record.id != null and record.id>0 ">
             AND t_order.id LIKE CONCAT('%',#{record.id},'%')
         </if>
@@ -252,10 +265,10 @@
             AND t_order.org_id = #{record.orgId}
         </if>
         <if test="startTime != null">
-            <![CDATA[AND t_order.start_time >= DATE(#{startTime})]]>
+            <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[AND t_order.end_time <= DATE(#{endTime)]]>
+            <![CDATA[AND t_order.deal_date <= DATE(#{endTime})]]>
         </if>
 
         order by created_date desc
