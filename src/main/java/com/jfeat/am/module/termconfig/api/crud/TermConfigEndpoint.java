@@ -40,7 +40,7 @@ public class TermConfigEndpoint{
         return SuccessTip.create(termConfigService.getTermConfigByType(type));
     }
 
-    @BusinessLog(name = "规则配置", value = "创建规则配置")
+    @BusinessLog(name = "系统配置", value = "创建新的配置")
     @ApiOperation(value = "创建规则配置", response = TermConfig.class)
     @PostMapping
     public Tip createTermConfig(@RequestBody TermConfig entity) {

@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 
 /**
@@ -38,6 +40,7 @@ public class OrderProcessLog extends Model<OrderProcessLog> {
 	private Long id;
 	@TableField("order_id")
 	private Integer orderId;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	@TableField("process_date")
 	private Date processDate;
 	private String content;
