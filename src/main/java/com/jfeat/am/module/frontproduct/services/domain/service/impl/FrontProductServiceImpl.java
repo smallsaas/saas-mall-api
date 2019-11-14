@@ -155,13 +155,20 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         affected += this.updateMaster(entity, false);
         //更新描述
        List<ProductDescription> productDescriptions = productDescriptionMapper.selectList(new EntityWrapper<ProductDescription>().eq("product_id",entity.getId()));
-        ProductDescription productDescription = new ProductDescription();
+        ProductDescription productDescription = null;
        if (productDescriptions!=null&&productDescriptions.size()!=0){
+           productDescription = new ProductDescription();
             productDescription = productDescriptions.get(0);
+            productDescription.setDescription(entity.getDescription());
        }
-        productDescription.setDescription(entity.getDescription());
+
         if(productDescription!=null){
             affected += productDescriptionService.updateMaster(productDescription,false);
+        }else {
+            productDescription = new ProductDescription();
+            productDescription.setProductId(entity.getId());
+            productDescription.setDescription(entity.getDescription());
+            affected += productDescriptionService.createMaster(productDescription);
         }
         //更新封面
         affected += productImageMapper.delete(new EntityWrapper<ProductImage>().eq("product_id",entity.getId()));
