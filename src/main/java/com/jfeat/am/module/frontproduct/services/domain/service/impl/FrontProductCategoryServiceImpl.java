@@ -110,7 +110,7 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
         List<FrontProductCategory> frontProductCategoryList;
         if (name!=null && !name.equals("")){
             frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>()
-                    .eq("name",name)
+                    .like("name",name)
                     .isNull("parent_id").orderBy("sort_order"));
 
         }
