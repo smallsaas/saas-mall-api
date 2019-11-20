@@ -25,12 +25,6 @@ public class CRUDFrontProductServiceImpl extends CRUDServiceOnlyImpl<FrontProduc
         private static final  String EAV_ENTITY_NAME = "product";
 
 
-        @Override
-        protected String entityName() {
-                return EAV_ENTITY_NAME;
-        }
-
-
         @Resource
         protected FrontProductMapper frontProductMapper;
 
@@ -40,7 +34,10 @@ public class CRUDFrontProductServiceImpl extends CRUDServiceOnlyImpl<FrontProduc
         }
 
 
-
+        @Override
+        protected String entityName() {
+                return EAV_ENTITY_NAME;
+        }
 
 
 

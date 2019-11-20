@@ -23,6 +23,12 @@ public class CRUDFrontProductTagServiceImpl extends CRUDServiceOnlyImpl<FrontPro
 
 
 
+        private static final  String EAV_ENTITY_NAME = "productTag";
+
+        @Override
+        protected String entityName() {
+                return EAV_ENTITY_NAME;
+        }
 
 
         @Resource
