@@ -13,4 +13,6 @@ import java.util.List;
 public interface ExpressService extends CRUDExpressService{
     List findExpressPage(Page<ExpressRecord> page, ExpressRecord record, String search,
                            String orderBy, Date startTime, Date endTime);
+
+    Integer updateIsDefault();
 }

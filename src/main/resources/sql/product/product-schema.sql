@@ -37,6 +37,7 @@ CREATE TABLE `t_product`  (
   `price` decimal(10, 2) NOT NULL DEFAULT 0.00,
   `cost_price` decimal(10, 2) NOT NULL DEFAULT 0.00,
   `suggested_price` decimal(10, 2) NOT NULL DEFAULT 0.00,
+  `distribution_price` decimal(10, 2) NOT NULL DEFAULT 0.00 COMMENT '分销价',
   `promoted` int(11) NOT NULL DEFAULT 0,
   `freight` decimal(10, 2) NOT NULL DEFAULT 0.00,
   `free_shipping` int(11) NOT NULL DEFAULT 0,
