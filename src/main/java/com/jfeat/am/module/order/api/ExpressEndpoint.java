@@ -46,6 +46,9 @@ public class ExpressEndpoint {
 
         Integer affected = 0;
         try {
+            if(entity.getIsDefault()==1){
+                expressService.updateIsDefault();
+            }
             affected = expressService.createMaster(entity);
 
         } catch (DuplicateKeyException e) {
@@ -67,6 +70,9 @@ public class ExpressEndpoint {
     @Permission(ExpressPermission.EXPRESS_EDIT)
     public Tip updateExpress(@PathVariable Long id, @RequestBody Express entity) {
         entity.setId(id);
+        if(entity.getIsDefault()==1){
+            expressService.updateIsDefault();
+        }
         return SuccessTip.create(expressService.updateMaster(entity));
     }
 

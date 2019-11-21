@@ -9,6 +9,7 @@
     <select id="findProductModelById" resultType="FrontProductModel">
         SELECT
 		t_product.id,
+		t_product.distribution_price AS distributionPrice,
 		t_product.category_id AS categoryId,
 		t_product.brand_id AS brandId,
 		t_product. NAME,
@@ -61,6 +62,7 @@
     <select id="findProductPage" resultType="FrontProductRecord" parameterType="FrontProductRecord">
         SELECT
         t_product.id,
+        t_product.distribution_price AS distributionPrice,
         t_product.category_id AS categoryId,
         t_product.brand_id AS brandId,
         t_product. NAME,
