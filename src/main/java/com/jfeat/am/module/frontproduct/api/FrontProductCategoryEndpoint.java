@@ -3,6 +3,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.etcd.service.EtcdExtandService;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
@@ -40,14 +41,20 @@ public class FrontProductCategoryEndpoint {
     @Resource
     FrontProductCategoryService frontProductCategoryService;
 
+
+    @Resource
+    EtcdExtandService etcdExtandService;
+
+
+    private  final Long tenantId = etcdExtandService.getTenantId();
+
     @BusinessLog(name = "产品分类", value = "新建产品分类")
     @PostMapping
     @ApiOperation(value = "新建 FrontProductCategory", response = FrontProductCategory.class)
     @Permission(FrontProductPermission.PRODUCTCATEGORY_ADD)
     public Tip createProductCategory(@RequestBody FrontProductCategoryModel entity) {
-        Long orgId = JWTKit.getOrgId();
-        System.out.println(orgId);
-        entity.setOrgId(JWTKit.getOrgId());
+
+        entity.setOrgId(tenantId);
         Integer affected = 0;
         try {
             affected = frontProductCategoryService.createProductCategory(entity);
@@ -55,7 +62,6 @@ public class FrontProductCategoryEndpoint {
         } catch (DuplicateKeyException e) {
             throw new BusinessException(BusinessCode.DuplicateKey);
         }
-
         return SuccessTip.create(affected);
     }
 

@@ -3,7 +3,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.common.annotation.Permission;
-import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.etcd.service.EtcdExtandService;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
@@ -44,6 +44,11 @@ public class FrontProductEndpoint {
 
     @Resource
     FrontProductService frontProductService;
+    @Resource
+    EtcdExtandService etcdExtandService;
+
+
+    private  final Long tenantId = etcdExtandService.getTenantId();
 
     @BusinessLog(name = "产品", value = "新建产品")
     @PostMapping
@@ -56,6 +61,7 @@ public class FrontProductEndpoint {
             Date date = new Date();
             entity.setCreatedDate(date);
             entity.setLastModifiedDate(date);
+            entity.setOrgId(tenantId);
             affected = frontProductService.createProduct(entity);
 
         } catch (DuplicateKeyException e) {
@@ -81,6 +87,7 @@ public class FrontProductEndpoint {
         Date date = new Date();
         entity.setId(id);
         entity.setLastModifiedDate(date);
+        entity.setOrgId(tenantId);
         return SuccessTip.create(frontProductService.updateProduct(entity));
     }
 
@@ -198,6 +205,7 @@ public class FrontProductEndpoint {
         page.setSize(pageSize);
 
         FrontProductRecord record = new FrontProductRecord();
+        record.setOrgId(tenantId);
         record.setCategoryName(categoryName);
         record.setId(id);
         record.setCategoryId(categoryId);
