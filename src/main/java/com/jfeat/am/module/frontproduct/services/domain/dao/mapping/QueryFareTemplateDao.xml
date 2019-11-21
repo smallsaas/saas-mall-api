@@ -58,5 +58,6 @@
         OR t_fare_template.name LIKE CONCAT('%',#{search},'%')
     </if>
     -->
+        order by t_fare_template.last_modified_date DESC
     </select>
 </mapper>

@@ -37,5 +37,6 @@
         OR t_product_tag.name LIKE CONCAT('%',#{search},'%')
     </if>
     -->
+        order by t_product_tag.sort_order  desc
     </select>
 </mapper>

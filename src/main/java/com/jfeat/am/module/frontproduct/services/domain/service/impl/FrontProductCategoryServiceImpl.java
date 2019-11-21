@@ -109,17 +109,13 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
     public List<FrontProductCategoryRecord> queryProductCategoryies(String name) {
 
         List<FrontProductCategory> frontProductCategoryList;
-        if (name!=null && !name.equals("")){
+
             frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>()
                     .like("name",name)
                     .isNull("parent_id")
                     .orderDesc(Arrays.asList(new String[] {"sort_order"}))
             );
 
-        }
-        else {
-            frontProductCategoryList  = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>().isNull("parent_id").orderBy("sort_order"));
-        }
         return frontProductCategoryList.stream().map(item -> {
             FrontProductCategoryRecord record = CRUD.castObject(item, FrontProductCategoryRecord.class);
             return addSubProductCategory(record);

@@ -136,7 +136,8 @@ public class FrontProductEndpoint {
             @ApiImplicitParam(name = "isVirtual", dataType = "Integer"),
             @ApiImplicitParam(name = "requiredParticipateExam", dataType = "Integer"),
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
-            @ApiImplicitParam(name = "sort", dataType = "String")
+            @ApiImplicitParam(name = "sort", dataType = "String"),
+            @ApiImplicitParam(name = "search", dataType = "String")
     })
     @Permission(FrontProductPermission.PRODUCT_VIEW)
     public Tip queryProducts(Page<FrontProductRecord> page,
