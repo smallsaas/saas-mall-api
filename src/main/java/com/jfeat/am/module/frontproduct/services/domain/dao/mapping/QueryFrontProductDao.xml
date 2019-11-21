@@ -222,10 +222,18 @@
         <if test="endTime != null">
             <![CDATA[AND t_product.end_time <= DATE(#{endTime)]]>
         </if>
-        <!--
     <if test="search != null and search != ''">
-        OR t_product.name LIKE CONCAT('%',#{search},'%')
+        AND
+        (
+        t_product.name LIKE CONCAT('%',#{search},'%')
+        OR
+        t_product.barcode LIKE CONCAT('%',#{search},'%')
+        OR
+        category.name LIKE CONCAT('%',#{search},'%')
+        OR
+        t_product_brand.name LIKE CONCAT('%',#{search},'%')
+        )
     </if>
-    -->
+        order by t_product.sort_order  desc
     </select>
 </mapper>

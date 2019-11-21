@@ -20,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -108,15 +109,13 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
     public List<FrontProductCategoryRecord> queryProductCategoryies(String name) {
 
         List<FrontProductCategory> frontProductCategoryList;
-        if (name!=null && !name.equals("")){
+
             frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>()
                     .like("name",name)
-                    .isNull("parent_id").orderBy("sort_order"));
+                    .isNull("parent_id")
+                    .orderDesc(Arrays.asList(new String[] {"sort_order"}))
+            );
 
-        }
-        else {
-            frontProductCategoryList  = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>().isNull("parent_id").orderBy("sort_order"));
-        }
         return frontProductCategoryList.stream().map(item -> {
             FrontProductCategoryRecord record = CRUD.castObject(item, FrontProductCategoryRecord.class);
             return addSubProductCategory(record);

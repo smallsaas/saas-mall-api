@@ -271,12 +271,25 @@
             <![CDATA[AND t_order.deal_date <= DATE(#{endTime})]]>
         </if>
 
+        <if test="search != null and search != ''">
+            AND
+            (
+            t_order.order_number LIKE CONCAT('%',#{search},'%')
+            or  t_order.id in (select t_order.id
+                     from t_order  join t_order_item on t_order_item.order_id= t_order.id
+                      and t_order_item.product_name like CONCAT('%',#{search},'%')
+                               )
+
+            or t_order.id in (select t_order.id
+                              from t_order  join t_order_item on t_order_item.order_id= t_order.id
+                               and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+                             )
+            or t_order.contact_user LIKE CONCAT('%',#{search},'%')
+            )
+        </if>
+
         order by created_date desc
-        <!--
-    <if test="search != null and search != ''">
-        OR t_order.name LIKE CONCAT('%',#{search},'%')
-    </if>
-    -->
+
     </select>
 
 
