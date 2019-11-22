@@ -2,7 +2,6 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.etcd.service.EtcdExtandService;
 import com.jfeat.am.module.frontproduct.services.domain.model.CarryModeRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.CarryModeService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.CarryMode;

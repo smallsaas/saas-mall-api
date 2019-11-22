@@ -3,7 +3,6 @@ package com.jfeat.am.module.frontproduct.api;
 
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
-import com.jfeat.am.etcd.service.EtcdExtandService;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
@@ -42,11 +41,8 @@ public class FrontProductCategoryEndpoint {
     FrontProductCategoryService frontProductCategoryService;
 
 
-    @Resource
-    EtcdExtandService etcdExtandService;
 
 
-    private  final Long tenantId = etcdExtandService.getTenantId();
 
     @BusinessLog(name = "产品分类", value = "新建产品分类")
     @PostMapping
@@ -54,7 +50,6 @@ public class FrontProductCategoryEndpoint {
     @Permission(FrontProductPermission.PRODUCTCATEGORY_ADD)
     public Tip createProductCategory(@RequestBody FrontProductCategoryModel entity) {
 
-        entity.setOrgId(tenantId);
         Integer affected = 0;
         try {
             affected = frontProductCategoryService.createProductCategory(entity);

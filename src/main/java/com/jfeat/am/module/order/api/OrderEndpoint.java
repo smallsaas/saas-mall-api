@@ -314,6 +314,8 @@ public class OrderEndpoint {
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
+
+
         OrderRecord record = new OrderRecord();
         record.setBarcode(barcode);
         record.setpName(pName);
@@ -329,6 +331,8 @@ public class OrderEndpoint {
         record.setDeliveredDate(deliveredDate);
         record.setDealDate(dealDate);
         record.setDeliverOrderNumber(deliverOrderNumber);
+
+
         record.setStatus(status);
         record.setTotalPrice(totalPrice);
         record.setFreight(freight);

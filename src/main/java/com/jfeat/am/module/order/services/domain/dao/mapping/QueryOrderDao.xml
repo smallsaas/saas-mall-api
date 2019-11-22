@@ -60,9 +60,15 @@
         <if test="record.deliverOrderNumber != null and record.deliverOrderNumber!= ''">
             AND t_order.deliver_order_number LIKE CONCAT('%',#{record.deliverOrderNumber},'%')
         </if>
-        <if test="record.status != null and record.status!= ''">
+        <if test="record.status != null and record.status!= '' and record.status !='CLOSED_REFUNDED'">
             AND t_order.status LIKE CONCAT('%',#{record.status},'%')
         </if>
+
+        <if test="record.status != null and record.status!= '' and record.status='CLOSED_REFUNDED'">
+            AND (  t_order.status = 'CLOSED_REFUNDED' or t_order.status = 'CANCELED_REFUND_PENDING'   )
+        </if>
+
+
         <if test="record.totalPrice != null and record.totalPrice>0 ">
             AND t_order.total_price LIKE CONCAT('%',#{record.totalPrice},'%')
         </if>
