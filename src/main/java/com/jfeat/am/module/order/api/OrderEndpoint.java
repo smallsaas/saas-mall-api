@@ -6,6 +6,7 @@ import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
+import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.model.OrderRequest;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
@@ -45,6 +46,9 @@ public class OrderEndpoint {
 
     @Resource
     OrderService orderService;
+
+    @Resource
+    QueryOrderDao queryOrderDao;
 
     @BusinessLog(name = "订单", value = "新增线上订单")
     @PostMapping
@@ -334,6 +338,7 @@ public class OrderEndpoint {
 
 
         record.setStatus(status);
+
         record.setTotalPrice(totalPrice);
         record.setFreight(freight);
         record.setDescription(description);
@@ -401,7 +406,7 @@ public class OrderEndpoint {
         record.setExtDiscount(extDiscount);
         record.setExtCuts(extCuts);
         record.setOrgId(orgId);
-        page.setRecords(this.orderService.findOrderPage(page, record, search, orderBy, startTime, endTime));
+        page.setRecords(queryOrderDao.findOrderPage(page, record, search, orderBy, startTime, endTime));
 
         return SuccessTip.create(page);
     }
