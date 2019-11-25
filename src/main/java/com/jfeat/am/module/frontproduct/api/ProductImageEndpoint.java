@@ -81,7 +81,7 @@ public class ProductImageEndpoint {
             @ApiImplicitParam(name = "productId", dataType = "Integer"),
             @ApiImplicitParam(name = "type", dataType = "Integer"),
             @ApiImplicitParam(name = "url", dataType = "String"),
-            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
+            @ApiImplicitParam(name = "sortNum", dataType = "Integer"),
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
@@ -93,7 +93,7 @@ public class ProductImageEndpoint {
                                   @RequestParam(name = "productId", required = false) Long productId,
                                   @RequestParam(name = "type", required = false) Integer type,
                                   @RequestParam(name = "url", required = false) String url,
-                                  @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
+                                  @RequestParam(name = "sortNum", required = false) Integer sortNum,
                                   @RequestParam(name = "orderBy", required = false) String orderBy,
                                   @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -115,7 +115,7 @@ public class ProductImageEndpoint {
         record.setProductId(productId);
         record.setType(type);
         record.setUrl(url);
-        record.setSortOrder(sortOrder);
+        record.setSortNum(sortNum);
         page.setRecords(this.productImageService.findProductImagePage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

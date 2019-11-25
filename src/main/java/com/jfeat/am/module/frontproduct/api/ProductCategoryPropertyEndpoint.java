@@ -85,7 +85,7 @@ public class ProductCategoryPropertyEndpoint {
             @ApiImplicitParam(name = "candidateValues", dataType = "String"),
             @ApiImplicitParam(name = "defaultValue", dataType = "String"),
             @ApiImplicitParam(name = "isRequired", dataType = "Integer"),
-            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
+            @ApiImplicitParam(name = "sortNum", dataType = "Integer"),
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
@@ -101,7 +101,7 @@ public class ProductCategoryPropertyEndpoint {
                                                @RequestParam(name = "candidateValues", required = false) String candidateValues,
                                                @RequestParam(name = "defaultValue", required = false) String defaultValue,
                                                @RequestParam(name = "isRequired", required = false) Integer isRequired,
-                                               @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
+                                               @RequestParam(name = "sortNum", required = false) Integer sortNum,
                                                @RequestParam(name = "orderBy", required = false) String orderBy,
                                                @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -127,7 +127,7 @@ public class ProductCategoryPropertyEndpoint {
         record.setCandidateValues(candidateValues);
         record.setDefaultValue(defaultValue);
         record.setIsRequired(isRequired);
-        record.setSortOrder(sortOrder);
+        record.setSortNum(sortNum);
         page.setRecords(this.productCategoryPropertyService.findProductCategoryPropertyPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

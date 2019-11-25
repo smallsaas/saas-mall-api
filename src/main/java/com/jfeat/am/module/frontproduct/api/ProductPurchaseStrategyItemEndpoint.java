@@ -82,7 +82,7 @@ public Tip deleteProductPurchaseStrategyItem(@PathVariable Long id){
                                                                                                             @ApiImplicitParam(name = "strategyId", dataType = "Integer"),
                                                                                             @ApiImplicitParam(name = "name", dataType = "String"),
                                                                                             @ApiImplicitParam(name = "operator", dataType = "String"),
-                                                                                                            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
+                                                                                                            @ApiImplicitParam(name = "sortNum", dataType = "Integer"),
                                                                                             @ApiImplicitParam(name = "param", dataType = "String"),
                                 @ApiImplicitParam(name = "orderBy", dataType = "String"),
                 @ApiImplicitParam(name = "sort", dataType = "String")
@@ -95,7 +95,7 @@ public Tip queryProductPurchaseStrategyItems(Page<ProductPurchaseStrategyItemRec
                                                                                                                                                 @RequestParam(name = "strategyId", required = false) Integer strategyId,
                                                                                                                                 @RequestParam(name = "name", required = false) String name,
                                                                                                                                 @RequestParam(name = "operator", required = false) String operator,
-                                                                                                                                                @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
+                                                                                                                                                @RequestParam(name = "sortNum", required = false) Integer sortNum,
                                                                                                                                 @RequestParam(name = "param", required = false) String param,
                                     @RequestParam(name = "orderBy", required = false) String orderBy,
         @RequestParam(name = "sort", required = false)  String sort) {
@@ -118,7 +118,7 @@ public Tip queryProductPurchaseStrategyItems(Page<ProductPurchaseStrategyItemRec
                                                                                                 record.setStrategyId(strategyId);
                                                                                         record.setName(name);
                                                                                         record.setOperator(operator);
-                                                                                                record.setSortOrder(sortOrder);
+                                                                                                record.setSortNum(sortNum);
                                                                                         record.setParam(param);
                     page.setRecords(this.productPurchaseStrategyItemService.findProductPurchaseStrategyItemPage(page, record, search, orderBy, null, null));
 

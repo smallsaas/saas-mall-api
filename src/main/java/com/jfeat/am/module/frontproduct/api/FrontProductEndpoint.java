@@ -120,7 +120,7 @@ public class FrontProductEndpoint {
             @ApiImplicitParam(name = "promoted", dataType = "Integer"),
             @ApiImplicitParam(name = "freight", dataType = "BigDecimal"),
             @ApiImplicitParam(name = "freeShipping", dataType = "Integer"),
-            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
+            @ApiImplicitParam(name = "sortNum", dataType = "Integer"),
             @ApiImplicitParam(name = "partnerLevelZone", dataType = "Integer"),
             @ApiImplicitParam(name = "viewCount", dataType = "Long"),
             @ApiImplicitParam(name = "fareId", dataType = "Integer"),
@@ -166,7 +166,7 @@ public class FrontProductEndpoint {
                              @RequestParam(name = "promoted", required = false) Integer promoted,
                              @RequestParam(name = "freight", required = false) BigDecimal freight,
                              @RequestParam(name = "freeShipping", required = false) Integer freeShipping,
-                             @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
+                             @RequestParam(name = "sortNum", required = false) Integer sortNum,
                              @RequestParam(name = "partnerLevelZone", required = false) Integer partnerLevelZone,
                              @RequestParam(name = "viewCount", required = false) Long viewCount,
                              @RequestParam(name = "fareId", required = false) Integer fareId,
@@ -221,7 +221,7 @@ public class FrontProductEndpoint {
         record.setPromoted(promoted);
         record.setFreight(freight);
         record.setFreeShipping(freeShipping);
-        record.setSortOrder(sortOrder);
+        record.setSortNum(sortNum);
         record.setPartnerLevelZone(partnerLevelZone);
         record.setViewCount(viewCount);
         record.setFareId(fareId);

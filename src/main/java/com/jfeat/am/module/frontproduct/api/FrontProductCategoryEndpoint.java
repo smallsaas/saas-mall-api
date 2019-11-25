@@ -95,7 +95,7 @@ public class FrontProductCategoryEndpoint {
             @ApiImplicitParam(name = "name", dataType = "String"),
             @ApiImplicitParam(name = "description", dataType = "String"),
             @ApiImplicitParam(name = "cover", dataType = "String"),
-            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
+            @ApiImplicitParam(name = "sortNum", dataType = "Integer"),
             @ApiImplicitParam(name = "promoted", dataType = "Integer"),
             @ApiImplicitParam(name = "visible", dataType = "Integer"),
             @ApiImplicitParam(name = "promotedProductCount", dataType = "Integer"),
@@ -113,7 +113,7 @@ public class FrontProductCategoryEndpoint {
                                        @RequestParam(name = "name", required = false) String name,
                                        @RequestParam(name = "description", required = false) String description,
                                        @RequestParam(name = "cover", required = false) String cover,
-                                       @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
+                                       @RequestParam(name = "sortNum", required = false) Integer sortNum,
                                        @RequestParam(name = "promoted", required = false) Integer promoted,
                                        @RequestParam(name = "visible", required = false) Integer visible,
                                        @RequestParam(name = "promotedProductCount", required = false) Integer promotedProductCount,
@@ -142,7 +142,7 @@ public class FrontProductCategoryEndpoint {
         record.setName(name);
         record.setDescription(description);
         record.setCover(cover);
-        record.setSortOrder(sortOrder);
+        record.setSortNum(sortNum);
         record.setPromoted(promoted);
         record.setVisible(visible);
         record.setPromotedProductCount(promotedProductCount);

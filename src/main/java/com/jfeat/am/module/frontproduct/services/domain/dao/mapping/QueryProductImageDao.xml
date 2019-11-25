@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductImageDao">
                                                                                                                                                                                                 <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_image.id, t_product_image.product_id AS productId, t_product_image.type, t_product_image.url, t_product_image.sort_order AS sortOrder,name
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_image.id, t_product_image.product_id AS productId, t_product_image.type, t_product_image.url, t_product_image.sort_num AS sortNum,name
     </sql>
 
 
@@ -24,8 +24,8 @@
                                 <if test="record.url != null and record.url!= ''">
                 AND t_product_image.url LIKE CONCAT('%',#{record.url},'%')
             </if>
-                                                                                            <if test="record.sortOrder != null and record.sortOrder>0 ">
-                AND t_product_image.sort_order LIKE CONCAT('%',#{record.sortOrder},'%')
+                                                                                            <if test="record.sortNum != null and record.sortNum>0 ">
+                AND t_product_image.sort_num LIKE CONCAT('%',#{record.sortNum},'%')
             </if>
                 <if test="startTime != null">
             <![CDATA[AND t_product_image.start_time >= DATE(#{startTime})]]>

@@ -39,8 +39,8 @@ public class ProductImage extends Model<ProductImage> {
 	private Integer type;
 	private String name;
 	private String url;
-	@TableField("sort_order")
-	private Integer sortOrder;
+	@TableField("sort_num")
+	private Integer sortNum;
 
 
 	public Long getId() {
@@ -79,12 +79,12 @@ public class ProductImage extends Model<ProductImage> {
 		return this;
 	}
 
-	public Integer getSortOrder() {
-		return sortOrder;
+	public Integer getSortNum() {
+		return sortNum;
 	}
 
-	public ProductImage setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
+	public ProductImage setSortNum(Integer sortNum) {
+		this.sortNum = sortNum;
 		return this;
 	}
 
@@ -96,7 +96,7 @@ public class ProductImage extends Model<ProductImage> {
 
 	public static final String URL = "url";
 
-	public static final String SORT_ORDER = "sort_order";
+	public static final String SORT_ORDER = "sort_num";
 
 	@Override
 	protected Serializable pkVal() {
@@ -110,7 +110,7 @@ public class ProductImage extends Model<ProductImage> {
 			", productId=" + productId +
 			", type=" + type +
 			", url=" + url +
-			", sortOrder=" + sortOrder +
+			", sortNum=" + sortNum +
 			"}";
 	}
 

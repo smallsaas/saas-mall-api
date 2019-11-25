@@ -39,8 +39,8 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 	private String name;
 	private String description;
 	private String cover;
-	@TableField("sort_order")
-	private Integer sortOrder;
+	@TableField("sort_num")
+	private Integer sortNum;
 	private Integer promoted;
 	private Integer visible;
 	@TableField("promoted_product_count")
@@ -96,12 +96,12 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 		return this;
 	}
 
-	public Integer getSortOrder() {
-		return sortOrder;
+	public Integer getSortNum() {
+		return sortNum;
 	}
 
-	public FrontProductCategory setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
+	public FrontProductCategory setSortNum(Integer sortNum) {
+		this.sortNum = sortNum;
 		return this;
 	}
 
@@ -160,7 +160,7 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 
 	public static final String COVER = "cover";
 
-	public static final String SORT_ORDER = "sort_order";
+	public static final String SORT_ORDER = "sort_num";
 
 	public static final String PROMOTED = "promoted";
 
@@ -185,7 +185,7 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 			", name=" + name +
 			", description=" + description +
 			", cover=" + cover +
-			", sortOrder=" + sortOrder +
+			", sortNum=" + sortNum +
 			", promoted=" + promoted +
 			", visible=" + visible +
 			", promotedProductCount=" + promotedProductCount +

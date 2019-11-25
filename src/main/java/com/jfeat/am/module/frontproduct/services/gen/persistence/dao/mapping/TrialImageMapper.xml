@@ -8,12 +8,12 @@
 		<result column="trial_id" property="trialId" />
 		<result column="name" property="name" />
 		<result column="url" property="url" />
-		<result column="sort_order" property="sortOrder" />
+		<result column="sort_num" property="sortNum" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, trial_id AS trialId, url, sort_order AS sortOrder,name
+        id, trial_id AS trialId, url, sort_num AS sortNum,name
     </sql>
 
 </mapper>

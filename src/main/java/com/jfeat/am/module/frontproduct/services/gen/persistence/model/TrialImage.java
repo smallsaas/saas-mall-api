@@ -38,8 +38,8 @@ public class TrialImage extends Model<TrialImage> {
 	private Long trialId;
 	private String name;
 	private String url;
-	@TableField("sort_order")
-	private Integer sortOrder;
+	@TableField("sort_num")
+	private Integer sortNum;
 
 
 	public Long getId() {
@@ -69,12 +69,12 @@ public class TrialImage extends Model<TrialImage> {
 		return this;
 	}
 
-	public Integer getSortOrder() {
-		return sortOrder;
+	public Integer getSortNum() {
+		return sortNum;
 	}
 
-	public TrialImage setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
+	public TrialImage setSortNum(Integer sortNum) {
+		this.sortNum = sortNum;
 		return this;
 	}
 
@@ -84,7 +84,7 @@ public class TrialImage extends Model<TrialImage> {
 
 	public static final String URL = "url";
 
-	public static final String SORT_ORDER = "sort_order";
+	public static final String SORT_ORDER = "sort_num";
 
 	@Override
 	protected Serializable pkVal() {
@@ -97,7 +97,7 @@ public class TrialImage extends Model<TrialImage> {
 			"id=" + id +
 			", trialId=" + trialId +
 			", url=" + url +
-			", sortOrder=" + sortOrder +
+			", sortNum=" + sortNum +
 			"}";
 	}
 

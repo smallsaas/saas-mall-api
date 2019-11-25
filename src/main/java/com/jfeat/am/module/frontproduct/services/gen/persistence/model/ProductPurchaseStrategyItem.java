@@ -38,8 +38,8 @@ public class ProductPurchaseStrategyItem extends Model<ProductPurchaseStrategyIt
 	private Integer strategyId;
 	private String name;
 	private String operator;
-	@TableField("sort_order")
-	private Integer sortOrder;
+	@TableField("sort_num")
+	private Integer sortNum;
 	private String param;
 
 
@@ -79,12 +79,12 @@ public class ProductPurchaseStrategyItem extends Model<ProductPurchaseStrategyIt
 		return this;
 	}
 
-	public Integer getSortOrder() {
-		return sortOrder;
+	public Integer getSortNum() {
+		return sortNum;
 	}
 
-	public ProductPurchaseStrategyItem setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
+	public ProductPurchaseStrategyItem setSortNum(Integer sortNum) {
+		this.sortNum = sortNum;
 		return this;
 	}
 
@@ -105,7 +105,7 @@ public class ProductPurchaseStrategyItem extends Model<ProductPurchaseStrategyIt
 
 	public static final String OPERATOR = "operator";
 
-	public static final String SORT_ORDER = "sort_order";
+	public static final String SORT_ORDER = "sort_num";
 
 	public static final String PARAM = "param";
 
@@ -121,7 +121,7 @@ public class ProductPurchaseStrategyItem extends Model<ProductPurchaseStrategyIt
 			", strategyId=" + strategyId +
 			", name=" + name +
 			", operator=" + operator +
-			", sortOrder=" + sortOrder +
+			", sortNum=" + sortNum +
 			", param=" + param +
 			"}";
 	}

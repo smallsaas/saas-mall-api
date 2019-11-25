@@ -62,8 +62,8 @@ public class FrontProduct extends Model<FrontProduct> {
 	private BigDecimal freight;
 	@TableField("free_shipping")
 	private Integer freeShipping;
-	@TableField("sort_order")
-	private Integer sortOrder;
+	@TableField("sort_num")
+	private Integer sortNum;
 	@TableField("partner_level_zone")
 	private Integer partnerLevelZone;
 	@TableField("view_count")
@@ -299,13 +299,12 @@ public class FrontProduct extends Model<FrontProduct> {
 		return this;
 	}
 
-	public Integer getSortOrder() {
-		return sortOrder;
+	public Integer getSortNum() {
+		return sortNum;
 	}
 
-	public FrontProduct setSortOrder(Integer sortOrder) {
-		this.sortOrder = sortOrder;
-		return this;
+	public void setSortNum(Integer sortNum) {
+		this.sortNum = sortNum;
 	}
 
 	public Integer getPartnerLevelZone() {
@@ -481,7 +480,7 @@ public class FrontProduct extends Model<FrontProduct> {
 
 	public static final String FREE_SHIPPING = "free_shipping";
 
-	public static final String SORT_ORDER = "sort_order";
+	public static final String SORT_ORDER = "sort_num";
 
 	public static final String PARTNER_LEVEL_ZONE = "partner_level_zone";
 
@@ -541,7 +540,7 @@ public class FrontProduct extends Model<FrontProduct> {
 			", promoted=" + promoted +
 			", freight=" + freight +
 			", freeShipping=" + freeShipping +
-			", sortOrder=" + sortOrder +
+			", sortNum=" + sortNum +
 			", partnerLevelZone=" + partnerLevelZone +
 			", viewCount=" + viewCount +
 			", fareId=" + fareId +
