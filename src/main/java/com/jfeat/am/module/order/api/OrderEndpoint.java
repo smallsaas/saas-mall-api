@@ -411,6 +411,47 @@ public class OrderEndpoint {
         return SuccessTip.create(page);
     }
 
+
+    @ApiOperation(value = "Order 列表信息", response = OrderRecord.class)
+    @GetMapping("/refunds")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "pageNum", dataType = "Integer"),
+            @ApiImplicitParam(name = "pageSize", dataType = "Integer"),
+            @ApiImplicitParam(name = "status", dataType = "String"),
+            @ApiImplicitParam(name = "search", dataType = "String"),
+            @ApiImplicitParam(name = "orderBy", dataType = "String"),
+            @ApiImplicitParam(name = "sort", dataType = "String")
+    })
+    @Permission(OrderPermission.ORDER_VIEW)
+    public Tip queryOrders(Page<OrderRecord> page,
+                           @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                           @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                           @RequestParam(name = "search", required = false) String search,
+                           @RequestParam(name = "orderBy", required = false) String orderBy,
+                           @RequestParam(name = "status", required = false) String status,
+                           @RequestParam(name = "sort", required = false) String sort,
+                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
+                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime )
+    {
+        if (orderBy != null && orderBy.length() > 0) {
+            if (sort != null && sort.length() > 0) {
+                String pattern = "(ASC|DESC|asc|desc)";
+                if (!sort.matches(pattern)) {
+                    throw new BusinessException(BusinessCode.BadRequest.getCode(), "sort must be ASC or DESC");//此处异常类型根据实际情况而定
+                }
+            } else {
+                sort = "ASC";
+            }
+            orderBy = "`" + orderBy + "`" + " " + sort;
+        }
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+
+        page.setRecords(queryOrderDao.refundOrderPage(page, status, search, orderBy, startTime, endTime));
+
+        return SuccessTip.create(page);
+    }
+
     public static void main(String[] args) {
         String orderStatus = "CREATED_PAY_PENDING";
 

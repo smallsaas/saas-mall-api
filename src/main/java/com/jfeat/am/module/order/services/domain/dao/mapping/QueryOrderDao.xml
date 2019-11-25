@@ -2,7 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderDao">
     <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_order.id, t_order.user_id AS userId, t_order.order_number AS orderNumber, t_order.trade_number AS tradeNumber, t_order.payment_type AS paymentType, t_order.created_date AS createdDate, t_order.pay_date AS payDate, t_order.confirm_date AS confirmDate, t_order.deliver_date AS deliverDate, t_order.delivered_date AS deliveredDate, t_order.deal_date AS dealDate, t_order.deliver_order_number AS deliverOrderNumber, t_order.status, t_order.total_price AS totalPrice, t_order.freight, t_order.description, t_order.remark, t_order.invoice, t_order.invoice_title AS invoiceTitle, t_order.receiving_time AS receivingTime, t_order.zip, t_order.contact_user AS contactUser, t_order.phone, t_order.province, t_order.city, t_order.district, t_order.street, t_order.detail, t_order.cover, t_order.express_number AS expressNumber, t_order.express_company AS expressCompany, t_order.express_code AS expressCode, t_order.settled, t_order.previous_status AS previousStatus, t_order.is_deliver_reminder AS isDeliverReminder, t_order.is_deleted AS isDeleted, t_order.point_exchange_rate AS pointExchangeRate, t_order.coupon_info AS couponInfo, t_order.marketing, t_order.marketing_id AS marketingId, t_order.marketing_description AS marketingDescription, t_order.mid, t_order.mname, t_order.store_id AS storeId, t_order.store_name AS storeName, t_order.store_user_id AS storeUserId, t_order.store_user_name AS storeUserName, t_order.type, t_order.pay_credit AS payCredit, t_order.delivery_type AS deliveryType, t_order.origin, t_order.store_user_code AS storeUserCode, t_order.store_code AS storeCode, t_order.store_cover AS storeCover, t_order.store_guide_user_id AS storeGuideUserId, t_order.store_guide_user_code AS storeGuideUserCode, t_order.store_guide_user_name AS storeGuideUserName, t_order.inviter_user_id AS inviterUserId, t_order.inviter_user_name AS inviterUserName, t_order.followed_store_id AS followedStoreId, t_order.followed_store_code AS followedStoreCode, t_order.followed_store_name AS followedStoreName, t_order.followed_store_cover AS followedStoreCover, t_order.comment_id AS commentId, t_order.binding_store_id AS bindingStoreId, t_order.binding_store_code AS bindingStoreCode, t_order.binding_store_name AS bindingStoreName, t_order.binding_store_cover AS bindingStoreCover, t_order.refund_fee AS refundFee, t_order.store_address AS storeAddress, t_order.supplementary_fee AS supplementaryFee, t_order.origin_price AS originPrice, t_order.coupon_price AS couponPrice, t_order.credit_price AS creditPrice, t_order.ext_coupon_id AS extCouponId, t_order.ext_user_type AS extUserType, t_order.ext_coupon_type AS extCouponType, t_order.ext_discount AS extDiscount, t_order.ext_cuts AS extCuts,org_id AS orgId
+        t_order.id, t_order.user_id AS userId, t_order.order_number AS orderNumber, t_order.trade_number AS tradeNumber,
+        t_order.payment_type AS paymentType, t_order.created_date AS createdDate, t_order.pay_date AS payDate,
+        t_order.confirm_date AS confirmDate, t_order.deliver_date AS deliverDate, t_order.delivered_date AS
+        deliveredDate, t_order.deal_date AS dealDate, t_order.deliver_order_number AS deliverOrderNumber,
+        t_order.status, t_order.total_price AS totalPrice, t_order.freight, t_order.description, t_order.remark,
+        t_order.invoice, t_order.invoice_title AS invoiceTitle, t_order.receiving_time AS receivingTime, t_order.zip,
+        t_order.contact_user AS contactUser, t_order.phone, t_order.province, t_order.city, t_order.district,
+        t_order.street, t_order.detail, t_order.cover, t_order.express_number AS expressNumber, t_order.express_company
+        AS expressCompany, t_order.express_code AS expressCode, t_order.settled, t_order.previous_status AS
+        previousStatus, t_order.is_deliver_reminder AS isDeliverReminder, t_order.is_deleted AS isDeleted,
+        t_order.point_exchange_rate AS pointExchangeRate, t_order.coupon_info AS couponInfo, t_order.marketing,
+        t_order.marketing_id AS marketingId, t_order.marketing_description AS marketingDescription, t_order.mid,
+        t_order.mname, t_order.store_id AS storeId, t_order.store_name AS storeName, t_order.store_user_id AS
+        storeUserId, t_order.store_user_name AS storeUserName, t_order.type, t_order.pay_credit AS payCredit,
+        t_order.delivery_type AS deliveryType, t_order.origin, t_order.store_user_code AS storeUserCode,
+        t_order.store_code AS storeCode, t_order.store_cover AS storeCover, t_order.store_guide_user_id AS
+        storeGuideUserId, t_order.store_guide_user_code AS storeGuideUserCode, t_order.store_guide_user_name AS
+        storeGuideUserName, t_order.inviter_user_id AS inviterUserId, t_order.inviter_user_name AS inviterUserName,
+        t_order.followed_store_id AS followedStoreId, t_order.followed_store_code AS followedStoreCode,
+        t_order.followed_store_name AS followedStoreName, t_order.followed_store_cover AS followedStoreCover,
+        t_order.comment_id AS commentId, t_order.binding_store_id AS bindingStoreId, t_order.binding_store_code AS
+        bindingStoreCode, t_order.binding_store_name AS bindingStoreName, t_order.binding_store_cover AS
+        bindingStoreCover, t_order.refund_fee AS refundFee, t_order.store_address AS storeAddress,
+        t_order.supplementary_fee AS supplementaryFee, t_order.origin_price AS originPrice, t_order.coupon_price AS
+        couponPrice, t_order.credit_price AS creditPrice, t_order.ext_coupon_id AS extCouponId, t_order.ext_user_type AS
+        extUserType, t_order.ext_coupon_type AS extCouponType, t_order.ext_discount AS extDiscount, t_order.ext_cuts AS
+        extCuts,org_id AS orgId
     </sql>
 
 
@@ -12,16 +38,16 @@
         FROM t_order
         WHERE 1=1
         <if test="record.pName != null and record.pName!= '' ">
-        and t_order.id in (select t_order.id
-                               from t_order  join t_order_item on t_order_item.order_id= t_order.id
-                               and t_order_item.product_name like CONCAT('%',#{record.pName},'%')
-                               )
+            and t_order.id in (select t_order.id
+            from t_order join t_order_item on t_order_item.order_id= t_order.id
+            and t_order_item.product_name like CONCAT('%',#{record.pName},'%')
+            )
         </if>
         <if test="record.barcode != null and record.barcode!= '' ">
             and t_order.id in (select t_order.id
-                               from t_order  join t_order_item on t_order_item.order_id= t_order.id
-                                and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
-                              )
+            from t_order join t_order_item on t_order_item.order_id= t_order.id
+            and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+            )
         </if>
 
         <if test="record.id != null and record.id>0 ">
@@ -61,25 +87,8 @@
             AND t_order.deliver_order_number LIKE CONCAT('%',#{record.deliverOrderNumber},'%')
         </if>
         <if test="record.status != null and record.status!= ''">
-            <choose>
-                <when test="record.status!='CLOSED_REFUNDED'">
-                    AND t_order.status = #{record.status}
-                </when>
-                <otherwise>and (t_order.status = 'CLOSED_REFUNDED' or t_order.status = 'CANCELED_REFUND_PENDING')</otherwise>
-
-            </choose>
+            AND t_order.status = #{record.status}
         </if>
-
-        
-        <!--<if test="record.status != null and record.status!= '' and record.status !='CLOSED_REFUNDED'">
-            AND t_order.status LIKE CONCAT('%',#{record.status},'%')
-        </if>
-
-        <if test="record.status='CLOSED_REFUNDED'">
-            AND (  t_order.status = 'CLOSED_REFUNDED' or t_order.status = 'CANCELED_REFUND_PENDING'   )
-        </if>
--->
-
         <if test="record.totalPrice != null and record.totalPrice>0 ">
             AND t_order.total_price LIKE CONCAT('%',#{record.totalPrice},'%')
         </if>
@@ -292,15 +301,15 @@
             AND
             (
             t_order.order_number LIKE CONCAT('%',#{search},'%')
-            or  t_order.id in (select t_order.id
-                     from t_order  join t_order_item on t_order_item.order_id= t_order.id
-                      and t_order_item.product_name like CONCAT('%',#{search},'%')
-                               )
+            or t_order.id in (select t_order.id
+            from t_order join t_order_item on t_order_item.order_id= t_order.id
+            and t_order_item.product_name like CONCAT('%',#{search},'%')
+            )
 
             or t_order.id in (select t_order.id
-                              from t_order  join t_order_item on t_order_item.order_id= t_order.id
-                               and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
-                             )
+            from t_order join t_order_item on t_order_item.order_id= t_order.id
+            and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+            )
             or t_order.contact_user LIKE CONCAT('%',#{search},'%')
             )
         </if>
@@ -309,20 +318,65 @@
 
     </select>
 
+    <select id="refundOrderPage" resultType="OrderRecord">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM t_order
+        WHERE 1=1
+        <choose>
+            <when test="status!= null and status=='CLOSED_REFUNDED'">
+                AND t_order.status = 'CLOSED_REFUNDED'
+            </when>
+            <when test="status!= null and status=='CANCELED_REFUND_PENDING'">
+                AND t_order.status = 'CANCELED_REFUND_PENDING'
+            </when>
+            <when test="status!= null and status=='CANCELED_RETURN_PENDING'">
+                AND t_order.status = 'CANCELED_RETURN_PENDING'
+            </when>
+            <otherwise>and (
+                t_order.status = 'CLOSED_REFUNDED'
+                or t_order.status = 'CANCELED_REFUND_PENDING'
+                or t_order.status = 'CANCELED_RETURN_PENDING')
+            </otherwise>
+        </choose>
+
+        <if test="startTime != null">
+            <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_order.deal_date <= DATE(#{endTime})]]>
+        </if>
+        <if test="search != null and search != ''">
+            AND
+            (
+            t_order.order_number LIKE CONCAT('%',#{search},'%')
+            or t_order.id in (select t_order.id
+            from t_order join t_order_item on t_order_item.order_id= t_order.id
+            and t_order_item.product_name like CONCAT('%',#{search},'%')
+            )
+            or t_order.id in (select t_order.id
+            from t_order join t_order_item on t_order_item.order_id= t_order.id
+            and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+            )
+            or t_order.contact_user LIKE CONCAT('%',#{search},'%')
+            )
+        </if>
+        order by created_date desc
+    </select>
+
 
     <select id="selectUserId" parameterType="java.lang.String" resultType="java.lang.Long">
         select id from t_sys_user where name=#{name}
     </select>
 
     <select id="selectProductId" parameterType="java.lang.String" resultType="java.lang.String">
-    select id from t_front_product where bar_code=#{barCode}
+        select id from t_front_product where bar_code=#{barCode}
     </select>
 
     <insert id="insertOrderItem" parameterType="java.util.Map">
         insert into t_order_item (order_id,barcode,product_name,quantity,final_price) value
-         (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice})
+        (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice})
     </insert>
-
 
 
 </mapper>
