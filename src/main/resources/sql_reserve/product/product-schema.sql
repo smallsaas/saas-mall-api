@@ -58,6 +58,7 @@ CREATE TABLE `t_product`  (
   `credit` int(11) NULL DEFAULT 0 COMMENT '优惠活动-可用积分',
   `is_virtual` int(11) NULL DEFAULT 0 COMMENT '是否虚拟产品',
   `required_participate_exam` int(11) NULL DEFAULT 0 COMMENT '是否需要做了检测才可以购买',
+  `banner` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '海报',
   `org_id` bigint(20) default null COMMENT '组织部门',
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `category_id`(`category_id`) USING BTREE,

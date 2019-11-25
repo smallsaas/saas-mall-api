@@ -13,7 +13,7 @@ import java.util.List;
  */
 public class FrontProductModel extends FrontProduct {
 
-
+    private List<ProductImage> bannerList;
 
     private  String categoryName;
 
@@ -93,5 +93,13 @@ public class FrontProductModel extends FrontProduct {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public List<ProductImage> getBannerList() {
+        return bannerList;
+    }
+
+    public void setBannerList(List<ProductImage> bannerList) {
+        this.bannerList = bannerList;
     }
 }

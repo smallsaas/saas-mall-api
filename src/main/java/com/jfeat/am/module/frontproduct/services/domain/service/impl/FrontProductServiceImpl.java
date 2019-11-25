@@ -92,12 +92,20 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             productDescription.setProductId(entity.getId());
             affected += productDescriptionService.createMaster(productDescription);
         }
+
         //保存封面
         List<ProductImage> productImageList = entity.getProductImageList();
         if(!CollectionUtils.isEmpty(productImageList)){
             for(ProductImage productImage : productImageList){
                 productImage.setProductId(entity.getId());
                 affected += productImageService.createMaster(productImage);
+            }
+        }
+        //保存海报
+        List<ProductImage> bannerList = entity.getBannerList();
+        if(!CollectionUtils.isEmpty(bannerList)){
+            for(ProductImage banner : bannerList){
+                entity.setBanner(banner.getUrl());
             }
         }
         //保存标签
@@ -125,6 +133,12 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         //添加images
         List<ProductImage> productImageList = productImageMapper.selectList(new EntityWrapper<ProductImage>().eq("product_id", id));
         frontProductModel.setProductImageList(productImageList);
+        //添加banner
+        List<ProductImage> bannerList = new ArrayList<>();
+        ProductImage banner=new ProductImage();
+        banner.setUrl(frontProduct.getBanner());
+        bannerList.add(banner);
+        frontProductModel.setBannerList(bannerList);
         //添加description
         ProductDescription productDescription = productDescriptionMapper.selectOne(new ProductDescription().setProductId(id));
         if(productDescription!=null&&productDescription.getDescription()!=""){
@@ -170,6 +184,14 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             productDescription.setDescription(entity.getDescription());
             affected += productDescriptionService.createMaster(productDescription);
         }
+
+        List<ProductImage> bannerList = entity.getBannerList();
+        if(!CollectionUtils.isEmpty(bannerList)){
+            for(ProductImage banner : bannerList){
+                entity.setBanner(banner.getUrl());
+            }
+        }
+
         //更新封面
         affected += productImageMapper.delete(new EntityWrapper<ProductImage>().eq("product_id",entity.getId()));
         List<ProductImage> productImageList = entity.getProductImageList();

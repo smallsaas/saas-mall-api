@@ -82,6 +82,9 @@ public class FrontProduct extends Model<FrontProduct> {
 	@TableField("sku_code")
 	private String skuCode;
 
+	@TableField("banner")
+	private String banner;
+
 
 	@TableField("barcode")
 	private String barcode;
@@ -120,6 +123,14 @@ public class FrontProduct extends Model<FrontProduct> {
 
 
 	private Long presale;
+
+	public String getBanner() {
+		return banner;
+	}
+
+	public void setBanner(String banner) {
+		this.banner = banner;
+	}
 
 	public Long getOrgId() {
 		return orgId;

@@ -37,7 +37,7 @@
 		t_product.sku_id AS skuId,
 		t_product.sku_name AS skuName,
 		t_product.sku_code AS skuCode,
-
+        t_product.banner,
 		t_product.barcode AS barcode,
 
 		t_product.mid,
@@ -97,7 +97,7 @@
         t_product.credit,
         t_product.is_virtual AS isVirtual,
         t_product.required_participate_exam AS requiredParticipateExam,
-
+        t_product.banner,
         t_product_brand.name AS brandName,
         category.name AS categoryName
         FROM  t_product
