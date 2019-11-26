@@ -8,13 +8,13 @@
 		<result column="strategy_id" property="strategyId" />
 		<result column="name" property="name" />
 		<result column="operator" property="operator" />
-		<result column="sort_num" property="sortNum" />
+		<result column="sort_order" property="sortOrder" />
 		<result column="param" property="param" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, strategy_id AS strategyId, name, operator, sort_num AS sortNum, param
+        id, strategy_id AS strategyId, name, operator, sort_order AS sortOrder, param
     </sql>
 
 </mapper>

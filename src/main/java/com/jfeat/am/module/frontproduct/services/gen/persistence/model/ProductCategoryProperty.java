@@ -48,8 +48,8 @@ public class ProductCategoryProperty extends Model<ProductCategoryProperty> {
 	private String defaultValue;
 	@TableField("is_required")
 	private Integer isRequired;
-	@TableField("sort_num")
-	private Integer sortNum;
+	@TableField("sort_order")
+	private Integer sortOrder;
 
 
 	public Long getId() {
@@ -124,12 +124,12 @@ public class ProductCategoryProperty extends Model<ProductCategoryProperty> {
 		return this;
 	}
 
-	public Integer getSortNum() {
-		return sortNum;
+	public Integer getSortOrder() {
+		return sortOrder;
 	}
 
-	public ProductCategoryProperty setSortNum(Integer sortNum) {
-		this.sortNum = sortNum;
+	public ProductCategoryProperty setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
 		return this;
 	}
 
@@ -149,7 +149,7 @@ public class ProductCategoryProperty extends Model<ProductCategoryProperty> {
 
 	public static final String IS_REQUIRED = "is_required";
 
-	public static final String SORT_ORDER = "sort_num";
+	public static final String SORT_ORDER = "sort_order";
 
 	@Override
 	protected Serializable pkVal() {
@@ -167,7 +167,7 @@ public class ProductCategoryProperty extends Model<ProductCategoryProperty> {
 			", candidateValues=" + candidateValues +
 			", defaultValue=" + defaultValue +
 			", isRequired=" + isRequired +
-			", sortNum=" + sortNum +
+			", sortOrder=" + sortOrder +
 			"}";
 	}
 }

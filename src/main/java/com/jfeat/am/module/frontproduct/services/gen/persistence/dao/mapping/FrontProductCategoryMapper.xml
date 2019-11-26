@@ -9,7 +9,7 @@
 		<result column="name" property="name" />
 		<result column="description" property="description" />
 		<result column="cover" property="cover" />
-		<result column="sort_num" property="sortNum" />
+		<result column="sort_order" property="sortOrder" />
 		<result column="promoted" property="promoted" />
 		<result column="visible" property="visible" />
 		<result column="promoted_product_count" property="promotedProductCount" />
@@ -20,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, parent_id AS parentId, name, description, cover, sort_num AS sortNum, promoted, visible, promoted_product_count AS promotedProductCount, wholesale, is_show_products AS isShowProducts,org_id AS orgId
+        id, parent_id AS parentId, name, description, cover, sort_order AS sortOrder, promoted, visible, promoted_product_count AS promotedProductCount, wholesale, is_show_products AS isShowProducts,org_id AS orgId
     </sql>
 
 </mapper>

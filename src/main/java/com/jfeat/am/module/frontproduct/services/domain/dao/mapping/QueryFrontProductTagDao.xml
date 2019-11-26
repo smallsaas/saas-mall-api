@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductTagDao">
     <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                t_product_tag.id, t_product_tag.identifier, t_product_tag.name, t_product_tag.sort_num AS sortNum,org_id AS orgId
+                                                                                                                                                                                                                                                                                                                                t_product_tag.id, t_product_tag.identifier, t_product_tag.name, t_product_tag.sort_order AS sortOrder,org_id AS orgId
     </sql>
 
 
@@ -20,8 +20,8 @@
         <if test="record.name != null and record.name!= ''">
             AND t_product_tag.name LIKE CONCAT('%',#{record.name},'%')
         </if>
-        <if test="record.sortNum != null and record.sortNum>0 ">
-            AND t_product_tag.sort_num LIKE CONCAT('%',#{record.sortNum},'%')
+        <if test="record.sortOrder != null and record.sortOrder>0 ">
+            AND t_product_tag.sort_order LIKE CONCAT('%',#{record.sortOrder},'%')
         </if>
         <if test="record.orgId != null ">
             AND t_product_tag.org_id = #{record.orgId}
@@ -37,6 +37,6 @@
         OR t_product_tag.name LIKE CONCAT('%',#{search},'%')
     </if>
     -->
-        order by t_product_tag.sort_num  desc
+        order by t_product_tag.sort_order  desc
     </select>
 </mapper>

@@ -82,7 +82,7 @@ public class Trial extends Model<Trial> {
     /**
      * 排序号
      */
-	private Integer sortNum;
+	private Integer sortOrder;
     /**
      * 运费支付 0 商家 1 顾客
      */
@@ -192,12 +192,12 @@ public class Trial extends Model<Trial> {
 	}
 
 
-    public Integer getSortNum() {
-        return sortNum;
+    public Integer getSortOrder() {
+        return sortOrder;
     }
 
-    public void setSortNum(Integer sortNum) {
-        this.sortNum = sortNum;
+    public void setSortOrder(Integer sortOrder) {
+        this.sortOrder = sortOrder;
     }
 
     public Integer getShippingType() {
@@ -247,7 +247,7 @@ public class Trial extends Model<Trial> {
 
 	public static final String NOTE = "note";
 
-	public static final String SORTNUM = "sort_num";
+	public static final String SORTNUM = "sort_order";
 
 	public static final String SHIPPING_TYPE = "shipping_type";
 
@@ -273,7 +273,7 @@ public class Trial extends Model<Trial> {
 			", endTime=" + endTime +
 			", cover=" + cover +
 			", note=" + note +
-			", sortNum=" + sortNum +
+			", sortOrder=" + sortOrder +
 			", shippingType=" + shippingType +
 			", paymentType=" + paymentType +
 			", version=" + version +

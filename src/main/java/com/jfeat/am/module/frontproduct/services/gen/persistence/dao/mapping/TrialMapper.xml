@@ -14,7 +14,7 @@
 		<result column="end_time" property="endTime" />
 		<result column="cover" property="cover" />
 		<result column="note" property="note" />
-		<result column="sort_num" property="sortNum" />
+		<result column="sort_order" property="sortOrder" />
 		<result column="shipping_type" property="shippingType" />
 		<result column="payment_type" property="paymentType" />
 		<result column="version" property="version" />
@@ -23,7 +23,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, product_id AS productId, price, name, short_note AS shortNote, enabled, start_time AS startTime, end_time AS endTime, cover, note, sort_num, shipping_type AS shippingType, payment_type AS paymentType, version,org_id AS orgId
+        id, product_id AS productId, price, name, short_note AS shortNote, enabled, start_time AS startTime, end_time AS endTime, cover, note, sort_order, shipping_type AS shippingType, payment_type AS paymentType, version,org_id AS orgId
     </sql>
 
 </mapper>

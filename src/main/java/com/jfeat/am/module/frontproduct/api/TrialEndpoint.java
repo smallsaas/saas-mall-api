@@ -124,7 +124,7 @@ public class TrialEndpoint {
                            @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date endTime,
                            @RequestParam(name = "cover", required = false) String cover,
                            @RequestParam(name = "note", required = false) String note,
-                           @RequestParam(name = "sortNum", required = false) Integer sortNum,
+                           @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
                            @RequestParam(name = "shippingType", required = false) Integer shippingType,
                            @RequestParam(name = "paymentType", required = false) String paymentType,
                            @RequestParam(name = "version", required = false) Integer version,
@@ -156,7 +156,7 @@ public class TrialEndpoint {
         record.setEndTime(endTime);
         record.setCover(cover);
         record.setNote(note);
-        record.setSortNum(sortNum);
+        record.setSortOrder(sortOrder);
         record.setShippingType(shippingType);
         record.setPaymentType(paymentType);
         record.setVersion(version);

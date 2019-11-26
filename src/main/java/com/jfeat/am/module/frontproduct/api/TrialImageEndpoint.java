@@ -80,7 +80,7 @@ public class TrialImageEndpoint {
             @ApiImplicitParam(name = "id", dataType = "Integer"),
             @ApiImplicitParam(name = "trialId", dataType = "Integer"),
             @ApiImplicitParam(name = "url", dataType = "String"),
-            @ApiImplicitParam(name = "sortNum", dataType = "Integer"),
+            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
@@ -91,7 +91,7 @@ public class TrialImageEndpoint {
                                 @RequestParam(name = "id", required = false) Long id,
                                 @RequestParam(name = "trialId", required = false) Long trialId,
                                 @RequestParam(name = "url", required = false) String url,
-                                @RequestParam(name = "sortNum", required = false) Integer sortNum,
+                                @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
                                 @RequestParam(name = "orderBy", required = false) String orderBy,
                                 @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -112,7 +112,7 @@ public class TrialImageEndpoint {
         record.setId(id);
         record.setTrialId(trialId);
         record.setUrl(url);
-        record.setSortNum(sortNum);
+        record.setSortOrder(sortOrder);
         page.setRecords(this.trialImageService.findTrialImagePage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

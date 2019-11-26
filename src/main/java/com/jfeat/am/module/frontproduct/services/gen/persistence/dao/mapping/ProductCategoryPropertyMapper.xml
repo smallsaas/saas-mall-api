@@ -12,12 +12,12 @@
 		<result column="candidate_values" property="candidateValues" />
 		<result column="default_value" property="defaultValue" />
 		<result column="is_required" property="isRequired" />
-		<result column="sort_num" property="sortNum" />
+		<result column="sort_order" property="sortOrder" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, category_id AS categoryId, display_name AS displayName, value_type AS valueType, input_type AS inputType, candidate_values AS candidateValues, default_value AS defaultValue, is_required AS isRequired, sort_num AS sortNum
+        id, category_id AS categoryId, display_name AS displayName, value_type AS valueType, input_type AS inputType, candidate_values AS candidateValues, default_value AS defaultValue, is_required AS isRequired, sort_order AS sortOrder
     </sql>
 
 </mapper>

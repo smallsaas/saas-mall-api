@@ -8,13 +8,13 @@
 		<result column="product_id" property="productId" />
 		<result column="type" property="type" />
 		<result column="url" property="url" />
-		<result column="sort_num" property="sortNum" />
+		<result column="sort_order" property="sortOrder" />
 		<result column="name" property="name" />
 	</resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, product_id AS productId, type, url, sort_num AS sortNum,name
+        id, product_id AS productId, type, url, sort_order AS sortOrder,name
     </sql>
 
 </mapper>

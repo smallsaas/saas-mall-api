@@ -97,7 +97,7 @@ public class FrontProductTagEndpoint {
             @ApiImplicitParam(name = "id", dataType = "Integer"),
             @ApiImplicitParam(name = "identifier", dataType = "String"),
             @ApiImplicitParam(name = "name", dataType = "String"),
-            @ApiImplicitParam(name = "sortNum", dataType = "Integer"),
+            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
@@ -109,7 +109,7 @@ public class FrontProductTagEndpoint {
                                 @RequestParam(name = "id", required = false) Long id,
                                 @RequestParam(name = "identifier", required = false) String identifier,
                                 @RequestParam(name = "name", required = false) String name,
-                                @RequestParam(name = "sortNum", required = false) Integer sortNum,
+                                @RequestParam(name = "sortOrder", required = false) Integer sortOrder,
                                 @RequestParam(name = "orgId", required = false) Long orgId,
                                 @RequestParam(name = "orderBy", required = false) String orderBy,
                                 @RequestParam(name = "sort", required = false) String sort) {
@@ -131,7 +131,7 @@ public class FrontProductTagEndpoint {
         record.setId(id);
         record.setIdentifier(identifier);
         record.setName(name);
-        record.setSortNum(sortNum);
+        record.setSortOrder(sortOrder);
         record.setOrgId(orgId);
         page.setRecords(this.frontProductTagService.findProductTagPage(page, record, search, orderBy, null, null));
 

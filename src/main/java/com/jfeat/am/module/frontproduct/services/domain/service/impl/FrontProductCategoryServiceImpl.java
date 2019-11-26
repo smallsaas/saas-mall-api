@@ -113,7 +113,7 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
             frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>()
                     .like("name",name)
                     .isNull("parent_id")
-                    .orderDesc(Arrays.asList(new String[] {"sort_num"}))
+                    .orderDesc(Arrays.asList(new String[] {"sort_order"}))
             );
 
         return frontProductCategoryList.stream().map(item -> {
@@ -130,7 +130,7 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
      */
     private FrontProductCategoryRecord addSubProductCategory(FrontProductCategoryRecord frontProductCategoryRecord){
 
-        List<FrontProductCategory> frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>().eq("parent_id", frontProductCategoryRecord.getId()).orderBy("sort_num"));
+        List<FrontProductCategory> frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>().eq("parent_id", frontProductCategoryRecord.getId()).orderBy("sort_order"));
 
         if(!CollectionUtils.isEmpty(frontProductCategoryList)){
             List<FrontProductCategoryRecord> frontProductCategoryRecordList = frontProductCategoryList.stream().map(item -> {

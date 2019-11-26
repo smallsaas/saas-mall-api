@@ -45,8 +45,8 @@ public class FrontProductTag extends Model<FrontProductTag> {
     /**
      * 排序号
      */
-	@TableField("sort_num")
-	private Integer sortNum;
+	@TableField("sort_order")
+	private Integer sortOrder;
 	@TableField("org_id")
 	private Long orgId;
 	public Long getId() {
@@ -76,12 +76,12 @@ public class FrontProductTag extends Model<FrontProductTag> {
 		return this;
 	}
 
-	public Integer getSortNum() {
-		return sortNum;
+	public Integer getSortOrder() {
+		return sortOrder;
 	}
 
-	public FrontProductTag setSortNum(Integer sortNum) {
-		this.sortNum = sortNum;
+	public FrontProductTag setSortOrder(Integer sortOrder) {
+		this.sortOrder = sortOrder;
 		return this;
 	}
 
@@ -91,7 +91,7 @@ public class FrontProductTag extends Model<FrontProductTag> {
 
 	public static final String NAME = "name";
 
-	public static final String SORT_ORDER = "sort_num";
+	public static final String SORT_ORDER = "sort_order";
 
 	@Override
 	protected Serializable pkVal() {
@@ -104,7 +104,7 @@ public class FrontProductTag extends Model<FrontProductTag> {
 			"id=" + id +
 			", identifier=" + identifier +
 			", name=" + name +
-			", sortNum=" + sortNum +
+			", sortOrder=" + sortOrder +
 			"}";
 	}
 
