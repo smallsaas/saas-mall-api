@@ -41,8 +41,8 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
     @Override
     public List findOrderPage(Page<OrderRecord> page, OrderRecord record,
-                                  String search, String orderBy, Date startTime, Date endTime) {
-        List recordList = this.queryOrderDao.findOrderPage(page, record, search, orderBy, startTime, endTime);
+                                  String search, String orderBy, Date startTime, Date startEndTime, Date endTime) {
+        List recordList = this.queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime);
         return this.getEavProxy().selectList(recordList, this.entityName());
     }
 

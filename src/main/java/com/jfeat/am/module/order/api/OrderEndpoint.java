@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.rmi.ServerException;
+import java.util.Calendar;
 import java.util.Date;
 
 
@@ -301,6 +302,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "sort", required = false) String sort,
                            @RequestParam(name = "pName", required = false) String pName,
                            @RequestParam(name = "barcode", required = false) String barcode,
+                           @RequestParam(name = "thisMonth", required = false) String thisMonth,
      @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
      @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime )
                            {
@@ -318,6 +320,22 @@ public class OrderEndpoint {
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
+        Date startEndTime=null;
+       //设置当月1号
+        if(userId!=null&&thisMonth!=null&&thisMonth!=""){
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            calendar.set(Calendar.DAY_OF_MONTH, 1);
+            calendar.set(Calendar.HOUR_OF_DAY, 0);
+            calendar.set(Calendar.MINUTE, 0);
+            calendar.set(Calendar.SECOND, 0);
+
+            startTime=calendar.getTime();
+            calendar.add(Calendar.MONTH, 1);
+            startEndTime=calendar.getTime();
+
+        }
 
 
         OrderRecord record = new OrderRecord();
@@ -407,7 +425,7 @@ public class OrderEndpoint {
         record.setExtCuts(extCuts);
         record.setOrgId(orgId);
 
-        page.setRecords(queryOrderDao.findOrderPage(page, record, search, orderBy, startTime, endTime));
+        page.setRecords(queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime));
 
         return SuccessTip.create(page);
     }

@@ -17,7 +17,9 @@ import java.util.List;
 public interface QueryOrderDao extends BaseMapper<TOrder> {
     List<OrderRecord> findOrderPage(Page<OrderRecord> page, @Param("record") OrderRecord record,
                                     @Param("search") String search, @Param("orderBy") String orderBy,
-                                    @Param("startTime") Date startTime, @Param("endTime") Date endTime
+                                    @Param("startTime") Date startTime,
+                                    @Param("startEndTime") Date startEndTime,
+                                    @Param("endTime") Date endTime
     );
 
     Integer insertOrderItem(@Param("orderId") Long orderId, @Param("barcode") String barcode, @Param("productName") String productName, @Param("quantity") Integer quantity, @Param("finalPrice") BigDecimal finalPrice);

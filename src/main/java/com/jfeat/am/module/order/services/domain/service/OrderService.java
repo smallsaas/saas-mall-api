@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface OrderService extends CRUDOrderService{
     List findOrderPage(Page<OrderRecord> page, OrderRecord record, String search,
-                           String orderBy, Date startTime, Date endTime);
+                           String orderBy, Date startTime,Date startEndTime, Date endTime);
 
    /* public Integer createOrder(OrderRequest requestOrder) throws ServerException;*/
     /**
