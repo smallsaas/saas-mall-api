@@ -35,9 +35,9 @@
     <select id="findOrderPage" resultType="OrderRecord" parameterType="OrderRecord">
         SELECT
         <include refid="Base_Column_List"/>
-        ,t_alliance.alliance_name as userName
+        ,t_user.name as userName
         FROM t_order
-        left join t_alliance on t_order.user_id=t_alliance.id
+        left join t_user on t_order.user_id=t_user.id
         WHERE 1=1
         <if test="record.pName != null and record.pName!= '' ">
             and t_order.id in (select t_order.id
@@ -380,9 +380,9 @@
 
 
     <select id="getUserName"  resultType="java.lang.String">
-        select alliance_name as userName
-        FROM t_alliance
-        where t_alliance.id =#{userId}
+        select name as userName
+        FROM t_user
+        where t_user.id =#{userId}
     </select>
 
     <insert id="insertOrderItem" parameterType="java.util.Map">
