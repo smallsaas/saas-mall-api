@@ -38,6 +38,7 @@
         ,t_user.name as userName
         FROM t_order
         left join t_user on t_order.user_id=t_user.id
+        left join t_alliance on t_alliance.user_id=t_user.id
         WHERE 1=1
         <if test="record.pName != null and record.pName!= '' ">
             and t_order.id in (select t_order.id
@@ -300,6 +301,10 @@
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_order.deal_date <= DATE(#{endTime})]]>
+        </if>
+
+        <if test="allianceId != null and allianceId!= ''">
+            AND t_alliance.id LIKE CONCAT('%',#{allianceId},'%')
         </if>
 
         <if test="search != null and search != ''">

@@ -298,6 +298,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "extDiscount", required = false) Integer extDiscount,
                            @RequestParam(name = "extCuts", required = false) Integer extCuts,
                            @RequestParam(name = "orgId", required = false) Long orgId,
+                           @RequestParam(name = "allianceId", required = false) Long allianceId,
                            @RequestParam(name = "orderBy", required = false) String orderBy,
                            @RequestParam(name = "sort", required = false) String sort,
                            @RequestParam(name = "pName", required = false) String pName,
@@ -425,7 +426,7 @@ public class OrderEndpoint {
         record.setExtCuts(extCuts);
         record.setOrgId(orgId);
 
-        page.setRecords(queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime));
+        page.setRecords(queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId));
 
         return SuccessTip.create(page);
     }

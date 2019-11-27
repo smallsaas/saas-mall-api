@@ -19,7 +19,8 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
                                     @Param("search") String search, @Param("orderBy") String orderBy,
                                     @Param("startTime") Date startTime,
                                     @Param("startEndTime") Date startEndTime,
-                                    @Param("endTime") Date endTime
+                                    @Param("endTime") Date endTime,
+                                    @Param("allianceId") Long allianceId
     );
 
     Integer insertOrderItem(@Param("orderId") Long orderId, @Param("barcode") String barcode, @Param("productName") String productName, @Param("quantity") Integer quantity, @Param("finalPrice") BigDecimal finalPrice);
