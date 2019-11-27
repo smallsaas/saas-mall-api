@@ -28,14 +28,16 @@
         t_order.supplementary_fee AS supplementaryFee, t_order.origin_price AS originPrice, t_order.coupon_price AS
         couponPrice, t_order.credit_price AS creditPrice, t_order.ext_coupon_id AS extCouponId, t_order.ext_user_type AS
         extUserType, t_order.ext_coupon_type AS extCouponType, t_order.ext_discount AS extDiscount, t_order.ext_cuts AS
-        extCuts,org_id AS orgId
+        extCuts,t_order.org_id AS orgId
     </sql>
 
 
     <select id="findOrderPage" resultType="OrderRecord" parameterType="OrderRecord">
         SELECT
         <include refid="Base_Column_List"/>
+        ,t_user.name as userName
         FROM t_order
+        left join t_user on t_order.user_id=t_user.id
         WHERE 1=1
         <if test="record.pName != null and record.pName!= '' ">
             and t_order.id in (select t_order.id

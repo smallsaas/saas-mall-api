@@ -406,6 +406,7 @@ public class OrderEndpoint {
         record.setExtDiscount(extDiscount);
         record.setExtCuts(extCuts);
         record.setOrgId(orgId);
+
         page.setRecords(queryOrderDao.findOrderPage(page, record, search, orderBy, startTime, endTime));
 
         return SuccessTip.create(page);
