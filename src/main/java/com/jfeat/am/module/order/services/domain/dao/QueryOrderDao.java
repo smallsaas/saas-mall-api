@@ -36,4 +36,8 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
                                       @Param("startTime") Date startTime,
                                       @Param("endTime") Date endTime
     );
+
+
+    String getUserName( @Param("userId") Long userId);
+
 }

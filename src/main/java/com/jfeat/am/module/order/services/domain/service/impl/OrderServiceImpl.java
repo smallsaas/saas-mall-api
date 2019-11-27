@@ -56,6 +56,8 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         orderModel.setOrderItemList(orderItemList);
         List<OrderProcessLog> orderProcessLogList = orderProcessLogMapper.selectList(new EntityWrapper<OrderProcessLog>().eq("order_id", id));
         orderModel.setOrderProcessLogList(orderProcessLogList);
+
+        orderModel.setUserName(queryOrderDao.getUserName(TOrder.getUserId().longValue()));
         return orderModel;
     }
 

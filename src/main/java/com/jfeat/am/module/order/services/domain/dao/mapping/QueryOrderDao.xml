@@ -378,6 +378,13 @@
         select id from t_front_product where bar_code=#{barCode}
     </select>
 
+
+    <select id="getUserName"  resultType="java.lang.String">
+        select alliance_name as userName
+        FROM t_alliance
+        where t_alliance.id =#{userId}
+    </select>
+
     <insert id="insertOrderItem" parameterType="java.util.Map">
         insert into t_order_item (order_id,barcode,product_name,quantity,final_price) value
         (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice})

@@ -13,7 +13,17 @@ import java.util.List;
 public class OrderModel extends TOrder {
     private List<OrderItem> orderItemList;
 
+    private String userName;
+
     private List<OrderProcessLog> orderProcessLogList;
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
 
     public List<OrderItem> getOrderItemList() {
         return orderItemList;
