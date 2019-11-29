@@ -195,7 +195,7 @@
             AND t_order.store_user_name LIKE CONCAT('%',#{record.storeUserName},'%')
         </if>
         <if test="record.type != null and record.type!= ''">
-            AND t_order.type LIKE CONCAT('%',#{record.type},'%')
+            AND t_order.type = #{record.type}
         </if>
         <if test="record.payCredit != null and record.payCredit>0 ">
             AND t_order.pay_credit LIKE CONCAT('%',#{record.payCredit},'%')

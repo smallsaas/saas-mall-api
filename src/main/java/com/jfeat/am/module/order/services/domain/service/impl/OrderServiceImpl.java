@@ -52,6 +52,11 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     public OrderModel getOrder(Long id) {
         TOrder TOrder = this.retrieveMaster(id);
         OrderModel orderModel = CRUD.castObject(TOrder, OrderModel.class);
+        //拼接省市区
+        String detail=orderModel.getProvince()+"\n"+orderModel.getCity()+"\n"+orderModel.getDistrict()+"\n"+
+                orderModel.getDetail();
+        orderModel.setDetail(detail);
+
         List<OrderItem> orderItemList = orderItemMapper.selectList(new EntityWrapper<OrderItem>().eq("order_id", id));
         orderModel.setOrderItemList(orderItemList);
         List<OrderProcessLog> orderProcessLogList = orderProcessLogMapper.selectList(new EntityWrapper<OrderProcessLog>().eq("order_id", id));

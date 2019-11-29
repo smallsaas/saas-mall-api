@@ -92,6 +92,7 @@ public class OrderEndpoint {
     @ApiOperation(value = "查看 Order", response = TOrder.class)
     @Permission(OrderPermission.ORDER_VIEW)
     public Tip getOrder(@PathVariable Long id) {
+
         return SuccessTip.create(orderService.getOrder(id));
     }
 
