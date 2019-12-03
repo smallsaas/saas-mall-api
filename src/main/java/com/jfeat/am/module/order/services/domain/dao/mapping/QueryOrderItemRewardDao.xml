@@ -1,88 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderItemRewardDao">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <sql id="Base_Column_List">
+    <sql id="Base_Column_List">
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         t_order_item_reward.id, t_order_item_reward.order_id AS orderId, t_order_item_reward.order_number AS orderNumber, t_order_item_reward.order_total_price AS orderTotalPrice, t_order_item_reward.order_created_time AS orderCreatedTime, t_order_item_reward.order_paid_time AS orderPaidTime, t_order_item_reward.order_item_id AS orderItemId, t_order_item_reward.order_profit AS orderProfit, t_order_item_reward.percent, t_order_item_reward.reward, t_order_item_reward.owner_id AS ownerId, t_order_item_reward.level, t_order_item_reward.state, t_order_item_reward.type, t_order_item_reward.created_time AS createdTime, t_order_item_reward.settled_time AS settledTime, t_order_item_reward.withdrawn_time AS withdrawnTime, t_order_item_reward.order_user_name AS orderUserName, t_order_item_reward.payment_type AS paymentType, t_order_item_reward.point_exchange_rate AS pointExchangeRate
     </sql>
 
 
-
     <select id="findOrderItemRewardPage" resultType="OrderItemRewardRecord" parameterType="OrderItemRewardRecord">
-            SELECT
-        <include refid="Base_Column_List" />
-        FROM t_order_item_reward
+        SELECT
+        <include refid="Base_Column_List"/>
+        ,
+        (case when t_user.real_name is NULL  then t_user.`name`
+        else t_user.real_name end )as userName
+        FROM
+        t_order_item_reward
+        LEFT JOIN t_order ON t_order.id = t_order_item_reward.order_id
+        LEFT JOIN t_user ON t_user.id = t_order.user_id
         WHERE 1=1
-                                <if test="record.id != null and record.id>0 ">
-                AND t_order_item_reward.id LIKE CONCAT('%',#{record.id},'%')
-            </if>
-                                                                                            <if test="record.orderId != null and record.orderId>0 ">
-                AND t_order_item_reward.order_id LIKE CONCAT('%',#{record.orderId},'%')
-            </if>
-                                                                                            <if test="record.orderNumber != null and record.orderNumber!= ''">
-                AND t_order_item_reward.order_number LIKE CONCAT('%',#{record.orderNumber},'%')
-            </if>
-                                                                                                            <if test="record.orderTotalPrice != null and record.orderTotalPrice>0 ">
-                AND t_order_item_reward.order_total_price LIKE CONCAT('%',#{record.orderTotalPrice},'%')
-            </if>
-                                                                                                            <if test="record.orderCreatedTime != null and record.orderCreatedTime>0 ">
-                AND t_order_item_reward.order_created_time LIKE CONCAT('%',#{record.orderCreatedTime},'%')
-            </if>
-                                                                                                            <if test="record.orderPaidTime != null and record.orderPaidTime>0 ">
-                AND t_order_item_reward.order_paid_time LIKE CONCAT('%',#{record.orderPaidTime},'%')
-            </if>
-                                                                                                            <if test="record.orderItemId != null and record.orderItemId>0 ">
-                AND t_order_item_reward.order_item_id LIKE CONCAT('%',#{record.orderItemId},'%')
-            </if>
-                                                                                            <if test="record.orderProfit != null and record.orderProfit>0 ">
-                AND t_order_item_reward.order_profit LIKE CONCAT('%',#{record.orderProfit},'%')
-            </if>
-                                <if test="record.percent != null and record.percent>0 ">
-                AND t_order_item_reward.percent LIKE CONCAT('%',#{record.percent},'%')
-            </if>
-                                <if test="record.reward != null and record.reward>0 ">
-                AND t_order_item_reward.reward LIKE CONCAT('%',#{record.reward},'%')
-            </if>
-                                                                                            <if test="record.ownerId != null and record.ownerId>0 ">
-                AND t_order_item_reward.owner_id LIKE CONCAT('%',#{record.ownerId},'%')
-            </if>
-                                <if test="record.level != null and record.level>0 ">
-                AND t_order_item_reward.level LIKE CONCAT('%',#{record.level},'%')
-            </if>
-                                <if test="record.state != null and record.state!= ''">
-                AND t_order_item_reward.state LIKE CONCAT('%',#{record.state},'%')
-            </if>
-                                <if test="record.type != null and record.type!= ''">
-                AND t_order_item_reward.type LIKE CONCAT('%',#{record.type},'%')
-            </if>
-                                                                                            <if test="record.createdTime != null and record.createdTime>0 ">
-                AND t_order_item_reward.created_time LIKE CONCAT('%',#{record.createdTime},'%')
-            </if>
-                                                                                            <if test="record.settledTime != null and record.settledTime>0 ">
-                AND t_order_item_reward.settled_time LIKE CONCAT('%',#{record.settledTime},'%')
-            </if>
-                                                                                            <if test="record.withdrawnTime != null and record.withdrawnTime>0 ">
-                AND t_order_item_reward.withdrawn_time LIKE CONCAT('%',#{record.withdrawnTime},'%')
-            </if>
-                                                                                                            <if test="record.orderUserName != null and record.orderUserName!= ''">
-                AND t_order_item_reward.order_user_name LIKE CONCAT('%',#{record.orderUserName},'%')
-            </if>
-                                                                                            <if test="record.paymentType != null and record.paymentType!= ''">
-                AND t_order_item_reward.payment_type LIKE CONCAT('%',#{record.paymentType},'%')
-            </if>
-                                                                                                            <if test="record.pointExchangeRate != null and record.pointExchangeRate>0 ">
-                AND t_order_item_reward.point_exchange_rate LIKE CONCAT('%',#{record.pointExchangeRate},'%')
-            </if>
-                <if test="startTime != null">
+        <if test="record.id != null and record.id>0 ">
+            AND t_order_item_reward.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.orderId != null and record.orderId>0 ">
+            AND t_order_item_reward.order_id LIKE CONCAT('%',#{record.orderId},'%')
+        </if>
+        <if test="record.orderNumber != null and record.orderNumber!= ''">
+            AND t_order_item_reward.order_number LIKE CONCAT('%',#{record.orderNumber},'%')
+        </if>
+        <if test="record.orderTotalPrice != null and record.orderTotalPrice>0 ">
+            AND t_order_item_reward.order_total_price LIKE CONCAT('%',#{record.orderTotalPrice},'%')
+        </if>
+        <if test="record.orderCreatedTime != null and record.orderCreatedTime>0 ">
+            AND t_order_item_reward.order_created_time LIKE CONCAT('%',#{record.orderCreatedTime},'%')
+        </if>
+        <if test="record.orderPaidTime != null and record.orderPaidTime>0 ">
+            AND t_order_item_reward.order_paid_time LIKE CONCAT('%',#{record.orderPaidTime},'%')
+        </if>
+        <if test="record.orderItemId != null and record.orderItemId>0 ">
+            AND t_order_item_reward.order_item_id LIKE CONCAT('%',#{record.orderItemId},'%')
+        </if>
+        <if test="record.orderProfit != null and record.orderProfit>0 ">
+            AND t_order_item_reward.order_profit LIKE CONCAT('%',#{record.orderProfit},'%')
+        </if>
+        <if test="record.percent != null and record.percent>0 ">
+            AND t_order_item_reward.percent LIKE CONCAT('%',#{record.percent},'%')
+        </if>
+        <if test="record.reward != null and record.reward>0 ">
+            AND t_order_item_reward.reward LIKE CONCAT('%',#{record.reward},'%')
+        </if>
+        <if test="record.ownerId != null and record.ownerId>0 ">
+            AND t_order_item_reward.owner_id LIKE CONCAT('%',#{record.ownerId},'%')
+        </if>
+        <if test="record.level != null and record.level>0 ">
+            AND t_order_item_reward.level LIKE CONCAT('%',#{record.level},'%')
+        </if>
+        <if test="record.state != null and record.state!= ''">
+            AND t_order_item_reward.state LIKE CONCAT('%',#{record.state},'%')
+        </if>
+        <if test="record.type != null and record.type!= ''">
+            AND t_order_item_reward.type LIKE CONCAT('%',#{record.type},'%')
+        </if>
+        <if test="record.createdTime != null and record.createdTime>0 ">
+            AND t_order_item_reward.created_time LIKE CONCAT('%',#{record.createdTime},'%')
+        </if>
+        <if test="record.settledTime != null and record.settledTime>0 ">
+            AND t_order_item_reward.settled_time LIKE CONCAT('%',#{record.settledTime},'%')
+        </if>
+        <if test="record.withdrawnTime != null and record.withdrawnTime>0 ">
+            AND t_order_item_reward.withdrawn_time LIKE CONCAT('%',#{record.withdrawnTime},'%')
+        </if>
+        <if test="record.orderUserName != null and record.orderUserName!= ''">
+            AND t_order_item_reward.order_user_name LIKE CONCAT('%',#{record.orderUserName},'%')
+        </if>
+        <if test="record.paymentType != null and record.paymentType!= ''">
+            AND t_order_item_reward.payment_type LIKE CONCAT('%',#{record.paymentType},'%')
+        </if>
+        <if test="record.pointExchangeRate != null and record.pointExchangeRate>0 ">
+            AND t_order_item_reward.point_exchange_rate LIKE CONCAT('%',#{record.pointExchangeRate},'%')
+        </if>
+        <if test="startTime != null">
             <![CDATA[AND t_order_item_reward.start_time >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_order_item_reward.end_time <= DATE(#{endTime)]]>
         </if>
-            <!--
         <if test="search != null and search != ''">
-            OR t_order_item_reward.name LIKE CONCAT('%',#{search},'%')
+            AND (t_user.name LIKE CONCAT('%',#{search},'%')
+                  or t_order_item_reward.order_number like  CONCAT('%',#{search},'%')
+                  OR t_user.real_name LIKE CONCAT('%' ,#{search}, '%')
+                )
         </if>
-        -->
-                                                            ORDER BY created_time DESC
-                        </select>
+        ORDER BY created_time DESC
+    </select>
 </mapper>

@@ -9,6 +9,8 @@ import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.annotations.TableField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 
 /**
@@ -44,8 +46,10 @@ public class OrderItemReward extends Model<OrderItemReward> {
 	@TableField("order_total_price")
 	private BigDecimal orderTotalPrice;
 	@TableField("order_created_time")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date orderCreatedTime;
 	@TableField("order_paid_time")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date orderPaidTime;
 	@TableField("order_item_id")
 	private Integer orderItemId;
@@ -59,10 +63,13 @@ public class OrderItemReward extends Model<OrderItemReward> {
 	private String state;
 	private String type;
 	@TableField("created_time")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date createdTime;
 	@TableField("settled_time")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date settledTime;
 	@TableField("withdrawn_time")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private Date withdrawnTime;
 	@TableField("order_user_name")
 	private String orderUserName;
