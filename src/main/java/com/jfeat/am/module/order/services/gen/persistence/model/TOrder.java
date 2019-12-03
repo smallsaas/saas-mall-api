@@ -223,6 +223,17 @@ public class TOrder extends Model<TOrder> {
 	private Integer extCuts;
 	@TableField("org_id")
 	private Long orgId;
+
+	private Integer settlementStatus;
+
+	public Integer getSettlementStatus() {
+		return settlementStatus;
+	}
+
+	public void setSettlementStatus(Integer settlementStatus) {
+		this.settlementStatus = settlementStatus;
+	}
+
 	public Long getId() {
 		return id;
 	}
