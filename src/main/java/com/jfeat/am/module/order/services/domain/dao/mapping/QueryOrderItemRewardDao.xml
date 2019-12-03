@@ -78,7 +78,7 @@
             AND t_order_item_reward.point_exchange_rate LIKE CONCAT('%',#{record.pointExchangeRate},'%')
         </if>
         <if test="startTime != null">
-            <![CDATA[AND t_order_item_reward.start_time >= DATE(#{startTime})]]>
+            <![CDATA[AND t_order_item_reward.created_time >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_order_item_reward.end_time <= DATE(#{endTime)]]>

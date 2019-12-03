@@ -124,11 +124,13 @@ public class OrderItemRewardEndpoint {
                                      @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdTime,
                                      @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date settledTime,
                                      @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date withdrawnTime,
+                                     @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
                                      @RequestParam(name = "orderUserName", required = false) String orderUserName,
                                      @RequestParam(name = "paymentType", required = false) String paymentType,
                                      @RequestParam(name = "pointExchangeRate", required = false) Integer pointExchangeRate,
                                      @RequestParam(name = "orderBy", required = false) String orderBy,
-                                     @RequestParam(name = "sort", required = false) String sort) {
+                                     @RequestParam(name = "sort", required = false) String sort
+                                         ) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -164,7 +166,7 @@ public class OrderItemRewardEndpoint {
         record.setOrderUserName(orderUserName);
         record.setPaymentType(paymentType);
         record.setPointExchangeRate(pointExchangeRate);
-        page.setRecords(this.orderItemRewardService.findOrderItemRewardPage(page, record, search, orderBy, null, null));
+        page.setRecords(this.orderItemRewardService.findOrderItemRewardPage(page, record, search, orderBy, startTime, null));
 
         return SuccessTip.create(page);
     }
