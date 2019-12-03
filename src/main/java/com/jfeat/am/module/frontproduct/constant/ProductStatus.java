@@ -6,7 +6,8 @@ package com.jfeat.am.module.frontproduct.constant;
  */
 public enum ProductStatus {
     ONSELL("ONSELL","上架"),
-    OFFSELL("OFFSELL","下架");
+    OFFSELL("OFFSELL","下架"),
+    DRAFT("DRAFT","草稿");
     private String status;
     private String desc;
 

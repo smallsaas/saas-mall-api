@@ -234,6 +234,6 @@
         t_product_brand.name LIKE CONCAT('%',#{search},'%')
         )
     </if>
-        order by t_product.sort_order  desc
+        order by t_product.sort_order  desc,t_product.status desc
     </select>
 </mapper>

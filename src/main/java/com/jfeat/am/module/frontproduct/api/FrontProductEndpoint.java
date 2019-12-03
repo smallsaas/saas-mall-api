@@ -249,10 +249,17 @@ public class FrontProductEndpoint {
     @ApiOperation(value = "修改 FrontProduct 状态", response = Integer.class)
     @Permission(FrontProductPermission.PRODUCT_STATUS)
     public Tip updateProduct(@PathVariable Long id, @PathVariable String status) {
-        if(!ProductStatus.ONSELL.getStatus().equals(status) && !ProductStatus.OFFSELL.getStatus().equals(status)){
+        if(!ProductStatus.ONSELL.getStatus().equals(status) &&
+                !ProductStatus.OFFSELL.getStatus().equals(status) &&
+                !ProductStatus.DRAFT.getStatus().equals(status)
+              ){
             throw new BusinessException(BusinessCode.BadRequest);
         }
         return SuccessTip.create(frontProductService.updateProductStatus(id,status));
     }
+
+
+
+
 
 }
