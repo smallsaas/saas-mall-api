@@ -299,11 +299,12 @@
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="startEndTime != null">
-            <![CDATA[AND t_order.created_date < DATE(#{startEndTime})]]>
+            <![CDATA[AND t_order.created_date < DATE_ADD(DATE(#{startEndTime}),INTERVAL 1 DAY)]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[AND t_order.created_date <= DATE(#{endTime})]]>
+            <![CDATA[AND t_order.created_date < DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)]]>
         </if>
+
 
         <if test="allianceId != null and allianceId!= ''">
             AND t_alliance.id LIKE CONCAT('%',#{allianceId},'%')
@@ -604,10 +605,10 @@
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="startEndTime != null">
-            <![CDATA[AND t_order.created_date < DATE(#{startEndTime})]]>
+            <![CDATA[AND t_order.created_date < DATE_ADD(DATE(#{startEndTime}),INTERVAL 1 DAY)]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[AND t_order.created_date <= DATE(#{endTime})]]>
+            <![CDATA[AND t_order.created_date <= DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)]]>
         </if>
 
         <if test="allianceId != null and allianceId!= ''">
@@ -673,7 +674,7 @@
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[AND t_order.deal_date <= DATE(#{endTime})]]>
+            <![CDATA[AND t_order.deal_date < DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)]]>
         </if>
         <if test="search != null and search != ''">
             AND
