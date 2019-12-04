@@ -324,7 +324,7 @@ public class OrderEndpoint {
 
         Date startEndTime=null;
        //设置当月1号
-        if(userId!=null&&thisMonth!=null&&thisMonth!=""){
+        if(allianceId!=null&&thisMonth!=null&&thisMonth!=""){
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());

@@ -299,7 +299,7 @@
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="startEndTime != null">
-            <![CDATA[AND t_order.created_date >= DATE(#{startEndTime})]]>
+            <![CDATA[AND t_order.created_date < DATE(#{startEndTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_order.created_date <= DATE(#{endTime})]]>
@@ -317,12 +317,13 @@
             from t_order join t_order_item on t_order_item.order_id= t_order.id
             and t_order_item.product_name like CONCAT('%',#{search},'%')
             )
-
             or t_order.id in (select t_order.id
             from t_order join t_order_item on t_order_item.order_id= t_order.id
-            and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+            and t_order_item.barcode like CONCAT('%',#{search},'%')
             )
             or t_order.contact_user LIKE CONCAT('%',#{search},'%')
+            or t_user.`name` LIKE CONCAT('%', #{search}, '%')
+            or t_user.real_name LIKE CONCAT('%',#{search}, '%')
             )
         </if>
 
@@ -603,7 +604,7 @@
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="startEndTime != null">
-            <![CDATA[AND t_order.created_date >= DATE(#{startEndTime})]]>
+            <![CDATA[AND t_order.created_date < DATE(#{startEndTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_order.created_date <= DATE(#{endTime})]]>
@@ -632,7 +633,7 @@
 
             or t_order.id in (select t_order.id
             from t_order join t_order_item on t_order_item.order_id= t_order.id
-            and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+            and t_order_item.barcode like CONCAT('%',#{search},'%')
             )
 
             )
@@ -684,9 +685,11 @@
             )
             or t_order.id in (select t_order.id
             from t_order join t_order_item on t_order_item.order_id= t_order.id
-            and t_order_item.barcode like CONCAT('%',#{record.barcode},'%')
+            and t_order_item.barcode like CONCAT('%',#{search},'%')
             )
             or t_order.contact_user LIKE CONCAT('%',#{search},'%')
+            or t_user.`name` LIKE CONCAT('%', #{search}, '%')
+            or t_user.real_name LIKE CONCAT('%',#{search}, '%')
             )
         </if>
         order by created_date desc
