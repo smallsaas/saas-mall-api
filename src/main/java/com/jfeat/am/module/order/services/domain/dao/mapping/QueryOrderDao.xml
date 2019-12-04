@@ -299,10 +299,10 @@
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="startEndTime != null">
-            <![CDATA[AND t_order.created_date < DATE(#{startEndTime})]]>
+            <![CDATA[AND t_order.created_date >= DATE(#{startEndTime})]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[AND t_order.deal_date <= DATE(#{endTime})]]>
+            <![CDATA[AND t_order.created_date <= DATE(#{endTime})]]>
         </if>
 
         <if test="allianceId != null and allianceId!= ''">
@@ -603,10 +603,10 @@
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
         <if test="startEndTime != null">
-            <![CDATA[AND t_order.created_date < DATE(#{startEndTime})]]>
+            <![CDATA[AND t_order.created_date >= DATE(#{startEndTime})]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[AND t_order.deal_date <= DATE(#{endTime})]]>
+            <![CDATA[AND t_order.created_date <= DATE(#{endTime})]]>
         </if>
 
         <if test="allianceId != null and allianceId!= ''">
