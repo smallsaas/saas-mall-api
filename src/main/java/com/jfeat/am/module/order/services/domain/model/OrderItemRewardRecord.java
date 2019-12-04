@@ -17,10 +17,60 @@ public class OrderItemRewardRecord extends OrderItemReward{
     String userName;
     //百分比
     String percentages;
+    //提成盟友
+    String allianceName;
+    //订单价格
+    BigDecimal price;
+    //订单数量
+    Integer quantity;
+    //订单成本价
+    BigDecimal costPrice;
     //订单项总价格
     BigDecimal itemPrice;
     //订单分红
     BigDecimal itemReward;
+    //利润
+    BigDecimal profits;
+
+    public String getAllianceName() {
+        return allianceName;
+    }
+
+    public void setAllianceName(String allianceName) {
+        this.allianceName = allianceName;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
+
+    public BigDecimal getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(BigDecimal costPrice) {
+        this.costPrice = costPrice;
+    }
+
+    public BigDecimal getProfits() {
+        return profits;
+    }
+
+    public void setProfits(BigDecimal profits) {
+        this.profits = profits;
+    }
 
     public BigDecimal getItemReward() {
         return itemReward;

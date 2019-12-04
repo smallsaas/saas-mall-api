@@ -10,9 +10,10 @@
         SELECT
         <include refid="Base_Column_List"/>
         ,tpsp.proportion,t_order_item.product_name as productName,t_order_item.final_price as itemPrice,
+        t_order_item.price as price,t_order_item.quantity as quantity,
         proportion->> '$.value' as percentages,
         proportion->> '$.value'/100*t_order_item.final_price as itemReward
-        ,
+        ,chi.alliance_name as allianceName,
         (case when t_user.real_name is NULL  then t_user.`name`
         else t_user.real_name end )as userName
         FROM
@@ -21,6 +22,8 @@
         LEFT JOIN t_user ON t_user.id = t_order.user_id
         Left join t_order_item on t_order_item_reward.order_item_id=t_order_item.id
         left JOIN t_product_settlement_proportion tpsp on tpsp.product_id=t_order_item.product_id and tpsp.type='ALLIANCE'
+        left join t_alliance on t_alliance.user_id=t_user.id
+        left join t_alliance as chi on t_alliance.invitor_alliance_id=chi.id
         WHERE 1=1
         <if test="record.id != null and record.id>0 ">
             AND t_order_item_reward.id LIKE CONCAT('%',#{record.id},'%')
