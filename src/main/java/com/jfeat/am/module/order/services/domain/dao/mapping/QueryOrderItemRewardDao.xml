@@ -91,6 +91,9 @@
         <if test="endTime != null">
             <![CDATA[AND t_order_item_reward.end_time <= DATE(#{endTime)]]>
         </if>
+        <if test="record.allianceName != null and record.allianceName!= ''">
+            AND chi.alliance_name LIKE CONCAT('%',#{record.allianceName},'%')
+        </if>
         <if test="search != null and search != ''">
             AND (t_user.name LIKE CONCAT('%',#{search},'%')
                   or t_order_item_reward.order_number like  CONCAT('%',#{search},'%')

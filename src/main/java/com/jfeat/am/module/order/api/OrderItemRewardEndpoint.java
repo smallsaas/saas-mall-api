@@ -129,7 +129,9 @@ public class OrderItemRewardEndpoint {
                                      @RequestParam(name = "paymentType", required = false) String paymentType,
                                      @RequestParam(name = "pointExchangeRate", required = false) Integer pointExchangeRate,
                                      @RequestParam(name = "orderBy", required = false) String orderBy,
-                                     @RequestParam(name = "sort", required = false) String sort
+                                     @RequestParam(name = "sort", required = false) String sort,
+                                     @RequestParam(name = "allianceName", required = false) String allianceName
+
                                          ) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
@@ -146,6 +148,7 @@ public class OrderItemRewardEndpoint {
         page.setSize(pageSize);
 
         OrderItemRewardRecord record = new OrderItemRewardRecord();
+        record.setAllianceName(allianceName);
         record.setId(id);
         record.setOrderId(orderId);
         record.setOrderNumber(orderNumber);
