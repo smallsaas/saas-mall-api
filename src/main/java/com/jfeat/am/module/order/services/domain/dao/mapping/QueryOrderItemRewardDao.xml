@@ -89,7 +89,7 @@
             <![CDATA[AND t_order_item_reward.created_time >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
-            <![CDATA[AND t_order_item_reward.end_time <= DATE(#{endTime)]]>
+            <![CDATA[AND t_order_item_reward.created_time <= DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)]]>
         </if>
         <if test="record.allianceName != null and record.allianceName!= ''">
             AND chi.alliance_name LIKE CONCAT('%',#{record.allianceName},'%')

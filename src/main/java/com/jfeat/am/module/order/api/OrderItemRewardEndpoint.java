@@ -124,13 +124,14 @@ public class OrderItemRewardEndpoint {
                                      @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdTime,
                                      @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date settledTime,
                                      @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date withdrawnTime,
-                                     @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
+
                                      @RequestParam(name = "orderUserName", required = false) String orderUserName,
                                      @RequestParam(name = "paymentType", required = false) String paymentType,
                                      @RequestParam(name = "pointExchangeRate", required = false) Integer pointExchangeRate,
                                      @RequestParam(name = "orderBy", required = false) String orderBy,
                                      @RequestParam(name = "sort", required = false) String sort,
-                                     @RequestParam(name = "allianceName", required = false) String allianceName
+                                     @RequestParam(name = "allianceName", required = false) String allianceName,
+                                     @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
 
                                          ) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -146,6 +147,9 @@ public class OrderItemRewardEndpoint {
         }
         page.setCurrent(pageNum);
         page.setSize(pageSize);
+
+        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
+        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
 
         OrderItemRewardRecord record = new OrderItemRewardRecord();
         record.setAllianceName(allianceName);
@@ -169,7 +173,7 @@ public class OrderItemRewardEndpoint {
         record.setOrderUserName(orderUserName);
         record.setPaymentType(paymentType);
         record.setPointExchangeRate(pointExchangeRate);
-        page.setRecords(this.orderItemRewardService.findOrderItemRewardPage(page, record, search, orderBy, startTime, null));
+        page.setRecords(this.orderItemRewardService.findOrderItemRewardPage(page, record, search, orderBy, startTime, endTime));
 
         return SuccessTip.create(page);
     }
