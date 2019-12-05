@@ -23,6 +23,7 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
                                     @Param("allianceId") Long allianceId
     );
 
+    //查询订单 显示订单结算的时候用
     List<OrderRecord> settlementOrder(Page<OrderRecord> page, @Param("record") OrderRecord record,
                                     @Param("search") String search, @Param("orderBy") String orderBy,
                                     @Param("startTime") Date startTime,

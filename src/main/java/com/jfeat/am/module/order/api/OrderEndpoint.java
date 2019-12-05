@@ -28,6 +28,7 @@ import java.math.BigDecimal;
 import java.rmi.ServerException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -742,7 +743,9 @@ public class OrderEndpoint {
         record.setOrgId(orgId);
         record.setSettlementStatus(settlementStatus);
 
-        page.setRecords(queryOrderDao.settlementOrder(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId,userName));
+        List<OrderRecord> orderRecordList=queryOrderDao.settlementOrder(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId,userName);
+
+        page.setRecords(orderRecordList);
 
         return SuccessTip.create(page);
     }
