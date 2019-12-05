@@ -6,6 +6,7 @@ import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.model.OrderRequest;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDOrderService;
 
+import java.math.BigDecimal;
 import java.rmi.ServerException;
 import java.util.Date;
 import java.util.List;
@@ -15,7 +16,8 @@ import java.util.List;
  */
 public interface OrderService extends CRUDOrderService{
     List findOrderPage(Page<OrderRecord> page, OrderRecord record, String search,
-                           String orderBy, Date startTime,Date startEndTime, Date endTime,Long allianceId);
+                           String orderBy, Date startTime,Date startEndTime, Date endTime,Long allianceId,
+                            BigDecimal leftMoney,BigDecimal rightMoney);
 
    /* public Integer createOrder(OrderRequest requestOrder) throws ServerException;*/
     /**

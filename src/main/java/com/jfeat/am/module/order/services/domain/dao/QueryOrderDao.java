@@ -20,7 +20,9 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
                                     @Param("startTime") Date startTime,
                                     @Param("startEndTime") Date startEndTime,
                                     @Param("endTime") Date endTime,
-                                    @Param("allianceId") Long allianceId
+                                    @Param("allianceId") Long allianceId,
+                                    @Param("leftMoney") BigDecimal leftMoney,
+                                    @Param("rightMoney") BigDecimal rightMoney
     );
 
     //查询订单 显示订单结算的时候用

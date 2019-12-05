@@ -306,6 +306,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "pName", required = false) String pName,
                            @RequestParam(name = "barcode", required = false) String barcode,
                            @RequestParam(name = "thisMonth", required = false) String thisMonth,
+                           @RequestParam(name = "searchMoney", required = false) BigDecimal searchMoney[],
      @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[] )
                            {
         if (orderBy != null && orderBy.length() > 0) {
@@ -324,6 +325,10 @@ public class OrderEndpoint {
 
         Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
         Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
+        BigDecimal leftMoney = searchMoney!=null? (searchMoney.length > 0?searchMoney[0]:null) : null;
+        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(time.length==1?searchMoney[0]:null)) : null;
+
 
 
         Date startEndTime=null;
@@ -431,7 +436,9 @@ public class OrderEndpoint {
         record.setExtCuts(extCuts);
         record.setOrgId(orgId);
 
-        page.setRecords(queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId));
+        page.setRecords(queryOrderDao.findOrderPage(
+                page, record, search, orderBy, startTime,startEndTime, endTime,allianceId
+        ,leftMoney,rightMoney));
 
         return SuccessTip.create(page);
     }

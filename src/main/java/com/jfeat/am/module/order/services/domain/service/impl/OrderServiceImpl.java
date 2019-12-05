@@ -18,6 +18,7 @@ import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.rmi.ServerException;
 import java.util.Date;
 import java.util.List;
@@ -41,8 +42,8 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
     @Override
     public List findOrderPage(Page<OrderRecord> page, OrderRecord record,
-                                  String search, String orderBy, Date startTime, Date startEndTime, Date endTime,Long allianceId) {
-        List recordList = this.queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId);
+                              String search, String orderBy, Date startTime, Date startEndTime, Date endTime, Long allianceId, BigDecimal leftMoney,BigDecimal rigthMoney) {
+        List recordList = this.queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId,leftMoney,rigthMoney);
         return this.getEavProxy().selectList(recordList, this.entityName());
     }
 
