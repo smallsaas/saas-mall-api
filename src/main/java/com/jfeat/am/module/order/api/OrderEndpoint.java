@@ -751,7 +751,7 @@ public class OrderEndpoint {
 
 
 
-    @ApiOperation(value = "Order 列表信息", response = OrderRecord.class)
+    @ApiOperation(value = "退货 列表信息", response = OrderRecord.class)
     @GetMapping("/refunds")
     @ApiImplicitParams({
             @ApiImplicitParam(name = "pageNum", dataType = "Integer"),
@@ -769,8 +769,8 @@ public class OrderEndpoint {
                            @RequestParam(name = "orderBy", required = false) String orderBy,
                            @RequestParam(name = "status", required = false) String status,
                            @RequestParam(name = "sort", required = false) String sort,
-                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
-                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime )
+                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
+    )
     {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
@@ -785,6 +785,9 @@ public class OrderEndpoint {
         }
         page.setCurrent(pageNum);
         page.setSize(pageSize);
+        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
+        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
 
         page.setRecords(queryOrderDao.refundOrderPage(page, status, search, orderBy, startTime, endTime));
 
