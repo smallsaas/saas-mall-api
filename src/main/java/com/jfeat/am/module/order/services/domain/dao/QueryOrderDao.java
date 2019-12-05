@@ -25,7 +25,6 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
 
     List<OrderRecord> settlementOrder(Page<OrderRecord> page, @Param("record") OrderRecord record,
                                     @Param("search") String search, @Param("orderBy") String orderBy,
-
                                     @Param("startTime") Date startTime,
                                     @Param("startEndTime") Date startEndTime,
                                     @Param("endTime") Date endTime,

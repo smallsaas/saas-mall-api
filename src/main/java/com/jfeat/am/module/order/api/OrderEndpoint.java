@@ -305,8 +305,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "pName", required = false) String pName,
                            @RequestParam(name = "barcode", required = false) String barcode,
                            @RequestParam(name = "thisMonth", required = false) String thisMonth,
-     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
-     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime )
+     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[] )
                            {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
@@ -321,6 +320,10 @@ public class OrderEndpoint {
         }
         page.setCurrent(pageNum);
         page.setSize(pageSize);
+
+        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
+        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
 
         Date startEndTime=null;
        //设置当月1号
@@ -615,8 +618,10 @@ public class OrderEndpoint {
                            @RequestParam(name = "thisMonth", required = false) String thisMonth,
                            @RequestParam(name = "settlementStatus", required = false) Integer settlementStatus,
                                @RequestParam(name = "userName", required = false) String userName,
-                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date startTime,
-                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date endTime )
+                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
+
+
+    )
     {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
@@ -631,6 +636,11 @@ public class OrderEndpoint {
         }
         page.setCurrent(pageNum);
         page.setSize(pageSize);
+
+        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
+        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
+
         Date startEndTime=null;
         //设置当月1号
         if(userId!=null&&thisMonth!=null&&thisMonth!=""){
@@ -641,6 +651,7 @@ public class OrderEndpoint {
             calendar.set(Calendar.MINUTE, 0);
             calendar.set(Calendar.SECOND, 0);
             startTime=calendar.getTime();
+            //+1月 放入结束时间
             calendar.add(Calendar.MONTH, 1);
             startEndTime=calendar.getTime(); }
 

@@ -676,6 +676,7 @@
         <if test="endTime != null">
             <![CDATA[AND t_order.deal_date < DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)]]>
         </if>
+
         <if test="search != null and search != ''">
             AND
             (
