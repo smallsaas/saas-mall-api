@@ -327,7 +327,7 @@ public class OrderEndpoint {
         Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
 
         BigDecimal leftMoney = searchMoney!=null? (searchMoney.length > 0?searchMoney[0]:null) : null;
-        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(time.length==1?searchMoney[0]:null)) : null;
+        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(searchMoney.length==1?searchMoney[0]:null)) : null;
 
 
 
