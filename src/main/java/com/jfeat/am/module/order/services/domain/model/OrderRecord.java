@@ -13,6 +13,16 @@ public class OrderRecord extends TOrder {
     String userName;
     //邀请人进货额
     BigDecimal orderAmount;
+//邀请人盟友
+    String allianceName;
+
+    public String getAllianceName() {
+        return allianceName;
+    }
+
+    public void setAllianceName(String allianceName) {
+        this.allianceName = allianceName;
+    }
 
     public BigDecimal getOrderAmount() {
         return orderAmount;

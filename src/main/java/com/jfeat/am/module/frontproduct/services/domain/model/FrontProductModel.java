@@ -1,9 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.model;
 
-import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
-import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductBrand;
-import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductDescription;
-import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductImage;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.model.*;
 
 import java.util.List;
 
@@ -12,6 +9,8 @@ import java.util.List;
  * @date 12:26
  */
 public class FrontProductModel extends FrontProduct {
+
+    private List<ProductSettlementProportion> productSettlementProportion;
 
     private List<ProductImage> bannerList;
 
@@ -30,6 +29,14 @@ public class FrontProductModel extends FrontProduct {
     private ProductDescription productDescription;
 
     private String description;
+
+    public List<ProductSettlementProportion> getProductSettlementProportionList() {
+        return productSettlementProportion;
+    }
+
+    public void setProductSettlementProportionList(List<ProductSettlementProportion> productSettlementProportionList) {
+        this.productSettlementProportion = productSettlementProportionList;
+    }
 
     public List<Long> getTagIds() {
         return tagIds;

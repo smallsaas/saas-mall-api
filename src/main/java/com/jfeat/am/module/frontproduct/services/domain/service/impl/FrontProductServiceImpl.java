@@ -9,10 +9,7 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.*;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.impl.CRUDFrontProductServiceImpl;
-import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.ProductDescriptionMapper;
-import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.ProductImageMapper;
-import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductTagMapper;
-import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductTagRelationMapper;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.*;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.*;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
@@ -54,6 +51,10 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     FrontProductTagMapper frontProductTagMapper;
     @Resource
     ProductBrandService productBrandService;
+    @Resource
+    ProductSettlementProportionService productSettlementProportionService;
+    @Resource
+    ProductSettlementProportionMapper productSettlementProportionMapper;
 
     @Override
     public List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record,
@@ -154,6 +155,13 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             tagIds.add(item.getTagId());
         });
         frontProductModel.setTagIds(tagIds);
+        //添加分成比例
+        List<ProductSettlementProportion> productSettlementProportionList= productSettlementProportionMapper.selectList
+                (new EntityWrapper<ProductSettlementProportion>()
+                .eq("product_id",id));
+        frontProductModel.setProductSettlementProportionList(productSettlementProportionList);
+
+
         //添加品牌
         if(frontProduct.getBrandId()!=null){
             ProductBrand productBrand = productBrandService.retrieveMaster(frontProduct.getBrandId());

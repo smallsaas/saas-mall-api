@@ -655,7 +655,7 @@ public class OrderEndpoint {
 
         Date startEndTime=null;
         //设置当月1号
-        if(userId!=null&&thisMonth!=null&&thisMonth!=""){
+       /* if(userId!=null&&thisMonth!=null&&thisMonth!=""){
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
             calendar.set(Calendar.DAY_OF_MONTH, 1);
@@ -665,7 +665,7 @@ public class OrderEndpoint {
             startTime=calendar.getTime();
             //+1月 放入结束时间
             calendar.add(Calendar.MONTH, 1);
-            startEndTime=calendar.getTime(); }
+            startEndTime=calendar.getTime(); }*/
 
         status="CLOSED_CONFIRMED";
 
