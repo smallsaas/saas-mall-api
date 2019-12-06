@@ -32,7 +32,9 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
                                     @Param("startEndTime") Date startEndTime,
                                     @Param("endTime") Date endTime,
                                     @Param("allianceId") Long allianceId,
-                                       @Param("userName") String userName
+                                       @Param("userName") String userName,
+                                      @Param("leftMoney") BigDecimal leftMoney,
+                                      @Param("rightMoney") BigDecimal rightMoney
     );
 
 

@@ -626,6 +626,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "thisMonth", required = false) String thisMonth,
                            @RequestParam(name = "settlementStatus", required = false) Integer settlementStatus,
                                @RequestParam(name = "userName", required = false) String userName,
+                               @RequestParam(name = "searchMoney", required = false) BigDecimal searchMoney[],
                            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
 
 
@@ -647,6 +648,9 @@ public class OrderEndpoint {
 
         Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
         Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
+        BigDecimal leftMoney = searchMoney!=null? (searchMoney.length > 0?searchMoney[0]:null) : null;
+        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(searchMoney.length==1?searchMoney[0]:null)) : null;
 
 
         Date startEndTime=null;
@@ -750,7 +754,9 @@ public class OrderEndpoint {
         record.setOrgId(orgId);
         record.setSettlementStatus(settlementStatus);
 
-        List<OrderRecord> orderRecordList=queryOrderDao.settlementOrder(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId,userName);
+        List<OrderRecord> orderRecordList=queryOrderDao
+                .settlementOrder(page, record, search, orderBy, startTime,startEndTime,
+                        endTime,allianceId,userName,leftMoney,rightMoney);
 
         page.setRecords(orderRecordList);
 

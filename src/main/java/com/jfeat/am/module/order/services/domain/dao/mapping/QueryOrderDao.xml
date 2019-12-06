@@ -622,6 +622,13 @@
             AND t_order.org_id = #{record.orgId}
         </if>
 
+        <if test="leftMoney != null ">
+            AND t_order.total_price  >= #{leftMoney}
+        </if>
+        <if test="rightMoney!= null">
+            AND t_order.total_price  &lt;= #{rightMoney}
+        </if>
+
 
         <if test="startTime != null">
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
