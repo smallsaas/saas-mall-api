@@ -25,6 +25,19 @@
         left join t_alliance on t_alliance.user_id=t_user.id
         left join t_alliance as chi on t_alliance.invitor_alliance_id=chi.id
         WHERE 1=1
+        <if test="leftMoney != null ">
+            AND t_order_item.final_price  >= #{leftMoney}
+        </if>
+        <if test="rightMoney!= null">
+            AND t_order_item.final_price  &lt;= #{rightMoney}
+        </if>
+        <if test="itemRewardLeftMoney != null ">
+            AND proportion->> '$.value'/100*t_order_item.final_price >= #{itemRewardLeftMoney}
+        </if>
+        <if test="itemRewardRightMoney!= null">
+            AND proportion->> '$.value'/100*t_order_item.final_price  &lt;= #{itemRewardRightMoney}
+        </if>
+
         <if test="record.id != null and record.id>0 ">
             AND t_order_item_reward.id LIKE CONCAT('%',#{record.id},'%')
         </if>
@@ -100,6 +113,8 @@
                   OR t_user.real_name LIKE CONCAT('%' ,#{search}, '%')
                 )
         </if>
+
+
         ORDER BY created_time DESC
     </select>
 </mapper>

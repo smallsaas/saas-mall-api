@@ -131,6 +131,8 @@ public class OrderItemRewardEndpoint {
                                      @RequestParam(name = "orderBy", required = false) String orderBy,
                                      @RequestParam(name = "sort", required = false) String sort,
                                      @RequestParam(name = "allianceName", required = false) String allianceName,
+                                     @RequestParam(name = "searchMoney", required = false) BigDecimal searchMoney[],
+                                     @RequestParam(name = "itemReward", required = false) BigDecimal itemReward[],
                                      @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
 
                                          ) {
@@ -150,6 +152,14 @@ public class OrderItemRewardEndpoint {
 
         Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
         Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
+        BigDecimal leftMoney = searchMoney!=null? (searchMoney.length > 0?searchMoney[0]:null) : null;
+        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(searchMoney.length==1?searchMoney[0]:null)) : null;
+
+
+        BigDecimal itemRewardLeftMoney = itemReward!=null? (itemReward.length > 0?itemReward[0]:null) : null;
+        BigDecimal itemRewardRightMoney = itemReward!=null ? (itemReward.length==2?itemReward[1]:(itemReward.length==1?itemReward[0]:null)) : null;
+
 
         OrderItemRewardRecord record = new OrderItemRewardRecord();
         record.setAllianceName(allianceName);
@@ -173,7 +183,8 @@ public class OrderItemRewardEndpoint {
         record.setOrderUserName(orderUserName);
         record.setPaymentType(paymentType);
         record.setPointExchangeRate(pointExchangeRate);
-        page.setRecords(this.orderItemRewardService.findOrderItemRewardPage(page, record, search, orderBy, startTime, endTime));
+        page.setRecords(this.orderItemRewardService.findOrderItemRewardPage(page, record, search, orderBy
+                , startTime, endTime,leftMoney,rightMoney,itemRewardLeftMoney,itemRewardRightMoney));
 
         return SuccessTip.create(page);
     }

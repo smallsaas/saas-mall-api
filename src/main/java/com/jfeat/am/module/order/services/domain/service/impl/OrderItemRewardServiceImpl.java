@@ -8,6 +8,7 @@ import com.jfeat.am.module.order.services.gen.crud.service.impl.CRUDOrderItemRew
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -26,8 +27,14 @@ public class OrderItemRewardServiceImpl extends CRUDOrderItemRewardServiceImpl i
 
     @Override
     public List findOrderItemRewardPage(Page<OrderItemRewardRecord> page, OrderItemRewardRecord record,
-                                  String search, String orderBy, Date startTime, Date endTime) {
-        List recordList = this.queryOrderItemRewardDao.findOrderItemRewardPage(page, record, search, orderBy, startTime, endTime);
+                                        String search, String orderBy, Date startTime, Date endTime,
+                                        BigDecimal leftMoney,
+                                        BigDecimal rightMoney,
+                                        BigDecimal itemRewardLeftMoney,
+                                        BigDecimal itemRewardRightMoney) {
+        List recordList = this.queryOrderItemRewardDao.findOrderItemRewardPage(
+                page, record, search, orderBy, startTime, endTime,leftMoney,rightMoney,itemRewardLeftMoney,itemRewardRightMoney
+        );
         return this.getEavProxy().selectList(recordList, this.entityName());
     }
 }
