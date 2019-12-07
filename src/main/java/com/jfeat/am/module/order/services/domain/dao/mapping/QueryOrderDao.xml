@@ -754,9 +754,9 @@
         LEFT JOIN t_user u on u.id=o.user_id
         LEFT JOIN t_alliance a on a.id=#{id}
         LEFT JOIN t_alliance kid on kid.invitor_alliance_id=a.id
-        -- 过滤订单
+
         WHERE ( o.user_id=a.user_id OR o.user_id=kid.user_id)
-        -- AND o.`status`='CLOSED_CONFIRMED'
+
         AND o.created_date>STR_TO_DATE((SELECT value FROM t_config_field WHERE field='starting_time'),'%Y-%m-%d')
         AND o.created_date&lt;DATE_ADD(STR_TO_DATE((SELECT value FROM t_config_field WHERE field='starting_time'),'%Y-%m-%d') , interval (SELECT value FROM t_config_field WHERE field='settlement_cycle') MONTH);
 
