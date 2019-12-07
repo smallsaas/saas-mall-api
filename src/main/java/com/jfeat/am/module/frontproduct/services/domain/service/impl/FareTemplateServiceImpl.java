@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFareTemplateDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;
+import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplatePcd;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.CarryModeService;
 import com.jfeat.am.module.frontproduct.services.domain.service.FareTemplateService;
@@ -83,5 +84,26 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
             }
         }
         return affected;
+    }
+
+    @Override
+    public List<FareTemplatePcd> ShopAddrToShopAddrList(String shopAddr) {
+
+        String addrs[]= shopAddr.split(",");
+        if(addrs!=null&&addrs.length>0){
+            for (String addr:addrs) {
+                FareTemplatePcd fareTemplatePcd=new FareTemplatePcd();
+                fareTemplatePcd.setName(addr);
+                //todo
+            }
+        }
+
+
+        return null;
+    }
+
+    @Override
+    public String ShopAddrListToShopAddr(List<FareTemplatePcd> shopAddrList) {
+        return null;
     }
 }

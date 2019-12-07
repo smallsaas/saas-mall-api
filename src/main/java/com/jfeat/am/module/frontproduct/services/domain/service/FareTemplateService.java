@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.services.domain.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;
+import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplatePcd;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateRecord;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.CRUDFareTemplateService;
 
@@ -35,4 +36,12 @@ public interface FareTemplateService extends CRUDFareTemplateService{
      * @return 数据库受影响的行数
      */
     Integer updateFareTemplate(FareTemplateModel entity);
+
+
+    //shopAddr 转换成 shopAddrList
+    List<FareTemplatePcd> ShopAddrToShopAddrList(String shopAddr);
+
+    //shopAddrList 转换成 shopAddr
+    String ShopAddrListToShopAddr(List<FareTemplatePcd> shopAddrList);
+
 }

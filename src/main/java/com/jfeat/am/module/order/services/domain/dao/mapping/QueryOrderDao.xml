@@ -750,7 +750,9 @@
 
 
     <select id="getAllianceOrder"  resultType="OrderRecord">
-        SELECT *
+        SELECT *,
+        (case when u.real_name is NULL  then u.`name`
+        else u.real_name end )as userName
         FROM t_order o
         LEFT JOIN t_user u on u.id=o.user_id
         LEFT JOIN t_alliance a on a.id=#{id}
@@ -759,7 +761,29 @@
         WHERE ( o.user_id=a.user_id OR o.user_id=kid.user_id)
 
         AND o.created_date>STR_TO_DATE((SELECT value FROM t_config_field WHERE field='starting_time'),'%Y-%m-%d')
-        AND o.created_date&lt;DATE_ADD(STR_TO_DATE((SELECT value FROM t_config_field WHERE field='starting_time'),'%Y-%m-%d') , interval (SELECT value FROM t_config_field WHERE field='settlement_cycle') MONTH);
+        AND o.created_date&lt;DATE_ADD(STR_TO_DATE((SELECT value FROM t_config_field WHERE field='starting_time'),'%Y-%m-%d') , interval (SELECT value FROM t_config_field WHERE field='settlement_cycle') MONTH)
+
+        <if test="startTime != null">
+            <![CDATA[AND o.created_date >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND o.created_date < DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)]]>
+        </if>
+        <if test="status != null and status!= ''">
+            AND o.status = #{status}
+        </if>
+
+        <if test="search != null and search != ''">
+            AND
+            (
+            o.order_number LIKE CONCAT('%',#{search},'%')
+            or o.contact_user LIKE CONCAT('%',#{search},'%')
+            or u.`name` LIKE CONCAT('%', #{search}, '%')
+            or u.real_name LIKE CONCAT('%',#{search}, '%')
+            )
+        </if>
+        ORDER BY o.created_date desc
+
 
     </select>
 

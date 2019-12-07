@@ -104,10 +104,16 @@ public class OrderEndpoint {
                                 @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(name = "search", required = false) String search,
-                                @PathVariable Long id) {
+                                @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[],
+                                    @PathVariable Long id,
+                                @RequestParam(name = "status", required = false) String status) {
+
+        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
+        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
         page.setCurrent(pageNum);
         page.setSize(pageSize);
-        page.setRecords(queryOrderDao.getAllianceOrder(page,id));
+        page.setRecords(queryOrderDao.getAllianceOrder(page,id,search,startTime,endTime,status));
         return SuccessTip.create(page);
     }
 
