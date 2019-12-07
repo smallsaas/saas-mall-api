@@ -750,7 +750,8 @@
 
 
     <select id="getAllianceOrder"  resultType="OrderRecord">
-        SELECT o.id,o.order_number,o.total_price,o.user_id,a.user_id,a.alliance_name,kid.user_id as kid_user_id,kid.alliance_name FROM t_order o
+        SELECT *
+        FROM t_order o
         LEFT JOIN t_user u on u.id=o.user_id
         LEFT JOIN t_alliance a on a.id=#{id}
         LEFT JOIN t_alliance kid on kid.invitor_alliance_id=a.id
