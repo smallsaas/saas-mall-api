@@ -56,4 +56,6 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
 
     String getUserName( @Param("userId") Long userId);
 
+    List<OrderRecord> getAllianceOrder(Page<OrderRecord> page,@Param("id")Long id);
+
 }

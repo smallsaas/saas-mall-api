@@ -34,8 +34,16 @@ import javax.annotation.Resource;
 public class ProductSettlementProportionEndpoint {
 
 
+
     @Resource
     ProductSettlementProportionService productSettlementProportionService;
+
+
+    @GetMapping("/settingGroup")
+    @ApiOperation(value = "查看产品分成配置", response = ProductSettlementProportion.class)
+    public Tip getProductSettlementProportionSetting() {
+        return SuccessTip.create(productSettlementProportionService.getProductSettlementProportionSettingGroup());
+    }
 
     @PostMapping
     @ApiOperation(value = "新建 ProductSettlementProportion", response = ProductSettlementProportion.class)

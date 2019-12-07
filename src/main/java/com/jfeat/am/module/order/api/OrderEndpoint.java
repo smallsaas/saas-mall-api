@@ -97,6 +97,21 @@ public class OrderEndpoint {
         return SuccessTip.create(orderService.getOrder(id));
     }
 
+    @GetMapping("/allianceOrder/{id}")
+    @ApiOperation(value = "查看 团队订单", response = TOrder.class)
+    @Permission(OrderPermission.ORDER_VIEW)
+    public Tip getAllianceOrder(Page<OrderRecord> page,
+                                @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                                @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                                @RequestParam(name = "search", required = false) String search,
+                                @PathVariable Long id) {
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+        page.setRecords(queryOrderDao.getAllianceOrder(page,id));
+        return SuccessTip.create(page);
+    }
+
+
     @BusinessLog(name = "订单", value = "修改订单")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 Order", response = TOrder.class)
@@ -333,7 +348,7 @@ public class OrderEndpoint {
 
         Date startEndTime=null;
        //设置当月1号
-        if(allianceId!=null&&thisMonth!=null&&thisMonth!=""){
+        /*if(allianceId!=null&&thisMonth!=null&&thisMonth!=""){
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(new Date());
@@ -346,7 +361,7 @@ public class OrderEndpoint {
             calendar.add(Calendar.MONTH, 1);
             startEndTime=calendar.getTime();
 
-        }
+        }*/
 
 
         OrderRecord record = new OrderRecord();

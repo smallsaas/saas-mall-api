@@ -5,8 +5,10 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductDao;
+import com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSettlementProportionDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
+import com.jfeat.am.module.frontproduct.services.domain.model.ProductSettlementProportionRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.*;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.impl.CRUDFrontProductServiceImpl;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.*;
@@ -55,6 +57,8 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     ProductSettlementProportionService productSettlementProportionService;
     @Resource
     ProductSettlementProportionMapper productSettlementProportionMapper;
+    @Resource
+    QueryProductSettlementProportionDao queryProductSettlementProportionDao;
 
     @Override
     public List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record,
@@ -120,6 +124,16 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             }
         }
 
+        //保存分成比例
+        List<ProductSettlementProportionRecord> productSettlementProportionList= entity.getProductSettlementProportionList();
+        //调用方法配置 分成 扁平化
+        productSettlementProportionList=
+                productSettlementProportionService.setProductSettlementProportionSettingGroup
+                        (productSettlementProportionList,entity.getId().intValue());
+        for (ProductSettlementProportionRecord tpsp:productSettlementProportionList) {tpsp.setId(null);
+            affected+= productSettlementProportionMapper.insert(tpsp);
+           }
+
         return affected;
     }
 
@@ -156,9 +170,9 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         });
         frontProductModel.setTagIds(tagIds);
         //添加分成比例
-        List<ProductSettlementProportion> productSettlementProportionList= productSettlementProportionMapper.selectList
-                (new EntityWrapper<ProductSettlementProportion>()
-                .eq("product_id",id));
+        List<ProductSettlementProportionRecord> productSettlementProportionList= queryProductSettlementProportionDao.findProductSettlementProportion(id);
+          //调用方法配置 分成 扁平化
+        productSettlementProportionList=productSettlementProportionService.reSetProductSettlementProportionSettingGroup(productSettlementProportionList);
         frontProductModel.setProductSettlementProportionList(productSettlementProportionList);
 
 
@@ -220,6 +234,17 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
                 affected += frontProductTagRelationService.createMaster(frontProductTagRelation);
             }
         }
+
+        //保存分成比例
+        List<ProductSettlementProportionRecord> productSettlementProportionList= entity.getProductSettlementProportionList();
+        //调用方法配置 分成 扁平化
+        productSettlementProportionList=
+                productSettlementProportionService.setProductSettlementProportionSettingGroup
+                        (productSettlementProportionList,entity.getId().intValue());
+        for (ProductSettlementProportionRecord tpsp:productSettlementProportionList) {
+            affected+= productSettlementProportionMapper.updateById(tpsp);
+        }
+
         return affected;
     }
 

@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class FrontProductModel extends FrontProduct {
 
-    private List<ProductSettlementProportion> productSettlementProportion;
+    private List<ProductSettlementProportionRecord> productSettlementProportion;
 
     private List<ProductImage> bannerList;
 
@@ -30,11 +30,11 @@ public class FrontProductModel extends FrontProduct {
 
     private String description;
 
-    public List<ProductSettlementProportion> getProductSettlementProportionList() {
+    public List<ProductSettlementProportionRecord> getProductSettlementProportionList() {
         return productSettlementProportion;
     }
 
-    public void setProductSettlementProportionList(List<ProductSettlementProportion> productSettlementProportionList) {
+    public void setProductSettlementProportionList(List<ProductSettlementProportionRecord> productSettlementProportionList) {
         this.productSettlementProportion = productSettlementProportionList;
     }
 

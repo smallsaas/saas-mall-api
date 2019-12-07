@@ -13,6 +13,10 @@ import java.util.List;
  * Created by Code Generator on 2019-07-25
  */
 public interface QueryProductSettlementProportionDao extends BaseMapper<ProductSettlementProportion> {
+
+    List<ProductSettlementProportionRecord> findProductSettlementProportion(@Param("productId") Long productId);
+
+
     List<ProductSettlementProportionRecord> findProductSettlementProportionPage(Page<ProductSettlementProportionRecord> page, @Param("record") ProductSettlementProportionRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);

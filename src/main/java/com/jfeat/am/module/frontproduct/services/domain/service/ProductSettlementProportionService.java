@@ -13,4 +13,11 @@ import java.util.List;
 public interface ProductSettlementProportionService extends CRUDProductSettlementProportionService{
     List findProductSettlementProportionPage(Page<ProductSettlementProportionRecord> page, ProductSettlementProportionRecord record, String search,
                            String orderBy, Date startTime, Date endTime);
+
+    public List<ProductSettlementProportionRecord> getProductSettlementProportionSettingGroup();
+    public List<ProductSettlementProportionRecord> setProductSettlementProportionSettingGroup
+            (List<ProductSettlementProportionRecord> settingGroup,Integer productId);
+    public List<ProductSettlementProportionRecord> reSetProductSettlementProportionSettingGroup
+            (List<ProductSettlementProportionRecord> settingGroup);
+
 }
