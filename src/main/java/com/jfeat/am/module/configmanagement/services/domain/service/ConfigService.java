@@ -30,4 +30,10 @@ public interface ConfigService extends CRUDConfigOverModelService {
      * @return
      */
     Integer updateConfig(String type, Properties entity);
+
+
+    //更新所有配置
+    public Integer updateAllConfig(Properties entity);
+    //获取所有配置
+    public Map<String, String> getAllConfig() ;
 }

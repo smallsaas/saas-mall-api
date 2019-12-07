@@ -54,6 +54,25 @@ public class ConfigOverModelEndpoint {
         return SuccessTip.create(affected);
     }*/
 
+    @GetMapping
+    @ApiOperation(value = "查看所有配置", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_VIEW)
+    public Tip getAllConfig() {
+
+        return SuccessTip.create(configService.getAllConfig());
+    }
+
+    @BusinessLog(name = "系统配置", value = "更改系统配置")
+    @PostMapping("")
+    @ApiOperation(value = "修改所有配置", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_EDIT)
+    public Tip updateAllConfig( @RequestBody Properties entity) {
+
+        return SuccessTip.create(configService.updateAllConfig(entity));
+
+    }
+
+
 
     @GetMapping("/{type}")
     @ApiOperation(value = "查看 Config", response = Config.class)
@@ -74,7 +93,6 @@ public class ConfigOverModelEndpoint {
             throw new BusinessException(BusinessCode.BadRequest);
         }
         return SuccessTip.create(configService.getConfig(type));
-
     }
 
     @BusinessLog(name = "系统配置", value = "更改系统配置")

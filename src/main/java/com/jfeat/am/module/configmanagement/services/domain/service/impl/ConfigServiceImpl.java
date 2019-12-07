@@ -53,4 +53,29 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
         }
         return affected;
     }
+
+
+    @Override
+    public Map<String, String> getAllConfig() {
+        List<Config> configList = configMapper.selectList(new EntityWrapper<Config>());
+        Map<String,String> map = new HashMap<>(configList.size());
+        configList.forEach(item -> {
+            map.put(item.getKeyName(),item.getValue());
+        });
+
+        return map;
+    }
+
+    @Override
+    public Integer updateAllConfig(Properties entity) {
+        int affected = 0;
+        Enumeration<?> enumeration = entity.propertyNames();
+        while (enumeration.hasMoreElements()){
+            String key = (String)enumeration.nextElement();
+            affected += configMapper.update(new Config().setValue(entity.getProperty(key)),new EntityWrapper<Config>().eq("key_name",key));
+        }
+        return affected;
+    }
+
+
 }
