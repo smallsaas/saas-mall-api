@@ -139,7 +139,7 @@ public class ConfigGroupOverModelEndpoint {
         record.setId(id);
         record.setName(name);
         record.setProtected(protecte);
-        record.setOrgId(JWTKit.getOrgId());
+        /*record.setOrgId(JWTKit.getOrgId());*/
         page.setRecords(this.configGroupOverModelService.findConfigGroupPage(page, record, search, orderBy, null, null));
 
         return SuccessTip.create(page);

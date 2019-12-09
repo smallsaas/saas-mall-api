@@ -6,6 +6,7 @@ import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.definition.FareTemplatePermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;
+import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplatePcd;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FareTemplateService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.CarryMode;
@@ -50,8 +51,7 @@ public class FareTemplateEndpoint {
     @PostMapping
     @ApiOperation(value = "新建 FareTemplate", response = FareTemplate.class)
     @Permission(FareTemplatePermission.FARETEMPLATE_ADD)
-    public Tip createFareTemplate(
-                                  @RequestBody FareTemplateModel entity) {
+    public Tip createFareTemplate(@RequestBody FareTemplateModel entity) {
         Long orgId = JWTKit.getOrgId();
         if (entity.getOrgId()==null){
             entity.setOrgId(orgId);
@@ -62,6 +62,12 @@ public class FareTemplateEndpoint {
         try {
 
             entity.setLastModifiedDate(new Date());
+            //获取addrList 调用方法转换
+            List<FareTemplatePcd> shopAddrList = entity.getShopAddrList();
+            FareTemplate fareTemplate = fareTemplateService.ShopAddrListToShopAddr(shopAddrList);
+            entity.setShopAddr(fareTemplate.getShopAddr());
+            entity.setAddrids(fareTemplate.getAddrids());
+
             affected = fareTemplateService.createFareTemplate(entity);
 
         } catch (DuplicateKeyException e) {

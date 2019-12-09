@@ -67,6 +67,12 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
     }
 
     @Override
+    public List<Config> selectConfigByGroupId(Integer groupId) {
+        List<Config> configList = configMapper.selectList(new EntityWrapper<Config>().eq("group_id", groupId));
+        return configList;
+    }
+
+    @Override
     public Integer updateAllConfig(Properties entity) {
         int affected = 0;
         Enumeration<?> enumeration = entity.propertyNames();

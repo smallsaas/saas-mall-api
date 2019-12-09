@@ -58,6 +58,17 @@ public class FareTemplate extends Model<FareTemplate> {
 	@TableField("org_id")
 	private Long orgId;
 
+	@TableField("addrids")
+	private String addrids;
+
+	public String getAddrids() {
+		return addrids;
+	}
+
+	public void setAddrids(String addrids) {
+		this.addrids = addrids;
+	}
+
 	public Long getId() {
 		return id;
 	}

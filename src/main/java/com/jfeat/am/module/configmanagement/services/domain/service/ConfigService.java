@@ -3,6 +3,7 @@ package com.jfeat.am.module.configmanagement.services.domain.service;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.jfeat.am.module.configmanagement.services.domain.model.ConfigRecord;
 import com.jfeat.am.module.configmanagement.services.gen.crud.service.CRUDConfigOverModelService;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
 
 import java.util.Date;
 import java.util.List;
@@ -36,4 +37,7 @@ public interface ConfigService extends CRUDConfigOverModelService {
     public Integer updateAllConfig(Properties entity);
     //获取所有配置
     public Map<String, String> getAllConfig() ;
+
+    //根据组id查找Config
+    List<Config> selectConfigByGroupId(Integer groupId);
 }

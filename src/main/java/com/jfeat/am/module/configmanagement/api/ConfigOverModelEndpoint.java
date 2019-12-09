@@ -1,11 +1,17 @@
 package com.jfeat.am.module.configmanagement.api;
 
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.configmanagement.definition.ConfigPermission;
 import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
+import com.jfeat.am.module.configmanagement.services.domain.model.ConfigRequest;
+import com.jfeat.am.module.configmanagement.services.domain.model.MallConfigGroupRequest;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigService;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigMapper;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.MallConfigGroupMapper;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
+import com.jfeat.am.module.configmanagement.services.gen.persistence.model.MallConfigGroup;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
@@ -17,6 +23,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.lang.reflect.Array;
+import java.util.List;
 import java.util.Properties;
 
 
@@ -37,6 +45,12 @@ public class ConfigOverModelEndpoint {
 
     @Resource
     ConfigService configService;
+
+    @Resource
+    MallConfigGroupMapper mallConfigGroupMapper;
+
+    @Resource
+    ConfigMapper configMapper;
 
     /*@BusinessLog(name = "Config", value = "create Config")
     @PostMapping
@@ -60,6 +74,59 @@ public class ConfigOverModelEndpoint {
     public Tip getAllConfig() {
 
         return SuccessTip.create(configService.getAllConfig());
+    }
+
+    @GetMapping("group")
+    @ApiOperation(value = "获得配置组 树的形式输出", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_VIEW)
+    public Tip getConfigGroup() {
+
+        //查找 商城配置 小程序打单配置 微信配置
+        List<MallConfigGroup> mallConfigGroups = mallConfigGroupMapper.selectList(new EntityWrapper<MallConfigGroup>()
+                .eq("id", 1001)
+                .or()
+                .eq("id", 40)
+                .or()
+                .eq("id", 1002));
+        MallConfigGroupRequest mallConfigGroupArray=new MallConfigGroupRequest();
+        MallConfigGroup[] mallConfigGroupArrays=new MallConfigGroup[mallConfigGroups.size()];
+        mallConfigGroups.toArray(mallConfigGroupArrays);
+        mallConfigGroupArray.setChildren(mallConfigGroupArrays);
+
+        return SuccessTip.create(mallConfigGroupArray);
+    }
+
+    @GetMapping("group/{groupId}/{name}")
+    @ApiOperation(value = "根据groupId查看配置", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_VIEW)
+    public Tip getConfigByGroupId(@PathVariable Integer groupId,@PathVariable String name) {
+        List<Config> configList =configService.selectConfigByGroupId(groupId);
+        ConfigRequest ConfigRequest=new ConfigRequest();
+        ConfigRequest.setName(name);
+        ConfigRequest.setId(groupId);
+        Config[] configArray=new Config[configList.size()];
+        configList.toArray(configArray);
+        ConfigRequest.setItems(configArray);
+
+        return SuccessTip.create(ConfigRequest);
+    }
+
+    @BusinessLog(name = "系统配置", value = "更改系统配置")
+    @PutMapping("group/{id}")
+    @ApiOperation(value = "修改配置", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_EDIT)
+    public Tip updateOneConfig( @PathVariable Integer id,@RequestBody Config config) {
+
+        config.setId(id);
+        //防止数据被修改
+        config.setGroupId(null);
+        config.setType(null);
+        config.setKeyName(null);
+        config.setName(null);
+        Integer res = configMapper.updateById(config);
+
+        return SuccessTip.create(res);
+
     }
 
     @BusinessLog(name = "系统配置", value = "更改系统配置")

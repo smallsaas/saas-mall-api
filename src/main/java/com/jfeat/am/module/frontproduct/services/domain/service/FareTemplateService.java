@@ -5,6 +5,7 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplatePcd;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateRecord;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.CRUDFareTemplateService;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FareTemplate;
 
 import java.util.Date;
 import java.util.List;
@@ -39,9 +40,9 @@ public interface FareTemplateService extends CRUDFareTemplateService{
 
 
     //shopAddr 转换成 shopAddrList
-    List<FareTemplatePcd> ShopAddrToShopAddrList(String shopAddr);
+    List<FareTemplatePcd> ShopAddrToShopAddrList(String shopAddr,String ids,Long id);
 
-    //shopAddrList 转换成 shopAddr
-    String ShopAddrListToShopAddr(List<FareTemplatePcd> shopAddrList);
+    //shopAddrList 转换成 fareTemplate对象 内部装有 shopAddr 和 addrIds
+    FareTemplate ShopAddrListToShopAddr(List<FareTemplatePcd> shopAddrList);
 
 }

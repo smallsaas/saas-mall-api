@@ -18,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -87,23 +88,51 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
     }
 
     @Override
-    public List<FareTemplatePcd> ShopAddrToShopAddrList(String shopAddr) {
+    public List<FareTemplatePcd> ShopAddrToShopAddrList(String shopAddr,String addrIds,Long id) {
 
         String addrs[]= shopAddr.split(",");
+        String ids[]= addrIds.split(",");
+        List<FareTemplatePcd> fareTemplatePcdList=new ArrayList<>();
+        //todo if ids ==null
         if(addrs!=null&&addrs.length>0){
-            for (String addr:addrs) {
+            for (int i=0;i<addrs.length;i++) {
                 FareTemplatePcd fareTemplatePcd=new FareTemplatePcd();
-                fareTemplatePcd.setName(addr);
-                //todo
+                fareTemplatePcd.setName(addrs[i]);
+                fareTemplatePcd.setId(Long.parseLong(ids[i]));
+                fareTemplatePcdList.add(fareTemplatePcd);
+
             }
         }
 
 
-        return null;
+        return fareTemplatePcdList;
     }
 
+
     @Override
-    public String ShopAddrListToShopAddr(List<FareTemplatePcd> shopAddrList) {
-        return null;
+    public FareTemplate ShopAddrListToShopAddr(List<FareTemplatePcd> shopAddrList) {
+        StringBuilder shopAddr=null;
+        StringBuilder addrIds=null;
+        //拼接字符串 广东,广东-广州
+        if(shopAddrList!=null&&shopAddrList.size()>0){
+            for (FareTemplatePcd fareTemplatePcd:shopAddrList) {
+                shopAddr.append(fareTemplatePcd.getName());
+                shopAddr.append(",");
+                addrIds.append(fareTemplatePcd.getId());
+                addrIds.append(",");
+            }
+            //大于1 去掉尾部“，”
+            if(shopAddrList.size()>1){
+                shopAddr.deleteCharAt(shopAddr.length()-1);
+                addrIds.deleteCharAt(shopAddr.length()-1);
+            }
+
+        }
+        //封装对象返回
+        FareTemplate fareTemplate=new FareTemplate();
+        fareTemplate.setAddrids(addrIds.toString());
+        fareTemplate.setShopAddr(shopAddr.toString());
+
+        return fareTemplate;
     }
 }

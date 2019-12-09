@@ -320,6 +320,7 @@ CREATE TABLE `t_fare_template`  (
   `content` mediumtext CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL,
   `message_format` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL,
   `org_id` bigint(20) NOT NULL COMMENT '组织(部门)ID',
+  `addrids` VARCHAR(150) DEFAULT null COMMENT '地址id',
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci ROW_FORMAT = Dynamic;
 

@@ -40,8 +40,8 @@ public class MallConfigGroup extends Model<MallConfigGroup> {
     /**
      * 组织(部门)ID
      */
-	@TableField("org_id")
-	private Long orgId;
+/*	@TableField("org_id")
+	private Long orgId;*/
 
 
 	public Integer getId() {
@@ -71,14 +71,7 @@ public class MallConfigGroup extends Model<MallConfigGroup> {
 		return this;
 	}
 
-	public Long getOrgId() {
-		return orgId;
-	}
 
-	public MallConfigGroup setOrgId(Long orgId) {
-		this.orgId = orgId;
-		return this;
-	}
 
 	public static final String ID = "id";
 
@@ -86,7 +79,7 @@ public class MallConfigGroup extends Model<MallConfigGroup> {
 
 	public static final String PROTECTED = "protected";
 
-	public static final String ORG_ID = "org_id";
+/*	public static final String ORG_ID = "org_id";*/
 
 	@Override
 	protected Serializable pkVal() {
@@ -99,7 +92,7 @@ public class MallConfigGroup extends Model<MallConfigGroup> {
 			"id=" + id +
 			", name=" + name +
 			", protected=" + protecte +
-			", orgId=" + orgId +
+
 			"}";
 	}
 }
