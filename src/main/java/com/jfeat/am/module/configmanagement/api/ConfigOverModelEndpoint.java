@@ -85,9 +85,9 @@ public class ConfigOverModelEndpoint {
         List<MallConfigGroup> mallConfigGroups = mallConfigGroupMapper.selectList(new EntityWrapper<MallConfigGroup>()
                 .eq("id", 1001)
                 .or()
-                .eq("id", 40)
+                .eq("id", 1002)
                 .or()
-                .eq("id", 1002));
+                .eq("id", 1003));
         MallConfigGroupRequest mallConfigGroupArray=new MallConfigGroupRequest();
         MallConfigGroup[] mallConfigGroupArrays=new MallConfigGroup[mallConfigGroups.size()];
         mallConfigGroups.toArray(mallConfigGroupArrays);

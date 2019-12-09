@@ -94,7 +94,7 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
         String ids[]= addrIds.split(",");
         List<FareTemplatePcd> fareTemplatePcdList=new ArrayList<>();
         //todo if ids ==null
-        if(addrs!=null&&addrs.length>0){
+        if(addrs!=null&&addrs.length>0&&ids!=null&&ids.length>0){
             for (int i=0;i<addrs.length;i++) {
                 FareTemplatePcd fareTemplatePcd=new FareTemplatePcd();
                 fareTemplatePcd.setName(addrs[i]);
