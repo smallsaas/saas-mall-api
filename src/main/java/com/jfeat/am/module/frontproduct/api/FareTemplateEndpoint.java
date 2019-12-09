@@ -52,12 +52,6 @@ public class FareTemplateEndpoint {
     @ApiOperation(value = "新建 FareTemplate", response = FareTemplate.class)
     @Permission(FareTemplatePermission.FARETEMPLATE_ADD)
     public Tip createFareTemplate(@RequestBody FareTemplateModel entity) {
-        Long orgId = JWTKit.getOrgId();
-        if (entity.getOrgId()==null){
-            entity.setOrgId(orgId);
-        }
-
-
         Integer affected = 0;
         try {
 
@@ -82,7 +76,15 @@ public class FareTemplateEndpoint {
     @ApiOperation(value = "查看 FareTemplate", response = FareTemplate.class)
     @Permission(FareTemplatePermission.FARETEMPLATE_VIEW)
     public Tip getFareTemplate(@PathVariable Long id) {
-        return SuccessTip.create(fareTemplateService.getFareTemplate(id));
+        StringBuilder stringBufger=new StringBuilder();
+        FareTemplateModel fareTemplate = fareTemplateService.getFareTemplate(id);
+        List<FareTemplatePcd> fareTemplatePcds=null;
+        if(fareTemplate.getShopAddr()!=null){
+            fareTemplatePcds= fareTemplateService.ShopAddrToShopAddrList(fareTemplate.getShopAddr(), fareTemplate.getAddrids(), fareTemplate.getId());
+        }
+        fareTemplate.setShopAddrList(fareTemplatePcds);
+
+        return SuccessTip.create(fareTemplate);
     }
 
     @BusinessLog(name = "运费模板", value = "修改运费模板")
@@ -92,7 +94,17 @@ public class FareTemplateEndpoint {
     public Tip updateFareTemplate(@PathVariable Long id, @RequestBody FareTemplateModel entity) {
         entity.setId(id);
         entity.setLastModifiedDate(new Date());
-        return SuccessTip.create(fareTemplateService.updateFareTemplate(entity));
+
+
+        //获取addrList 调用方法转换
+        List<FareTemplatePcd> shopAddrList = entity.getShopAddrList();
+        FareTemplate fareTemplate = fareTemplateService.ShopAddrListToShopAddr(shopAddrList);
+        entity.setShopAddr(fareTemplate.getShopAddr());
+        entity.setAddrids(fareTemplate.getAddrids());
+
+        Integer affected = fareTemplateService.updateFareTemplate(entity);
+
+        return SuccessTip.create(affected);
     }
 
     @BusinessLog(name = "运费模板", value = "删除运费模板")

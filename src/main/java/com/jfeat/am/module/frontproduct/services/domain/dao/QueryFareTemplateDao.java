@@ -16,4 +16,6 @@ public interface QueryFareTemplateDao extends BaseMapper<FareTemplate> {
     List<FareTemplateRecord> findFareTemplatePage(Page<FareTemplateRecord> page, @Param("record") FareTemplateRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    Long selectPcdIdByName(@Param("name")String name);
 }

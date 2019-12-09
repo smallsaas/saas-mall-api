@@ -90,10 +90,44 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
     @Override
     public List<FareTemplatePcd> ShopAddrToShopAddrList(String shopAddr,String addrIds,Long id) {
 
+
+
         String addrs[]= shopAddr.split(",");
-        String ids[]= addrIds.split(",");
+        String ids[]=null;
+
+        //原数据库中ids为空
+        if((addrIds==null||addrIds.equals(""))&&shopAddr!=null){
+            StringBuilder idsString=new StringBuilder();
+            int i=0;
+            for (String addr:addrs) {
+                //查找省名字对应的id
+                String addrSize[]=addr.split("-");
+                if(addrSize.length>1){
+                    addr=addrSize[1];
+                }
+                Long pcdid = queryFareTemplateDao.selectPcdIdByName(addr);
+                idsString.append(pcdid);
+                idsString.append(",");
+                i++;
+            }
+
+
+            if(i>0){
+                idsString.deleteCharAt(idsString.length()-1);
+            }
+            //由于数据库中没有ids 重新插入ids
+            FareTemplate ft= new FareTemplate().setId(id);
+            ft.setAddrids(idsString.toString());
+            queryFareTemplateDao.updateById(ft);
+
+
+            ids=idsString.toString().split(",");
+        }else
+        {
+             ids= addrIds.split(",");
+        }
         List<FareTemplatePcd> fareTemplatePcdList=new ArrayList<>();
-        //todo if ids ==null
+         //封装对象
         if(addrs!=null&&addrs.length>0&&ids!=null&&ids.length>0){
             for (int i=0;i<addrs.length;i++) {
                 FareTemplatePcd fareTemplatePcd=new FareTemplatePcd();
@@ -111,8 +145,8 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
 
     @Override
     public FareTemplate ShopAddrListToShopAddr(List<FareTemplatePcd> shopAddrList) {
-        StringBuilder shopAddr=null;
-        StringBuilder addrIds=null;
+        StringBuilder shopAddr=new StringBuilder();
+        StringBuilder addrIds=new StringBuilder();
         //拼接字符串 广东,广东-广州
         if(shopAddrList!=null&&shopAddrList.size()>0){
             for (FareTemplatePcd fareTemplatePcd:shopAddrList) {
@@ -121,10 +155,10 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
                 addrIds.append(fareTemplatePcd.getId());
                 addrIds.append(",");
             }
-            //大于1 去掉尾部“，”
-            if(shopAddrList.size()>1){
+            //大于0 去掉尾部“，”
+            if(shopAddrList.size()>0){
                 shopAddr.deleteCharAt(shopAddr.length()-1);
-                addrIds.deleteCharAt(shopAddr.length()-1);
+                addrIds.deleteCharAt(addrIds.length()-1);
             }
 
         }
