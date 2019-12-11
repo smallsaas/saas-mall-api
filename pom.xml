@@ -20,7 +20,7 @@
     </parent>
 
     <properties>
-	    <skipStandalone>true</skipStandalone>
+	    <skipStandalone>false</skipStandalone>
         <crud-plus.version>0.0.6</crud-plus.version>
         <crud-core.version>0.0.2</crud-core.version>
         <crud-dev.version>0.0.1</crud-dev.version>
@@ -34,13 +34,14 @@
             <version>${crud-dev.version}</version>
         </dependency>
 
-    <!--    <dependency>
+
+
+        <dependency>
         <groupId>com.jfeat</groupId>
-        <artifactId>field-config</artifactId>
-        <version>1.0.0</version>
-        </dependency>-->
+        <artifactId>portal-api</artifactId>
+        <version>1.0-SNAPSHOT</version>
 
-
+        </dependency>
 
 
 
