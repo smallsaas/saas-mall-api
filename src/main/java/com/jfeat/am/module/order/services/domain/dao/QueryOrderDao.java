@@ -1,11 +1,15 @@
 package com.jfeat.am.module.order.services.domain.dao;
 
+import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
+import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -59,5 +63,27 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
     List<OrderRecord> getAllianceOrder(Page<OrderRecord> page,@Param("id")Long id,
             @Param("search") String search,@Param("startTime")Date startTime,@Param("endTime")Date endTime,
                                                @Param("status") String status);
+
+
+    List<FrontUser> getUsers(@Param("search") String search);
+    List<FrontProductRecord> getProducts(@Param("search") String search);
+
+    FrontUser selectByUserId(@Param("id") Long id);
+
+    @Select("select balance from t_wallet where user_id=#{userId}")
+    BigDecimal queryWalletBalance(Long userId);
+
+    @Update("update t_product set stock_balance=#{balance} where id=#{productId}")
+    Integer upProduct(@Param("productId") Long productId, @Param("balance") Integer balance);
+
+    @Update("update t_wallet set balance=#{balance} where user_id=#{userId}")
+    Integer upWallet(@Param("userId") Long userId,@Param("balance") BigDecimal balance);
+
+    Integer insertOrderItem(@Param("orderId")Long orderId,@Param("barcode")String barcode,@Param("productName")String productName,@Param("quantity")Integer quantity,@Param("finalPrice") BigDecimal finalPrice
+            ,@Param("price") BigDecimal price,@Param("costPrice") BigDecimal costPrice,@Param("cover") String cover,@Param("id") Long id);
+
+
+
+    Integer upStockBalance(@Param("productId")Integer productId,@Param("num")Integer num);
 
 }

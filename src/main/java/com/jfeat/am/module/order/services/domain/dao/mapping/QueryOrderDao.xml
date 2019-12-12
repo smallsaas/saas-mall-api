@@ -40,7 +40,7 @@
         ,settlement_status as settlementStatus
         FROM t_order
         left join t_user on t_order.user_id=t_user.id
-        left join t_alliance on t_alliance.user_id=t_user.id
+
         WHERE 1=1
         <if test="record.pName != null and record.pName!= '' ">
             and t_order.id in (select t_order.id
@@ -305,10 +305,6 @@
             <![CDATA[AND t_order.created_date < DATE_ADD(DATE(#{endTime}),INTERVAL 1 DAY)]]>
         </if>
 
-
-        <if test="allianceId != null and allianceId!= ''">
-            AND t_alliance.id LIKE CONCAT('%',#{allianceId},'%')
-        </if>
 
         <if test="leftMoney != null ">
             AND t_order.total_price  >= #{leftMoney}
@@ -786,5 +782,39 @@
 
 
     </select>
+
+    <select id="getUsers"  resultType="com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser">
+        select id,`name`,real_name as realName from t_user
+        <if test="search != null and search != ''">
+            where (t_user.name LIKE CONCAT('%',#{search},'%')
+            or t_user.real_name LIKE CONCAT('%',#{search},'%')
+            )
+        </if>
+    </select>
+
+
+    <select id="getProducts"  resultType="com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord">
+        select id,`name`,t_product.barcode,t_product.price from t_product
+        where t_product.`status`= 'ONSELL'
+        <if test="search != null and search != ''">
+            AND t_product.name LIKE CONCAT('%',#{search},'%')
+        </if>
+    </select>
+
+    <select id="selectByUserId"  resultType="com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser">
+    select id,`name` from t_user where id=#{id}
+    </select>
+
+    <insert id="insertOrderItem" parameterType="java.util.Map">
+        insert into t_order_item (order_id,barcode,product_name,quantity,final_price
+                       ,price,cost_price,cover,product_id) value
+         (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice}
+         ,#{price},#{costPrice},#{cover},#{id})
+    </insert>
+
+    <update id="upStockBalance" >
+        update t_product set stock_balance=stock_balance+#{num} where id=#{productId}
+    </update>
+
 
 </mapper>

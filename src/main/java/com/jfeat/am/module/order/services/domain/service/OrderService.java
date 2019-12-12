@@ -1,9 +1,12 @@
 package com.jfeat.am.module.order.services.domain.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
+import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.services.domain.model.OrderModel;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.model.OrderRequest;
+import com.jfeat.am.module.order.services.domain.model.RequestOrder;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDOrderService;
 
 import java.math.BigDecimal;
@@ -34,4 +37,18 @@ public interface OrderService extends CRUDOrderService{
      * @return 数据库受影响的行数
      */
     Integer updateOrderStatus(Long id, String orderStatus);
+
+
+
+    public List<FrontUser> getUsers(String search);
+
+    public List<FrontProductRecord> getProducts(String search);
+
+    public Integer createOrder(RequestOrder requestOrder) throws ServerException;
+
+    public Integer closeConfirmedOrder(Long id);
+
+    public Integer cancelCloseConfirmedOrder(Long id);
+    public Integer cancelOrder(Long id)throws ServerException;
+
 }

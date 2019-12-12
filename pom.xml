@@ -30,6 +30,23 @@
 
         <dependency>
             <groupId>com.jfeat</groupId>
+            <artifactId>field-config</artifactId>
+            <version>1.0.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>uaas</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.jfeat</groupId>
+                    <artifactId>crud-log</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.jfeat</groupId>
             <artifactId>crud-dev</artifactId>
             <version>${crud-dev.version}</version>
         </dependency>

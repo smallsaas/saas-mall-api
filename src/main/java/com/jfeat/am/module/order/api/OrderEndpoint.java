@@ -9,6 +9,7 @@ import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.model.OrderRequest;
+import com.jfeat.am.module.order.services.domain.model.RequestOrder;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.crud.base.exception.BusinessCode;
@@ -831,10 +832,54 @@ public class OrderEndpoint {
         return SuccessTip.create(page);
     }
 
-    public static void main(String[] args) {
-        String orderStatus = "CREATED_PAY_PENDING";
 
-        OrderStatus existOrderStatus = OrderStatus.valueOf(orderStatus);
-        System.out.println(existOrderStatus);
+    @GetMapping("/getUsers")
+    @ApiOperation(value = "获取所有订单用户")
+    public Tip getUsers( @RequestParam(name = "search", required = false) String search)  {
+
+        return SuccessTip.create(orderService.getUsers(search));
+
     }
+
+    @GetMapping("/getProducts")
+    @ApiOperation(value = "获取所有产品")
+    public Tip getProducts(@RequestParam(name = "search", required = false) String search)  {
+
+        return SuccessTip.create(orderService.getProducts(search));
+
+    }
+
+
+
+    @PostMapping("/create")
+    @ApiOperation(value = "插入订单,下单人输入时必须数据库t_user表存在才行，根据name进行对比的")
+    public Tip createOrder(@RequestBody RequestOrder requestOrder) throws ServerException {
+
+        return SuccessTip.create(orderService.createOrder(requestOrder));
+
+    }
+
+    @PostMapping("/status/cancelOrder/{id}")
+    @ApiOperation(value = "取消订单")
+    public Tip cancelOrder(@PathVariable Long id) throws ServerException {
+        return SuccessTip.create(orderService.cancelOrder(id));
+
+    }
+
+    @PostMapping("/status/closeConfirmed/{id}")
+    @ApiOperation(value = "修改订单为已确认收货 并进行结算")
+    public Tip closeConfirmedOrder(@PathVariable Long id) throws ServerException {
+
+        return SuccessTip.create(orderService.closeConfirmedOrder(id));
+
+    }
+
+    @PostMapping("/status/cancelCloseConfirmedOrder/{id}")
+    @ApiOperation(value = "取消订单确认 已确认收货--》已发货")
+    public Tip cancelCloseConfirmedOrder(@PathVariable Long id) throws ServerException {
+        return SuccessTip.create(orderService.cancelCloseConfirmedOrder(id));
+
+    }
+
+
 }

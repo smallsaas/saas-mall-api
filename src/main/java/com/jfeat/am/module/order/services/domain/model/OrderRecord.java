@@ -11,6 +11,7 @@ public class OrderRecord extends TOrder {
     String pName;
     String barcode;
     String userName;
+    String realName;
     //邀请人进货额
     BigDecimal orderAmount;
 //邀请人盟友
@@ -54,5 +55,13 @@ public class OrderRecord extends TOrder {
 
     public void setpName(String pName) {
         this.pName = pName;
+    }
+
+    public String getRealName() {
+        return realName;
+    }
+
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 }
