@@ -86,4 +86,8 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
 
     Integer upStockBalance(@Param("productId")Integer productId,@Param("num")Integer num);
 
+
+    Integer closeProduct(@Param("id")Long id);
+    Integer cancelcloseProduct(@Param("id")Long id);
+
 }

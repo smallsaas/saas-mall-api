@@ -215,9 +215,9 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     @Override
     public Integer closeConfirmedOrder(Long id) {
 
-   /*     Integer i=queryMomentsFriendDao.closeProduct(id);
-        SettlementCenterService.settlementOrder(id);
-*/
+        Integer i=queryOrderDao.closeProduct(id);
+        /*    SettlementCenterService.settlementOrder(id);*/
+
         return null;
     }
 
