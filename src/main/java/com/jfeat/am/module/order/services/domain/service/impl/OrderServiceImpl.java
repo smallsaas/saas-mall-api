@@ -224,11 +224,12 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     @Override
     public Integer cancelCloseConfirmedOrder(Long id) {
         //回退钱
+        Integer i=queryOrderDao.cancelcloseProduct(id);
      /*   SettlementCenterService.cancelSettlementOrder(id);
         //改状态 已发货 DELIVERED_CONFIRM_PENDING
         //设置 未结算 0
-        Integer i=queryMomentsFriendDao.cancelcloseProduct(id);*/
-        return null;
+        */
+        return i;
     }
 
 
