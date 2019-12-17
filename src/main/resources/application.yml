@@ -115,7 +115,7 @@ spring:
       filters: log4j,wall,mergeStat
       schema: classpath*:**/init_sql/**/*-schema.sql
       data: classpath*:**/init_sql/**/*-data.sql
-      initialize: true
+      initialize: false
   jackson:
     date-format: yyyy-MM-dd
     time-zone: GMT+8
