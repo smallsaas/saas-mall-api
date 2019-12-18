@@ -7,6 +7,7 @@ import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductCategory;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
@@ -41,9 +42,6 @@ public class FrontProductCategoryEndpoint {
     FrontProductCategoryService frontProductCategoryService;
 
 
-
-
-
     @BusinessLog(name = "产品分类", value = "新建产品分类")
     @PostMapping
     @ApiOperation(value = "新建 FrontProductCategory", response = FrontProductCategory.class)
@@ -63,6 +61,9 @@ public class FrontProductCategoryEndpoint {
         }
         return SuccessTip.create(affected);
     }
+
+
+
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontProductCategory", response = FrontProductCategory.class)
