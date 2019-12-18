@@ -88,7 +88,24 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             entity.setStatus(ProductStatus.OFFSELL.getStatus());
         }
         entity.setOrgId(JWTKit.getOrgId());
+
+        //保存海报
+        List<ProductImage> bannerList = entity.getBannerList();
+        if(!CollectionUtils.isEmpty(bannerList)){
+            for(ProductImage banner : bannerList){
+                entity.setBanner(banner.getUrl());
+            }
+        }
+
+        //设置第一个图片为封面
+        List<ProductImage> productImageList = entity.getProductImageList();
+        if(!CollectionUtils.isEmpty(productImageList)){
+            entity.setCover( productImageList.get(0).getUrl());
+        }
+
+        //保存产品
         affected += this.createMaster(entity);
+
         //保存描述
         ProductDescription productDescription = new ProductDescription();
         productDescription.setProductId(entity.getId());
@@ -98,21 +115,17 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             affected += productDescriptionService.createMaster(productDescription);
         }
 
+
         //保存封面
-        List<ProductImage> productImageList = entity.getProductImageList();
         if(!CollectionUtils.isEmpty(productImageList)){
             for(ProductImage productImage : productImageList){
                 productImage.setProductId(entity.getId());
                 affected += productImageService.createMaster(productImage);
             }
         }
-        //保存海报
-        List<ProductImage> bannerList = entity.getBannerList();
-        if(!CollectionUtils.isEmpty(bannerList)){
-            for(ProductImage banner : bannerList){
-                entity.setBanner(banner.getUrl());
-            }
-        }
+
+
+
         //保存标签
         List<Long> tagIds = entity.getTagIds();
         if(!CollectionUtils.isEmpty(tagIds)){
@@ -192,7 +205,22 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     @Transactional
     public Integer updateProduct(FrontProductModel entity) {
         int affected = 0;
+
+        //更新海报
+        List<ProductImage> bannerList = entity.getBannerList();
+        if(!CollectionUtils.isEmpty(bannerList)){
+            for(ProductImage banner : bannerList){
+                entity.setBanner(banner.getUrl());
+            }
+        }
+
+        //设置第一个图片为封面
+        List<ProductImage> productImageList = entity.getProductImageList();
+        if(!CollectionUtils.isEmpty(productImageList)){
+            entity.setCover( productImageList.get(0).getUrl());
+        }
         affected += this.updateMaster(entity, false);
+
         //更新描述
        List<ProductDescription> productDescriptions = productDescriptionMapper.selectList(new EntityWrapper<ProductDescription>().eq("product_id",entity.getId()));
         ProductDescription productDescription = null;
@@ -211,16 +239,10 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             affected += productDescriptionService.createMaster(productDescription);
         }
 
-        List<ProductImage> bannerList = entity.getBannerList();
-        if(!CollectionUtils.isEmpty(bannerList)){
-            for(ProductImage banner : bannerList){
-                entity.setBanner(banner.getUrl());
-            }
-        }
+
 
         //更新封面
         affected += productImageMapper.delete(new EntityWrapper<ProductImage>().eq("product_id",entity.getId()));
-        List<ProductImage> productImageList = entity.getProductImageList();
         if(!CollectionUtils.isEmpty(productImageList)){
             for(ProductImage productImage : productImageList){
                 productImage.setProductId(entity.getId());
