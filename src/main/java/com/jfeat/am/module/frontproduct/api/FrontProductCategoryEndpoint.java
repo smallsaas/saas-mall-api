@@ -77,6 +77,10 @@ public class FrontProductCategoryEndpoint {
     @Permission(FrontProductPermission.PRODUCTCATEGORY_EDIT)
     public Tip updateProductCategory(@PathVariable Long id, @RequestBody FrontProductCategoryModel entity) {
         entity.setId(id);
+        if(entity.getImages()!=null&&entity.getImages().size()>0){
+            entity.setCover( entity.getImages().get(0).getUrl());
+        }
+
         return SuccessTip.create(frontProductCategoryService.updateProductCategoryById(entity));
     }
 

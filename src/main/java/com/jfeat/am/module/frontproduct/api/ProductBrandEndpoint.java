@@ -76,8 +76,12 @@ public class ProductBrandEndpoint {
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 ProductBrand", response = ProductBrand.class)
     @Permission(BrandPermission.BRAND_EDIT)
-    public Tip updateProductBrand(@PathVariable Long id, @RequestBody ProductBrand entity) {
+    public Tip updateProductBrand(@PathVariable Long id, @RequestBody ProductBrandRecord entity) {
         entity.setId(id);
+        if(entity.getImage()!=null&&entity.getImage().size()>0){
+            entity.setLogo(entity.getImage().get(0).getUrl());
+        }
+
         return SuccessTip.create(productBrandService.updateMaster(entity));
     }
 
