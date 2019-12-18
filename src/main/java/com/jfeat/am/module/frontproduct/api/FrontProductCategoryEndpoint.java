@@ -52,6 +52,10 @@ public class FrontProductCategoryEndpoint {
 
         Integer affected = 0;
         try {
+            if(entity.getImages()!=null&&entity.getImages().size()>0){
+                entity.setCover( entity.getImages().get(0).getUrl());
+            }
+
             affected = frontProductCategoryService.createProductCategory(entity);
 
         } catch (DuplicateKeyException e) {

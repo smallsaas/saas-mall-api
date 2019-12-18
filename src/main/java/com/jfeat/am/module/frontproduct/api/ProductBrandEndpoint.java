@@ -45,13 +45,17 @@ public class ProductBrandEndpoint {
     @PostMapping
     @ApiOperation(value = "新建 产品品牌", response = ProductBrand.class)
     @Permission(BrandPermission.BRAND_ADD)
-    public Tip createProductBrand(@RequestBody ProductBrand entity) {
+    public Tip createProductBrand(@RequestBody ProductBrandRecord entity) {
         if(entity.getOrgId()==null){
             entity.setOrgId(JWTKit.getOrgId());
         }
 
         Integer affected = 0;
         try {
+            if(entity.getImage()!=null&&entity.getImage().size()>0){
+                entity.setLogo(entity.getImage().get(0).getUrl());
+            }
+
             affected = productBrandService.createMaster(entity);
 
         } catch (DuplicateKeyException e) {

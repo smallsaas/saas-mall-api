@@ -13,7 +13,10 @@ alter table  t_fare_template add  org_id bigint(20) default null comment 'org_id
 alter table  t_order add  org_id bigint(20) default null comment 'org_id';
 alter table  t_order add  `settlement_status` int(1) DEFAULT '0' COMMENT '结算状态';
 
+alter table   t_fare_template  add `addrids` varchar(150) DEFAULT NULL COMMENT '地址id';
+
 alter table  t_express add  org_id bigint(20) default null comment 'org_id';
+alter table t_product_brand add  org_id bigint(20) default null comment 'org_id';
 alter table  t_ad add  `seq` smallint(6) DEFAULT 0 COMMENT '排序号';
 
 

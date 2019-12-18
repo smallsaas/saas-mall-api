@@ -126,13 +126,17 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
 
         //保存分成比例
         List<ProductSettlementProportionRecord> productSettlementProportionList= entity.getProductSettlementProportionList();
-        //调用方法配置 分成 扁平化
-        productSettlementProportionList=
-                productSettlementProportionService.setProductSettlementProportionSettingGroup
-                        (productSettlementProportionList,entity.getId().intValue());
-        for (ProductSettlementProportionRecord tpsp:productSettlementProportionList) {tpsp.setId(null);
-            affected+= productSettlementProportionMapper.insert(tpsp);
-           }
+        if(productSettlementProportionList!=null && !productSettlementProportionList.isEmpty()){
+            //调用方法配置 分成 扁平化
+            productSettlementProportionList=
+                    productSettlementProportionService.setProductSettlementProportionSettingGroup
+                            (productSettlementProportionList,entity.getId().intValue());
+            for (ProductSettlementProportionRecord tpsp:productSettlementProportionList) {tpsp.setId(null);
+                affected+= productSettlementProportionMapper.insert(tpsp);
+            }
+        }
+
+
 
         return affected;
     }
