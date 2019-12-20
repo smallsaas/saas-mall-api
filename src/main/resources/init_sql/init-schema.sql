@@ -248,6 +248,8 @@ CREATE TABLE `ow_menu` (
 	`lowest` smallint(6) DEFAULT 1 COMMENT '是否为最下级',
 	`identifier` VARCHAR(50) DEFAULT NULL COMMENT '唯一标识(一级菜单)',
 	`cover` varchar(255) DEFAULT NULL COMMENT '图片url',
+	`html` varchar(50)  DEFAULT NULL COMMENT '基础页面关联的html名字',
+    `ad_identifier` varchar(50)  DEFAULT NULL COMMENT '对应广告组identifier',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 collate utf8mb4_unicode_ci;
 

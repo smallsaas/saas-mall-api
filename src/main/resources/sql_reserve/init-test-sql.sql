@@ -74,13 +74,26 @@ INSERT INTO `ow_page` (`id`, `name`, `type`, `url`, `constant`, `identifier`) VA
 
 
 
-INSERT INTO `ow_page_text` ( `page_id`, `content`) VALUES ('2', '<div class=\"media-wrap video-wrap\"><video controls=\"\" src=\"https://www.muaskin.com/images/null/31d23d77-0522-4344-b5b1-26d369062460.mp4\"></video></div>');
-INSERT INTO `ow_page_text` ( `page_id`, `content`) VALUES ('6', '<div class=\"media-wrap image-wrap\"><img src=\"https://www.muaskin.com/images/null/81187115-8f8f-4202-b2fa-23a931221fdb.jpg\"/></div><p></p>');
-INSERT INTO `ow_page_text` ( `page_id`, `content`) VALUES ('12', '<div class=\"media-wrap image-wrap align-center\" style=\"text-align:center\"><img src=\"https://www.muaskin.com/images/null/b0b3eec6-f482-4885-a3e8-c9416ae39af1.jpg\"/></div><p></p>');
-INSERT INTO `ow_page_text` ( `page_id`, `content`) VALUES ('13', '<div class=\"media-wrap image-wrap align-center\" style=\"text-align:center\"><img src=\"https://www.muaskin.com/images/null/6504f9d5-7c12-4b72-9601-571cfb976239.jpg\"/></div><p></p>');
-INSERT INTO `ow_page_text` ( `page_id`, `content`) VALUES ('10', '<div class=\"media-wrap image-wrap\"><img src=\"https://www.muaskin.com/images/null/c80c1f88-eb24-4c27-b5f7-b047a4499010.png\"/></div><p></p>');
-INSERT INTO `ow_page_text` ( `page_id`, `content`) VALUES ('9', '<p style=\"text-align:left;text-indent:2em;\">2004年12月1日，中国最具成长性的上市企业之一一一广西红日股份有限公司，正式更名为索芙特股份有限公司。这标志着索芙特这一驰名的中国化妆品品牌，正以一种全新的姿态展现在世人面前。并以其稳重高速的发展态势，展示着一个时尚化妆品领先者的强大魅力。</p><p style=\"text-align:left;text-indent:2em;\">26年间，索芙特凭借差异化的营销理念在中国日化行业创造了无数的销售奇迹，从畅销中外的海藻减肥香皂到红遍天下的木瓜白肤洗面奶，从畅销十多年的防脱育发香波到众多明星代言的祛斑、瘦身系列。索芙特通过自身的努力在中国日化行业中走出了一条属于自己的路。也奠定了索芙特&quot;中国功能性化妆品第一品牌&quot;的地位。与此同时，索芙特其良好的产品品质得到了广大消费者的认同， &quot;中国驰名商标&quot;、 &quot;中国名牌&quot;、&quot;中国保护消费者权益315信用品牌&quot;等一系列的荣誉纷纷踏至而来。</p>');
-INSERT INTO `ow_page_text` ( `page_id`, `content`) VALUES ('14', '<div class=\"media-wrap image-wrap align-center\" style=\"text-align:center\"><img src=\"https://www.muaskin.com/images/null/f3f58533-0ba7-4600-ada4-04800059a046.jpg\"/></div><p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('1', '2', '<div class=\"media-wrap video-wrap\"><video controls=\"\" src=\"https://www.muaskin.com/images/null/31d23d77-0522-4344-b5b1-26d369062460.mp4\"></video></div>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('2', '6', '<div class=\"media-wrap image-wrap\"><img src=\"https://www.muaskin.com/images/null/81187115-8f8f-4202-b2fa-23a931221fdb.jpg\"/></div><p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('5', '12', '<div class=\"media-wrap image-wrap align-center\" style=\"text-align:center\"><img src=\"https://www.muaskin.com/images/null/b0b3eec6-f482-4885-a3e8-c9416ae39af1.jpg\"/></div><p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('8', '13', '<div class=\"media-wrap image-wrap align-center\" style=\"text-align:center\"><img src=\"https://www.muaskin.com/images/null/6504f9d5-7c12-4b72-9601-571cfb976239.jpg\"/></div><p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('9', '10', '<div class=\"media-wrap image-wrap\"><img src=\"https://www.muaskin.com/images/null/c80c1f88-eb24-4c27-b5f7-b047a4499010.png\"/></div><p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('10', '9', '<p style=\"text-align:left;text-indent:2em;\">2004年12月1日，中国最具成长性的上市企业之一一一广西红日股份有限公司，正式更名为索芙特股份有限公司。这标志着索芙特这一驰名的中国化妆品品牌，正以一种全新的姿态展现在世人面前。并以其稳重高速的发展态势，展示着一个时尚化妆品领先者的强大魅力。</p><p style=\"text-align:left;text-indent:2em;\">26年间，索芙特凭借差异化的营销理念在中国日化行业创造了无数的销售奇迹，从畅销中外的海藻减肥香皂到红遍天下的木瓜白肤洗面奶，从畅销十多年的防脱育发香波到众多明星代言的祛斑、瘦身系列。索芙特通过自身的努力在中国日化行业中走出了一条属于自己的路。也奠定了索芙特&quot;中国功能性化妆品第一品牌&quot;的地位。与此同时，索芙特其良好的产品品质得到了广大消费者的认同， &quot;中国驰名商标&quot;、 &quot;中国名牌&quot;、&quot;中国保护消费者权益315信用品牌&quot;等一系列的荣誉纷纷踏至而来。</p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('11', '14', '<div class=\"media-wrap image-wrap align-center\" style=\"text-align:center\"><img src=\"https://www.muaskin.com/images/null/f3f58533-0ba7-4600-ada4-04800059a046.jpg\"/></div><p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('12', '15', NULL);
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('15', '18', '<div class=\"media-wrap image-wrap align-center\" style=\"text-align:center\"><img src=\"https://www.muaskin.com/images/null/4f759eb4-cbfe-47d6-838c-417f27b09827.png\"/></div><div class=\"media-wrap image-wrap\"><img src=\"https://www.muaskin.com/images/null/0e2fd8d6-6a4e-4eab-9d87-50d8cd1d02fd.png\"/></div><p> </p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('16', '19', NULL);
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('17', '20', NULL);
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('18', '21', NULL);
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('19', '8', '<p>品牌介绍</p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('20', '1', '<p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('21', '3', '<p>体验中心</p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('22', '4', '<p></p>');
+INSERT INTO `ow_page_text` (`id`, `page_id`, `content`) VALUES ('23', '11', '<p><span style=\"font-size:48px\">-------------------页脚内容展示--------------</span></p>');
+
+INSERT INTO `t_config_field_group` (`id`, `pid`, `lang`, `name`, `comment`, `sort`, `type`) VALUES ('2', NULL, 'zh', '数据字典', NULL, '1', 'OPTION');
+
 
 
 
