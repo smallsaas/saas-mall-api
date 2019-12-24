@@ -124,6 +124,8 @@ logging:
 
 am:
   shiro-cache-redis: false
+  fileUploadPath: G://newTest/zero-portal/portal/test
+  file-host: http://localhost:8020/portal2222/test
 ---
 
 ##########################################################
