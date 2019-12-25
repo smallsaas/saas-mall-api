@@ -90,6 +90,6 @@ INSERT INTO `t_ad` (`id`, `group_id`, `name`, `image`, `type`, `enabled`, `targe
 INSERT INTO `t_ad` (`id`, `group_id`, `name`, `image`, `type`, `enabled`, `target_url`, `strategy`, `seq`) VALUES ('6', '2', '产品轮播-产品', '/portal/images/100000000000000001/7d0ce01a-30d8-410c-8f6c-82913ba4e588.png', NULL, '1', NULL, NULL, '0');
 INSERT INTO `t_ad` (`id`, `group_id`, `name`, `image`, `type`, `enabled`, `target_url`, `strategy`, `seq`) VALUES ('7', '3', '成分党', '/portal/images/100000000000000001/97c606be-4f94-42ce-a1f0-c0546df78e2c.jpg', NULL, '1', NULL, NULL, '0');
 
-
+INSERT INTO `meta_entity_patch_machine` (`id`, `entity`, `entity_table_name`, `entity_field_name`, `entity_field_type`, `number_range_min`, `number_range_max`, `permission`) VALUES ('2', 'notice', 't_notice', 'sort_num', 'NUMBER', '1', '10000', NULL);
 
 SET FOREIGN_KEY_CHECKS=1;

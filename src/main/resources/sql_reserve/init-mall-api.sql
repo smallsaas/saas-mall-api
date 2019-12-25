@@ -75,7 +75,7 @@ CREATE TABLE `article` (
   `title` VARCHAR(255) NOT NULL COMMENT '标题',
   `sub_title` VARCHAR(255) default NULL COMMENT '章节数',
   `sub_head` VARCHAR(255) default NULL COMMENT '原文',
-  `summary` VARCHAR(255) default NULL COMMENT '内容摘要',
+  `summary` text default NULL COMMENT '内容摘要',
   `created_time` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `sticky` INT(11) NOT NULL DEFAULT '0' COMMENT '1置顶,0不置顶',
   `display` INT(11) NOT NULL DEFAULT '1' COMMENT '是否显示，1显示',
@@ -830,6 +830,24 @@ INSERT INTO `t_ad_library` VALUES ('2', 'https://api.cloud.biliya.cn/images/alli
 INSERT INTO `t_ad_library` VALUES ('4', 'https://api.cloud.biliya.cn/images/alliance/ad/86f39a7d8725ede85b6cf852fdff7a93.jpg');
 INSERT INTO `t_ad_library` VALUES ('1', 'https://api.cloud.biliya.cn/images/alliance/ad/db6da63c268e5097252a37f974a595d7.jpg');
 INSERT INTO `t_ad_library` VALUES ('3', 'https://api.cloud.biliya.cn/images/alliance/ad/f2c016c23aaefcf12d9bd284b3b1b9ea.jpg');
+
+DROP TABLE IF EXISTS `meta_entity_patch_machine`;
+
+CREATE TABLE `meta_entity_patch_machine` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `entity` varchar(64) NOT NULL COMMENT '实体',
+  `entity_table_name` varchar(64) NOT NULL COMMENT '实体对应表名',
+  `entity_field_name` varchar(64) NOT NULL COMMENT '实体字段名',
+  `entity_field_type` varchar(16) NOT NULL DEFAULT 'STRING' COMMENT '实体字段类型',
+  `number_range_min` bigint(20) DEFAULT NULL COMMENT '数字类型字段的范围下限',
+  `number_range_max` bigint(20) DEFAULT NULL COMMENT '数字类型字段的范围上限',
+  `permission` varchar(64) DEFAULT NULL COMMENT '操作权限控制',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `entity` (`entity`,`entity_field_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO `meta_entity_patch_machine` (`id`, `entity`, `entity_table_name`, `entity_field_name`, `entity_field_type`, `number_range_min`, `number_range_max`, `permission`) VALUES ('2', 'notice', 't_notice', 'sort_num', 'NUMBER', '1', '10000', NULL);
+
 
 SET FOREIGN_KEY_CHECKS=1;
 
