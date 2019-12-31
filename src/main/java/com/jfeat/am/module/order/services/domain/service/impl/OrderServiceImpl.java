@@ -7,19 +7,19 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
+import com.jfeat.am.module.order.api.OrderRechargeType;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 
+import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletHistoryDao;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
+import com.jfeat.am.module.order.services.domain.service.OrderWelletService;
 import com.jfeat.am.module.order.services.gen.crud.service.impl.CRUDOrderServiceImpl;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderItemMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderProcessLogMapper;
-import com.jfeat.am.module.order.services.gen.persistence.model.OrderItemReward;
-import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
-import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
-import com.jfeat.am.module.order.services.gen.persistence.model.OrderProcessLog;
+import com.jfeat.am.module.order.services.gen.persistence.model.*;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.plus.CRUD;
@@ -53,6 +53,10 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     OrderProcessLogMapper orderProcessLogMapper;
     @Resource
     FrontProductMapper frontProductMapper;
+    @Resource
+    QueryOrderWalletHistoryDao queryOrderWalletHistoryDao;
+    @Resource
+    OrderWelletService orderWelletService;
 
     @Override
     public List findOrderPage(Page<OrderRecord> page, OrderRecord record,
@@ -197,6 +201,11 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
             order.setTotalPrice(finalPrice);
             orderMapper.insert(order);
 
+            String note = "线下订单";
+            //插入钱包记录数据
+            orderWelletService.insertWelletHistoryByUserId(order.getTotalPrice(),order.getUserId().longValue(), OrderRechargeType.PAYMENT,note);
+
+
             for (OrderItemRecord product:productList) {
 
                 product.setOrderId(order.getId().intValue());
@@ -223,7 +232,7 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
     @Override
     public Integer cancelCloseConfirmedOrder(Long id) {
-        //回退钱
+
         Integer i=queryOrderDao.cancelcloseProduct(id);
      /*   SettlementCenterService.cancelSettlementOrder(id);
         //改状态 已发货 DELIVERED_CONFIRM_PENDING
@@ -256,6 +265,11 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         BigDecimal balance = queryOrderDao.queryWalletBalance(order.getUserId().longValue());
         //更新用户余额
         queryOrderDao.upWallet(order.getUserId().longValue(), order.getTotalPrice().add(balance));
+
+        String note = "取消订单 订单号："+order.getOrderNumber();
+        //插入钱包记录数据
+        orderWelletService.insertWelletHistoryByUserId(order.getTotalPrice(),order.getUserId().longValue(), OrderRechargeType.PAYMENT,note);
+
         //更新订单
         queryOrderDao.updateById(order);
         return res;
