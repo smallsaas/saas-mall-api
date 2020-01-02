@@ -339,7 +339,7 @@
     <select id="settlementOrder" resultType="OrderRecord" parameterType="OrderRecord">
         SELECT
         <include refid="Base_Column_List"/>
-        ,sum(amount.orderAmount),chi.alliance_name as allianceName,
+        ,sum(amount.orderAmount) as orderAmount,chi.alliance_name as allianceName,
         (case when t_user.real_name is NULL  then t_user.`name`
         else t_user.real_name end )as userName
         ,settlement_status as settlementStatus
