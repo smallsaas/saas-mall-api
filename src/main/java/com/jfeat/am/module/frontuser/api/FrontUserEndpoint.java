@@ -2,28 +2,38 @@ package com.jfeat.am.module.frontuser.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
-import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.frontuser.definition.FrontUserPermission;
 import com.jfeat.am.module.frontuser.services.domain.dao.QueryFrontUserDao;
 import com.jfeat.am.module.frontuser.services.domain.model.FrontUserRecord;
 import com.jfeat.am.module.frontuser.services.domain.service.FrontUserService;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
-import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
+
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Date;
+
+import javax.annotation.Resource;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.*;
-import com.jfeat.am.module.frontuser.definition.*;
-
-import javax.annotation.Resource;
-import java.util.Date;
 
 
 /**
