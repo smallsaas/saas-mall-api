@@ -2,7 +2,7 @@ package com.jfeat.am.module.wxTemplateMessage.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.module.log.annotation.BusinessLog;
+import com.jfeat.am.common.annotation.BusinessLog;
 import com.jfeat.am.module.wxTemplateMessage.services.domain.model.WechatMessageTypePropRecord;
 import com.jfeat.am.module.wxTemplateMessage.services.domain.service.WechatMessageTypePropService;
 import com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.model.WechatMessageTypeProp;

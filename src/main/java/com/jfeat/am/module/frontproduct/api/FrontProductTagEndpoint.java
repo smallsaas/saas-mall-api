@@ -2,13 +2,13 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductTagRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductTagService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductTag;
-import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;

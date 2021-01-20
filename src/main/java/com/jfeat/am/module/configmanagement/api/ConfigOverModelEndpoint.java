@@ -2,6 +2,7 @@ package com.jfeat.am.module.configmanagement.api;
 
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.jfeat.am.common.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.configmanagement.definition.ConfigPermission;
 import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
@@ -12,7 +13,6 @@ import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.ConfigM
 import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.MallConfigGroupMapper;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.MallConfigGroup;
-import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;

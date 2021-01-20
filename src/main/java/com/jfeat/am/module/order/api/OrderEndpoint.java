@@ -2,8 +2,8 @@ package com.jfeat.am.module.order.api;
 
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.jfeat.am.common.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
-import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
