@@ -54,6 +54,11 @@ public class FrontProductEndpoint {
     @Permission(FrontProductPermission.PRODUCT_ADD)
     public Tip createProduct(@RequestBody FrontProductModel entity) {
 
+        if(entity.getNoPermission()!=null&& !"".equals(entity.getNoPermission())){
+            throw new BusinessException(BusinessCode.BadRequest,"系统授权已过期， 添加新产品功能受限");
+
+        }
+
         Integer affected = 0;
         try {
             Date date = new Date();

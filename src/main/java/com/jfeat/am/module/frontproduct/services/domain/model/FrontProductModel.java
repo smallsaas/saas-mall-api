@@ -30,6 +30,16 @@ public class FrontProductModel extends FrontProduct {
 
     private String description;
 
+    private String noPermission;
+
+    public String getNoPermission() {
+        return noPermission;
+    }
+
+    public void setNoPermission(String noPermission) {
+        this.noPermission = noPermission;
+    }
+
     public List<ProductSettlementProportionRecord> getProductSettlementProportionList() {
         return productSettlementProportion;
     }
