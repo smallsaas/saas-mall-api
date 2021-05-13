@@ -39,19 +39,19 @@
             </exclusions>
         </dependency>
 
-        <!--<dependency>
+        <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>uaas</artifactId>
             <version>2.1.0</version>
-        </dependency>-->
+        </dependency>
 
 
-        <dependency>
+       <!--    <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>crud-dev</artifactId>
             <version>${crud-dev.version}</version>
         </dependency>
-
+	-->
 
 
        <!-- <dependency>
