@@ -8,4 +8,7 @@ public interface DevService {
 
     @Transactional
     Integer deleteOrderRefunds();
+
+    @Transactional
+    Integer deleteOwnerBalance();
 }

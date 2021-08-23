@@ -8,4 +8,7 @@ public interface DevMapping {
     Integer deleteOrderRefunds();
     Integer deleteOrderRefundsService();
     Integer deleteOrderRefundsServiceItem();
+
+
+    Integer deleteOwnerBalance();
 }

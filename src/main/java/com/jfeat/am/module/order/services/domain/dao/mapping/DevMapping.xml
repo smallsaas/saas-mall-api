@@ -101,4 +101,8 @@
     	)
     </delete>
 
+	<delete id="deleteOwnerBalance">
+		delete from t_owner_balance;
+	</delete>
+
 </mapper>

@@ -34,5 +34,11 @@ public class DevEndpoint {
         return SuccessTip.create(integer);
     }
 
+    @DeleteMapping("/delete/ownerBalance")
+    public Tip deleteOwnerBalance(){
+        Integer integer = devService.deleteOwnerBalance();
+
+        return SuccessTip.create(integer);
+    }
 
 }
