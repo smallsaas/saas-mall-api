@@ -48,5 +48,57 @@
     	)
     </delete>
 
+	
+	<delete id="deleteOrderRefunds">
+		delete FROM t_order where
+                status = 'CLOSED_REFUNDED'
+                or status = 'CANCELED_REFUND_PENDING'
+                or status = 'CANCELED_RETURN_PENDING'
+	</delete>
+
+	<delete id="deleteOrderRefundsService">
+        DELETE
+        FROM
+        	t_order_customer_service
+        WHERE
+        	id IN (
+        		SELECT
+        			*
+        		FROM
+        			(
+        				SELECT
+        					service.id
+        				FROM
+        					 t_order_customer_service service
+        				left join t_order on t_order.id = service.order_id
+        				where t_order.status = 'CLOSED_REFUNDED'
+                		or t_order.status = 'CANCELED_REFUND_PENDING'
+                		or t_order.status = 'CANCELED_RETURN_PENDING'
+        			) t
+        	)
+    </delete>
+
+	<delete id="deleteOrderRefundsServiceItem">
+        DELETE
+    FROM
+    	t_order_customer_service_item
+    WHERE
+    	id IN (
+    		SELECT
+    			*
+    		FROM
+    			(
+    				SELECT
+    					item.id
+    				FROM
+    					t_order_customer_service_item item
+    				LEFT JOIN t_order_customer_service service on item.order_customer_service_id = service.id
+    				left join t_order on t_order.id = service.order_id
+    				where t_order.status = 'CLOSED_REFUNDED'
+                		or t_order.status = 'CANCELED_REFUND_PENDING'
+                		or t_order.status = 'CANCELED_RETURN_PENDING'
+    			) t
+    	)
+    </delete>
 
 </mapper>

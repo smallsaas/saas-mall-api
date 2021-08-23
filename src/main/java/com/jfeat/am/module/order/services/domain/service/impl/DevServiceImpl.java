@@ -23,4 +23,17 @@ public class DevServiceImpl implements DevService {
 
         return i;
     }
+
+    @Transactional
+    @Override
+    public Integer deleteOrderRefunds() {
+        Integer i = 0;
+        i += devMapping.deleteOrderRefundsServiceItem();
+        i += devMapping.deleteOrderRefundsService();
+        i += devMapping.deleteOrderRefunds();
+
+
+        return i;
+    }
+
 }

@@ -21,10 +21,18 @@ public class DevEndpoint {
     DevService devService;
 
     @DeleteMapping("/delete/order")
-    public Tip deleteOrder(@RequestParam(name = "type", required = false) String type){
+    public Tip deleteOrder(@RequestParam(name = "type", required = true) String type){
         Integer integer = devService.deleteOrder(type);
 
         return SuccessTip.create(integer);
     }
+
+    @DeleteMapping("/delete/orderRefunds")
+    public Tip deleteOrderRefunds(){
+        Integer integer = devService.deleteOrderRefunds();
+
+        return SuccessTip.create(integer);
+    }
+
 
 }
