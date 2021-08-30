@@ -12,3 +12,8 @@ build/
 logs/
 rebel.xml
 mysql/data/
+.classpath
+.factorypath
+.project
+.settings/
+.vscode/
