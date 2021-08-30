@@ -2,7 +2,7 @@ package com.jfeat.am.module.frontproduct.services.gen.persistence.dao;
 
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductSettlementProportionRecord;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductSettlementProportion;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>

@@ -2,11 +2,11 @@ package com.jfeat.am.module.frontproduct.services.gen.persistence.model;
 
 import java.io.Serializable;
 
-import com.baomidou.mybatisplus.enums.IdType;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableName;
 
 /**
  * <p>
@@ -19,7 +19,7 @@ import com.baomidou.mybatisplus.annotations.TableName;
 @TableName("t_product_settlement_proportion")
 public class ProductSettlementProportion extends Model<ProductSettlementProportion> {
 
-    @com.baomidou.mybatisplus.annotations.TableField(exist = false)
+    @com.baomidou.mybatisplus.annotation.TableField(exist = false)
     private com.alibaba.fastjson.JSONObject extra;
 
     public com.alibaba.fastjson.JSONObject getExtra() {

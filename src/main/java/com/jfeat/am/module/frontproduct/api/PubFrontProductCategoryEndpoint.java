@@ -1,5 +1,5 @@
 package com.jfeat.am.module.frontproduct.api;
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductList;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
@@ -48,12 +48,12 @@ public class PubFrontProductCategoryEndpoint {
         List<FrontProduct> product=new ArrayList<>();
         FrontProductList products=new FrontProductList();
         if(id==-1L){
-            product=frontProductMapper.selectList(new EntityWrapper<FrontProduct>());
+            product=frontProductMapper.selectList(new QueryWrapper<FrontProduct>());
             products.setLength(product.size());
             products.setProducts(product);
             return SuccessTip.create(products);
         }
-        product=frontProductMapper.selectList(new EntityWrapper<FrontProduct>().eq("category_id",id));
+        product=frontProductMapper.selectList(new QueryWrapper<FrontProduct>().eq("category_id",id));
         products.setLength(product.size());
         products.setProducts(product);
         return SuccessTip.create(products);

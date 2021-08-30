@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.gen.crud.service.impl;
             
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductCategoryProperty;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.ProductCategoryPropertyMapper;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.CRUDProductCategoryPropertyService;

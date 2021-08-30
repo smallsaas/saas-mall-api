@@ -1,7 +1,7 @@
 package com.jfeat.am.module.order.api;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.order.services.domain.model.OrderCustomerServiceRecord;
 import com.jfeat.am.module.order.services.domain.service.OrderCustomerServiceService;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderCustomerService;

@@ -1,7 +1,7 @@
 package com.jfeat.am.module.configmanagement.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.configmanagement.services.domain.dao.QueryConfigDao;
 import com.jfeat.am.module.configmanagement.services.domain.model.ConfigRecord;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigService;
@@ -34,7 +34,7 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
 
     @Override
     public Map<String, String> getConfig(String type) {
-        List<Config> configList = configMapper.selectList(new EntityWrapper<Config>().eq("type", type).eq("visible",1));
+        List<Config> configList = configMapper.selectList(new QueryWrapper<Config>().eq("type", type).eq("visible",1));
         Map<String,String> map = new HashMap<>(configList.size());
         configList.forEach(item -> {
             map.put(item.getKeyName(),item.getValue());
@@ -49,7 +49,7 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
         Enumeration<?> enumeration = entity.propertyNames();
         while (enumeration.hasMoreElements()){
             String key = (String)enumeration.nextElement();
-            affected += configMapper.update(new Config().setValue(entity.getProperty(key)),new EntityWrapper<Config>().eq("type",type).eq("key_name",key));
+            affected += configMapper.update(new Config().setValue(entity.getProperty(key)),new QueryWrapper<Config>().eq("type",type).eq("key_name",key));
         }
         return affected;
     }
@@ -57,7 +57,7 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
 
     @Override
     public Map<String, String> getAllConfig() {
-        List<Config> configList = configMapper.selectList(new EntityWrapper<Config>());
+        List<Config> configList = configMapper.selectList(new QueryWrapper<Config>());
         Map<String,String> map = new HashMap<>(configList.size());
         configList.forEach(item -> {
             map.put(item.getKeyName(),item.getValue());
@@ -68,7 +68,7 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
 
     @Override
     public List<Config> selectConfigByGroupId(Integer groupId) {
-        List<Config> configList = configMapper.selectList(new EntityWrapper<Config>().eq("group_id", groupId));
+        List<Config> configList = configMapper.selectList(new QueryWrapper<Config>().eq("group_id", groupId));
         return configList;
     }
 
@@ -78,7 +78,7 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
         Enumeration<?> enumeration = entity.propertyNames();
         while (enumeration.hasMoreElements()){
             String key = (String)enumeration.nextElement();
-            affected += configMapper.update(new Config().setValue(entity.getProperty(key)),new EntityWrapper<Config>().eq("key_name",key));
+            affected += configMapper.update(new Config().setValue(entity.getProperty(key)),new QueryWrapper<Config>().eq("key_name",key));
         }
         return affected;
     }

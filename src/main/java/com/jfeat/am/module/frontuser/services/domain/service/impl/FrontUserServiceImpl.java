@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontuser.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontuser.services.domain.dao.QueryFrontUserDao;
 import com.jfeat.am.module.frontuser.services.domain.model.FrontUserRecord;
 import com.jfeat.am.module.frontuser.services.domain.service.FrontUserService;

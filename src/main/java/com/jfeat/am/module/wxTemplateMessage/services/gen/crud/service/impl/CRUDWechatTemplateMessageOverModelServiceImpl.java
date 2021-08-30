@@ -1,13 +1,12 @@
 package com.jfeat.am.module.wxTemplateMessage.services.gen.crud.service.impl;
             
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jfeat.crud.plus.FIELD;
 import com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.model.WechatTemplateMessage;
 import com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.dao.WechatTemplateMessageMapper;
 import com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.dao.WechatMessageTypePropMapper;
 import com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.model.WechatMessageTypeProp;
 import com.jfeat.am.module.wxTemplateMessage.services.gen.crud.service.CRUDWechatTemplateMessageOverModelService;
-import com.baomidou.mybatisplus.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;

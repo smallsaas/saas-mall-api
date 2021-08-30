@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductHitWordDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductHitWordRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductHitWordService;

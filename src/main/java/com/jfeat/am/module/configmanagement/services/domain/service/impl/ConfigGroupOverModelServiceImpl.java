@@ -1,7 +1,7 @@
 package com.jfeat.am.module.configmanagement.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.configmanagement.services.domain.dao.QueryConfigGroupDao;
 import com.jfeat.am.module.configmanagement.services.domain.model.MallConfigGroupRecord;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigGroupOverModelService;
@@ -45,7 +45,7 @@ public class ConfigGroupOverModelServiceImpl extends CRUDConfigGroupOverModelSer
         List<MallConfigGroupModel> configGroupModelList = new ArrayList<>();
         List<MallConfigGroup> mallConfigGroupList = mallConfigGroupMapper.selectList(null);
         mallConfigGroupList.forEach(item -> {
-            List<Config> configList = configMapper.selectList(new EntityWrapper<Config>().eq("group_id", item.getId()));
+            List<Config> configList = configMapper.selectList(new QueryWrapper<Config>().eq("group_id", item.getId()));
             MallConfigGroupModel configGroupModel = CRUD.castObject(item, MallConfigGroupModel.class);
             configGroupModel.setItems(configList);
             configGroupModelList.add(configGroupModel);

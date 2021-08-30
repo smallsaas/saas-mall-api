@@ -1,6 +1,6 @@
 package com.jfeat.am.module.wxTemplateMessage.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.wxTemplateMessage.services.domain.dao.QueryWechatMessageTypePropDao;
 import com.jfeat.am.module.wxTemplateMessage.services.domain.model.WechatMessageTypePropRecord;
 import com.jfeat.am.module.wxTemplateMessage.services.domain.service.WechatMessageTypePropService;

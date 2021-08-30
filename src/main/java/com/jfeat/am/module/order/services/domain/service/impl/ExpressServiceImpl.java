@@ -1,7 +1,7 @@
 package com.jfeat.am.module.order.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.order.services.domain.dao.QueryExpressDao;
 import com.jfeat.am.module.order.services.domain.model.ExpressRecord;
 import com.jfeat.am.module.order.services.domain.service.ExpressService;
@@ -38,7 +38,7 @@ public class ExpressServiceImpl extends CRUDExpressServiceImpl implements Expres
         Integer result=0;
         Express entity=new Express();
         entity.setIsDefault(0);
-        result=queryExpressDao.update(entity,new EntityWrapper<Express>().eq("is_default",1));
+        result=queryExpressDao.update(entity,new QueryWrapper<Express>().eq("is_default",1));
         return result;
     }
 }

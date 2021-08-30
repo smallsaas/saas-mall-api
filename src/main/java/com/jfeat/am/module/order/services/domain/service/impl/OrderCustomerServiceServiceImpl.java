@@ -1,6 +1,6 @@
 package com.jfeat.am.module.order.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderCustomerServiceDao;
 import com.jfeat.am.module.order.services.domain.model.OrderCustomerServiceRecord;
 import com.jfeat.am.module.order.services.domain.service.OrderCustomerServiceService;

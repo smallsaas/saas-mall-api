@@ -1,14 +1,13 @@
 package com.jfeat.am.module.order.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
-import com.baomidou.mybatisplus.toolkit.IdWorker;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.api.OrderRechargeType;
-import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletHistoryDao;
@@ -23,7 +22,6 @@ import com.jfeat.am.module.order.services.gen.persistence.model.*;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.plus.CRUD;
-import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -84,9 +82,9 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
         orderModel.setDetail(detail);
 
-        List<OrderItem> orderItemList = orderItemMapper.selectList(new EntityWrapper<OrderItem>().eq("order_id", id));
+        List<OrderItem> orderItemList = orderItemMapper.selectList(new QueryWrapper<OrderItem>().eq("order_id", id));
         orderModel.setOrderItemList(orderItemList);
-        List<OrderProcessLog> orderProcessLogList = orderProcessLogMapper.selectList(new EntityWrapper<OrderProcessLog>().eq("order_id", id));
+        List<OrderProcessLog> orderProcessLogList = orderProcessLogMapper.selectList(new QueryWrapper<OrderProcessLog>().eq("order_id", id));
         orderModel.setOrderProcessLogList(orderProcessLogList);
 
         orderModel.setUserName(queryOrderDao.getUserName(TOrder.getUserId().longValue()));
@@ -251,7 +249,7 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         order.setStatus(TOrderStatus.CLOSED_CANCELED);
         //获取订单数据//循环遍历
         List<OrderItem> friendOrderItemList=
-                orderItemMapper.selectList(new EntityWrapper<OrderItem>().eq("order_id",order.getId()));
+                orderItemMapper.selectList(new QueryWrapper<OrderItem>().eq("order_id",order.getId()));
         //总价
         BigDecimal finalPrice=new BigDecimal(0);
         for (OrderItem product:friendOrderItemList) {

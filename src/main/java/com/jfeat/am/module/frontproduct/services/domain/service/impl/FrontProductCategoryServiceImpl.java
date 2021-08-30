@@ -1,9 +1,9 @@
 package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductCategoryDao;
-import com.jfeat.am.module.frontproduct.services.domain.filter.FrontProductCategoryFilter;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
@@ -74,7 +74,7 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
     @Override
     public FrontProductCategoryModel getProductCategoryById(Long id) {
         FrontProductCategory frontProductCategory = this.retrieveMaster(id);
-        List<ProductCategoryProperty> categoryPropertyList = productCategoryPropertyMapper.selectList(new EntityWrapper<ProductCategoryProperty>().eq("category_id", id));
+        List<ProductCategoryProperty> categoryPropertyList = productCategoryPropertyMapper.selectList(new QueryWrapper<ProductCategoryProperty>().eq("category_id", id));
         if(frontProductCategory==null){
             throw new BusinessException(BusinessCode.BadRequest, "目标Id对应的实体不存在");
         }
@@ -96,7 +96,7 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
         affected += this.updateMaster(entity,false);
 
 
-        affected += productCategoryPropertyMapper.delete(new EntityWrapper<ProductCategoryProperty>().eq("category_id",entity.getId()));
+        affected += productCategoryPropertyMapper.delete(new QueryWrapper<ProductCategoryProperty>().eq("category_id",entity.getId()));
         List<ProductCategoryProperty> productCategoryPropertyList = entity.getProductCategoryPropertyList();
         productCategoryPropertyList.forEach(item -> {
             item.setCategoryId(entity.getId());
@@ -110,10 +110,11 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
 
         List<FrontProductCategory> frontProductCategoryList;
 
-            frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>()
-                    .like("name",name)
-                    .isNull("parent_id")
-                    .orderDesc(Arrays.asList(new String[] {"sort_order"}))
+            frontProductCategoryList = frontProductCategoryMapper
+                    .selectList(new LambdaQueryWrapper<FrontProductCategory>()
+                    .like(FrontProductCategory::getName, name)
+                    .isNull(FrontProductCategory::getParentId)
+                    .orderByDesc(FrontProductCategory::getSortOrder)
             );
 
         return frontProductCategoryList.stream().map(item -> {
@@ -130,7 +131,10 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
      */
     private FrontProductCategoryRecord addSubProductCategory(FrontProductCategoryRecord frontProductCategoryRecord){
 
-        List<FrontProductCategory> frontProductCategoryList = frontProductCategoryMapper.selectList(new EntityWrapper<FrontProductCategory>().eq("parent_id", frontProductCategoryRecord.getId()).orderBy("sort_order"));
+        List<FrontProductCategory> frontProductCategoryList = frontProductCategoryMapper
+                .selectList(new LambdaQueryWrapper<FrontProductCategory>().eq(FrontProductCategory::getParentId,
+                        frontProductCategoryRecord.getId())
+                        .orderByAsc(FrontProductCategory::getSortOrder));
 
         if(!CollectionUtils.isEmpty(frontProductCategoryList)){
             List<FrontProductCategoryRecord> frontProductCategoryRecordList = frontProductCategoryList.stream().map(item -> {

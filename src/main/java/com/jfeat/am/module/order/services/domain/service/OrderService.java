@@ -1,6 +1,6 @@
 package com.jfeat.am.module.order.services.domain.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.services.domain.model.OrderModel;

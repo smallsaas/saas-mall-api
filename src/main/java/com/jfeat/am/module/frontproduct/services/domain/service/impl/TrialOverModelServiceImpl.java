@@ -1,7 +1,7 @@
 package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryTrialDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.TrialRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
@@ -59,7 +59,7 @@ public class TrialOverModelServiceImpl extends CRUDTrialOverModelServiceImpl imp
         FrontProduct frontProduct = frontProductService.retrieveMaster(trial.getProductId());
         trialModel.setFrontProduct(frontProduct);
 
-        List<TrialImage> trialImageList= trialImageMapper.selectList(new EntityWrapper<TrialImage>().eq("trial_id", trial.getId()));
+        List<TrialImage> trialImageList= trialImageMapper.selectList(new QueryWrapper<TrialImage>().eq("trial_id", trial.getId()));
         trialModel.setItems(trialImageList);
         return trialModel;
     }

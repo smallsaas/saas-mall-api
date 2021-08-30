@@ -1,7 +1,7 @@
 package com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.dao;
 
 import com.jfeat.am.module.wxTemplateMessage.services.gen.persistence.model.WechatMessageTypeProp;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>

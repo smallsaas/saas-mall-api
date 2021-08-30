@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductDescriptionDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductDescriptionRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductDescriptionService;

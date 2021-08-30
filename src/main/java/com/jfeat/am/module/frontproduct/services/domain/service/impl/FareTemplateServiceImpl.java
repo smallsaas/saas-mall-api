@@ -1,7 +1,7 @@
 package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFareTemplateDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplatePcd;
@@ -65,7 +65,7 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
     public FareTemplateModel getFareTemplate(Long id) {
         FareTemplate fareTemplate = this.retrieveMaster(id);
         FareTemplateModel fareTemplateModel = CRUD.castObject(fareTemplate, FareTemplateModel.class);
-        List<CarryMode> carryModeList = carryModeMapper.selectList(new EntityWrapper<CarryMode>().eq("fare_id", id));
+        List<CarryMode> carryModeList = carryModeMapper.selectList(new QueryWrapper<CarryMode>().eq("fare_id", id));
         fareTemplateModel.setItems(carryModeList);
         return fareTemplateModel;
     }
@@ -76,7 +76,7 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
         int affected = 0;
         affected += this.updateMaster(entity,false);
 
-        affected += carryModeMapper.delete(new EntityWrapper<CarryMode>().eq("fare_id",entity.getId()));
+        affected += carryModeMapper.delete(new QueryWrapper<CarryMode>().eq("fare_id",entity.getId()));
         List<CarryMode> carryModeList = entity.getItems();
         if(!CollectionUtils.isEmpty(carryModeList)){
             for(CarryMode carryMode : carryModeList){

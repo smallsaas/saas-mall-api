@@ -1,7 +1,8 @@
 package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductDao;
@@ -163,7 +164,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         }
         FrontProductModel frontProductModel = CRUD.castObject(frontProduct, FrontProductModel.class);
         //添加images
-        List<ProductImage> productImageList = productImageMapper.selectList(new EntityWrapper<ProductImage>().eq("product_id", id));
+        List<ProductImage> productImageList = productImageMapper.selectList(new QueryWrapper<ProductImage>().eq("product_id", id));
         frontProductModel.setProductImageList(productImageList);
         //添加banner
         List<ProductImage> bannerList = new ArrayList<>();
@@ -172,7 +173,8 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         bannerList.add(banner);
         frontProductModel.setBannerList(bannerList);
         //添加description
-        ProductDescription productDescription = productDescriptionMapper.selectOne(new ProductDescription().setProductId(id));
+        ProductDescription productDescription = productDescriptionMapper
+                .selectOne(new LambdaQueryWrapper<>(new ProductDescription().setProductId(id)));
         if(productDescription!=null&&productDescription.getDescription()!=""){
             String description = productDescription.getDescription();
             frontProductModel.setDescription(description);
@@ -180,7 +182,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         }
 
         //添加标签
-        List<FrontProductTagRelation> frontProductTagRelationList = frontProductTagRelationMapper.selectList(new EntityWrapper<FrontProductTagRelation>().eq("product_id", id));
+        List<FrontProductTagRelation> frontProductTagRelationList = frontProductTagRelationMapper.selectList(new QueryWrapper<FrontProductTagRelation>().eq("product_id", id));
         List<Long> tagIds = new ArrayList<>();
         frontProductTagRelationList.forEach(item -> {
             tagIds.add(item.getTagId());
@@ -222,7 +224,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         affected += this.updateMaster(entity, false);
 
         //更新描述
-       List<ProductDescription> productDescriptions = productDescriptionMapper.selectList(new EntityWrapper<ProductDescription>().eq("product_id",entity.getId()));
+       List<ProductDescription> productDescriptions = productDescriptionMapper.selectList(new QueryWrapper<ProductDescription>().eq("product_id",entity.getId()));
         ProductDescription productDescription = null;
        if (productDescriptions!=null&&productDescriptions.size()!=0){
            productDescription = new ProductDescription();
@@ -242,7 +244,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
 
 
         //更新封面
-        affected += productImageMapper.delete(new EntityWrapper<ProductImage>().eq("product_id",entity.getId()));
+        affected += productImageMapper.delete(new QueryWrapper<ProductImage>().eq("product_id",entity.getId()));
         if(!CollectionUtils.isEmpty(productImageList)){
             for(ProductImage productImage : productImageList){
                 productImage.setProductId(entity.getId());
@@ -250,7 +252,7 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             }
         }
         //更新标签
-        affected += frontProductTagRelationMapper.delete(new EntityWrapper<FrontProductTagRelation>().eq("product_id", entity.getId()));
+        affected += frontProductTagRelationMapper.delete(new QueryWrapper<FrontProductTagRelation>().eq("product_id", entity.getId()));
         List<Long> tagIds = entity.getTagIds();
         if(!CollectionUtils.isEmpty(tagIds)){
             for(Long tagId : tagIds){

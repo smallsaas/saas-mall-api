@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.CRUDFrontProductCategoryService;

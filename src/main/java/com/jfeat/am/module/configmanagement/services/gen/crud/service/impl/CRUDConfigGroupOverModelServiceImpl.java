@@ -1,6 +1,6 @@
 package com.jfeat.am.module.configmanagement.services.gen.crud.service.impl;
             
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jfeat.crud.plus.FIELD;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.MallConfigGroup;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.dao.MallConfigGroupMapper;

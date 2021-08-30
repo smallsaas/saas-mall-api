@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontuser.services.gen.crud.service.impl;
             
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.jfeat.am.module.frontuser.services.gen.crud.service.CRUDFrontUserService;
 import com.jfeat.am.module.frontuser.services.gen.persistence.dao.FrontUserMapper;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;

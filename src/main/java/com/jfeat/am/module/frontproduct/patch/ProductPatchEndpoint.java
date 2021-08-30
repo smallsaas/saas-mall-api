@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontproduct.patch;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
 import com.jfeat.crud.base.exception.BusinessCode;

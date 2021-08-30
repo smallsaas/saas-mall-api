@@ -1,8 +1,8 @@
 package com.jfeat.am.module.configmanagement.api;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.common.annotation.BusinessLog;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.configmanagement.services.domain.model.MallConfigGroupRecord;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigGroupOverModelService;
 import com.jfeat.am.module.configmanagement.services.gen.crud.model.MallConfigGroupModel;

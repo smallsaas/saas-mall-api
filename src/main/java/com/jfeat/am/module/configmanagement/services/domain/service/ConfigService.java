@@ -1,6 +1,6 @@
 package com.jfeat.am.module.configmanagement.services.domain.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.configmanagement.services.domain.model.ConfigRecord;
 import com.jfeat.am.module.configmanagement.services.gen.crud.service.CRUDConfigOverModelService;
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;

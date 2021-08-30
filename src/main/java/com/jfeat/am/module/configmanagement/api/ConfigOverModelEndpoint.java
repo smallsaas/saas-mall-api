@@ -1,8 +1,8 @@
 package com.jfeat.am.module.configmanagement.api;
 
 
-import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.jfeat.am.common.annotation.BusinessLog;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.configmanagement.definition.ConfigPermission;
 import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
@@ -82,7 +82,7 @@ public class ConfigOverModelEndpoint {
     public Tip getConfigGroup() {
 
         //查找 商城配置 小程序打单配置 微信配置
-        List<MallConfigGroup> mallConfigGroups = mallConfigGroupMapper.selectList(new EntityWrapper<MallConfigGroup>()
+        List<MallConfigGroup> mallConfigGroups = mallConfigGroupMapper.selectList(new QueryWrapper<MallConfigGroup>()
                 .eq("id", 1001)
                 .or()
                 .eq("id", 1002)

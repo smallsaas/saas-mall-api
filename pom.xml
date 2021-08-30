@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>saas-mall-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.2.0</version>
     <packaging>jar</packaging>
 
     <name>saas-mall-api</name>
@@ -19,28 +19,15 @@
     </parent>
 
     <properties>
-	    <skipStandalone>false</skipStandalone>
+	    <skipStandalone>true</skipStandalone>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>com.jfeat</groupId>
-            <artifactId>field-config</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
-        <!-- <dependency>
-            <groupId>com.jfeat</groupId>
-            <artifactId>uaas</artifactId>
-            <version>${uaas.version}</version>
-        </dependency> -->
-
-        <dependency>
-            <groupId>com.jfeat</groupId>
             <artifactId>mbcs</artifactId>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </dependency>
-
      <!--   <dependency>
             <groupId>com.jfeat</groupId>
             <artifactId>etcd-client</artifactId>

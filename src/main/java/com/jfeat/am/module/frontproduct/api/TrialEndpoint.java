@@ -1,7 +1,7 @@
 package com.jfeat.am.module.frontproduct.api;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.domain.model.TrialRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.TrialOverModelService;

@@ -1,7 +1,7 @@
 package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSettlementProportionDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductProportionModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductSettlementProportionRecord;

@@ -1,7 +1,7 @@
 package com.jfeat.am.module.configmanagement.services.gen.persistence.dao;
 
 import com.jfeat.am.module.configmanagement.services.gen.persistence.model.Config;
-import com.baomidou.mybatisplus.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 import java.util.List;
 

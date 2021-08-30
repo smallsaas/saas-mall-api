@@ -1,7 +1,7 @@
 package com.jfeat.am.module.frontproduct.api;
 
 
-import com.jfeat.am.common.annotation.BusinessLog;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;

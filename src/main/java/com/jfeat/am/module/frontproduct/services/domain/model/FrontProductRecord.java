@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.model;
 
-import com.baomidou.mybatisplus.annotations.TableField;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductBrand;
 

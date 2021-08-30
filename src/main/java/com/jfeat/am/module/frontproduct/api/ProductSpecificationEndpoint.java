@@ -1,8 +1,8 @@
 package com.jfeat.am.module.frontproduct.api;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
-import com.jfeat.am.common.annotation.BusinessLog;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductSpecificationRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductSpecificationService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductSpecification;

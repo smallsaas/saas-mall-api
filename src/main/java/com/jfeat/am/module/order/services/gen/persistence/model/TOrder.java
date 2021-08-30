@@ -1,10 +1,10 @@
 package com.jfeat.am.module.order.services.gen.persistence.model;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
@@ -22,7 +22,7 @@ import java.util.Date;
 @TableName("t_order")
 public class TOrder extends Model<TOrder> {
 
-    @com.baomidou.mybatisplus.annotations.TableField(exist = false)
+    @com.baomidou.mybatisplus.annotation.TableField(exist = false)
     private com.alibaba.fastjson.JSONObject extra;
 
     public com.alibaba.fastjson.JSONObject getExtra() {

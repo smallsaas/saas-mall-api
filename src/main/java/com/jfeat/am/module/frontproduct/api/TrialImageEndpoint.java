@@ -1,7 +1,7 @@
 package com.jfeat.am.module.frontproduct.api;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.TrialImageRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.TrialImageService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.TrialImage;

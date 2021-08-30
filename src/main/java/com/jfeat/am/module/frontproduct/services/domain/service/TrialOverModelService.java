@@ -1,6 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.domain.service;
 
-import com.baomidou.mybatisplus.plugins.Page;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.TrialRecord;
 import com.jfeat.am.module.frontproduct.services.gen.crud.model.TrialModel;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.CRUDTrialOverModelService;
