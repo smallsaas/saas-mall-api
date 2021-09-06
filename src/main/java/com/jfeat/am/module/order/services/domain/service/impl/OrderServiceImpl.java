@@ -8,6 +8,7 @@ import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProduc
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.api.OrderRechargeType;
+import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletHistoryDao;
@@ -15,6 +16,7 @@ import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.domain.service.OrderWelletService;
 import com.jfeat.am.module.order.services.gen.crud.service.impl.CRUDOrderServiceImpl;
+import com.jfeat.am.module.order.services.gen.persistence.dao.ExpressMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderItemMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderProcessLogMapper;
@@ -55,6 +57,10 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     QueryOrderWalletHistoryDao queryOrderWalletHistoryDao;
     @Resource
     OrderWelletService orderWelletService;
+    @Resource
+    ExpressMapper expressMapper;
+
+
 
     @Override
     public List findOrderPage(Page<OrderRecord> page, OrderRecord record,
@@ -88,9 +94,20 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         orderModel.setOrderProcessLogList(orderProcessLogList);
 
         orderModel.setUserName(queryOrderDao.getUserName(TOrder.getUserId().longValue()));
+
+
+        //快递单信息
+        OrderExpress orderExpress = expressMapper.getOrderExpressByOrderId(id);
+        if(orderExpress!=null){
+            orderModel.setExpressCode(orderExpress.getExpressCode());
+            orderModel.setExpressCompany(orderExpress.getExpressCompany());
+            orderModel.setExpressNumber(orderExpress.getExpressNumber());
+        }
+
         return orderModel;
     }
 
+    //修改订单状态
     @Override
     public Integer updateOrderStatus(Long id, String orderStatus) {
         return orderMapper.updateById(new TOrder().setId(id).setStatus(orderStatus));
@@ -274,7 +291,28 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     }
 
 
+    @Transactional
+    @Override
+    public Integer deliver(OrderDeliver orderDeliver){
+        Integer i = 0;
+        //快递公司信息
+        Express express = expressMapper.selectById(orderDeliver.getExpressId());
+        OrderExpress orderExpress = new OrderExpress();
+        orderExpress.setCreateDate(new Date());
+        orderExpress.setExpressCode(express.getCode());
+        orderExpress.setExpressCompany(express.getName());
+        orderExpress.setExpressNumber(orderDeliver.getExpressNumber());
+        orderExpress.setMid(1);
+        orderExpress.setOrderId(orderDeliver.getId());
+        orderExpress.setOrderItems("");
 
+        //插入快递数据
+        i += expressMapper.createOrderExpress(orderExpress);
+        //更改状态
+        i += updateOrderStatus(Long.parseLong(orderDeliver.getId().toString()), OrderStatus.DELIVERED_CONFIRM_PENDING.toString());
+
+        return i;
+    }
 
 
 

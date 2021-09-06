@@ -17,4 +17,22 @@
         id, code, name, enabled, is_default AS isDefault,org_id AS orgId
     </sql>
 
+	<insert id="createOrderExpress">
+		INSERT INTO `t_order_express` ( `order_id`, `mid`, `create_date`, `express_company`, `express_code`, `express_number`, `order_items`) VALUES
+		 ( #{orderExpress.orderId},
+		  #{orderExpress.mid},
+		  #{orderExpress.createDate},
+		  #{orderExpress.expressCompany},
+		  #{orderExpress.expressCode},
+		  #{orderExpress.expressNumber},
+		  #{orderExpress.orderItems});
+
+	</insert>
+
+	<select id="getOrderExpressByOrderId" resultType="com.jfeat.am.module.order.services.domain.model.OrderExpress">
+		select * from t_order_express where order_id = #{orderId}
+		ORDER BY create_date desc
+		LIMIT 0,1
+	</select>
+
 </mapper>

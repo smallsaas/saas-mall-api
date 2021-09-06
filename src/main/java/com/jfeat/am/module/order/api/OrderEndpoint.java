@@ -7,6 +7,7 @@ import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
+import com.jfeat.am.module.order.services.domain.model.OrderDeliver;
 import com.jfeat.am.module.order.services.domain.model.OrderRecord;
 import com.jfeat.am.module.order.services.domain.model.OrderRequest;
 import com.jfeat.am.module.order.services.domain.model.RequestOrder;
@@ -130,9 +131,9 @@ public class OrderEndpoint {
     }
 
 
-    @BusinessLog(name = "订单", value = "取消订单")
+    @BusinessLog(name = "订单", value = "更改订单状态")
     @PostMapping("/{id}/{orderStatus}")
-    @ApiOperation(value = "取消 Order", response = TOrder.class)
+    @ApiOperation(value = "更改订单状态", response = TOrder.class)
     public Tip updateOrderStatus(@PathVariable Long id, @PathVariable String orderStatus) {
         try {
             //不报错，orderStatus参数正确
@@ -882,6 +883,11 @@ public class OrderEndpoint {
     public Tip cancelCloseConfirmedOrder(@PathVariable Long id) throws ServerException {
         return SuccessTip.create(orderService.cancelCloseConfirmedOrder(id));
 
+    }
+
+    @PostMapping("/deliver")
+    public Tip deliver(@RequestBody OrderDeliver orderDeliver){
+        return SuccessTip.create(orderService.deliver(orderDeliver));
     }
 
 
