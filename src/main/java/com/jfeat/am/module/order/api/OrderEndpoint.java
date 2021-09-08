@@ -7,10 +7,7 @@ import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
-import com.jfeat.am.module.order.services.domain.model.OrderDeliver;
-import com.jfeat.am.module.order.services.domain.model.OrderRecord;
-import com.jfeat.am.module.order.services.domain.model.OrderRequest;
-import com.jfeat.am.module.order.services.domain.model.RequestOrder;
+import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.crud.base.exception.BusinessCode;
@@ -890,5 +887,10 @@ public class OrderEndpoint {
         return SuccessTip.create(orderService.deliver(orderDeliver));
     }
 
+    @GetMapping("/orderExpress/{id}")
+    public Tip expressInfo(@PathVariable Long id){
+        ExpressInfo expressInfo = orderService.expressInfo(id);
+        return SuccessTip.create(expressInfo);
+    }
 
 }

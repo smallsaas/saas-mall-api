@@ -16,4 +16,5 @@ import org.apache.ibatis.annotations.Param;
 public interface ExpressMapper extends BaseMapper<Express> {
     Integer createOrderExpress(@Param("orderExpress") OrderExpress orderExpress);
     OrderExpress getOrderExpressByOrderId(@Param("orderId") Long orderId);
+    String getExpressCompany(String Code);
 }

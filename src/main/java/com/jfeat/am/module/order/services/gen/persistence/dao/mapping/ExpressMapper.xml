@@ -35,4 +35,8 @@
 		LIMIT 0,1
 	</select>
 
+	<select id="getExpressCompany" resultType="String">
+		select `name` from t_express where code = #{Code};
+	</select>
+
 </mapper>

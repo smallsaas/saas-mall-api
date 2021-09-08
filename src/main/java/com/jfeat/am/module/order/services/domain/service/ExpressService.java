@@ -1,6 +1,7 @@
 package com.jfeat.am.module.order.services.domain.service;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.module.order.services.domain.model.ExpressInfo;
 import com.jfeat.am.module.order.services.domain.model.ExpressRecord;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDExpressService;
 
@@ -15,4 +16,6 @@ public interface ExpressService extends CRUDExpressService{
                            String orderBy, Date startTime, Date endTime);
 
     Integer updateIsDefault();
+
+    ExpressInfo queryExpress(String comCode, String number);
 }

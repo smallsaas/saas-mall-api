@@ -1,8 +1,10 @@
 package com.jfeat.am.module.order.services.domain.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
@@ -13,6 +15,7 @@ import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletHistoryDao;
 import com.jfeat.am.module.order.services.domain.model.*;
+import com.jfeat.am.module.order.services.domain.service.ExpressService;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.domain.service.OrderWelletService;
 import com.jfeat.am.module.order.services.gen.crud.service.impl.CRUDOrderServiceImpl;
@@ -31,7 +34,9 @@ import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.rmi.ServerException;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -59,6 +64,8 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     OrderWelletService orderWelletService;
     @Resource
     ExpressMapper expressMapper;
+    @Resource
+    ExpressService expressService;
 
 
 
@@ -313,6 +320,26 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
         return i;
     }
+
+    @Transactional
+    @Override
+    public ExpressInfo expressInfo(Long id){
+        OrderExpress orderExpress = expressMapper.getOrderExpressByOrderId(id);
+        TOrder order = orderMapper.selectById(id);
+
+        if (orderExpress == null) {
+           throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"快递不存在");
+        }
+
+        ExpressInfo expressInfo = expressService.queryExpress(orderExpress.getExpressCode(), orderExpress.getExpressNumber());
+        //ExpressInfo expressInfo = ExpressServiceHolder.me().getExpressService().queryExpress();
+        if (expressInfo.isSucceed()) {
+            return expressInfo;
+        }
+        throw new BusinessException(BusinessCode.CRUD_QUERY_FAILURE,"cannot.find.express.info");
+
+    }
+
 
 
 

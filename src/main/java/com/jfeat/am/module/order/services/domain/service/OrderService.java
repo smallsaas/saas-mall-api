@@ -51,4 +51,7 @@ public interface OrderService extends CRUDOrderService{
 
     @Transactional
     Integer deliver(OrderDeliver orderDeliver);
+
+    @Transactional
+    ExpressInfo expressInfo(Long id);
 }
