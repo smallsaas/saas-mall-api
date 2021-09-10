@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Date;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -63,10 +64,11 @@ public class FrontUserEndpoint {
     @BusinessLog(name = "微信用户模块", value = "新建微信用户")
     @PostMapping
     @ApiOperation(value = "新建 FrontUser", response = FrontUser.class)
-    public Tip createUser(@RequestBody FrontUser entity) {
+    public Tip createUser(@RequestBody FrontUser entity, HttpServletRequest request) {
 
         Integer affected = 0;
         try {
+            entity.setDomain(request.getServerName());
             affected = frontUserService.createMaster(entity);
 
         } catch (DuplicateKeyException e) {
@@ -87,8 +89,9 @@ public class FrontUserEndpoint {
     @BusinessLog(name = "微信用户模块", value = "更新 微信用户")
     @PutMapping("/{id}")
     @ApiOperation(value = "修改 FrontUser", response = FrontUser.class)
-    public Tip updateUser(@PathVariable Long id, @RequestBody FrontUser entity) {
+    public Tip updateUser(@PathVariable Long id, @RequestBody FrontUser entity,HttpServletRequest request) {
         entity.setId(id);
+        entity.setDomain(request.getServerName());
         return SuccessTip.create(frontUserService.updateMaster(entity));
     }
 

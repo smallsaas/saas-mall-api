@@ -119,6 +119,16 @@ public class FrontUser extends Model<FrontUser> {
 	@TableField("org_id")
 	private Long orgId;
 
+	@TableField("domain")
+	private String domain;
+
+	public String getDomain() {
+		return domain;
+	}
+
+	public void setDomain(String domain) {
+		this.domain = domain;
+	}
 
 	public Long getId() {
 		return id;
