@@ -18,6 +18,7 @@ import com.jfeat.crud.plus.CRUD;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -110,12 +111,22 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
 
         List<FrontProductCategory> frontProductCategoryList;
 
+        if(StringUtils.isEmpty(name)){
             frontProductCategoryList = frontProductCategoryMapper
                     .selectList(new LambdaQueryWrapper<FrontProductCategory>()
-                    .like(FrontProductCategory::getName, name)
-                    .isNull(FrontProductCategory::getParentId)
-                    .orderByDesc(FrontProductCategory::getSortOrder)
-            );
+                            .isNull(FrontProductCategory::getParentId)
+                            .orderByDesc(FrontProductCategory::getSortOrder)
+                    );
+        }else{
+            frontProductCategoryList = frontProductCategoryMapper
+                    .selectList(new LambdaQueryWrapper<FrontProductCategory>()
+                            .like(FrontProductCategory::getName, name)
+                            .isNull(FrontProductCategory::getParentId)
+                            .orderByDesc(FrontProductCategory::getSortOrder)
+                    );
+        }
+
+
 
         return frontProductCategoryList.stream().map(item -> {
             FrontProductCategoryRecord record = CRUD.castObject(item, FrontProductCategoryRecord.class);
