@@ -1,93 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderItemDao">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_order_item.id, t_order_item.order_id AS orderId, t_order_item.product_id AS productId, t_order_item.product_name AS productName, t_order_item.quantity, t_order_item.price, t_order_item.final_price AS finalPrice, t_order_item.status, t_order_item.cost_price AS costPrice, t_order_item.cover, t_order_item.partner_level_zone AS partnerLevelZone, t_order_item.product_specification_name AS productSpecificationName, t_order_item.product_specification_id AS productSpecificationId, t_order_item.weight, t_order_item.bulk, t_order_item.barcode, t_order_item.store_location AS storeLocation, t_order_item.marketing, t_order_item.marketing_id AS marketingId, t_order_item.marketing_description AS marketingDescription, t_order_item.sku_id AS skuId, t_order_item.warehouse_id AS warehouseId
+    <sql id="Base_Column_List">
+           t_order_item.id, t_order_item.order_id AS orderId, t_order_item.product_id AS productId,
+           t_order_item.product_name AS productName, t_order_item.quantity, t_order_item.price,
+            t_order_item.final_price AS finalPrice, t_order_item.status, t_order_item.cost_price AS costPrice,
+             t_order_item.cover, t_order_item.partner_level_zone AS partnerLevelZone,
+              t_order_item.product_specification_name AS productSpecificationName,
+              t_order_item.product_specification_id AS productSpecificationId, t_order_item.weight,
+               t_order_item.bulk, t_order_item.barcode, t_order_item.store_location AS storeLocation,
+               t_order_item.marketing, t_order_item.marketing_id AS marketingId, t_order_item.marketing_description AS marketingDescription,
+                t_order_item.sku_id AS skuId, t_order_item.warehouse_id AS warehouseId
     </sql>
 
 
-
     <select id="findOrderItemPage" resultType="OrderItemRecord" parameterType="OrderItemRecord">
-            SELECT
-        <include refid="Base_Column_List" />
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM t_order_item
         WHERE 1=1
-                                <if test="record.id != null and record.id>0 ">
-                AND t_order_item.id LIKE CONCAT('%',#{record.id},'%')
-            </if>
-                                                                                            <if test="record.orderId != null and record.orderId>0 ">
-                AND t_order_item.order_id LIKE CONCAT('%',#{record.orderId},'%')
-            </if>
-                                                                                            <if test="record.productId != null and record.productId>0 ">
-                AND t_order_item.product_id LIKE CONCAT('%',#{record.productId},'%')
-            </if>
-                                                                                            <if test="record.productName != null and record.productName!= ''">
-                AND t_order_item.product_name LIKE CONCAT('%',#{record.productName},'%')
-            </if>
-                                <if test="record.quantity != null and record.quantity>0 ">
-                AND t_order_item.quantity LIKE CONCAT('%',#{record.quantity},'%')
-            </if>
-                                <if test="record.price != null and record.price>0 ">
-                AND t_order_item.price LIKE CONCAT('%',#{record.price},'%')
-            </if>
-                                                                                            <if test="record.finalPrice != null and record.finalPrice>0 ">
-                AND t_order_item.final_price LIKE CONCAT('%',#{record.finalPrice},'%')
-            </if>
-                                <if test="record.status != null and record.status!= ''">
-                AND t_order_item.status LIKE CONCAT('%',#{record.status},'%')
-            </if>
-                                                                                            <if test="record.costPrice != null and record.costPrice>0 ">
-                AND t_order_item.cost_price LIKE CONCAT('%',#{record.costPrice},'%')
-            </if>
-                                <if test="record.cover != null and record.cover!= ''">
-                AND t_order_item.cover LIKE CONCAT('%',#{record.cover},'%')
-            </if>
-                                                                                                            <if test="record.partnerLevelZone != null and record.partnerLevelZone>0 ">
-                AND t_order_item.partner_level_zone LIKE CONCAT('%',#{record.partnerLevelZone},'%')
-            </if>
-                                                                                                            <if test="record.productSpecificationName != null and record.productSpecificationName!= ''">
-                AND t_order_item.product_specification_name LIKE CONCAT('%',#{record.productSpecificationName},'%')
-            </if>
-                                                                                                            <if test="record.productSpecificationId != null and record.productSpecificationId>0 ">
-                AND t_order_item.product_specification_id LIKE CONCAT('%',#{record.productSpecificationId},'%')
-            </if>
-                                <if test="record.weight != null and record.weight>0 ">
-                AND t_order_item.weight LIKE CONCAT('%',#{record.weight},'%')
-            </if>
-                                <if test="record.bulk != null and record.bulk>0 ">
-                AND t_order_item.bulk LIKE CONCAT('%',#{record.bulk},'%')
-            </if>
-                                <if test="record.barcode != null and record.barcode!= ''">
-                AND t_order_item.barcode LIKE CONCAT('%',#{record.barcode},'%')
-            </if>
-                                                                                            <if test="record.storeLocation != null and record.storeLocation!= ''">
-                AND t_order_item.store_location LIKE CONCAT('%',#{record.storeLocation},'%')
-            </if>
-                                <if test="record.marketing != null and record.marketing!= ''">
-                AND t_order_item.marketing LIKE CONCAT('%',#{record.marketing},'%')
-            </if>
-                                                                                            <if test="record.marketingId != null and record.marketingId>0 ">
-                AND t_order_item.marketing_id LIKE CONCAT('%',#{record.marketingId},'%')
-            </if>
-                                                                                            <if test="record.marketingDescription != null and record.marketingDescription!= ''">
-                AND t_order_item.marketing_description LIKE CONCAT('%',#{record.marketingDescription},'%')
-            </if>
-                                                                                            <if test="record.skuId != null and record.skuId!= ''">
-                AND t_order_item.sku_id LIKE CONCAT('%',#{record.skuId},'%')
-            </if>
-                                                                                            <if test="record.warehouseId != null and record.warehouseId!= ''">
-                AND t_order_item.warehouse_id LIKE CONCAT('%',#{record.warehouseId},'%')
-            </if>
-                <if test="startTime != null">
+        <if test="record.id != null and record.id>0 ">
+            AND t_order_item.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.orderId != null and record.orderId>0 ">
+            AND t_order_item.order_id LIKE CONCAT('%',#{record.orderId},'%')
+        </if>
+        <if test="record.productId != null and record.productId>0 ">
+            AND t_order_item.product_id LIKE CONCAT('%',#{record.productId},'%')
+        </if>
+        <if test="record.productName != null and record.productName!= ''">
+            AND t_order_item.product_name LIKE CONCAT('%',#{record.productName},'%')
+        </if>
+        <if test="record.quantity != null and record.quantity>0 ">
+            AND t_order_item.quantity LIKE CONCAT('%',#{record.quantity},'%')
+        </if>
+        <if test="record.price != null and record.price>0 ">
+            AND t_order_item.price LIKE CONCAT('%',#{record.price},'%')
+        </if>
+        <if test="record.finalPrice != null and record.finalPrice>0 ">
+            AND t_order_item.final_price LIKE CONCAT('%',#{record.finalPrice},'%')
+        </if>
+        <if test="record.status != null and record.status!= ''">
+            AND t_order_item.status LIKE CONCAT('%',#{record.status},'%')
+        </if>
+        <if test="record.costPrice != null and record.costPrice>0 ">
+            AND t_order_item.cost_price LIKE CONCAT('%',#{record.costPrice},'%')
+        </if>
+        <if test="record.cover != null and record.cover!= ''">
+            AND t_order_item.cover LIKE CONCAT('%',#{record.cover},'%')
+        </if>
+        <if test="record.partnerLevelZone != null and record.partnerLevelZone>0 ">
+            AND t_order_item.partner_level_zone LIKE CONCAT('%',#{record.partnerLevelZone},'%')
+        </if>
+        <if test="record.productSpecificationName != null and record.productSpecificationName!= ''">
+            AND t_order_item.product_specification_name LIKE CONCAT('%',#{record.productSpecificationName},'%')
+        </if>
+        <if test="record.productSpecificationId != null and record.productSpecificationId>0 ">
+            AND t_order_item.product_specification_id LIKE CONCAT('%',#{record.productSpecificationId},'%')
+        </if>
+        <if test="record.weight != null and record.weight>0 ">
+            AND t_order_item.weight LIKE CONCAT('%',#{record.weight},'%')
+        </if>
+        <if test="record.bulk != null and record.bulk>0 ">
+            AND t_order_item.bulk LIKE CONCAT('%',#{record.bulk},'%')
+        </if>
+        <if test="record.barcode != null and record.barcode!= ''">
+            AND t_order_item.barcode LIKE CONCAT('%',#{record.barcode},'%')
+        </if>
+        <if test="record.storeLocation != null and record.storeLocation!= ''">
+            AND t_order_item.store_location LIKE CONCAT('%',#{record.storeLocation},'%')
+        </if>
+        <if test="record.marketing != null and record.marketing!= ''">
+            AND t_order_item.marketing LIKE CONCAT('%',#{record.marketing},'%')
+        </if>
+        <if test="record.marketingId != null and record.marketingId>0 ">
+            AND t_order_item.marketing_id LIKE CONCAT('%',#{record.marketingId},'%')
+        </if>
+        <if test="record.marketingDescription != null and record.marketingDescription!= ''">
+            AND t_order_item.marketing_description LIKE CONCAT('%',#{record.marketingDescription},'%')
+        </if>
+        <if test="record.skuId != null and record.skuId!= ''">
+            AND t_order_item.sku_id LIKE CONCAT('%',#{record.skuId},'%')
+        </if>
+        <if test="record.warehouseId != null and record.warehouseId!= ''">
+            AND t_order_item.warehouse_id LIKE CONCAT('%',#{record.warehouseId},'%')
+        </if>
+        <if test="startTime != null">
             <![CDATA[AND t_order_item.start_time >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_order_item.end_time <= DATE(#{endTime)]]>
         </if>
-            <!--
-        <if test="search != null and search != ''">
-            OR t_order_item.name LIKE CONCAT('%',#{search},'%')
-        </if>
-        -->
-                                    </select>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_order_item.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+    </select>
 </mapper>

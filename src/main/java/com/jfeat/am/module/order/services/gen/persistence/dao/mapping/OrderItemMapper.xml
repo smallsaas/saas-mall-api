@@ -34,4 +34,22 @@
         id, order_id AS orderId, product_id AS productId, product_name AS productName, quantity, price, final_price AS finalPrice, status, cost_price AS costPrice, cover, partner_level_zone AS partnerLevelZone, product_specification_name AS productSpecificationName, product_specification_id AS productSpecificationId, weight, bulk, store_location AS storeLocation, marketing, marketing_id AS marketingId, marketing_description AS marketingDescription, sku_id AS skuId, warehouse_id AS warehouseId
     </sql>
 
+	<select id="selectItemList" resultType="com.jfeat.am.module.order.services.gen.persistence.model.OrderItem">
+		select
+           t_order_item.id, t_order_item.order_id AS orderId, t_order_item.product_id AS productId,
+           IFNULL(t_order_item.product_name,t_product.`name`) AS productName,
+           t_order_item.quantity, t_order_item.price,
+            t_order_item.final_price AS finalPrice, t_order_item.status, t_order_item.cost_price AS costPrice,
+             t_order_item.cover, t_order_item.partner_level_zone AS partnerLevelZone,
+              t_order_item.product_specification_name AS productSpecificationName,
+              t_order_item.product_specification_id AS productSpecificationId, t_order_item.weight,
+               t_order_item.bulk, t_order_item.barcode, t_order_item.store_location AS storeLocation,
+               t_order_item.marketing, t_order_item.marketing_id AS marketingId, t_order_item.marketing_description AS marketingDescription,
+                t_order_item.sku_id AS skuId, t_order_item.warehouse_id AS warehouseId
+		 from t_order_item
+		  left join t_product on t_product.id = t_order_item.product_id
+		  where order_id = #{orderId}
+
+	</select>
+
 </mapper>

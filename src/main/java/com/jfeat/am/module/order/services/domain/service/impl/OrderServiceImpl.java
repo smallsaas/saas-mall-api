@@ -95,7 +95,8 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
         orderModel.setDetail(detail);
 
-        List<OrderItem> orderItemList = orderItemMapper.selectList(new QueryWrapper<OrderItem>().eq("order_id", id));
+        //List<OrderItem> orderItemList = orderItemMapper.selectList(new QueryWrapper<OrderItem>().eq("order_id", id));
+        List<OrderItem> orderItemList = orderItemMapper.selectItemList(id);
         orderModel.setOrderItemList(orderItemList);
         List<OrderProcessLog> orderProcessLogList = orderProcessLogMapper.selectList(new QueryWrapper<OrderProcessLog>().eq("order_id", id));
         orderModel.setOrderProcessLogList(orderProcessLogList);
