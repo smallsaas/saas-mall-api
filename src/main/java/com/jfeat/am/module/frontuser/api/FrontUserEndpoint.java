@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontuser.api;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.frontuser.definition.FrontUserPermission;
@@ -14,6 +15,7 @@ import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,6 +29,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
+import java.util.stream.Collectors;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -248,6 +251,30 @@ public class FrontUserEndpoint {
         record.setLastModifiedTime(lastModifiedTime);
 //        record.setOrgId(JWTKit.getOrgId());
         page.setRecords(this.queryFrontUserDao.findUserPage(page, record, search, orderBy, null, null));
+
+        // get header HOST
+        String url;  // append HOST
+        {
+            var request = JWTKit.getRequest();
+            String schema = request.getScheme();
+            String serverName = request.getServerName();
+            int serverPort = request.getServerPort();
+            url = String.join("", schema, "://", serverName, String.valueOf(serverPort));
+            if (url.endsWith(":80")) {
+                url.substring(0, url.length() - 3);
+            }
+        }
+        page.setRecords(page.getRecords().stream()
+                .map(u-> {
+                    if(StringUtils.isBlank(u.getInvitationQrcodeUrl())) return u;
+                    if(u.getInvitationQrcodeUrl().startsWith("http://")) return u;
+                    if(u.getInvitationQrcodeUrl().startsWith("https://")) return u;
+
+                    u.setInvitationQrcodeUrl(String.join("/", url, u.getInvitationQrcodeUrl()));
+                    return u;
+                })
+                .collect(Collectors.toList())
+        );
 
         return SuccessTip.create(page);
     }
