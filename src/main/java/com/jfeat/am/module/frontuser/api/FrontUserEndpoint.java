@@ -252,29 +252,29 @@ public class FrontUserEndpoint {
 //        record.setOrgId(JWTKit.getOrgId());
         page.setRecords(this.queryFrontUserDao.findUserPage(page, record, search, orderBy, null, null));
 
-        // get header HOST
-        String url;  // append HOST
-        {
-            var request = JWTKit.getRequest();
-            String schema = request.getScheme();
-            String serverName = request.getServerName();
-            int serverPort = request.getServerPort();
-            url = String.join("", schema, "://", serverName, String.valueOf(serverPort));
-            if (url.endsWith(":80")) {
-                url.substring(0, url.length() - 3);
-            }
-        }
-        page.setRecords(page.getRecords().stream()
-                .map(u-> {
-                    if(StringUtils.isBlank(u.getInvitationQrcodeUrl())) return u;
-                    if(u.getInvitationQrcodeUrl().startsWith("http://")) return u;
-                    if(u.getInvitationQrcodeUrl().startsWith("https://")) return u;
-
-                    u.setInvitationQrcodeUrl(String.join("/", url, u.getInvitationQrcodeUrl()));
-                    return u;
-                })
-                .collect(Collectors.toList())
-        );
+//        // get header HOST
+//        String url;  // append HOST
+//        {
+//            var request = JWTKit.getRequest();
+//            String schema = request.getScheme();
+//            String serverName = request.getServerName();
+//            int serverPort = request.getServerPort();
+//            url = String.join("", schema, "://", serverName, String.valueOf(serverPort));
+//            if (url.endsWith(":80")) {
+//                url.substring(0, url.length() - 3);
+//            }
+//        }
+//        page.setRecords(page.getRecords().stream()
+//                .map(u-> {
+//                    if(StringUtils.isBlank(u.getInvitationQrcodeUrl())) return u;
+//                    if(u.getInvitationQrcodeUrl().startsWith("http://")) return u;
+//                    if(u.getInvitationQrcodeUrl().startsWith("https://")) return u;
+//
+//                    u.setInvitationQrcodeUrl(String.join("/", url, u.getInvitationQrcodeUrl()));
+//                    return u;
+//                })
+//                .collect(Collectors.toList())
+//        );
 
         return SuccessTip.create(page);
     }
