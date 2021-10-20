@@ -134,7 +134,8 @@
         </if>
     <if test="search != null and search != ''">
         And ( t_user.name LIKE CONCAT('%',#{search},'%')
-        OR t_user.uid LIKE CONCAT('%',#{search},'%') )
+        OR t_user.uid LIKE CONCAT('%',#{search},'%')
+         OR t_user.phone LIKE CONCAT('%',#{search},'%'))
     </if>
         ORDER BY last_modified_time DESC
     </select>
