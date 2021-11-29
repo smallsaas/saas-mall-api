@@ -1,6 +1,10 @@
 package com.jfeat.am.module.frontproduct.api;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
@@ -49,6 +53,9 @@ public class FrontProductCategoryEndpoint {
 
     @Resource
     FrontProductCategoryService frontProductCategoryService;
+
+    @Resource
+    FrontProductMapper frontProductMapper;
 
 
     @BusinessLog(name = "产品分类", value = "新建产品分类")
@@ -99,6 +106,13 @@ public class FrontProductCategoryEndpoint {
     @ApiOperation("删除 FrontProductCategory")
     @Permission(FrontProductPermission.PRODUCTCATEGORY_DEL)
     public Tip deleteProductCategory(@PathVariable Long id) {
+        FrontProduct queryer = new FrontProduct();
+        queryer.setCategoryId(Integer.valueOf(id.intValue()));
+        var result = frontProductMapper.selectList(new LambdaQueryWrapper<FrontProduct>(queryer));
+        if(result.size()>0){
+            throw new BusinessException(BusinessCode.BadRequest,"该类别下包含产品");
+        }
+
         return SuccessTip.create(frontProductCategoryService.deleteMaster(id));
     }
 
