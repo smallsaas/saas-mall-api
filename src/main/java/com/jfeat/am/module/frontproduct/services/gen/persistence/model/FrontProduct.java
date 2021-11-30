@@ -121,8 +121,29 @@ public class FrontProduct extends Model<FrontProduct> {
 	@TableField("org_id")
 	private Long orgId;
 
+	@TableField("region")
+	private String region;
+
+	@TableField("description")
+	private String description;
 
 	private Long presale;
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
 	public String getBanner() {
 		return banner;
@@ -525,6 +546,11 @@ public class FrontProduct extends Model<FrontProduct> {
 
 	public static final String REQUIRED_PARTICIPATE_EXAM = "required_participate_exam";
 
+	public static final String REGION = "region";
+
+	public static final String DESCRIPTION = "description";
+
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -568,6 +594,8 @@ public class FrontProduct extends Model<FrontProduct> {
 			", credit=" + credit +
 			", isVirtual=" + isVirtual +
 			", requiredParticipateExam=" + requiredParticipateExam +
+			", region=" + region +
+			", description=" + description +
 			"}";
 	}
 
