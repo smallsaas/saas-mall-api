@@ -2,7 +2,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jfeat.am.module.log.annotation.BusinessLog;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.frontproduct.definition.FareTemplatePermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FareTemplateModel;

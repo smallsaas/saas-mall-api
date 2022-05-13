@@ -2,7 +2,6 @@ package com.jfeat.am.module.order.api;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
@@ -10,6 +9,7 @@ import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;

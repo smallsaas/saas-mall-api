@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
-import com.jfeat.am.module.log.annotation.BusinessLog;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;

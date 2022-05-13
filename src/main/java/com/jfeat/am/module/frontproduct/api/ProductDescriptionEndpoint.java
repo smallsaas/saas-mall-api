@@ -2,10 +2,10 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jfeat.am.module.log.annotation.BusinessLog;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductDescriptionRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.ProductDescriptionService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductDescription;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;

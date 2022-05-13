@@ -3,7 +3,7 @@ package com.jfeat.am.module.frontuser.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.core.jwt.JWTKit;
-import com.jfeat.am.module.log.annotation.BusinessLog;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.frontuser.definition.FrontUserPermission;
 import com.jfeat.am.module.frontuser.services.domain.dao.QueryFrontUserDao;

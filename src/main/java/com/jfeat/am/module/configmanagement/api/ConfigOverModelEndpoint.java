@@ -2,7 +2,7 @@ package com.jfeat.am.module.configmanagement.api;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.jfeat.am.module.log.annotation.BusinessLog;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.configmanagement.definition.ConfigPermission;
 import com.jfeat.am.module.configmanagement.services.definition.ConfigType;
