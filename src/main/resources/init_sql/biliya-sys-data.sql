@@ -124,12 +124,12 @@ CREATE TABLE `sys_perm_group` (
 -- ----------------------------
 -- Records of sys_perm_group
 -- ----------------------------
-INSERT INTO `sys_perm_group` VALUES ('100000000000000001', '1', null, 'root', '权限管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000002', '1', '100000000000000001', 'product_management', '产品管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000003', '1', '100000000000000001', 'order_management', '订单管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000004', '1', '100000000000000001', 'Alliances.management', '盟友管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000005', '1', '100000000000000001', 'config_management', '商城配置');
-INSERT INTO `sys_perm_group` VALUES ('200000000000000006', '1', '100000000000000001', 'sysConfig.management', '系统配置');
+INSERT INTO `sys_perm_group` VALUES ('1', '1', null, 'root', '权限管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000002', '1', '1', 'product_management', '产品管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000003', '1', '1', 'order_management', '订单管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000004', '1', '1', 'Alliances.management', '盟友管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000005', '1', '1', 'config_management', '商城配置');
+INSERT INTO `sys_perm_group` VALUES ('200000000000000006', '1', '1', 'sysConfig.management', '系统配置');
 INSERT INTO `sys_perm_group` VALUES ('100200000000000001', '1', '100000000000000002', 'product_category_management', '产品类别');
 INSERT INTO `sys_perm_group` VALUES ('100200000000000002', '1', '100000000000000002', 'product_product_management', '产品');
 INSERT INTO `sys_perm_group` VALUES ('100200000000000003', '1', '100000000000000002', 'product_tag_management', '产品标签');
@@ -191,8 +191,8 @@ CREATE TABLE `sys_role` (
 -- ----------------------------
 -- Records of sys_role
 -- ----------------------------
-INSERT INTO `sys_role` VALUES ('876708082437197826', '100000000000000001', '1', '0', '超级管理员', 'administrator', '1', '1');
-INSERT INTO `sys_role` VALUES ('876708082437197827', '100000000000000001', '1', null, '十美创享', '十美创享运维服务', null, '1');
+INSERT INTO `sys_role` VALUES ('876708082437197826', '1', '1', '0', '超级管理员', 'administrator', '1', '1');
+INSERT INTO `sys_role` VALUES ('876708082437197827', '1', '1', null, '十美创享', '十美创享运维服务', null, '1');
 
 -- ----------------------------
 -- Table structure for sys_role_perm
@@ -356,8 +356,8 @@ CREATE TABLE `t_sys_org` (
 -- ----------------------------
 -- Records of t_sys_org
 -- ----------------------------
-INSERT INTO `t_sys_org` VALUES ('100000000000000001', null, '可圈点科技有限公司', 'A1', '广州可圈点信息科技有限公司', '1', '1', '10', '总公司', 'NORMAL', '0', '2018-09-23 00:37:59', '2019-12-13 11:51:27');
-INSERT INTO `t_sys_org` VALUES ('100000000000000002', '100000000000000001', '十美创享集团', '1000', '十美创享之家平台', '2', '2', '9', '十美', 'NORMAL', '1', '2019-11-05 18:37:59', '2019-12-13 11:51:27');
+INSERT INTO `t_sys_org` VALUES ('1', null, '可圈点科技有限公司', 'A1', '广州可圈点信息科技有限公司', '1', '1', '10', '总公司', 'NORMAL', '0', '2018-09-23 00:37:59', '2019-12-13 11:51:27');
+INSERT INTO `t_sys_org` VALUES ('100000000000000002', '1', '十美创享集团', '1000', '十美创享之家平台', '2', '2', '9', '十美', 'NORMAL', '1', '2019-11-05 18:37:59', '2019-12-13 11:51:27');
 INSERT INTO `t_sys_org` VALUES ('100000000000000003', '100000000000000002', '运营部', 'A001', '运营部', '3', '3', '4', '', 'NORMAL', '4', '2019-11-05 19:04:27', '2019-12-04 15:03:03');
 INSERT INTO `t_sys_org` VALUES ('100000000000000005', '100000000000000002', '开发部', 'B001', '开发部', '3', '5', '8', null, 'NORMAL', '4', '2019-11-08 10:12:45', '2019-12-13 11:51:27');
 INSERT INTO `t_sys_org` VALUES ('100000000000000008', '100000000000000005', '开发1组', 'Test001', '开发1组', '4', '6', '7', null, 'NORMAL', '5', '2019-12-13 11:51:27', '2019-12-13 11:51:28');
@@ -397,7 +397,7 @@ CREATE TABLE `t_sys_user` (
 -- ----------------------------
 -- Records of t_sys_user
 -- ----------------------------
-INSERT INTO `t_sys_user` VALUES ('876708082437197827', '', 'admin', '100000000000000001', null, 'b5106d36993ba6afd2b5b99e3e46e1af', 'p683b', '管理员', '2019-11-09 08:00:00', '0', 'admin@kequandian.net', '0', '18200000000', '1', '2017-01-29 08:49:53', '1', '1', '0', '1');
+INSERT INTO `t_sys_user` VALUES ('876708082437197827', '', 'admin', '1', null, 'b5106d36993ba6afd2b5b99e3e46e1af', 'p683b', '管理员', '2019-11-09 08:00:00', '0', 'admin@kequandian.net', '0', '18200000000', '1', '2017-01-29 08:49:53', '1', '1', '0', '1');
 INSERT INTO `t_sys_user` VALUES ('876708082437197828', null, 'smcx', null, null, null, null, '十美创享', null, '1', 'qq@qq.com', '0', '13800000000', '1', '2019-11-06 18:26:28', null, '1', '0', '0');
 INSERT INTO `t_sys_user` VALUES ('876708082437197832', null, 'demo', null, null, '198f557c6c22d6116e659113b1668d1b', '7x1k2', '测试', null, '0', null, '0', null, '1', '2020-05-22 15:54:41', null, '1', '0', '0');
 
