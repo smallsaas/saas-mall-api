@@ -99,27 +99,14 @@ INSERT INTO `sys_perm` VALUES ('100000000000004008', '100400000000000003', 'Bonu
 INSERT INTO `sys_perm` VALUES ('100000000000005005', '100500000000000001', 'Config.view', '查看配置', '0');
 INSERT INTO `sys_perm` VALUES ('100000000000005007', '100500000000000001', 'Config.edit', '修改配置', '0');
 INSERT INTO `sys_perm` VALUES ('100000000000006001', '100600000000000001', 'OperationLog.view', '查看日志', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000010001', '100500000000000002', 'FrontUser.view', '查看微信用户 ', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000011002', '100300000000000001', 'Order.delete', '删除订单', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000011003', '100300000000000001', 'Order.view', '查看订单 ', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000011004', '100300000000000001', 'Order.new', '新增订单 ', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000011005', '100300000000000002', 'Express.edit', '编辑快递', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000011006', '100300000000000002', 'Express.delete', '删除快递', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000011007', '100300000000000002', 'Express.view', '查看快递', '0');
-INSERT INTO `sys_perm` VALUES ('100000000000011008', '100300000000000002', 'Express.new', '新增快递', '0');
-INSERT INTO `sys_perm` VALUES ('876708082437197920', '876708082437197910', 'sysUser.view', '查看用户', '0');
-INSERT INTO `sys_perm` VALUES ('876708082437197921', '876708082437197910', 'sysUser.edit', '编辑用户', '0');
-INSERT INTO `sys_perm` VALUES ('876708082437197922', '876708082437197910', 'sysUser.del', '删除用户', '0');
-INSERT INTO `sys_perm` VALUES ('876708082437197923', '876708082437197911', 'sysRole.view', '查看角色', '0');
-INSERT INTO `sys_perm` VALUES ('876708082437197924', '876708082437197911', 'sysRole.edit', '更新角色', '0');
-INSERT INTO `sys_perm` VALUES ('876708082437197925', '876708082437197911', 'sysRole.del', '删除角色', '0');
-INSERT INTO `sys_perm` VALUES ('1012573379300782082', '112573379300782085', 'Org.view', '查看组织', '0');
-INSERT INTO `sys_perm` VALUES ('1012573379300782083', '112573379300782085', 'Org.edit', '编辑组织', '0');
-INSERT INTO `sys_perm` VALUES ('1012573379300782084', '112573379300782085', 'Org.del', '删除组织', '0');
-INSERT INTO `sys_perm` VALUES ('1012573379300782088', '112573379300782088', 'EavEntity.view', '查看自定义表单', '0');
-INSERT INTO `sys_perm` VALUES ('1012573379300782089', '112573379300782088', 'EavEntity.delete', '删除自定义表单', '0');
-INSERT INTO `sys_perm` VALUES ('1012573379300782090', '112573379300782088', 'EavEntity.edit', '编辑自定义表单', '0');
-INSERT INTO `sys_perm` VALUES ('1012573379300782091', '112573379300782088', 'EavEntity.new', '新建自定义表单', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000010001', '100500000000000002', 'FrontUser.view', '查看微信用户 ', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000011002', '100300000000000001', 'Order.delete', '删除订单', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000011003', '100300000000000001', 'Order.view', '查看订单 ', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000011004', '100300000000000001', 'Order.new', '新增订单 ', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000011005', '100300000000000002', 'Express.edit', '编辑快递', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000011006', '100300000000000002', 'Express.delete', '删除快递', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000011007', '100300000000000002', 'Express.view', '查看快递', '0');
+INSERT INTO `sys_perm` VALUES ('200000000000011008', '100300000000000002', 'Express.new', '新增快递', '0');
 
 -- ----------------------------
 -- Table structure for sys_perm_group
@@ -137,29 +124,51 @@ CREATE TABLE `sys_perm_group` (
 -- ----------------------------
 -- Records of sys_perm_group
 -- ----------------------------
-INSERT INTO `sys_perm_group` VALUES ('100000000000000001', '100000000000000001', null, 'root', '权限管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000002', '100000000000000001', '100000000000000001', 'product_management', '产品管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000003', '100000000000000001', '100000000000000001', 'order_management', '订单管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000004', '100000000000000001', '100000000000000001', 'Alliances.management', '盟友管理');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000005', '100000000000000001', '100000000000000001', 'config_management', '商城配置');
-INSERT INTO `sys_perm_group` VALUES ('100000000000000006', '100000000000000001', '100000000000000001', 'sysConfig.management', '系统配置');
-INSERT INTO `sys_perm_group` VALUES ('100200000000000001', '100000000000000001', '100000000000000002', 'product_category_management', '产品类别');
-INSERT INTO `sys_perm_group` VALUES ('100200000000000002', '100000000000000001', '100000000000000002', 'product_product_management', '产品');
-INSERT INTO `sys_perm_group` VALUES ('100200000000000003', '100000000000000001', '100000000000000002', 'product_tag_management', '产品标签');
-INSERT INTO `sys_perm_group` VALUES ('100200000000000004', '100000000000000001', '100000000000000002', 'product_template_management', '运费模板');
-INSERT INTO `sys_perm_group` VALUES ('100200000000000005', '100000000000000001', '100000000000000002', 'product_crand_management', '品牌管理');
-INSERT INTO `sys_perm_group` VALUES ('100300000000000001', '100000000000000001', '100000000000000003', 'order_order_management', '订单管理');
-INSERT INTO `sys_perm_group` VALUES ('100300000000000002', '100000000000000001', '100000000000000003', 'order_Express_management', '快递管理');
-INSERT INTO `sys_perm_group` VALUES ('100400000000000001', '100000000000000001', '100000000000000004', 'Alliance.management', '盟友管理');
-INSERT INTO `sys_perm_group` VALUES ('100400000000000002', '100000000000000001', '100000000000000004', 'AllianceBonus.management', '产品销量');
-INSERT INTO `sys_perm_group` VALUES ('100400000000000003', '100000000000000001', '100000000000000004', 'AllianceDividend.management', '盟友分红信息');
-INSERT INTO `sys_perm_group` VALUES ('100500000000000001', '100000000000000001', '100000000000000005', 'configa_management', '配置管理');
-INSERT INTO `sys_perm_group` VALUES ('100500000000000002', '100000000000000001', '100000000000000005', 'front_user_management', '微信用户管理');
-INSERT INTO `sys_perm_group` VALUES ('100600000000000001', '100000000000000001', '100000000000000006', 'contract.management', '日志配置');
-INSERT INTO `sys_perm_group` VALUES ('112573379300782085', '100000000000000001', '100000000000000006', 'Org.management', '组织管理');
-INSERT INTO `sys_perm_group` VALUES ('112573379300782088', '100000000000000001', '100000000000000006', 'EAV.management', '自定义表单管理');
-INSERT INTO `sys_perm_group` VALUES ('876708082437197910', '100000000000000001', '100000000000000006', 'sysUser.management', '用户管理');
-INSERT INTO `sys_perm_group` VALUES ('876708082437197911', '100000000000000001', '100000000000000006', 'sysRole.management', '角色管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000001', '1', null, 'root', '权限管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000002', '1', '100000000000000001', 'product_management', '产品管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000003', '1', '100000000000000001', 'order_management', '订单管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000004', '1', '100000000000000001', 'Alliances.management', '盟友管理');
+INSERT INTO `sys_perm_group` VALUES ('100000000000000005', '1', '100000000000000001', 'config_management', '商城配置');
+INSERT INTO `sys_perm_group` VALUES ('200000000000000006', '1', '100000000000000001', 'sysConfig.management', '系统配置');
+INSERT INTO `sys_perm_group` VALUES ('100200000000000001', '1', '100000000000000002', 'product_category_management', '产品类别');
+INSERT INTO `sys_perm_group` VALUES ('100200000000000002', '1', '100000000000000002', 'product_product_management', '产品');
+INSERT INTO `sys_perm_group` VALUES ('100200000000000003', '1', '100000000000000002', 'product_tag_management', '产品标签');
+INSERT INTO `sys_perm_group` VALUES ('100200000000000004', '1', '100000000000000002', 'product_template_management', '运费模板');
+INSERT INTO `sys_perm_group` VALUES ('100200000000000005', '1', '100000000000000002', 'product_crand_management', '品牌管理');
+INSERT INTO `sys_perm_group` VALUES ('100300000000000001', '1', '100000000000000003', 'order_order_management', '订单管理');
+INSERT INTO `sys_perm_group` VALUES ('100300000000000002', '1', '100000000000000003', 'order_Express_management', '快递管理');
+INSERT INTO `sys_perm_group` VALUES ('100400000000000001', '1', '100000000000000004', 'Alliance.management', '盟友管理');
+INSERT INTO `sys_perm_group` VALUES ('100400000000000002', '1', '100000000000000004', 'AllianceBonus.management', '产品销量');
+INSERT INTO `sys_perm_group` VALUES ('100400000000000003', '1', '100000000000000004', 'AllianceDividend.management', '盟友分红信息');
+INSERT INTO `sys_perm_group` VALUES ('100500000000000001', '1', '100000000000000005', 'configa_management', '配置管理');
+INSERT INTO `sys_perm_group` VALUES ('100500000000000002', '1', '100000000000000005', 'front_user_management', '微信用户管理');
+INSERT INTO `sys_perm_group` VALUES ('100600000000000001', '1', '100000000000000006', 'contract.management', '日志配置');
+
+-- ---------------------------------------
+-- 通用权限部分
+-- ---------------------------------------
+INSERT INTO `sys_perm_group` VALUES ('112573379300782085', '1', '100000000000000006', 'Org.management', '组织管理');
+INSERT INTO `sys_perm_group` VALUES ('112573379300782088', '1', '100000000000000006', 'EAV.management', '自定义表单管理');
+INSERT INTO `sys_perm_group` VALUES ('876708082437197910', '1', '100000000000000006', 'sysUser.management', '用户管理');
+INSERT INTO `sys_perm_group` VALUES ('876708082437197911', '1', '100000000000000006', 'sysRole.management', '角色管理');
+
+
+INSERT INTO `sys_perm` VALUES ('876708082437197920', '876708082437197910', 'sysUser.view', '查看用户', '0');
+INSERT INTO `sys_perm` VALUES ('876708082437197921', '876708082437197910', 'sysUser.edit', '编辑用户', '0');
+INSERT INTO `sys_perm` VALUES ('876708082437197922', '876708082437197910', 'sysUser.del', '删除用户', '0');
+INSERT INTO `sys_perm` VALUES ('876708082437197923', '876708082437197911', 'sysRole.view', '查看角色', '0');
+INSERT INTO `sys_perm` VALUES ('876708082437197924', '876708082437197911', 'sysRole.edit', '更新角色', '0');
+INSERT INTO `sys_perm` VALUES ('876708082437197925', '876708082437197911', 'sysRole.del', '删除角色', '0');
+
+INSERT INTO `sys_perm` VALUES ('1012573379300782088', '112573379300782088', 'EavEntity.view', '查看自定义表单', '0');
+INSERT INTO `sys_perm` VALUES ('1012573379300782089', '112573379300782088', 'EavEntity.delete', '删除自定义表单', '0');
+INSERT INTO `sys_perm` VALUES ('1012573379300782090', '112573379300782088', 'EavEntity.edit', '编辑自定义表单', '0');
+INSERT INTO `sys_perm` VALUES ('1012573379300782091', '112573379300782088', 'EavEntity.new', '新建自定义表单', '0');
+
+INSERT INTO `sys_perm` VALUES ('1012573379300782082', '112573379300782085', 'Org.view', '查看组织', '0');
+INSERT INTO `sys_perm` VALUES ('1012573379300782083', '112573379300782085', 'Org.edit', '编辑组织', '0');
+INSERT INTO `sys_perm` VALUES ('1012573379300782084', '112573379300782085', 'Org.del', '删除组织', '0');
+
 
 -- ----------------------------
 -- Table structure for sys_role
