@@ -140,8 +140,8 @@ INSERT INTO `sys_perm_group` VALUES ('100300000000000002', '1', '100000000000000
 INSERT INTO `sys_perm_group` VALUES ('100400000000000001', '1', '100000000000000004', 'Alliance.management', '盟友管理');
 INSERT INTO `sys_perm_group` VALUES ('100400000000000002', '1', '100000000000000004', 'AllianceBonus.management', '产品销量');
 INSERT INTO `sys_perm_group` VALUES ('100400000000000003', '1', '100000000000000004', 'AllianceDividend.management', '盟友分红信息');
-INSERT INTO `sys_perm_group` VALUES ('100500000000000001', '1', '100000000000000005', 'configa_management', '配置管理');
-INSERT INTO `sys_perm_group` VALUES ('100500000000000002', '1', '100000000000000005', 'front_user_management', '微信用户管理');
+INSERT INTO `sys_perm_group` VALUES ('100500000000000001', '1', '100000000000000002', 'configa_management', '配置管理');
+INSERT INTO `sys_perm_group` VALUES ('100500000000000002', '1', '100000000000000002', 'front_user_management', '微信用户管理');
 INSERT INTO `sys_perm_group` VALUES ('100600000000000001', '1', '100000000000000006', 'contract.management', '日志配置');
 
 -- ---------------------------------------
