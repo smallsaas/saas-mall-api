@@ -11,17 +11,19 @@ import org.springframework.http.client.SimpleClientHttpRequestFactory;
 import org.springframework.util.Assert;
 import org.springframework.web.client.*;
 
+import javax.annotation.Resource;
 import java.io.IOException;
 import java.net.URI;
 
 @Configuration
 public class RestTemplateConfig {
 
-
+    @Resource(name = "simpleClientHttpRequestFactory")
+    ClientHttpRequestFactory factory;
     //配置RestTemplate
 
     @Bean
-    public RestTemplate restTemplate(ClientHttpRequestFactory factory){
+    public RestTemplate restTemplate(){
 
         return new RestTemplate(factory){
 
@@ -67,7 +69,7 @@ public class RestTemplateConfig {
     }
 
 
-    @Bean
+    @Bean("simpleClientHttpRequestFactory")
     public ClientHttpRequestFactory simpleClientHttpRequestFactory(){
 
         //创建一个简单工厂
