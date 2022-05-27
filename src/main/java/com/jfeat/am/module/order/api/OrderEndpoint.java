@@ -3,6 +3,7 @@ package com.jfeat.am.module.order.api;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
@@ -14,6 +15,7 @@ import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
+import com.jfeat.crud.plus.META;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -386,6 +388,9 @@ public class OrderEndpoint {
         record.setDeliveredDate(deliveredDate);
         record.setDealDate(dealDate);
         record.setDeliverOrderNumber(deliverOrderNumber);
+        if(META.enabledSaas()){
+            record.setOrgId(JWTKit.getOrgId());
+        }
 
 
         record.setStatus(status);

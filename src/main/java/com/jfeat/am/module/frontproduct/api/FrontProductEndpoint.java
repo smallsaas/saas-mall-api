@@ -16,6 +16,7 @@ import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
 
+import com.jfeat.crud.plus.META;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -254,7 +255,9 @@ public class FrontProductEndpoint {
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
-        record.setOrgId(JWTKit.getOrgId());
+        if(META.enabledSaas()) {
+            record.setOrgId(JWTKit.getOrgId());
+        }
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));

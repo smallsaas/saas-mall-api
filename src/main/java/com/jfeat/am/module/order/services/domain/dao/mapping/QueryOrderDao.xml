@@ -31,6 +31,10 @@
         extCuts,t_order.org_id AS orgId
     </sql>
 
+    <sql id="QueryOwnedOrgIds">
+        SELECT children.id FROM t_sys_org, t_sys_org as children WHERE t_sys_org.left_num &lt;= children.left_num AND
+            t_sys_org.right_num >= children.left_num and t_sys_org.id=#{record.orgId} order by t_sys_org.node_level ASC
+    </sql>
 
     <select id="findOrderPage" resultType="OrderRecord" parameterType="OrderRecord">
         SELECT
@@ -41,7 +45,15 @@
         FROM t_order
         left join t_user on t_order.user_id=t_user.id
 
+        <if test="record.orgId > 0">
+            ,(<include refid="QueryOwnedOrgIds"></include>) AS ownedOrgIds
+        </if>
+
         WHERE 1=1
+        <if test="record.orgId > 0">
+            AND t_order.org_id = ownedOrgIds.id
+        </if>
+
         <if test="record.pName != null and record.pName!= '' ">
             and t_order.id in (select t_order.id
             from t_order join t_order_item on t_order_item.order_id= t_order.id
