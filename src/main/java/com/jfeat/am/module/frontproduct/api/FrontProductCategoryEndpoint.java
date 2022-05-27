@@ -3,6 +3,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.crud.base.annotation.BusinessLog;
@@ -116,26 +117,8 @@ public class FrontProductCategoryEndpoint {
         return SuccessTip.create(frontProductCategoryService.deleteMaster(id));
     }
 
-    /*@ApiOperation(value = "FrontProductCategory 列表信息", response = FrontProductCategoryRecord.class)
+    @ApiOperation(value = "FrontProductCategory 列表信息", response = FrontProductCategoryRecord.class)
     @GetMapping
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", dataType = "Integer"),
-            @ApiImplicitParam(name = "search", dataType = "String"),
-            @ApiImplicitParam(name = "id", dataType = "Integer"),
-            @ApiImplicitParam(name = "parentId", dataType = "Integer"),
-            @ApiImplicitParam(name = "name", dataType = "String"),
-            @ApiImplicitParam(name = "description", dataType = "String"),
-            @ApiImplicitParam(name = "cover", dataType = "String"),
-            @ApiImplicitParam(name = "sortOrder", dataType = "Integer"),
-            @ApiImplicitParam(name = "promoted", dataType = "Integer"),
-            @ApiImplicitParam(name = "visible", dataType = "Integer"),
-            @ApiImplicitParam(name = "promotedProductCount", dataType = "Integer"),
-            @ApiImplicitParam(name = "wholesale", dataType = "Integer"),
-            @ApiImplicitParam(name = "isShowProducts", dataType = "Integer"),
-            @ApiImplicitParam(name = "orderBy", dataType = "String"),
-            @ApiImplicitParam(name = "sort", dataType = "String")
-    })
     public Tip queryProductCategoryies(Page<FrontProductCategoryRecord> page,
                                        @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                                        @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
@@ -154,17 +137,6 @@ public class FrontProductCategoryEndpoint {
                                        @RequestParam(name = "orgId", required = false) Long orgId,
                                        @RequestParam(name = "orderBy", required = false) String orderBy,
                                        @RequestParam(name = "sort", required = false) String sort) {
-        if (orderBy != null && orderBy.length() > 0) {
-            if (sort != null && sort.length() > 0) {
-                String pattern = "(ASC|DESC|asc|desc)";
-                if (!sort.matches(pattern)) {
-                    throw new BusinessException(BusinessCode.BadRequest.getCode(), "sort must be ASC or DESC");//此处异常类型根据实际情况而定
-                }
-            } else {
-                sort = "ASC";
-            }
-            orderBy = "`" + orderBy + "`" + " " + sort;
-        }
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
@@ -183,8 +155,8 @@ public class FrontProductCategoryEndpoint {
         record.setOrgId(orgId);
         page.setRecords(this.frontProductCategoryService.findProductCategoryPage(page, record, search, orderBy, null, null));
         return SuccessTip.create(page);
-    }*/
-
+    }
+/*
     @ApiOperation(value = "返回所有ProductCategory", response = FrontProductCategoryRecord.class)
     @GetMapping
     @Permission(FrontProductPermission.PRODUCTCATEGORY_VIEW)
@@ -192,5 +164,7 @@ public class FrontProductCategoryEndpoint {
         List<FrontProductCategoryRecord> frontProductCategoryRecordList =  frontProductCategoryService.queryProductCategoryies(name);
         return SuccessTip.create(frontProductCategoryRecordList);
     }
+    */
+
 
 }
