@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
@@ -253,7 +254,7 @@ public class FrontProductEndpoint {
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
-
+        record.setOrgId(JWTKit.getOrgId());
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
