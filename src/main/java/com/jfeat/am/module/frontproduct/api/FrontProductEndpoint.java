@@ -256,7 +256,7 @@ public class FrontProductEndpoint {
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
         if(META.enabledSaas()) {
-            record.setOrgId(JWTKit.getOrgId());
+            record.setOrgId(JWTKit.getTenantOrgId());
         }
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
