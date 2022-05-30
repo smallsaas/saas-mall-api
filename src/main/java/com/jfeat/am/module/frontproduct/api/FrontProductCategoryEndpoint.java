@@ -4,6 +4,7 @@ package com.jfeat.am.module.frontproduct.api;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.crud.base.annotation.BusinessLog;
@@ -18,6 +19,7 @@ import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
 
+import com.jfeat.crud.plus.META;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -152,6 +154,9 @@ public class FrontProductCategoryEndpoint {
         record.setPromotedProductCount(promotedProductCount);
         record.setWholesale(wholesale);
         record.setIsShowProducts(isShowProducts);
+        if(META.enabledSaas()) {
+            record.setOrgId(JWTKit.getOrgId());
+        }
         record.setOrgId(orgId);
         page.setRecords(this.frontProductCategoryService.findProductCategoryPage(page, record, search, orderBy, null, null));
         return SuccessTip.create(page);
