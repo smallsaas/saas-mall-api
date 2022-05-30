@@ -461,7 +461,7 @@ public class OrderEndpoint {
         record.setExtCouponType(extCouponType);
         record.setExtDiscount(extDiscount);
         record.setExtCuts(extCuts);
-        record.setOrgId(orgId);
+       // record.setOrgId(orgId);
 
         page.setRecords(queryOrderDao.findOrderPage(
                 page, record, search, orderBy, startTime,startEndTime, endTime,allianceId
