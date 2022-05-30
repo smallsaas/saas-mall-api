@@ -33,6 +33,11 @@
             <artifactId>etcd-client</artifactId>
             <version>1.0.0</version>
         </dependency>-->
+<!--    <dependency>
+        <groupId>com.jfeat</groupId>
+        <artifactId>uaas</artifactId>
+        <version>4.0.0</version>
+    </dependency>-->
 
     </dependencies>
 
