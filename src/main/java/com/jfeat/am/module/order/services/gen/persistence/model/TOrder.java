@@ -224,7 +224,18 @@ public class TOrder extends Model<TOrder> {
 	@TableField("org_id")
 	private Long orgId;
 
+	@TableField("tenant_id")
+	private Long tenantId;
+
 	private Integer settlementStatus;
+
+	public Long getTenantId() {
+		return tenantId;
+	}
+
+	public void setTenantId(Long tenantId) {
+		this.tenantId = tenantId;
+	}
 
 	public Integer getSettlementStatus() {
 		return settlementStatus;

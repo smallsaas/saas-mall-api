@@ -1,6 +1,5 @@
 package com.jfeat.am.module.order.services.domain.service.impl;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -11,6 +10,7 @@ import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProd
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.api.OrderRechargeType;
 import com.jfeat.am.module.order.definition.OrderStatus;
+import com.jfeat.am.module.order.definition.OrderType;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletHistoryDao;
@@ -33,10 +33,8 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.rmi.ServerException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -133,114 +131,158 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         return queryOrderDao.getProducts(search);
     }
 
+    //新建订单前 划分各个供应商信息 订单信息处理
     @Override
     @Transactional
-    public Integer createOrder(RequestOrder requestOrder) throws ServerException {
+    public Integer  createOrder(RequestOrder requestOrder) throws ServerException {
+        Integer effect = 0;
 
-        Integer res=0;
-        //之前是获取名字 现在更改为获取id
-        FrontUser user = queryOrderDao.selectByUserId(requestOrder.getUserId());
-        //订单项不为空 处理订单项
-        if(requestOrder.getItems()!=null&&requestOrder.getItems().size()>0){
-            //订单处理
-            TOrder order = new TOrder();
-            order.setUserId(user.getId().intValue());
-            order.setPhone(requestOrder.getPhone());
-            order.setDetail(requestOrder.getDetail());
-            //省市区
-            order.setProvince(requestOrder.getProvince());
-            order.setCity(requestOrder.getCity());
-            order.setDistrict(requestOrder.getDistrict());
+        List<RequestOrder> orderList = new ArrayList<>();
+        Map<Long,List<OrderItemRecord>> itemMap = new HashMap<>();
+        if(requestOrder.getItems() != null  &&requestOrder.getItems().size()>0){
 
-            order.setContactUser(requestOrder.getName());
-            //支付类型 默认线下支付
-            order.setPaymentType("STORE");
-            //默认状态 已发货
-            order.setStatus(TOrderStatus.DELIVERED_CONFIRM_PENDING);
-            //订单类型 线下订单
-            order.setType("STORE_ORDER");
+            //获取产品信息
+            QueryWrapper<FrontProduct> productWrapper = new QueryWrapper<FrontProduct>();
+           List<Integer> productIds = new ArrayList();
+            for(OrderItemRecord item:requestOrder.getItems()){
+                Integer productId = item.getProductId();
+                productIds.add(productId);
+            }
+            List<FrontProduct> productList = frontProductMapper.selectList(productWrapper.in("id", productIds));
+            Map<Long, FrontProduct> productMap = productList.stream().collect(Collectors.toMap(i -> i.getId(), j -> j));
 
-            order.setCreatedDate(requestOrder.getCreateDate());
-            //计算日期
-
-            if (order.getCreatedDate()!=null ) {
-                Long time=order.getCreatedDate().getTime() - new Date().getTime();
-                if(time>0){
-                    throw new BusinessException(BusinessCode.BadRequest, "请选择今天或之前的日期");
+            //获取组织信息 初始化map
+            for(FrontProduct frontProduct:productList){
+                Long orgId = frontProduct.getOrgId();
+                List<OrderItemRecord> orderItemRecords = itemMap.get(orgId);
+                if(orderItemRecords == null){
+                    itemMap.put(orgId,new ArrayList<>());
                 }
-
             }
 
-            order.setCreatedDate(requestOrder.getCreateDate());
-            String oderNumber = IdWorker.getIdStr();
-            order.setOrderNumber(oderNumber);
-
-            //获取订单数据//循环遍历
-            List<OrderItemRecord> productList= requestOrder.getItems();
-            //总价
-            BigDecimal finalPrice=new BigDecimal(0);
-            for (OrderItemRecord orderItem:productList) {
-
-                //FrontProduct allianceProduct = queryMomentsFriendDao.queryProductById(product.getId());
-                FrontProduct product=frontProductMapper.selectById(orderItem.getProductId());
-                orderItem.setPrice(product.getPrice());
-                orderItem.setCover(product.getCover());
-                orderItem.setCostPrice(product.getCostPrice());
-
-                Long productId = orderItem.getId();
-                //设置订单总价
-                //处理产品总价
-                orderItem.setTotalPrice(orderItem.getPrice().multiply(new BigDecimal(orderItem.getQuantity())));
-                finalPrice=orderItem.getTotalPrice().add(finalPrice);
-                //查找库存
-              // Integer stockBalance = queryMomentsFriendDao.queryStockBalance(productId);
-                Integer stockBalance =product.getStockBalance();
-                //更改后的库存量
-                stockBalance = stockBalance - orderItem.getQuantity();
-                if (stockBalance < 0) { throw new BusinessException(BusinessCode.BadRequest, "商品库存不足"); }
-                BigDecimal balance = queryOrderDao.queryWalletBalance(user.getId());
-                if (balance == null || balance.compareTo(new BigDecimal(0.00)) <= 0) {
-                    throw new BusinessException(BusinessCode.BadRequest, "该用户余额不足");
-                } else {
-                    balance = balance.subtract(orderItem.getTotalPrice());
-                    if (balance.compareTo(new BigDecimal(0.00)) < 0) {
-                        throw new BusinessException(BusinessCode.BadRequest, "该用户余额不足");
-                    } else {
-                        //更新用户余额
-                        queryOrderDao.upWallet(user.getId(), balance);
-                    }
-                }
-                //更新产品库存
-                queryOrderDao.upProduct(productId, stockBalance);
+            //填充map
+            for(OrderItemRecord item:requestOrder.getItems()){
+                FrontProduct frontProduct = productMap.get(item.getProductId().longValue());
+                List<OrderItemRecord> orderItemRecords = itemMap.get(frontProduct.getOrgId());
+                orderItemRecords.add(item);
             }
 
-            //封面处理
-          /* if( requestOrder.getImges()!=null&& requestOrder.getImges().size()>0){
-               order.setCover(requestOrder.getImges().get(0).getUrl()) ;
-           }*/
-            order.setCover(requestOrder.getItems().get(0).getCover());
+            for(Long key:itemMap.keySet()){
+                requestOrder.setOrgId(key);
+                //类型转换
+                TOrder order = getTOrderBy(requestOrder);
+                //设置总价 库存
+                setTotal(order,itemMap.get(key),productMap);
+                //数据库处理
+                effect += createOrderEndless(order, requestOrder.getItems());
 
-            //插入订单
-            order.setTotalPrice(finalPrice);
-            orderMapper.insert(order);
-
-            String note = "线下订单";
-            //插入钱包记录数据
-            orderWelletService.insertWelletHistoryByUserId(order.getTotalPrice(),order.getUserId().longValue(), OrderRechargeType.PAYMENT,note);
-
-
-            for (OrderItemRecord product:productList) {
-
-                product.setOrderId(order.getId().intValue());
-              orderItemMapper.insert(product);
             }
+                return effect;
+        }else{
+            throw new BusinessException(BusinessCode.BadRequest,"订单项为空");
         }
-        //订单项为空则抛出
-        else{ throw new BusinessException(BusinessCode.BadRequest, "请添加产品");}
-        return res;
+
     }
 
 
+
+    public Integer createOrderEndless(TOrder order,List<OrderItemRecord> productList) throws ServerException {
+        Integer res=0;
+        //之前是获取名字 现在更改为获取id
+        //FrontUser user = queryOrderDao.selectByUserId(userId);
+        //订单项不为空 处理订单项
+        orderMapper.insert(order);
+/*            String note = "线上订单";
+            if(order.getType()!=null && order.getType().equals(OrderType.ORDER.name())){
+                note = "线下订单"   ;
+            }*/
+        //插入钱包记录数据
+        // orderWelletService.insertWelletHistoryByUserId(order.getTotalPrice(),order.getUserId().longValue(), OrderRechargeType.PAYMENT,note);
+        // List<OrderItemRecord> productList = requestOrder.getItems();
+        for (OrderItemRecord product:productList) {
+            product.setOrderId(order.getId().intValue());
+            orderItemMapper.insert(product);
+        }
+        //订单项为空则抛出
+        return res;
+
+    }
+
+    @Transactional
+   void setTotal(TOrder order,List<OrderItemRecord> productList,Map<Long, FrontProduct> productMap){
+        //总价
+        BigDecimal finalPrice=new BigDecimal(0);
+        for (OrderItemRecord orderItem:productList) {
+            FrontProduct frontProduct = productMap.get(orderItem.getProductId().longValue());
+            setItemAndProductInfo(orderItem,frontProduct);
+        }
+        //插入订单
+        order.setTotalPrice(finalPrice);
+    }
+
+    @Transactional
+    TOrder getTOrderBy(RequestOrder requestOrder){
+        Long userId = JWTKit.getUserId();
+        //订单处理
+        TOrder order = new TOrder();
+        order.setUserId(userId.intValue());
+        order.setPhone(requestOrder.getPhone());
+        order.setDetail(requestOrder.getDetail());
+        //省市区
+        order.setProvince(requestOrder.getProvince());
+        order.setCity(requestOrder.getCity());
+        order.setDistrict(requestOrder.getDistrict());
+        order.setContactUser(requestOrder.getName());
+        //支付类型 默认线下支付
+        order.setPaymentType("STORE");
+        //默认状态 待发货
+        order.setStatus(TOrderStatus.CONFIRMED_DELIVER_PENDING);
+        //订单类型
+        order.setType(requestOrder.getType());
+        order.setCreatedDate(requestOrder.getCreateDate());
+        order.setCover(requestOrder.getItems().get(0).getCover());
+        order.setOrgId(requestOrder.getOrgId());
+        Long tenantId = queryOrderDao.getTenantIdByOrgId(requestOrder.getOrgId());
+        order.setTenantId(tenantId);
+        //计算日期
+
+        if (order.getCreatedDate()!=null ) {
+            Long time=order.getCreatedDate().getTime() - new Date().getTime();
+            if(time>0){
+                throw new BusinessException(BusinessCode.BadRequest, "请选择今天或之前的日期");
+            }
+
+        }
+        order.setCreatedDate(requestOrder.getCreateDate());
+        String oderNumber = IdWorker.getIdStr();
+        order.setOrderNumber(oderNumber);
+        return order;
+    }
+
+    @Transactional
+    BigDecimal setItemAndProductInfo(OrderItemRecord orderItem, FrontProduct product){
+        //FrontProduct allianceProduct = queryMomentsFriendDao.queryProductById(product.getId());
+
+        orderItem.setPrice(product.getPrice());
+        orderItem.setCover(product.getCover());
+        orderItem.setCostPrice(product.getCostPrice());
+
+        Long productId = orderItem.getProductId().longValue();
+        //设置订单总价
+        //处理产品总价
+        if(orderItem.getQuantity() == null){ throw new BusinessException(BusinessCode.BadRequest,"数量不能为空");}
+        orderItem.setTotalPrice(orderItem.getPrice().multiply(new BigDecimal(orderItem.getQuantity())));
+        //finalPrice=orderItem.getTotalPrice().add(finalPrice);
+        //查找库存
+        // Integer stockBalance = queryMomentsFriendDao.queryStockBalance(productId);
+        Integer stockBalance =product.getStockBalance();
+        //更改后的库存量
+        stockBalance = stockBalance - orderItem.getQuantity();
+        if (stockBalance < 0) { throw new BusinessException(BusinessCode.BadRequest, "商品库存不足"); }
+        //更新产品库存
+        Integer integer = queryOrderDao.upProduct(productId, stockBalance);
+        return orderItem.getTotalPrice();
+    };
 
 
 

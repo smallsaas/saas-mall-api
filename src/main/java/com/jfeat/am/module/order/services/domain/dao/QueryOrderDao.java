@@ -90,4 +90,6 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
     Integer closeProduct(@Param("id")Long id);
     Integer cancelcloseProduct(@Param("id")Long id);
 
+    @Select("select t_sys_org.tenant_id from t_sys_org where id = #{orgId} ")
+    Long getTenantIdByOrgId(@Param("orgId")Long orgId);
 }

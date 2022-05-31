@@ -155,7 +155,7 @@ public class FrontProductCategoryEndpoint {
         record.setWholesale(wholesale);
         record.setIsShowProducts(isShowProducts);
         if(META.enabledSaas()) {
-            record.setOrgId(JWTKit.getOrgId());
+            record.setOrgId(JWTKit.getTenantOrgId());
         }
         //record.setOrgId(orgId);
         page.setRecords(this.frontProductCategoryService.findProductCategoryPage(page, record, search, orderBy, null, null));

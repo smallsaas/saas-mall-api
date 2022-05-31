@@ -42,10 +42,31 @@ public class RequestOrder {
     //区
     private String district;
 
+    private String type;
+
+    private Long orgId;
+
+
     //产品 用于接收前端返回的数据 用于存入放入orderItem中
     private List<OrderItemRecord> items;
 
     private List<friendImage> imges;
+
+    public Long getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(Long orgId) {
+        this.orgId = orgId;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public Date getCreateDate() {
         return createDate;
