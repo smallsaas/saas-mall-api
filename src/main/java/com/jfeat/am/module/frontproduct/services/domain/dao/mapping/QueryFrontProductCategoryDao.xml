@@ -15,14 +15,14 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_product_category
-        <if test="record.orgId > 0">
+<!--        <if test="record.orgId > 0">
             ,(<include refid="QueryOwnedOrgIds"></include>) AS ownedOrgIds
-        </if>
+        </if>-->
 
         WHERE 1=1
-        <if test="record.orgId > 0">
+<!--        <if test="record.orgId > 0">
             AND t_product_category.org_id = ownedOrgIds.id
-        </if>
+        </if>-->
         <if test="record.id != null and record.id>0 ">
             AND t_product_category.id LIKE CONCAT('%',#{record.id},'%')
         </if>
