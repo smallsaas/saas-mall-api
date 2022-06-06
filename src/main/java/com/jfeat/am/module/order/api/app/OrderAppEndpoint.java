@@ -1,4 +1,4 @@
-package com.jfeat.am.module.order.api;
+package com.jfeat.am.module.order.api.app;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -76,25 +76,6 @@ public class OrderAppEndpoint {
         return SuccessTip.create(affected);
     }
 
-    @BusinessLog(name = "订单", value = "新增线下订单")
-    @PostMapping("/storeOrder")
-    @ApiOperation(value = "新建 线下订单", response = TOrder.class)
-    @Permission(OrderPermission.ORDER_ADD)
-    public Tip createStoreOrder(@RequestBody OrderRequest entity) throws ServerException {
-
-        Integer affected = 0;
-        try {
-            /*    entity.setType("STORE_ORDER");
-            affected = orderService.createMaster(entity);
-            */
-
-        } catch (DuplicateKeyException e) {
-            throw new BusinessException(BusinessCode.DuplicateKey);
-        }
-
-        return SuccessTip.create(affected);
-    }
-
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Order", response = TOrder.class)
@@ -102,26 +83,6 @@ public class OrderAppEndpoint {
     public Tip getOrder(@PathVariable Long id) {
 
         return SuccessTip.create(orderService.getOrder(id));
-    }
-
-    @GetMapping("/allianceOrder/{id}")
-    @ApiOperation(value = "查看 团队订单", response = TOrder.class)
-    @Permission(OrderPermission.ORDER_VIEW)
-    public Tip getAllianceOrder(Page<OrderRecord> page,
-                                @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-                                @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
-                                @RequestParam(name = "search", required = false) String search,
-                                @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[],
-                                    @PathVariable Long id,
-                                @RequestParam(name = "status", required = false) String status) {
-
-        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
-        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
-
-        page.setCurrent(pageNum);
-        page.setSize(pageSize);
-        page.setRecords(queryOrderDao.getAllianceOrder(page,id,search,startTime,endTime,status));
-        return SuccessTip.create(page);
     }
 
 
@@ -522,32 +483,6 @@ public class OrderAppEndpoint {
     }
 
 
-    @GetMapping("/getUsers")
-    @ApiOperation(value = "获取所有订单用户")
-    public Tip getUsers( @RequestParam(name = "search", required = false) String search)  {
-
-        return SuccessTip.create(orderService.getUsers(search));
-
-    }
-
-    @GetMapping("/getProducts")
-    @ApiOperation(value = "获取所有产品")
-    public Tip getProducts(@RequestParam(name = "search", required = false) String search)  {
-
-        return SuccessTip.create(orderService.getProducts(search));
-
-    }
-
-
-
- /*   @PostMapping("/create")
-    @ApiOperation(value = "插入订单,下单人输入时必须数据库t_user表存在才行，根据name进行对比的")
-    public Tip createOrder(@RequestBody RequestOrder requestOrder) throws ServerException {
-
-        requestOrder.setType(OrderType.STORE_ORDER.name());
-        return SuccessTip.create(orderService.createOrder(requestOrder));
-
-    }*/
 
     @PostMapping("/status/cancelOrder/{id}")
     @ApiOperation(value = "取消订单")
@@ -556,30 +491,8 @@ public class OrderAppEndpoint {
 
     }
 
-    @PostMapping("/status/closeConfirmed/{id}")
-    @ApiOperation(value = "修改订单为已确认收货 并进行结算")
-    public Tip closeConfirmedOrder(@PathVariable Long id) throws ServerException {
 
-        return SuccessTip.create(orderService.closeConfirmedOrder(id));
 
-    }
 
-    @PostMapping("/status/cancelCloseConfirmedOrder/{id}")
-    @ApiOperation(value = "取消订单确认 已确认收货--》已发货")
-    public Tip cancelCloseConfirmedOrder(@PathVariable Long id) throws ServerException {
-        return SuccessTip.create(orderService.cancelCloseConfirmedOrder(id));
-
-    }
-
-    @PostMapping("/deliver")
-    public Tip deliver(@RequestBody OrderDeliver orderDeliver){
-        return SuccessTip.create(orderService.deliver(orderDeliver));
-    }
-
-    @GetMapping("/orderExpress/{id}")
-    public Tip expressInfo(@PathVariable Long id){
-        ExpressInfo expressInfo = orderService.expressInfo(id);
-        return SuccessTip.create(expressInfo);
-    }
 
 }

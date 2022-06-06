@@ -1,43 +1,32 @@
-package com.jfeat.am.module.frontproduct.api;
+package com.jfeat.am.module.frontproduct.api.app;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.jfeat.am.core.jwt.JWTKit;
-import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.definition.FrontProductPermission;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
-
 import com.jfeat.crud.plus.META;
-import org.springframework.dao.DuplicateKeyException;
-import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.math.BigDecimal;
-import java.util.Date;
-
-import javax.annotation.Resource;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
+import java.math.BigDecimal;
+import java.util.Date;
 
 
 /**
@@ -50,8 +39,8 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @Api("FrontProduct")
-@RequestMapping("/api/crud/product/products")
-public class FrontProductEndpoint {
+@RequestMapping("/api/u/product/products")
+public class AppFrontProductEndpoint {
 
 
     @Resource
@@ -60,56 +49,10 @@ public class FrontProductEndpoint {
     EtcdExtandService etcdExtandService;*/
 
 
-
-    @BusinessLog(name = "产品", value = "新建产品")
-    @PostMapping
-    @ApiOperation(value = "新建 产品", response = FrontProduct.class)
-    @Permission(FrontProductPermission.PRODUCT_ADD)
-    public Tip createProduct(@RequestBody FrontProductModel entity) {
-
-/*        if(entity.getNoPermission()!=null&& !"".equals(entity.getNoPermission())){
-            throw new BusinessException(BusinessCode.BadRequest,"系统授权已过期， 添加新产品功能受限");
-
-        }*/
-
-        Integer affected = 0;
-        try {
-            Date date = new Date();
-            entity.setCreatedDate(date);
-            entity.setLastModifiedDate(date);
-            affected = frontProductService.createProduct(entity);
-
-        } catch (DuplicateKeyException e) {
-            throw new BusinessException(BusinessCode.DuplicateKey);
-        }
-
-        return SuccessTip.create(affected);
-    }
-
-
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 FrontProduct", response = FrontProduct.class)
     public Tip getProduct(@PathVariable Long id) {
         return SuccessTip.create(frontProductService.getProduct(id));
-    }
-
-    @BusinessLog(name = "产品", value = "修改产品")
-    @PutMapping("/{id}")
-    @ApiOperation(value = "修改 FrontProduct", response = FrontProduct.class)
-    @Permission(FrontProductPermission.PRODUCT_EDIT)
-    public Tip updateProduct(@PathVariable Long id, @RequestBody FrontProductModel entity) {
-        Date date = new Date();
-        entity.setId(id);
-        entity.setLastModifiedDate(date);
-        return SuccessTip.create(frontProductService.updateProduct(entity));
-    }
-
-    @BusinessLog(name = "产品", value = "删除产品")
-    @DeleteMapping("/{id}")
-    @ApiOperation("删除 FrontProduct")
-    @Permission(FrontProductPermission.PRODUCT_DEL)
-    public Tip deleteProduct(@PathVariable Long id) {
-        return SuccessTip.create(frontProductService.deleteMaster(id));
     }
 
 
@@ -261,23 +204,6 @@ public class FrontProductEndpoint {
         page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
         return SuccessTip.create(page);
     }
-
-    @BusinessLog(name = "产品", value = "修改产品状态")
-    @PutMapping("/{id}/{status}")
-    @ApiOperation(value = "修改 FrontProduct 状态", response = Integer.class)
-    @Permission(FrontProductPermission.PRODUCT_STATUS)
-    public Tip updateProduct(@PathVariable Long id, @PathVariable String status) {
-        if(!ProductStatus.ONSELL.getStatus().equals(status) &&
-                !ProductStatus.OFFSELL.getStatus().equals(status) &&
-                !ProductStatus.DRAFT.getStatus().equals(status)
-              ){
-            throw new BusinessException(BusinessCode.BadRequest);
-        }
-        return SuccessTip.create(frontProductService.updateProductStatus(id,status));
-    }
-
-
-
 
 
 }
