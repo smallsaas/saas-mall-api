@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductDao;
+import com.jfeat.am.module.frontproduct.services.domain.dao.QueryOrgInfoDao;
 import com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSettlementProportionDao;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
@@ -38,6 +39,11 @@ import java.util.List;
 public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl implements FrontProductService {
     @Resource
     QueryFrontProductDao queryFrontProductDao;
+
+    @Resource
+    QueryOrgInfoDao queryOrgInfoDao;
+
+
     @Resource
     ProductDescriptionService productDescriptionService;
     @Resource
@@ -79,6 +85,13 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
 
        // return this.getEavProxy().selectList(recordList, this.entityName());
         return recordList;
+    }
+
+    @Override
+    public Long getTenantIdByOrgId(Long orgId){
+
+      Long tenantId = queryOrgInfoDao.getTenantOrgIdByOrgId(orgId);
+      return tenantId;
     }
 
     @Override

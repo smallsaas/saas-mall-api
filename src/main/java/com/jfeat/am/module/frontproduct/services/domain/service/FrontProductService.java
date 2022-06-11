@@ -15,6 +15,8 @@ public interface FrontProductService extends CRUDFrontProductService {
     List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record, String search,
                          String orderBy, Date startTime, Date endTime);
 
+    Long getTenantIdByOrgId(Long orgId);
+
     /**
      * 创建新的产品
      * @param entity

@@ -197,7 +197,8 @@ public class AppFrontProductEndpoint {
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
         if(META.enabledSaas()) {
-            record.setOrgId(JWTKit.getOrgId());
+            Long tenantIdByOrgId = frontProductService.getTenantIdByOrgId(JWTKit.getOrgId());
+            record.setOrgId(tenantIdByOrgId);
         }
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);

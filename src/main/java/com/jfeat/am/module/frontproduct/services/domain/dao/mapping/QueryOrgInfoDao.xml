@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryOrgInfoDao">
+
+
+    <select id="getTenantOrgIdByOrgId" resultType="Long">
+        select tenant_id from t_sys_org where id = #{orgId}
+    </select>
+
+
+</mapper>
