@@ -1,6 +1,7 @@
 package com.jfeat.am.module.order.api.app;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
@@ -17,6 +18,7 @@ import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
 import com.jfeat.crud.plus.META;
+import com.jfeat.crud.plus.util.QueryParamUtils;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
@@ -26,10 +28,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
 import java.rmi.ServerException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -295,7 +299,8 @@ public class OrderAppEndpoint {
                            @RequestParam(name = "barcode", required = false) String barcode,
                            @RequestParam(name = "thisMonth", required = false) String thisMonth,
                            @RequestParam(name = "searchMoney", required = false) BigDecimal searchMoney[],
-     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[] )
+                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[] ,
+                           @RequestParam Map<String,Object> parms)
                            {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
@@ -336,6 +341,8 @@ public class OrderAppEndpoint {
 
         }*/
 
+
+         QueryWrapper multiEntityWrapper = QueryParamUtils.getMultiEntityWrapper(parms, TOrder.class,"t_order.");
 
         OrderRecord record = new OrderRecord();
         record.setBarcode(barcode);
@@ -427,7 +434,7 @@ public class OrderAppEndpoint {
         record.setExtCuts(extCuts);
        // record.setOrgId(orgId);
 
-        page.setRecords(queryOrderDao.findOrderPage(
+        page.setRecords(queryOrderDao.findOrderPage(multiEntityWrapper,
                 page, record, search, orderBy, startTime,startEndTime, endTime,allianceId
         ,leftMoney,rightMoney));
 

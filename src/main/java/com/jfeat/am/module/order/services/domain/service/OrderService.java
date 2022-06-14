@@ -1,10 +1,12 @@
 package com.jfeat.am.module.order.services.domain.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDOrderService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
@@ -16,7 +18,10 @@ import java.util.List;
  * Created by vincent on 2017/10/19.
  */
 public interface OrderService extends CRUDOrderService{
-    List findOrderPage(Page<OrderRecord> page, OrderRecord record, String search,
+    List findOrderPage(
+             QueryWrapper queryWrapper,
+            Page<OrderRecord> page,
+                       OrderRecord record, String search,
                            String orderBy, Date startTime,Date startEndTime, Date endTime,Long allianceId,
                             BigDecimal leftMoney,BigDecimal rightMoney);
 

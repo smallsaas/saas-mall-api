@@ -67,6 +67,11 @@
             )
         </if>
 
+
+        <if test="ew != null and ew.sqlSegment != null and ew.sqlSegment != ''">
+            AND ${ew.sqlSegment}
+        </if>
+
         <if test="record.id != null and record.id>0 ">
             AND t_order.id LIKE CONCAT('%',#{record.id},'%')
         </if>

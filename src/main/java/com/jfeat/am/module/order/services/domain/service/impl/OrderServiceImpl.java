@@ -27,6 +27,7 @@ import com.jfeat.am.module.order.services.gen.persistence.model.*;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.plus.CRUD;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -68,9 +69,9 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
 
     @Override
-    public List findOrderPage(Page<OrderRecord> page, OrderRecord record,
-                              String search, String orderBy, Date startTime, Date startEndTime, Date endTime, Long allianceId, BigDecimal leftMoney,BigDecimal rigthMoney) {
-        List recordList = this.queryOrderDao.findOrderPage(page, record, search, orderBy, startTime,startEndTime, endTime,allianceId,leftMoney,rigthMoney);
+    public List findOrderPage(QueryWrapper queryWrapper, Page<OrderRecord> page, OrderRecord record,
+                              String search, String orderBy, Date startTime, Date startEndTime, Date endTime, Long allianceId, BigDecimal leftMoney, BigDecimal rigthMoney) {
+        List recordList = this.queryOrderDao.findOrderPage(queryWrapper,page, record, search, orderBy, startTime,startEndTime, endTime,allianceId,leftMoney,rigthMoney);
         return this.getEavProxy().selectList(recordList, this.entityName());
     }
 
