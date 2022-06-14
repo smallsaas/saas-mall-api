@@ -204,7 +204,6 @@ public class OrderAppEndpoint {
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
             @ApiImplicitParam(name = "sort", dataType = "String")
     })
-    @Permission(OrderPermission.ORDER_VIEW)
     public Tip queryOrders(Page<OrderRecord> page,
                            @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                            @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
