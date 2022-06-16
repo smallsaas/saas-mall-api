@@ -79,8 +79,9 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
     @Override
     public OrderModel getOrder(Long id) {
-        TOrder TOrder = this.retrieveMaster(id);
-        OrderModel orderModel = CRUD.castObject(TOrder, OrderModel.class);
+        TOrder tOrder = orderMapper.selectById(id);
+        //TOrder TOrder = this.retrieveMaster(id);
+        OrderModel orderModel = CRUD.castObject(tOrder, OrderModel.class);
         //拼接省市区
         String detail;
         if(orderModel.getProvince()!=null &&orderModel.getCity()!=null &&orderModel.getDistrict()!=null){
@@ -100,7 +101,7 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         List<OrderProcessLog> orderProcessLogList = orderProcessLogMapper.selectList(new QueryWrapper<OrderProcessLog>().eq("order_id", id));
         orderModel.setOrderProcessLogList(orderProcessLogList);
 
-        orderModel.setUserName(queryOrderDao.getUserName(TOrder.getUserId().longValue()));
+        orderModel.setUserName(queryOrderDao.getUserName(tOrder.getUserId().longValue()));
 
 
         //快递单信息
