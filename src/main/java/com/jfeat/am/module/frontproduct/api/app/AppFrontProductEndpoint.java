@@ -143,7 +143,8 @@ public class AppFrontProductEndpoint {
                              @RequestParam(name = "credit", required = false) Integer credit,
                              @RequestParam(name = "isVirtual", required = false) Integer isVirtual,
                              @RequestParam(name = "requiredParticipateExam", required = false) Integer requiredParticipateExam,
-
+                             @RequestParam(name = "supplierId", required = false) Long supplierId,
+                             @RequestParam(name = "supplierName", required = false) String supplierName,
                              @RequestParam(name = "orderBy", required = false) String orderBy,
                              @RequestParam(name = "sort", required = false) String sort) {
         if (orderBy != null && orderBy.length() > 0) {
@@ -202,7 +203,7 @@ public class AppFrontProductEndpoint {
         }
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
-        page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
+        page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null,supplierId,supplierName));
         return SuccessTip.create(page);
     }
 

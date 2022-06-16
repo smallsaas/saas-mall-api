@@ -69,8 +69,8 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
 
     @Override
     public List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record,
-                                String search, String orderBy, Date startTime, Date endTime) {
-        List<FrontProductRecord> recordList = this.queryFrontProductDao.findProductPage(page, record, search, orderBy, startTime, endTime);
+                                String search, String orderBy, Date startTime, Date endTime,Long supplierId,String supplierName) {
+        List<FrontProductRecord> recordList = this.queryFrontProductDao.findProductPage(page, record, search, orderBy, startTime, endTime,supplierId,supplierName);
         recordList.forEach(item -> {
 
             FrontProductRecord frontProductRecord = (FrontProductRecord) item;

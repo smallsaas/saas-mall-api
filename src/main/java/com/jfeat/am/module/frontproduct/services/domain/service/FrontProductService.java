@@ -13,7 +13,7 @@ import java.util.List;
  */
 public interface FrontProductService extends CRUDFrontProductService {
     List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record, String search,
-                         String orderBy, Date startTime, Date endTime);
+                         String orderBy, Date startTime, Date endTime,Long supplierId,String supplierName);
 
     Long getTenantIdByOrgId(Long orgId);
 

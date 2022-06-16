@@ -171,7 +171,7 @@ public class ProductPatchEndpoint {
 
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
-        page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null));
+        page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null,null,null));
 
         return SuccessTip.create(page);
     }

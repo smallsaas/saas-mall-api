@@ -106,11 +106,12 @@
         t_product.required_participate_exam AS requiredParticipateExam,
         t_product.banner,
         t_product_brand.name AS brandName,
-        category.name AS categoryName
+        category.name AS categoryName,
+        t_supplier.name as supplierName
         FROM  t_product
         LEFT JOIN t_product_brand ON t_product.brand_id=t_product_brand.id
         LEFT JOIN t_product_category category ON category.id = t_product.category_id
-
+        LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
         <if test="record.orgId > 0">
             ,(<include refid="QueryOwnedOrgIds"></include>) AS ownedOrgIds
         </if>
@@ -118,6 +119,14 @@
         WHERE 1=1
         <if test="record.orgId > 0">
             AND t_product.org_id = ownedOrgIds.id
+        </if>
+
+        <if test = "supplierId != null">
+            AND t_supplier.id = #{supplierId}
+        </if>
+
+        <if test="supplierName != null and supplierName!= ''">
+            AND t_supplier.name LIKE CONCAT('%',#{supplierName},'%')
         </if>
 
         <if test="record.categoryName != null and record.categoryName!= ''">
