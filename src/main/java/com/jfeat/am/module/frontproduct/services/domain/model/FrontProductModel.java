@@ -32,6 +32,17 @@ public class FrontProductModel extends FrontProduct {
 
     private String noPermission;
 
+    private String supplierName;
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
+
     public String getNoPermission() {
         return noPermission;
     }

@@ -48,13 +48,14 @@
 
 		t_fare_template. name AS fareName,
 	    t_product_brand. NAME AS brandName,
-	    category. NAME AS categoryName
+	    category. NAME AS categoryName,
+            t_supplier.name as supplierName
 	FROM
 		t_product
 	  LEFT JOIN t_product_brand ON t_product.brand_id = t_product_brand.id
       LEFT JOIN t_product_category category ON category.id = t_product.category_id
 	  LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
-
+      LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
 	WHERE
 		t_product.id =#{id}
     </select>
