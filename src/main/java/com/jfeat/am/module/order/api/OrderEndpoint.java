@@ -476,7 +476,7 @@ public class OrderEndpoint {
        page.setRecords(queryOrderDao.findOrderPage(multiEntityWrapper,
                 page, record, search, orderBy, startTime,startEndTime, endTime,allianceId
         ,leftMoney,rightMoney));
-
+          orderService.setItemsByPages(page);
         return SuccessTip.create(page);
     }
 

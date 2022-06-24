@@ -59,4 +59,6 @@ public interface OrderService extends CRUDOrderService{
 
     @Transactional
     ExpressInfo expressInfo(Long id);
+
+    void setItemsByPages(Page<OrderRecord> page);
 }

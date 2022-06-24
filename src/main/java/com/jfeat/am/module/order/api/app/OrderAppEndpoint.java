@@ -83,7 +83,6 @@ public class OrderAppEndpoint {
 
     @GetMapping("/{id}")
     @ApiOperation(value = "查看 Order", response = TOrder.class)
-    @Permission(OrderPermission.ORDER_VIEW)
     public Tip getOrder(@PathVariable Long id) {
 
         return SuccessTip.create(orderService.getOrder(id));
@@ -437,7 +436,7 @@ public class OrderAppEndpoint {
         page.setRecords(queryOrderDao.findOrderPage(multiEntityWrapper,
                 page, record, search, orderBy, startTime,startEndTime, endTime,allianceId
         ,leftMoney,rightMoney));
-
+          orderService.setItemsByPages(page);
         return SuccessTip.create(page);
     }
 

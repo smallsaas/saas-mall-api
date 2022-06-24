@@ -212,12 +212,15 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
 
     @Transactional
    void setTotal(TOrder order,List<OrderItemRecord> productList,Map<Long, FrontProduct> productMap){
+
         //总价
         BigDecimal finalPrice=new BigDecimal(0);
         for (OrderItemRecord orderItem:productList) {
             FrontProduct frontProduct = productMap.get(orderItem.getProductId().longValue());
-            setItemAndProductInfo(orderItem,frontProduct);
+            finalPrice = setItemAndProductInfo(orderItem, frontProduct);
+
         }
+
         //插入订单
         order.setTotalPrice(finalPrice);
     }
@@ -273,7 +276,9 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         //设置订单总价
         //处理产品总价
         if(orderItem.getQuantity() == null){ throw new BusinessException(BusinessCode.BadRequest,"数量不能为空");}
-        orderItem.setTotalPrice(orderItem.getPrice().multiply(new BigDecimal(orderItem.getQuantity())));
+        BigDecimal finalPrice = orderItem.getPrice().multiply(new BigDecimal(orderItem.getQuantity()));
+        orderItem.setFinalPrice(finalPrice);
+        orderItem.setTotalPrice(finalPrice);
         //finalPrice=orderItem.getTotalPrice().add(finalPrice);
         //查找库存
         // Integer stockBalance = queryMomentsFriendDao.queryStockBalance(productId);
@@ -386,7 +391,39 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     }
 
 
+    @Override
+    public void setItemsByPages(Page<OrderRecord> page){
+        List<OrderRecord> records = page.getRecords();
+        List<Long> orderIds = records.stream().map(i -> i.getId()).collect(Collectors.toList());
 
+        if(orderIds != null && orderIds.size()>0){
+            QueryWrapper<OrderItem> orderItemWrapper = new QueryWrapper<>();
+            List<OrderItem> orderItems = orderItemMapper.selectList(orderItemWrapper.in("order_id",orderIds));
+
+            //组装订单项和订单的关联
+            Map<Integer,List<OrderItem>> orderItemMap = new HashMap<>();
+            for(OrderItem orderItem:orderItems){
+                List<OrderItem> orderItemList = orderItemMap.get(orderItem.getOrderId());
+                if(orderItemList == null){
+                    orderItemList = new ArrayList<>();
+                    orderItemMap.put(orderItem.getOrderId(),orderItemList);
+                };
+
+                orderItemList.add(orderItem);
+            }
+
+
+            for(OrderRecord order:records){
+                List<OrderItem> orderItems1 = orderItemMap.get(order.getId().intValue());
+                order.setOrderItemRecordList(orderItems1);
+            }
+
+
+
+        }
+
+
+    }
 
 
 }

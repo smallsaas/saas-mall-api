@@ -1,4 +1,4 @@
-package com.jfeat.am.module.frontproduct.api;
+package com.jfeat.am.module.frontproduct.api.pub;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductList;
@@ -29,7 +29,7 @@ import java.util.List;
 
 @Api("FrontProductCategory")
 @RequestMapping("/openapi/crud/productCategoryies")
-public class PubFrontProductCategoryEndpoint {
+public class OpenApiPubFrontProductCategoryEndpoint {
 
 
     @Resource
