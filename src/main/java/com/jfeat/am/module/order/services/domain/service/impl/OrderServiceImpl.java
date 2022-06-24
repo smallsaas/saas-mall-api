@@ -193,6 +193,10 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         //之前是获取名字 现在更改为获取id
         //FrontUser user = queryOrderDao.selectByUserId(userId);
         //订单项不为空 处理订单项
+        order.setCreatedDate(new Date());
+        if(order.getOrigin() == null){
+            order.setOrigin(OrderOriginSetting.DEFAULT_ORIGIN);
+        }
         orderMapper.insert(order);
 /*            String note = "线上订单";
             if(order.getType()!=null && order.getType().equals(OrderType.ORDER.name())){
