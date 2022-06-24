@@ -309,9 +309,9 @@
         <if test="record.extCuts != null and record.extCuts>0 ">
             AND t_order.ext_cuts LIKE CONCAT('%',#{record.extCuts},'%')
         </if>
-        <if test="record.orgId != null ">
+<!--        <if test="record.orgId != null ">
             AND t_order.org_id = #{record.orgId}
-        </if>
+        </if>-->
         <if test="startTime != null">
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
