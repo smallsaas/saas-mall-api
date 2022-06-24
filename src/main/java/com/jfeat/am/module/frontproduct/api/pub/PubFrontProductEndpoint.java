@@ -1,38 +1,54 @@
-package com.jfeat.am.module.frontproduct.patch;
+package com.jfeat.am.module.frontproduct.api.pub;
+
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
 import com.jfeat.crud.base.tips.Tip;
+import com.jfeat.crud.plus.META;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
 
+
 /**
- * @author hero
- * @date 18:05
+ * <p>
+ * api
+ * </p>
+ *
+ * @author Code Generator
+ * @since 2019-07-25
  */
-@Deprecated
 @RestController
-@Api("FrontProduct")
+@Api("PubFrontProduct")
 @RequestMapping("/api/pub/product/products")
-public class ProductPatchEndpoint {
+public class PubFrontProductEndpoint {
+
 
     @Resource
     FrontProductService frontProductService;
+/*    @Resource
+    EtcdExtandService etcdExtandService;*/
+
+
+    @GetMapping("/{id}")
+    @ApiOperation(value = "查看 FrontProduct", response = FrontProduct.class)
+    public Tip getProduct(@PathVariable Long id) {
+        return SuccessTip.create(frontProductService.getProduct(id));
+    }
+
 
     @ApiOperation(value = "FrontProduct 列表信息", response = FrontProductRecord.class)
     @GetMapping
@@ -48,6 +64,7 @@ public class ProductPatchEndpoint {
             @ApiImplicitParam(name = "cover", dataType = "String"),
             @ApiImplicitParam(name = "stockBalance", dataType = "Integer"),
             @ApiImplicitParam(name = "sales", dataType = "Integer"),
+            @ApiImplicitParam(name = "status", dataType = "String"),
             @ApiImplicitParam(name = "createdDate", dataType = "Date"),
             @ApiImplicitParam(name = "lastModifiedDate", dataType = "Date"),
             @ApiImplicitParam(name = "unit", dataType = "String"),
@@ -61,13 +78,14 @@ public class ProductPatchEndpoint {
             @ApiImplicitParam(name = "partnerLevelZone", dataType = "Integer"),
             @ApiImplicitParam(name = "viewCount", dataType = "Long"),
             @ApiImplicitParam(name = "fareId", dataType = "Integer"),
-
+            @ApiImplicitParam(name = "barcode", dataType = "String"),
             @ApiImplicitParam(name = "storeLocation", dataType = "String"),
             @ApiImplicitParam(name = "weight", dataType = "Integer"),
             @ApiImplicitParam(name = "bulk", dataType = "Integer"),
             @ApiImplicitParam(name = "skuId", dataType = "String"),
             @ApiImplicitParam(name = "skuName", dataType = "String"),
             @ApiImplicitParam(name = "skuCode", dataType = "String"),
+
             @ApiImplicitParam(name = "barCode", dataType = "String"),
             @ApiImplicitParam(name = "mid", dataType = "Integer"),
             @ApiImplicitParam(name = "allowCoupon", dataType = "Integer"),
@@ -75,13 +93,15 @@ public class ProductPatchEndpoint {
             @ApiImplicitParam(name = "isVirtual", dataType = "Integer"),
             @ApiImplicitParam(name = "requiredParticipateExam", dataType = "Integer"),
             @ApiImplicitParam(name = "orderBy", dataType = "String"),
-            @ApiImplicitParam(name = "sort", dataType = "String")
+            @ApiImplicitParam(name = "sort", dataType = "String"),
+            @ApiImplicitParam(name = "search", dataType = "String")
     })
     public Tip queryProducts(Page<FrontProductRecord> page,
                              @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
                              @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                              @RequestParam(name = "search", required = false) String search,
                              @RequestParam(name = "id", required = false) Long id,
+                             @RequestParam(name = "categoryName", required = false) String categoryName,
                              @RequestParam(name = "categoryId", required = false) Integer categoryId,
                              @RequestParam(name = "brandId", required = false) Integer brandId,
                              @RequestParam(name = "name", required = false) String name,
@@ -89,6 +109,7 @@ public class ProductPatchEndpoint {
                              @RequestParam(name = "cover", required = false) String cover,
                              @RequestParam(name = "stockBalance", required = false) Integer stockBalance,
                              @RequestParam(name = "sales", required = false) Integer sales,
+                             @RequestParam(name = "status", required = false) String status,
                              @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdDate,
                              @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date lastModifiedDate,
                              @RequestParam(name = "unit", required = false) String unit,
@@ -102,22 +123,25 @@ public class ProductPatchEndpoint {
                              @RequestParam(name = "partnerLevelZone", required = false) Integer partnerLevelZone,
                              @RequestParam(name = "viewCount", required = false) Long viewCount,
                              @RequestParam(name = "fareId", required = false) Integer fareId,
-
+                             @RequestParam(name = "barcode", required = false) String barcode,
                              @RequestParam(name = "storeLocation", required = false) String storeLocation,
                              @RequestParam(name = "weight", required = false) Integer weight,
                              @RequestParam(name = "bulk", required = false) Integer bulk,
                              @RequestParam(name = "skuId", required = false) String skuId,
                              @RequestParam(name = "skuName", required = false) String skuName,
                              @RequestParam(name = "skuCode", required = false) String skuCode,
-                             @RequestParam(name = "barcode", required = false) String barcode,
+                             @RequestParam(name = "barCode", required = false) String barCode,
                              @RequestParam(name = "brandName", required = false) String brandName,
                              @RequestParam(name = "mid", required = false) Integer mid,
                              @RequestParam(name = "allowCoupon", required = false) Integer allowCoupon,
                              @RequestParam(name = "credit", required = false) Integer credit,
                              @RequestParam(name = "isVirtual", required = false) Integer isVirtual,
                              @RequestParam(name = "requiredParticipateExam", required = false) Integer requiredParticipateExam,
+                             @RequestParam(name = "supplierId", required = false) Long supplierId,
+                             @RequestParam(name = "supplierName", required = false) String supplierName,
                              @RequestParam(name = "orderBy", required = false) String orderBy,
-                             @RequestParam(name = "sort", required = false) String sort) {
+                             @RequestParam(name = "sort", required = false) String sort,
+                             @RequestParam(name = "orgId",required = false)Long orgId) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -133,6 +157,7 @@ public class ProductPatchEndpoint {
         page.setSize(pageSize);
 
         FrontProductRecord record = new FrontProductRecord();
+        record.setCategoryName(categoryName);
         record.setId(id);
         record.setCategoryId(categoryId);
         record.setBrandId(brandId);
@@ -141,8 +166,7 @@ public class ProductPatchEndpoint {
         record.setCover(cover);
         record.setStockBalance(stockBalance);
         record.setSales(sales);
-        //产品为上架
-        record.setStatus("ONSELL");
+        record.setStatus(status);
         record.setCreatedDate(createdDate);
         record.setLastModifiedDate(lastModifiedDate);
         record.setUnit(unit);
@@ -168,12 +192,18 @@ public class ProductPatchEndpoint {
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
-
+        if(META.enabledSaas()) {
+            if(orgId == null){
+                orgId = 1L;
+            }
+            Long tenantIdByOrgId = frontProductService.getTenantIdByOrgId(orgId);
+            record.setOrgId(tenantIdByOrgId);
+        }
         record.setIsVirtual(isVirtual);
         record.setRequiredParticipateExam(requiredParticipateExam);
-        page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null,null,null));
-
+        page.setRecords(this.frontProductService.findProductPage(page, record, search, orderBy, null, null,supplierId,supplierName));
         return SuccessTip.create(page);
     }
+
 
 }
