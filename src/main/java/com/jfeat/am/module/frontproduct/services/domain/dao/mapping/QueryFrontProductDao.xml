@@ -133,6 +133,9 @@
         <if test="record.categoryName != null and record.categoryName!= ''">
             AND category.name LIKE CONCAT('%',#{record.categoryName},'%')
         </if>
+        <if test="record.category != null and record.category!= ''">
+            AND category.code = #{record.category}
+        </if>
 
         <if test="record.id != null and record.id>0 ">
             AND t_product.id LIKE CONCAT('%',#{record.id},'%')

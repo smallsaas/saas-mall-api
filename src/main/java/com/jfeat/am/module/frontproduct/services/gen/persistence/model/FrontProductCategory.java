@@ -51,6 +51,17 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 	@TableField("org_id")
 	private Long orgId;
 
+	@TableField("code")
+	private String code;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
 	public Long getId() {
 		return id;
 	}

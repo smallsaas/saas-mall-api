@@ -203,7 +203,8 @@ public class FrontProductEndpoint {
                              @RequestParam(name = "supplierId", required = false) Long supplierId,
                              @RequestParam(name = "orderBy", required = false) String orderBy,
                              @RequestParam(name = "sort", required = false) String sort,
-                             @RequestParam(name = "supplierName", required = false) String supplierName) {
+                             @RequestParam(name = "supplierName", required = false) String supplierName,
+                             @RequestParam(name = "category",required = false)String category) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -219,6 +220,7 @@ public class FrontProductEndpoint {
         page.setSize(pageSize);
 
         FrontProductRecord record = new FrontProductRecord();
+        record.setCategory(category);
         record.setCategoryName(categoryName);
         record.setId(id);
         record.setCategoryId(categoryId);

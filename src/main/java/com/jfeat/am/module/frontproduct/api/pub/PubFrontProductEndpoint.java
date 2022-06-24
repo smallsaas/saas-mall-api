@@ -141,7 +141,8 @@ public class PubFrontProductEndpoint {
                              @RequestParam(name = "supplierName", required = false) String supplierName,
                              @RequestParam(name = "orderBy", required = false) String orderBy,
                              @RequestParam(name = "sort", required = false) String sort,
-                             @RequestParam(name = "orgId",required = false)Long orgId) {
+                             @RequestParam(name = "orgId",required = false)Long orgId,
+                             @RequestParam(name = "category",required = false)String category) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -192,6 +193,7 @@ public class PubFrontProductEndpoint {
         record.setMid(mid);
         record.setAllowCoupon(allowCoupon);
         record.setCredit(credit);
+        record.setCategory(category);
         if(META.enabledSaas()) {
             if(orgId == null){
                 orgId = 1L;

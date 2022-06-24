@@ -2,27 +2,37 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductCategoryDao">
     <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                t_product_category.id, t_product_category.parent_id AS parentId, t_product_category.name, t_product_category.description, t_product_category.cover, t_product_category.sort_order AS sortOrder, t_product_category.promoted, t_product_category.visible, t_product_category.promoted_product_count AS promotedProductCount, t_product_category.wholesale, t_product_category.is_show_products AS isShowProducts
+        t_product_category
+        .
+        id
+        , t_product_category.parent_id AS parentId, t_product_category.name, t_product_category.description, t_product_category.cover, t_product_category.sort_order AS sortOrder, t_product_category.promoted, t_product_category.visible, t_product_category.promoted_product_count AS promotedProductCount, t_product_category.wholesale, t_product_category.is_show_products AS isShowProducts
+        , t_product_category.code AS code
     </sql>
 
 
     <sql id="QueryOwnedOrgIds">
-        SELECT children.id FROM t_sys_org, t_sys_org as children WHERE t_sys_org.left_num &lt;= children.left_num AND
-            t_sys_org.right_num >= children.left_num and t_sys_org.id=#{record.orgId} order by t_sys_org.node_level ASC
+        SELECT children.id
+        FROM t_sys_org,
+             t_sys_org as children
+        WHERE t_sys_org.left_num &lt;= children.left_num
+          AND t_sys_org.right_num >= children.left_num
+          and t_sys_org.id = #{record.orgId}
+        order by t_sys_org.node_level ASC
     </sql>
 
-    <select id="findProductCategoryPage" resultType="FrontProductCategoryRecord" parameterType="FrontProductCategoryRecord">
+    <select id="findProductCategoryPage" resultType="FrontProductCategoryRecord"
+            parameterType="FrontProductCategoryRecord">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_product_category
-<!--        <if test="record.orgId > 0">
-            ,(<include refid="QueryOwnedOrgIds"></include>) AS ownedOrgIds
-        </if>-->
+        <!--        <if test="record.orgId > 0">
+                    ,(<include refid="QueryOwnedOrgIds"></include>) AS ownedOrgIds
+                </if>-->
 
         WHERE 1=1
-<!--        <if test="record.orgId > 0">
-            AND t_product_category.org_id = ownedOrgIds.id
-        </if>-->
+        <!--        <if test="record.orgId > 0">
+                    AND t_product_category.org_id = ownedOrgIds.id
+                </if>-->
         <if test="record.id != null and record.id>0 ">
             AND t_product_category.id LIKE CONCAT('%',#{record.id},'%')
         </if>
