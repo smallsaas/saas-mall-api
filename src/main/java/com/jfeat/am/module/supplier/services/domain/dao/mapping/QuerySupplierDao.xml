@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jfeat.am.module.house.services.domain.dao.QuerySupplierDao">
+<mapper namespace="com.jfeat.am.module.supplier.services.domain.dao.QuerySupplierDao">
     <sql id="Base_Column_List">
         t_supplier
         .
@@ -103,7 +103,7 @@
     </select>
 
 
-    <select id="querySupplierByEndUserId">
+    <select id="querySupplierByEndUserId"  resultType="SupplierRecord">
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_supplier
