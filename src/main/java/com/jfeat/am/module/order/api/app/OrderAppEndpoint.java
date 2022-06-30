@@ -12,6 +12,9 @@ import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
+import com.jfeat.am.module.supplier.services.domain.dao.QuerySupplierDao;
+import com.jfeat.am.module.supplier.services.domain.model.SupplierRecord;
+import com.jfeat.am.module.supplier.services.gen.persistence.dao.SupplierMapper;
 import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
@@ -57,7 +60,8 @@ public class OrderAppEndpoint {
     @Resource
     QueryOrderDao queryOrderDao;
 
-
+    @Resource
+    QuerySupplierDao querySupplierDao;
 
     @BusinessLog(name = "订单", value = "新增线上订单")
     @PostMapping
@@ -290,7 +294,6 @@ public class OrderAppEndpoint {
                            @RequestParam(name = "extCouponType", required = false) String extCouponType,
                            @RequestParam(name = "extDiscount", required = false) Integer extDiscount,
                            @RequestParam(name = "extCuts", required = false) Integer extCuts,
-                           @RequestParam(name = "orgId", required = false) Long orgId,
                            @RequestParam(name = "allianceId", required = false) Long allianceId,
                            @RequestParam(name = "orderBy", required = false) String orderBy,
                            @RequestParam(name = "sort", required = false) String sort,
@@ -301,17 +304,6 @@ public class OrderAppEndpoint {
                            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[] ,
                            @RequestParam Map<String,Object> parms)
                            {
-        if (orderBy != null && orderBy.length() > 0) {
-            if (sort != null && sort.length() > 0) {
-                String pattern = "(ASC|DESC|asc|desc)";
-                if (!sort.matches(pattern)) {
-                    throw new BusinessException(BusinessCode.BadRequest.getCode(), "sort must be ASC or DESC");//此处异常类型根据实际情况而定
-                }
-            } else {
-                sort = "ASC";
-            }
-            orderBy = "`" + orderBy + "`" + " " + sort;
-        }
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
@@ -324,22 +316,6 @@ public class OrderAppEndpoint {
 
 
         Date startEndTime=null;
-       //设置当月1号
-        /*if(allianceId!=null&&thisMonth!=null&&thisMonth!=""){
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(new Date());
-            calendar.set(Calendar.DAY_OF_MONTH, 1);
-            calendar.set(Calendar.HOUR_OF_DAY, 0);
-            calendar.set(Calendar.MINUTE, 0);
-            calendar.set(Calendar.SECOND, 0);
-
-            startTime=calendar.getTime();
-            calendar.add(Calendar.MONTH, 1);
-            startEndTime=calendar.getTime();
-
-        }*/
-
 
          QueryWrapper multiEntityWrapper = QueryParamUtils.getMultiEntityWrapper(parms, TOrder.class,"t_order.");
 
@@ -347,7 +323,7 @@ public class OrderAppEndpoint {
         record.setBarcode(barcode);
         record.setpName(pName);
         record.setId(id);
-        record.setUserId(userId);
+        //record.setUserId(userId);
         record.setOrderNumber(orderNumber);
         record.setTradeNumber(tradeNumber);
         record.setPaymentType(paymentType);
@@ -358,9 +334,10 @@ public class OrderAppEndpoint {
         record.setDeliveredDate(deliveredDate);
         record.setDealDate(dealDate);
         record.setDeliverOrderNumber(deliverOrderNumber);
-        if(META.enabledSaas()){
-            record.setOrgId(JWTKit.getOrgId());
+        if(JWTKit.getUserId() == null){
+            throw new BusinessException(BusinessCode.BadRequest,"获取当前用户信息失败");
         }
+        record.setUserId(JWTKit.getUserId().intValue());
 
 
         record.setStatus(status);
@@ -440,6 +417,217 @@ public class OrderAppEndpoint {
         return SuccessTip.create(page);
     }
 
+
+    @ApiOperation(value = "Order 列表信息", response = OrderRecord.class)
+    @GetMapping("/supplier")
+    public Tip querySupplierOrders(Page<OrderRecord> page,
+                           @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                           @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                           @RequestParam(name = "search", required = false) String search,
+                           @RequestParam(name = "id", required = false) Long id,
+
+                           @RequestParam(name = "orderNumber", required = false) String orderNumber,
+                           @RequestParam(name = "tradeNumber", required = false) String tradeNumber,
+                           @RequestParam(name = "paymentType", required = false) String paymentType,
+                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdDate,
+                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date payDate,
+                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date confirmDate,
+                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date deliverDate,
+                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date deliveredDate,
+                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date dealDate,
+                           @RequestParam(name = "deliverOrderNumber", required = false) String deliverOrderNumber,
+                           @RequestParam(name = "status", required = false) String status,
+                           @RequestParam(name = "totalPrice", required = false) BigDecimal totalPrice,
+                           @RequestParam(name = "freight", required = false) BigDecimal freight,
+                           @RequestParam(name = "description", required = false) String description,
+                           @RequestParam(name = "remark", required = false) String remark,
+                           @RequestParam(name = "invoice", required = false) Integer invoice,
+                           @RequestParam(name = "invoiceTitle", required = false) String invoiceTitle,
+                           @RequestParam(name = "receivingTime", required = false) String receivingTime,
+                           @RequestParam(name = "zip", required = false) String zip,
+                           @RequestParam(name = "contactUser", required = false) String contactUser,
+                           @RequestParam(name = "phone", required = false) String phone,
+                           @RequestParam(name = "province", required = false) String province,
+                           @RequestParam(name = "city", required = false) String city,
+                           @RequestParam(name = "district", required = false) String district,
+                           @RequestParam(name = "street", required = false) String street,
+                           @RequestParam(name = "detail", required = false) String detail,
+                           @RequestParam(name = "cover", required = false) String cover,
+                           @RequestParam(name = "expressNumber", required = false) String expressNumber,
+                           @RequestParam(name = "expressCompany", required = false) String expressCompany,
+                           @RequestParam(name = "expressCode", required = false) String expressCode,
+                           @RequestParam(name = "settled", required = false) Integer settled,
+                           @RequestParam(name = "previousStatus", required = false) String previousStatus,
+                           @RequestParam(name = "isDeliverReminder", required = false) Integer isDeliverReminder,
+                           @RequestParam(name = "isDeleted", required = false) Integer isDeleted,
+                           @RequestParam(name = "pointExchangeRate", required = false) Integer pointExchangeRate,
+                           @RequestParam(name = "couponInfo", required = false) String couponInfo,
+                           @RequestParam(name = "marketing", required = false) String marketing,
+                           @RequestParam(name = "marketingId", required = false) Integer marketingId,
+                           @RequestParam(name = "marketingDescription", required = false) String marketingDescription,
+                           @RequestParam(name = "mid", required = false) Integer mid,
+                           @RequestParam(name = "mname", required = false) String mname,
+                           @RequestParam(name = "storeId", required = false) String storeId,
+                           @RequestParam(name = "storeName", required = false) String storeName,
+                           @RequestParam(name = "storeUserId", required = false) String storeUserId,
+                           @RequestParam(name = "storeUserName", required = false) String storeUserName,
+                           @RequestParam(name = "type", required = false) String type,
+                           @RequestParam(name = "payCredit", required = false) Integer payCredit,
+                           @RequestParam(name = "deliveryType", required = false) String deliveryType,
+                           @RequestParam(name = "origin", required = false) String origin,
+                           @RequestParam(name = "storeUserCode", required = false) String storeUserCode,
+                           @RequestParam(name = "storeCode", required = false) String storeCode,
+                           @RequestParam(name = "storeCover", required = false) String storeCover,
+                           @RequestParam(name = "storeGuideUserId", required = false) String storeGuideUserId,
+                           @RequestParam(name = "storeGuideUserCode", required = false) String storeGuideUserCode,
+                           @RequestParam(name = "storeGuideUserName", required = false) String storeGuideUserName,
+                           @RequestParam(name = "inviterUserId", required = false) String inviterUserId,
+                           @RequestParam(name = "inviterUserName", required = false) String inviterUserName,
+                           @RequestParam(name = "followedStoreId", required = false) String followedStoreId,
+                           @RequestParam(name = "followedStoreCode", required = false) String followedStoreCode,
+                           @RequestParam(name = "followedStoreName", required = false) String followedStoreName,
+                           @RequestParam(name = "followedStoreCover", required = false) String followedStoreCover,
+                           @RequestParam(name = "commentId", required = false) String commentId,
+                           @RequestParam(name = "bindingStoreId", required = false) String bindingStoreId,
+                           @RequestParam(name = "bindingStoreCode", required = false) String bindingStoreCode,
+                           @RequestParam(name = "bindingStoreName", required = false) String bindingStoreName,
+                           @RequestParam(name = "bindingStoreCover", required = false) String bindingStoreCover,
+                           @RequestParam(name = "refundFee", required = false) BigDecimal refundFee,
+                           @RequestParam(name = "storeAddress", required = false) String storeAddress,
+                           @RequestParam(name = "supplementaryFee", required = false) BigDecimal supplementaryFee,
+                           @RequestParam(name = "originPrice", required = false) BigDecimal originPrice,
+                           @RequestParam(name = "couponPrice", required = false) BigDecimal couponPrice,
+                           @RequestParam(name = "creditPrice", required = false) BigDecimal creditPrice,
+                           @RequestParam(name = "extCouponId", required = false) String extCouponId,
+                           @RequestParam(name = "extUserType", required = false) String extUserType,
+                           @RequestParam(name = "extCouponType", required = false) String extCouponType,
+                           @RequestParam(name = "extDiscount", required = false) Integer extDiscount,
+                           @RequestParam(name = "extCuts", required = false) Integer extCuts,
+                           @RequestParam(name = "allianceId", required = false) Long allianceId,
+                           @RequestParam(name = "orderBy", required = false) String orderBy,
+                           @RequestParam(name = "sort", required = false) String sort,
+                           @RequestParam(name = "pName", required = false) String pName,
+                           @RequestParam(name = "barcode", required = false) String barcode,
+                           @RequestParam(name = "thisMonth", required = false) String thisMonth,
+                           @RequestParam(name = "searchMoney", required = false) BigDecimal searchMoney[],
+                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[] ,
+                           @RequestParam Map<String,Object> parms)
+    {
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
+
+        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
+        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+
+        BigDecimal leftMoney = searchMoney!=null? (searchMoney.length > 0?searchMoney[0]:null) : null;
+        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(searchMoney.length==1?searchMoney[0]:null)) : null;
+
+
+
+        Date startEndTime=null;
+
+        QueryWrapper multiEntityWrapper = QueryParamUtils.getMultiEntityWrapper(parms, TOrder.class,"t_order.");
+
+        OrderRecord record = new OrderRecord();
+        record.setBarcode(barcode);
+        record.setpName(pName);
+        record.setId(id);
+        //record.setUserId(userId);
+        record.setOrderNumber(orderNumber);
+        record.setTradeNumber(tradeNumber);
+        record.setPaymentType(paymentType);
+        record.setCreatedDate(createdDate);
+        record.setPayDate(payDate);
+        record.setConfirmDate(confirmDate);
+        record.setDeliverDate(deliverDate);
+        record.setDeliveredDate(deliveredDate);
+        record.setDealDate(dealDate);
+        record.setDeliverOrderNumber(deliverOrderNumber);
+         Long nowUserId = JWTKit.getUserId();
+         SupplierRecord supplierRecord = querySupplierDao.querySupplierByEndUserId(nowUserId);
+         if(supplierRecord != null){
+             record.setOrgId(supplierRecord.getOrgId());
+         }else{
+            throw new BusinessException(BusinessCode.BadRequest,"当前用户未绑定供应商，获取供应商订单失败");
+         }
+
+
+        record.setStatus(status);
+
+        record.setTotalPrice(totalPrice);
+        record.setFreight(freight);
+        record.setDescription(description);
+        record.setRemark(remark);
+        record.setInvoice(invoice);
+        record.setInvoiceTitle(invoiceTitle);
+        record.setReceivingTime(receivingTime);
+        record.setZip(zip);
+        record.setContactUser(contactUser);
+        record.setPhone(phone);
+        record.setProvince(province);
+        record.setCity(city);
+        record.setDistrict(district);
+        record.setStreet(street);
+        record.setDetail(detail);
+        record.setCover(cover);
+        record.setExpressNumber(expressNumber);
+        record.setExpressCompany(expressCompany);
+        record.setExpressCode(expressCode);
+        record.setSettled(settled);
+        record.setPreviousStatus(previousStatus);
+        record.setIsDeliverReminder(isDeliverReminder);
+        record.setIsDeleted(isDeleted);
+        record.setPointExchangeRate(pointExchangeRate);
+        record.setCouponInfo(couponInfo);
+        record.setMarketing(marketing);
+        record.setMarketingId(marketingId);
+        record.setMarketingDescription(marketingDescription);
+        record.setMid(mid);
+        record.setMname(mname);
+        record.setStoreId(storeId);
+        record.setStoreName(storeName);
+        record.setStoreUserId(storeUserId);
+        record.setStoreUserName(storeUserName);
+        record.setType(type);
+        record.setPayCredit(payCredit);
+        record.setDeliveryType(deliveryType);
+        record.setOrigin(origin);
+        record.setStoreUserCode(storeUserCode);
+        record.setStoreCode(storeCode);
+        record.setStoreCover(storeCover);
+        record.setStoreGuideUserId(storeGuideUserId);
+        record.setStoreGuideUserCode(storeGuideUserCode);
+        record.setStoreGuideUserName(storeGuideUserName);
+        record.setInviterUserId(inviterUserId);
+        record.setInviterUserName(inviterUserName);
+        record.setFollowedStoreId(followedStoreId);
+        record.setFollowedStoreCode(followedStoreCode);
+        record.setFollowedStoreName(followedStoreName);
+        record.setFollowedStoreCover(followedStoreCover);
+        record.setCommentId(commentId);
+        record.setBindingStoreId(bindingStoreId);
+        record.setBindingStoreCode(bindingStoreCode);
+        record.setBindingStoreName(bindingStoreName);
+        record.setBindingStoreCover(bindingStoreCover);
+        record.setRefundFee(refundFee);
+        record.setStoreAddress(storeAddress);
+        record.setSupplementaryFee(supplementaryFee);
+        record.setOriginPrice(originPrice);
+        record.setCouponPrice(couponPrice);
+        record.setCreditPrice(creditPrice);
+        record.setExtCouponId(extCouponId);
+        record.setExtUserType(extUserType);
+        record.setExtCouponType(extCouponType);
+        record.setExtDiscount(extDiscount);
+        record.setExtCuts(extCuts);
+        // record.setOrgId(orgId);
+
+        page.setRecords(queryOrderDao.findOrderPage(multiEntityWrapper,
+                page, record, search, orderBy, startTime,startEndTime, endTime,allianceId
+                ,leftMoney,rightMoney));
+        orderService.setItemsByPages(page);
+        return SuccessTip.create(page);
+    }
 
 
 

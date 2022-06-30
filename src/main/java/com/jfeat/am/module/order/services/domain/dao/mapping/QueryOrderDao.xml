@@ -76,7 +76,7 @@
             AND t_order.id LIKE CONCAT('%',#{record.id},'%')
         </if>
         <if test="record.userId != null and record.userId>0 ">
-            AND t_order.user_id LIKE CONCAT('%',#{record.userId},'%')
+            AND t_order.user_id = #{record.userId}
         </if>
         <if test="record.orderNumber != null and record.orderNumber!= ''">
             AND t_order.order_number LIKE CONCAT('%',#{record.orderNumber},'%')
@@ -395,7 +395,7 @@
             AND t_order.id LIKE CONCAT('%',#{record.id},'%')
         </if>
         <if test="record.userId != null and record.userId>0 ">
-            AND t_order.user_id LIKE CONCAT('%',#{record.userId},'%')
+            AND t_order.user_id = #{record.userId}
         </if>
         <if test="record.orderNumber != null and record.orderNumber!= ''">
             AND t_order.order_number LIKE CONCAT('%',#{record.orderNumber},'%')
