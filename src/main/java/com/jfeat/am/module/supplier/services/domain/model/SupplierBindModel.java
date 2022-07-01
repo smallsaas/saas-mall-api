@@ -4,7 +4,7 @@ public class SupplierBindModel {
 
 private String code;
 
-private Long userId;
+private Long endUserId;
 
 private Long supplierId;
 
@@ -16,12 +16,12 @@ private Long supplierId;
         this.supplierId = supplierId;
     }
 
-    public Long getUserId() {
-        return userId;
+    public Long getEndUserId() {
+        return endUserId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setEndUserId(Long endUserId) {
+        this.endUserId = endUserId;
     }
 
     public String getCode() {

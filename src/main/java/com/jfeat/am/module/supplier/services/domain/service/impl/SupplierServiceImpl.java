@@ -1,7 +1,6 @@
 package com.jfeat.am.module.supplier.services.domain.service.impl;
 
 //import cn.hutool.core.lang.UUID;
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.supplier.services.domain.model.SupplierBindModel;
@@ -184,7 +183,7 @@ public class SupplierServiceImpl extends CRUDSupplierServiceImpl implements Supp
     public Integer bindSupplier(SupplierBindModel supplierBindModel){
 
         QueryWrapper queryWrapper = new QueryWrapper();
-        queryWrapper.eq("end_user_id",supplierBindModel.getUserId());
+        queryWrapper.eq("end_user_id",supplierBindModel.getEndUserId());
         List list = supplierMapper.selectList(queryWrapper);
         if(supplierBindModel.getSupplierId() == null){
             throw new BusinessException(BusinessCode.BadRequest,"供应商id不能为空");
@@ -198,8 +197,8 @@ public class SupplierServiceImpl extends CRUDSupplierServiceImpl implements Supp
             throw new BusinessException(BusinessCode.BadRequest,"供应商不存在");
         }
         supplier.setBindType(SupplierBindType.BIND);
-        supplier.setBindUserId(supplierBindModel.getUserId());
-        supplier.setEndUserId(supplierBindModel.getUserId());
+        supplier.setBindUserId(supplierBindModel.getEndUserId());
+        supplier.setEndUserId(supplierBindModel.getEndUserId());
 
         int i = supplierMapper.updateById(supplier);
         return i;
@@ -211,9 +210,9 @@ public class SupplierServiceImpl extends CRUDSupplierServiceImpl implements Supp
         Integer effect = 0;
         List<Supplier> list = new ArrayList<>();
         //如果有用户id
-        if(supplierBindModel.getUserId()!= null){
+        if(supplierBindModel.getEndUserId()!= null){
             QueryWrapper<Supplier> queryWrapper = new QueryWrapper();
-            queryWrapper.eq("end_user_id",supplierBindModel.getUserId());
+            queryWrapper.eq("end_user_id",supplierBindModel.getEndUserId());
             list = supplierMapper.selectList(queryWrapper);
         }
          //如果有供应商id
