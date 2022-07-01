@@ -15,7 +15,29 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, note, type, url, address, org_id
+        t_supplier
+        .
+        id
+        , t_supplier.name, t_supplier.note, t_supplier.type, t_supplier.url, t_supplier.address, t_supplier.org_id AS orgId
+        , t_supplier.phone as phone
+        , t_supplier.user_id as userId
+        , t_supplier.end_user_id as endUserId
+        , t_supplier.link as link
+        , t_supplier.snapshot as snapshot
+        , t_supplier.bind_key as bindKey
+        , t_supplier.bind_type as bindType
+        , t_supplier.bind_user_id as bindUserId
     </sql>
+
+    <select id="getOne" resultType="com.jfeat.am.module.supplier.services.domain.model.SupplierModel">
+        select <include refid="Base_Column_List"/>
+        ,sysUser.account as account
+        ,endUser.name as endUserName
+        from t_supplier
+        left join t_sys_user sysUser on sysUser.id = t_supplier.user_id
+        left join t_end_user endUser on endUser.id = t_supplier.end_user_id
+        where t_supplier.id = #{id}
+
+    </select>
 
 </mapper>

@@ -85,7 +85,7 @@ public class SupplierEndpoint {
 
     @Permission(SupplierPermission.SUPPLIER_VIEW)
     @GetMapping("/{id}")
-    @ApiOperation(value = "查看 Supplier", response = Supplier.class)
+    @ApiOperation(value = "查看 Supplier", response = SupplierRecord.class)
     public Tip getSupplier(@PathVariable Long id) {
         return SuccessTip.create(supplierService.getOne(id));
     }
@@ -184,14 +184,16 @@ public class SupplierEndpoint {
         return SuccessTip.create(page);
     }
 
-    @PutMapping("/bind")
-    public Tip BindSupplier(@RequestBody SupplierBindModel supplierBindModel){
+    @PutMapping("/bind/{id}")
+    public Tip BindSupplier(@PathVariable Long id,@RequestBody SupplierBindModel supplierBindModel){
+        supplierBindModel.setSupplierId(id);
         Integer integer = supplierService.bindSupplier(supplierBindModel);
         return SuccessTip.create(integer);
     }
 
-    @PutMapping("/unBind")
-    public Tip UnBindSupplier(@RequestBody SupplierBindModel supplierBindModel){
+    @PutMapping("/unBind/{id}")
+    public Tip UnBindSupplier(@PathVariable Long id,@RequestBody SupplierBindModel supplierBindModel){
+        supplierBindModel.setSupplierId(id);
         Integer integer = supplierService.unBind(supplierBindModel);
         return SuccessTip.create(integer);
     }

@@ -112,18 +112,10 @@ public class SupplierServiceImpl extends CRUDSupplierServiceImpl implements Supp
 
     @Override
     public SupplierModel getOne(Long id) {
-        Supplier supplier = supplierMapper.selectById(id);
-        SupplierModel supplierModel = JSON.parseObject(JSON.toJSONString(supplier), SupplierModel.class);
+        SupplierModel supplier = supplierMapper.getOne(id);
+        //SupplierModel supplierModel = JSON.parseObject(JSON.toJSONString(supplier), SupplierModel.class);
 
-        if (supplier.getUserId() != null) {
-            SysUser user = sysUserService.getById(supplier.getUserId());
-            if (user != null) {
-                supplierModel.setAccount(user.getAccount());
-            }
-        }
-
-
-        return supplierModel;
+        return supplier;
     }
 
     @Override
