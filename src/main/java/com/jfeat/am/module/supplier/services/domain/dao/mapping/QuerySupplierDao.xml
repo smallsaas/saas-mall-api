@@ -40,8 +40,24 @@
         <include refid="Base_Column_List"/>
         ,t_sys_user.account as 'account'
         ,t_end_user.`name` as 'endUserName'
+        ,count( t_order.id ) as orderCount
+        , product.productCount as productCount
         FROM t_supplier left join t_sys_user on t_sys_user.id = t_supplier.user_id
         left join t_end_user on t_end_user.id = t_supplier.end_user_id
+
+        LEFT JOIN t_order ON t_order.org_id = t_supplier.org_id and t_order.status = 'CONFIRMED_DELIVER_PENDING'
+
+        LEFT JOIN (
+            SELECT
+            t_supplier.id AS chiId,
+            count( t_product.id ) AS productCount
+            FROM
+            t_supplier
+            LEFT JOIN t_product ON t_product.org_id = t_supplier.org_id
+                    and t_product.`status` ='ONSELL'
+            GROUP BY
+            t_supplier.id
+        ) AS product ON product.chiId = t_supplier.id
 
         <if test="record.orgId > 0">
             ,(<include refid="QueryOwnedOrgIds"></include>) AS ownedOrgIds
@@ -93,6 +109,9 @@
                 or  t_supplier.phone LIKE CONCAT('%',#{search},'%')
                 or t_sys_user.account LIKE CONCAT('%',#{search},'%') )
         </if>
+
+        GROUP BY
+        t_supplier.id
     </select>
 
 <!--    查询所有供应商-->

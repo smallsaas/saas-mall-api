@@ -11,6 +11,26 @@ public class SupplierRecord extends Supplier {
     String snapshotUrl;
     String endUserName;
 
+    Integer orderCount;
+
+    Integer productCount;
+
+    public Integer getOrderCount() {
+        return orderCount;
+    }
+
+    public void setOrderCount(Integer orderCount) {
+        this.orderCount = orderCount;
+    }
+
+    public Integer getProductCount() {
+        return productCount;
+    }
+
+    public void setProductCount(Integer productCount) {
+        this.productCount = productCount;
+    }
+
     public String getEndUserName() {
         return endUserName;
     }
