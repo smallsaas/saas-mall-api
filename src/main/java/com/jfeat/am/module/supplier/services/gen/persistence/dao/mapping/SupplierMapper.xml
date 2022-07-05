@@ -27,6 +27,7 @@
         , t_supplier.bind_key as bindKey
         , t_supplier.bind_type as bindType
         , t_supplier.bind_user_id as bindUserId
+        , t_supplier.vr_id as vrId
     </sql>
 
     <select id="getOne" resultType="com.jfeat.am.module.supplier.services.domain.model.SupplierModel">

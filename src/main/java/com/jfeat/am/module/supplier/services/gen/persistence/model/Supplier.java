@@ -69,6 +69,18 @@ public class Supplier extends Model<Supplier> {
     @TableField(updateStrategy = FieldStrategy.IGNORED )
     private Long bindUserId;
 
+    @TableField(value = "vr_id")
+    private Long vrId;
+
+
+    public Long getVrId() {
+        return vrId;
+    }
+
+    public void setVrId(Long vrId) {
+        this.vrId = vrId;
+    }
+
     public Long getBindUserId() {
         return bindUserId;
     }
