@@ -97,4 +97,29 @@
     </if>
     -->
     </select>
+
+    <select id="inventory" resultType="OrderItemRecord">
+        select
+            t_order_item.id, t_order_item.order_id AS orderId, t_order_item.product_id AS productId,
+            t_order_item.product_name AS productName,  t_order_item.price,
+            t_order_item.final_price AS finalPrice, t_order_item.status, t_order_item.cost_price AS costPrice,
+            t_order_item.cover, t_order_item.partner_level_zone AS partnerLevelZone,
+            t_order_item.product_specification_name AS productSpecificationName,
+            t_order_item.product_specification_id AS productSpecificationId, t_order_item.weight,
+            t_order_item.bulk, t_order_item.barcode, t_order_item.store_location AS storeLocation,
+            t_order_item.marketing, t_order_item.marketing_id AS marketingId, t_order_item.marketing_description AS marketingDescription,
+            t_order_item.sku_id AS skuId, t_order_item.warehouse_id AS warehouseId
+        ,sum(t_order_item.quantity) as quantity
+        FROM
+        t_order_item
+        LEFT JOIN t_order ON t_order.id = t_order_item.order_id
+        WHERE
+        t_order.org_id = #{orgId}
+        and t_order.`status` = 'CONFIRMED_DELIVER_PENDING'
+        <if test="search != null and search != ''">
+            and t_order_item.product_name LIKE CONCAT('%',#{search},'%')
+        </if>
+        group by t_order_item.product_id
+    </select>
+
 </mapper>

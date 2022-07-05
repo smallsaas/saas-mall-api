@@ -13,6 +13,9 @@ import java.util.List;
  * Created by Code Generator on 2019-07-31
  */
 public interface QueryOrderItemDao extends BaseMapper<OrderItem> {
+
+    List<OrderItemRecord> inventory(@Param("orgId")Long orgId,@Param("search")String search);
+
     List<OrderItemRecord> findOrderItemPage(Page<OrderItemRecord> page, @Param("record") OrderItemRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);

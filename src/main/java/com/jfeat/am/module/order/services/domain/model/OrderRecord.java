@@ -21,6 +21,16 @@ public class OrderRecord extends TOrder {
 
     List<OrderItem> orderItemRecordList ;
 
+    String avatar;
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
+    }
+
     public List<OrderItem> getOrderItemRecordList() {
         return orderItemRecordList;
     }

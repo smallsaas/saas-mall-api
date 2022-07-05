@@ -9,6 +9,7 @@ import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.definition.OrderType;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
+import com.jfeat.am.module.order.services.domain.dao.QueryOrderItemDao;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
@@ -62,6 +63,9 @@ public class OrderAppEndpoint {
 
     @Resource
     QuerySupplierDao querySupplierDao;
+
+    @Resource
+    QueryOrderItemDao queryOrderItemDao;
 
     @BusinessLog(name = "订单", value = "新增线上订单")
     @PostMapping
@@ -629,7 +633,19 @@ public class OrderAppEndpoint {
         return SuccessTip.create(page);
     }
 
+    @GetMapping("/inventory")
+    public Tip inventory(@RequestParam(name = "search" , required = false)String search){
 
+        Long nowUserId = JWTKit.getUserId();
+        SupplierRecord supplierRecord = querySupplierDao.querySupplierByEndUserId(nowUserId);
+        if(supplierRecord != null){
+
+        }else{
+            throw new BusinessException(BusinessCode.BadRequest,"当前用户未绑定供应商，获取供应商订单失败");
+        }
+        List<OrderItemRecord> inventory = queryOrderItemDao.inventory(supplierRecord.getOrgId(), search);
+        return SuccessTip.create(inventory);
+    }
 
 
     @ApiOperation(value = "退货 列表信息", response = OrderRecord.class)
