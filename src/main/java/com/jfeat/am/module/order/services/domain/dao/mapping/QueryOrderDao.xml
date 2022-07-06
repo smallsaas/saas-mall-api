@@ -42,6 +42,7 @@
         ,t_end_user.name as userName
         ,settlement_status as settlementStatus
         ,t_end_user.avatar as avatar
+        ,t_end_user.phone as userPhone
         FROM t_order
         left join t_end_user on t_order.user_id=t_end_user.id
 

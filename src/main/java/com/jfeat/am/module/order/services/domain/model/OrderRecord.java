@@ -23,6 +23,16 @@ public class OrderRecord extends TOrder {
 
     String avatar;
 
+    String userPhone;
+
+    public String getUserPhone() {
+        return userPhone;
+    }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
     public String getAvatar() {
         return avatar;
     }
