@@ -110,9 +110,11 @@
             t_order_item.marketing, t_order_item.marketing_id AS marketingId, t_order_item.marketing_description AS marketingDescription,
             t_order_item.sku_id AS skuId, t_order_item.warehouse_id AS warehouseId
         ,sum(t_order_item.quantity) as quantity
+        ,t_product.sku_code as skuCode
         FROM
         t_order_item
         LEFT JOIN t_order ON t_order.id = t_order_item.order_id
+        left join t_product on t_product.id = t_order_item.product_id
         WHERE
         t_order.org_id = #{orgId}
         and t_order.`status` = 'CONFIRMED_DELIVER_PENDING'

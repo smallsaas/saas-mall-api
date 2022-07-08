@@ -11,6 +11,16 @@ public class OrderItemRecord extends OrderItem{
     //总价
     BigDecimal totalPrice;
 
+    String skuCode;
+
+    public void setSkuCode(String skuCode) {
+        this.skuCode = skuCode;
+    }
+
+    public String getSkuCode() {
+        return skuCode;
+    }
+
     public BigDecimal getTotalPrice() {
         return totalPrice;
     }
