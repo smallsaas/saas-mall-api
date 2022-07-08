@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.List;
 
 public class RequestOrder {
+    private Long id;
+
+    private String orderNumber;
     //价格
     private BigDecimal totalPrice;
     //商品条码
@@ -46,6 +49,21 @@ public class RequestOrder {
 
     private Long orgId;
 
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     //产品 用于接收前端返回的数据 用于存入放入orderItem中
     private List<OrderItemRecord> items;

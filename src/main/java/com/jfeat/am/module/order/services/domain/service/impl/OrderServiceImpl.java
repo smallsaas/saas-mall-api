@@ -178,6 +178,8 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
                 //数据库处理
                 effect += createOrderEndless(order, requestOrder.getItems());
 
+                requestOrder.setId(order.getId());
+                requestOrder.setOrderNumber(order.getOrderNumber());
             }
                 return effect;
         }else{
