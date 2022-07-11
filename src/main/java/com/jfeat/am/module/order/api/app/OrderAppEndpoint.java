@@ -641,7 +641,7 @@ public class OrderAppEndpoint {
         if(supplierRecord != null){
 
         }else{
-            throw new BusinessException(BusinessCode.BadRequest,"当前用户未绑定供应商，获取供应商订单失败");
+            throw new BusinessException(BusinessCode.BadRequest,"未找到相同手机号的供应商，获取供货单失败");
         }
         List<OrderItemRecord> inventory = queryOrderItemDao.inventory(supplierRecord.getOrgId(), search);
         return SuccessTip.create(inventory);

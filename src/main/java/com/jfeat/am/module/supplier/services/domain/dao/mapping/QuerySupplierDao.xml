@@ -127,6 +127,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         FROM t_supplier
-        where t_supplier.end_user_id = #{endUserId}
+        left join t_end_user on t_end_user.phone = t_supplier.phone
+        where t_end_user.id = #{endUserId}
     </select>
 </mapper>
