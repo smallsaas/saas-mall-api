@@ -114,7 +114,7 @@ public class ConfigOverModelEndpoint {
     @GetMapping("group/{groupId}/{name}/{appid}")
     @ApiOperation(value = "根据groupId查看配置 根据appid", response = Config.class)
     @Permission(ConfigPermission.CONFIG_VIEW)
-    public Tip getConfigByGroupId(@PathVariable Integer groupId,@PathVariable String name,@PathVariable Long appid) {
+    public Tip getConfigByGroupId(@PathVariable Integer groupId,@PathVariable String name,@PathVariable String appid) {
         List<Config> configList =configService.selectConfigByGroupId(groupId,appid);
         ConfigRequest ConfigRequest=new ConfigRequest();
         ConfigRequest.setName(name);

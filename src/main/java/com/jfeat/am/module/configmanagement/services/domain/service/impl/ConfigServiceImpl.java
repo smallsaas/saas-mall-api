@@ -74,7 +74,7 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
     }
 
     @Override
-    public List<Config> selectConfigByGroupId(Integer groupId,Long appid) {
+    public List<Config> selectConfigByGroupId(Integer groupId, String appid) {
         List<Config> configList = configMapper.selectList(new QueryWrapper<Config>().eq("group_id", groupId).eq("appid",appid));
         return configList;
     }

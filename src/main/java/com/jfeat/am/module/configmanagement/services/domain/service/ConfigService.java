@@ -33,7 +33,7 @@ public interface ConfigService extends CRUDConfigOverModelService {
     Integer updateConfig(String type, Properties entity);
 
 
-    List<Config> selectConfigByGroupId(Integer groupId, Long appid);
+    List<Config> selectConfigByGroupId(Integer groupId, String appid);
 
     //更新所有配置
     public Integer updateAllConfig(Properties entity);
