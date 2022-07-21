@@ -111,6 +111,22 @@ public class ConfigOverModelEndpoint {
         return SuccessTip.create(ConfigRequest);
     }
 
+    @GetMapping("group/{groupId}/{name}/{appid}")
+    @ApiOperation(value = "根据groupId查看配置 根据appid", response = Config.class)
+    @Permission(ConfigPermission.CONFIG_VIEW)
+    public Tip getConfigByGroupId(@PathVariable Integer groupId,@PathVariable String name,@PathVariable Long appid) {
+        List<Config> configList =configService.selectConfigByGroupId(groupId,appid);
+        ConfigRequest ConfigRequest=new ConfigRequest();
+        ConfigRequest.setName(name);
+        ConfigRequest.setId(groupId);
+        Config[] configArray=new Config[configList.size()];
+        configList.toArray(configArray);
+        ConfigRequest.setItems(configArray);
+        return SuccessTip.create(ConfigRequest);
+    }
+
+
+
     @BusinessLog(name = "系统配置", value = "更改系统配置")
     @PutMapping("group/{id}")
     @ApiOperation(value = "修改配置", response = Config.class)

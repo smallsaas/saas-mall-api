@@ -2,6 +2,7 @@ package com.jfeat.am.module.configmanagement.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.configmanagement.services.domain.dao.QueryConfigDao;
 import com.jfeat.am.module.configmanagement.services.domain.model.ConfigRecord;
 import com.jfeat.am.module.configmanagement.services.domain.service.ConfigService;
@@ -68,7 +69,13 @@ public class ConfigServiceImpl extends CRUDConfigOverModelServiceImpl implements
 
     @Override
     public List<Config> selectConfigByGroupId(Integer groupId) {
-        List<Config> configList = configMapper.selectList(new QueryWrapper<Config>().eq("group_id", groupId));
+        List<Config> configList = configMapper.selectList(new QueryWrapper<Config>().eq("group_id", groupId).isNull("appid"));
+        return configList;
+    }
+
+    @Override
+    public List<Config> selectConfigByGroupId(Integer groupId,Long appid) {
+        List<Config> configList = configMapper.selectList(new QueryWrapper<Config>().eq("group_id", groupId).eq("appid",appid));
         return configList;
     }
 

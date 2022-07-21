@@ -55,6 +55,15 @@ public class Config extends Model<Config> {
 	@TableField("org_id")
 	private Long orgId;
 
+	private Long appid;
+
+	public Long getAppid() {
+		return appid;
+	}
+
+	public void setAppid(Long appid) {
+		this.appid = appid;
+	}
 
 	public Integer getId() {
 		return id;
