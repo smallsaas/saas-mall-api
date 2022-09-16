@@ -402,3 +402,13 @@ INSERT INTO `t_sys_user` VALUES ('876708082437197828', null, 'smcx', null, null,
 INSERT INTO `t_sys_user` VALUES ('876708082437197832', null, 'demo', null, null, '198f557c6c22d6116e659113b1668d1b', '7x1k2', '测试', null, '0', null, '0', null, '1', '2020-05-22 15:54:41', null, '1', '0', '0');
 
 
+
+ALTER TABLE t_sys_user ADD `user_type` INT ( 11 ) DEFAULT '0' COMMENT '用户类型 0-默认-平台用户(传统用户，隔离在租户下) 1-组织管理人 2-个人用户 3-个人组织用户 100-管理员（租户管理员 自动跳过权限检查） 102-观察者用户-所有看的权限';
+ALTER TABLE t_sys_user ADD `tenant_org_id` BIGINT ( 20 ) DEFAULT NULL COMMENT '租户id';
+ALTER TABLE t_sys_user ADD `dev_user_type` INT ( 11 ) DEFAULT '0' COMMENT '可以有多种隔离方式的用户类型 1-测试用户（系统不可见，权限与普通用户一致） 2-开发者权限(自动具备所有权限) 3-运维人员(受限于系统权与运维权限)';
+ALTER TABLE t_sys_user ADD `b_user_type` VARCHAR ( 30 ) DEFAULT 'SYSTEM' COMMENT '业务用户类型: 默认平台用户类型:SYSTEM, - 非平台用户-业务层用户';
+ALTER TABLE t_sys_user ADD `registered_phone` INT ( 11 ) NOT NULL DEFAULT '0' COMMENT '注册-手机验证';
+ALTER TABLE t_sys_user ADD `registered_email` INT ( 11 ) NOT NULL DEFAULT '0' COMMENT '注册-邮箱验证';
+ALTER TABLE t_sys_user ADD `github_info` VARCHAR ( 255 ) DEFAULT NULL COMMENT 'github账户信息';
+ALTER TABLE t_sys_user ADD `unionid` VARCHAR ( 100 ) DEFAULT NULL COMMENT '第三方授权ID';
+ALTER TABLE t_sys_user ADD `domain` VARCHAR ( 100 ) DEFAULT NULL;
