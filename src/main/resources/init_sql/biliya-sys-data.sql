@@ -484,3 +484,49 @@ CREATE TABLE `t_saas_module_menu` (
                                       `module_id` bigint(20) NOT NULL COMMENT '模块id',
                                       PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='模块-菜单 表';
+
+
+
+CREATE TABLE `sys_menu` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
+                            `menu_name` varchar(50) NOT NULL COMMENT '菜单名称',
+                            `pid` bigint(20) DEFAULT NULL COMMENT '父菜单ID',
+                            `order_num` int(4) DEFAULT '0' COMMENT '显示顺序',
+                            `path` varchar(200) DEFAULT '' COMMENT '路由地址',
+                            `component` varchar(255) DEFAULT NULL COMMENT '组件路径',
+                            `is_frame` int(1) DEFAULT '1' COMMENT '是否为外链（0是 1否）',
+                            `is_cache` int(1) DEFAULT '0' COMMENT '是否缓存（0缓存 1不缓存）',
+                            `menu_type` char(1) DEFAULT '' COMMENT '菜单类型（C目录 M菜单 B按钮）',
+                            `visible` char(1) DEFAULT '0' COMMENT '菜单状态（0显示 1隐藏）',
+                            `status` char(1) DEFAULT '0' COMMENT '菜单状态（0正常 1停用）',
+                            `perm_id` bigint(20) DEFAULT NULL COMMENT '权限id',
+                            `perm` varchar(50) DEFAULT NULL COMMENT '权限',
+                            `icon` varchar(100) DEFAULT '#' COMMENT '菜单图标',
+                            `create_by` varchar(64) DEFAULT '' COMMENT '创建者',
+                            `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+                            `update_by` varchar(64) DEFAULT '' COMMENT '更新者',
+                            `update_time` datetime DEFAULT NULL COMMENT '更新时间',
+                            `remark` varchar(500) DEFAULT '' COMMENT '备注',
+                            `org_id` bigint(20) DEFAULT NULL COMMENT '隔离标识',
+                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `sys_perm` (
+                            `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                            `group_id` bigint(20) DEFAULT NULL COMMENT '权限所属组',
+                            `identifier` varchar(50) NOT NULL COMMENT '权限值',
+                            `name` varchar(50) DEFAULT NULL COMMENT '权限名',
+                            `tag` smallint(6) DEFAULT '0' COMMENT '标签，0：普通权限，1：菜单',
+                            PRIMARY KEY (`id`) USING BTREE,
+                            KEY `group_id` (`group_id`) USING BTREE,
+                            CONSTRAINT `sys_perm_ibfk_1` FOREIGN KEY (`group_id`) REFERENCES `sys_perm_group` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=1531168757689380866 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+CREATE TABLE `sys_perm_group` (
+                                  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键id',
+                                  `org_id` bigint(20) NOT NULL COMMENT '资源隔离字段',
+                                  `pid` bigint(20) DEFAULT NULL COMMENT '父部门id',
+                                  `identifier` varchar(50) NOT NULL COMMENT '标识符',
+                                  `name` varchar(50) DEFAULT NULL COMMENT '名称',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=1531168755181187075 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
