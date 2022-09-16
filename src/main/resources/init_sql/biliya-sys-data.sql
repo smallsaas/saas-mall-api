@@ -412,3 +412,75 @@ ALTER TABLE t_sys_user ADD `registered_email` INT ( 11 ) NOT NULL DEFAULT '0' CO
 ALTER TABLE t_sys_user ADD `github_info` VARCHAR ( 255 ) DEFAULT NULL COMMENT 'github账户信息';
 ALTER TABLE t_sys_user ADD `unionid` VARCHAR ( 100 ) DEFAULT NULL COMMENT '第三方授权ID';
 ALTER TABLE t_sys_user ADD `domain` VARCHAR ( 100 ) DEFAULT NULL;
+
+
+CREATE TABLE `t_saas_application` (
+                                      `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                      `name` varchar(50) DEFAULT NULL COMMENT '应用名',
+                                      `git_info` varchar(255) DEFAULT NULL COMMENT '应用代码地址',
+                                      `command` varchar(255) DEFAULT NULL COMMENT '执行命令',
+                                      `type` varchar(40) DEFAULT 'NORMAL' COMMENT '应用类型 NORMAL-普通APP SYS-租户主页',
+                                      `note` text COMMENT '备注',
+                                      PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='应用表';
+
+
+CREATE TABLE `t_saas_application_example` (
+                                              `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                              `application_id` bigint(20) NOT NULL,
+                                              `contract_template_id` bigint(20) NOT NULL,
+                                              `domain` varchar(255) DEFAULT NULL COMMENT '应用类型为租户主页时 此项为空',
+                                              `type` varchar(40) DEFAULT 'NORMAL' COMMENT '应用类型 NORMAL-普通APP SYS-租户主页',
+                                              PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='应用实例（应用-合约）表';
+
+
+CREATE TABLE `t_saas_contract` (
+                                   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                   `name` varchar(50) NOT NULL COMMENT '合约名',
+                                   `contract_number` varchar(50) NOT NULL COMMENT '合约编号',
+                                   `payment_id` bigint(20) DEFAULT NULL COMMENT '付款流水id',
+                                   `org_id` bigint(20) DEFAULT '0' COMMENT '订阅 组织/部门id',
+                                   `contract_template_id` bigint(20) DEFAULT NULL COMMENT '所属合约模板',
+                                   `invalid` smallint(6) DEFAULT '0' COMMENT ' 是否有效 (0默认有效 1无效）',
+                                   `created_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '合约创建时间',
+                                   `start_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '合约开始时间',
+                                   `last_valid_time` datetime DEFAULT NULL COMMENT '最后有效时间',
+                                   `close_time` datetime DEFAULT NULL COMMENT '合约结束时间',
+                                   `status` varchar(26) DEFAULT 'UNPAID' COMMENT '状态（未付款/UNPAID,已付款PAID,已关闭CLOSED）',
+                                   `price` decimal(16,2) DEFAULT NULL COMMENT '价格',
+                                   `total_ppd` decimal(16,2) DEFAULT '0.00' COMMENT '总折扣',
+                                   `Discount` decimal(16,2) DEFAULT '0.00' COMMENT '优惠',
+                                   `final_price` decimal(16,2) DEFAULT NULL COMMENT '最终价格',
+                                   `long_term` smallint(6) DEFAULT NULL COMMENT '是否长期有效 0 到期结束   1 长期有效',
+                                   `auto_renew` smallint(6) DEFAULT NULL COMMENT ' 是否自动续约 [0否,1是]',
+                                   `prepay` smallint(6) DEFAULT NULL COMMENT '是否预付 {0非预付-1付款}',
+                                   `note` text COMMENT '备注',
+                                   PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='合约表';
+
+
+CREATE TABLE `t_saas_contract_template` (
+                                            `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                            `name` varchar(50) NOT NULL COMMENT '模板名',
+                                            `note` text COMMENT '备注',
+                                            PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='合约模板表';
+
+
+CREATE TABLE `t_saas_module` (
+                                 `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                 `app_id` bigint(20) NOT NULL COMMENT '应用id',
+                                 `name` varchar(50) NOT NULL COMMENT '模块名',
+                                 `perm` varchar(50) DEFAULT NULL COMMENT '权限 如果为空 查询menu_id',
+                                 `type` varchar(40) DEFAULT 'NORMAL' COMMENT 'NORMAL-普通模块',
+                                 `note` text COMMENT '备注',
+                                 PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='模块表';
+
+CREATE TABLE `t_saas_module_menu` (
+                                      `id` bigint(20) NOT NULL AUTO_INCREMENT,
+                                      `menu_id` bigint(20) NOT NULL COMMENT '菜单id',
+                                      `module_id` bigint(20) NOT NULL COMMENT '模块id',
+                                      PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8 COMMENT='模块-菜单 表';
