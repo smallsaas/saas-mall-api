@@ -12,6 +12,8 @@ public class FrontProductModel extends FrontProduct {
 
     private List<ProductSettlementProportionRecord> productSettlementProportion;
 
+    private List<FrontProductModel> items;
+
     private List<ProductImage> bannerList;
 
     private  String categoryName;
@@ -33,6 +35,27 @@ public class FrontProductModel extends FrontProduct {
     private String noPermission;
 
     private String supplierName;
+
+    /**
+     * 订单数量
+     */
+    private Integer orderNumber;
+
+    public Integer getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(Integer orderNumber) {
+        this.orderNumber = orderNumber;
+    }
+
+    public List<FrontProductModel> getItems() {
+        return items;
+    }
+
+    public void setItems(List<FrontProductModel> items) {
+        this.items = items;
+    }
 
     public String getSupplierName() {
         return supplierName;

@@ -20,4 +20,6 @@ public interface QueryProductSettlementProportionDao extends BaseMapper<ProductS
     List<ProductSettlementProportionRecord> findProductSettlementProportionPage(Page<ProductSettlementProportionRecord> page, @Param("record") ProductSettlementProportionRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    List<ProductSettlementProportionRecord> queryProductSettlementProportionByProductId(@Param("id")Long id);
 }

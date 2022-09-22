@@ -293,4 +293,34 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     public Integer updateProductStatus(Long id, String status) {
         return frontProductMapper.updateById(new FrontProduct().setId(id).setStatus(status));
     }
+
+
+
+
+
+    @Override
+    public Integer createProductHasChild(List<FrontProductModel> frontProductModelList) {
+        return null;
+    }
+
+    @Override
+    public FrontProductModel getProductHasChild(Long id) {
+        FrontProductModel frontProductModel =  queryFrontProductDao.findProductModelHasChildById(id);
+        return frontProductModel;
+    }
+
+    @Override
+    public List getProductPageHasChild(Page<FrontProductRecord> page, FrontProductRecord record, String search, String orderBy, Date startTime, Date endTime, Long supplierId, String supplierName) {
+        return null;
+    }
+
+    @Override
+    public Integer updateProductHasChild(FrontProductModel entity) {
+        return null;
+    }
+
+    @Override
+    public Integer deleteProductHasChild(Long id) {
+        return null;
+    }
 }

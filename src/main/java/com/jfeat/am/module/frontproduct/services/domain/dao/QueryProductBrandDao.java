@@ -16,4 +16,6 @@ public interface QueryProductBrandDao extends BaseMapper<ProductBrand> {
     List<ProductBrandRecord> findProductBrandPage(Page<ProductBrandRecord> page, @Param("record") ProductBrandRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    ProductBrand queryProductBrandById(@Param("id")Long id);
 }

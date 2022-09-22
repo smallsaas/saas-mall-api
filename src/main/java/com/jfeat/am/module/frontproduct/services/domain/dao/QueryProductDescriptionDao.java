@@ -16,4 +16,6 @@ public interface QueryProductDescriptionDao extends BaseMapper<ProductDescriptio
     List<ProductDescriptionRecord> findProductDescriptionPage(Page<ProductDescriptionRecord> page, @Param("record") ProductDescriptionRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    ProductDescription queryProductDescriptionByProductId(@Param("id") Long id);
 }

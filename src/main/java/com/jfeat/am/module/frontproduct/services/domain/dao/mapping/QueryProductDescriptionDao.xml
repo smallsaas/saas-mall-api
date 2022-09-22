@@ -1,36 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductDescriptionDao">
-                                                                                                                        <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                        t_product_description.id, t_product_description.product_id AS productId, t_product_description.description
+    <sql id="Base_Column_List">
+        t_product_description
+        .
+        id
+        , t_product_description.product_id AS productId, t_product_description.description
     </sql>
 
 
-
-    <select id="findProductDescriptionPage" resultType="ProductDescriptionRecord" parameterType="ProductDescriptionRecord">
-            SELECT
-        <include refid="Base_Column_List" />
+    <select id="findProductDescriptionPage" resultType="ProductDescriptionRecord"
+            parameterType="ProductDescriptionRecord">
+        SELECT
+        <include refid="Base_Column_List"/>
         FROM t_product_description
         WHERE 1=1
-                                <if test="record.id != null and record.id>0 ">
-                AND t_product_description.id LIKE CONCAT('%',#{record.id},'%')
-            </if>
-                                                                                            <if test="record.productId != null and record.productId>0 ">
-                AND t_product_description.product_id LIKE CONCAT('%',#{record.productId},'%')
-            </if>
-                                <if test="record.description != null and record.description!= ''">
-                AND t_product_description.description LIKE CONCAT('%',#{record.description},'%')
-            </if>
-                <if test="startTime != null">
+        <if test="record.id != null and record.id>0 ">
+            AND t_product_description.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+        <if test="record.productId != null and record.productId>0 ">
+            AND t_product_description.product_id LIKE CONCAT('%',#{record.productId},'%')
+        </if>
+        <if test="record.description != null and record.description!= ''">
+            AND t_product_description.description LIKE CONCAT('%',#{record.description},'%')
+        </if>
+        <if test="startTime != null">
             <![CDATA[AND t_product_description.start_time >= DATE(#{startTime})]]>
         </if>
         <if test="endTime != null">
             <![CDATA[AND t_product_description.end_time <= DATE(#{endTime)]]>
         </if>
-            <!--
-        <if test="search != null and search != ''">
-            OR t_product_description.name LIKE CONCAT('%',#{search},'%')
-        </if>
-        -->
-                                    </select>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_product_description.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+    </select>
+
+    <select id="queryProductDescriptionByProductId" resultType="ProductDescription">
+        SELECT * from t_product_description where t_product_description.product_id=#{id}
+    </select>
 </mapper>

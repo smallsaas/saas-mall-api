@@ -35,4 +35,9 @@
     </if>
     -->
     </select>
+
+    <select id="queryProductBrandById" resultType="ProductBrand">
+        SELECT *
+        FROM t_product_brand where t_product_brand.id=#{id}
+    </select>
 </mapper>

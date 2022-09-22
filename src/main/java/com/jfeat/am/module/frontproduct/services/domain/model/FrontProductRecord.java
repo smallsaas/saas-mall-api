@@ -4,10 +4,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductBrand;
 
+import java.util.List;
+
 /**
  * Created by Code Generator on 2019-07-25
  */
 public class FrontProductRecord extends FrontProduct {
+
+    List<FrontProductRecord> items;
 
     private  String categoryName;
 
@@ -18,6 +22,14 @@ public class FrontProductRecord extends FrontProduct {
     private String supplierName;
 
     private String category;
+
+    public List<FrontProductRecord> getItems() {
+        return items;
+    }
+
+    public void setItems(List<FrontProductRecord> items) {
+        this.items = items;
+    }
 
     public String getCategory() {
         return category;

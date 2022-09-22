@@ -210,4 +210,11 @@ public class AppFrontProductEndpoint {
     }
 
 
+    @GetMapping("/hasChild/{id}")
+    @ApiOperation(value = "查看 FrontProduct", response = FrontProduct.class)
+    public Tip getProductHasChild(@PathVariable Long id) {
+        return SuccessTip.create(frontProductService.getProductHasChild(id));
+    }
+
+
 }

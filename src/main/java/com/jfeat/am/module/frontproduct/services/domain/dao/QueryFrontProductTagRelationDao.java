@@ -16,4 +16,6 @@ public interface QueryFrontProductTagRelationDao extends BaseMapper<FrontProduct
     List<FrontProductTagRelationRecord> findProductTagRelationPage(Page<FrontProductTagRelationRecord> page, @Param("record") FrontProductTagRelationRecord record,
                                                                    @Param("search") String search, @Param("orderBy") String orderBy,
                                                                    @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    List<Long> queryTagsByProductId(@Param("id")Long id);
 }

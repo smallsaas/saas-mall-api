@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductItemDao">
+    <sql id="Base_Column_List">
+        t_product_item
+        .
+        id
+        , t_product_item.parent_id AS parentId, t_product_item.child_id AS childId, t_product_item.note, t_product_item.create_time AS createTime, t_product_item.update_time AS updateTime
+    </sql>
+
+
+    <select id="queryMasterModel" resultType="ProductItemModel">
+        SELECT t_product_item.*
+        FROM t_product_item
+        WHERE t_product_item.id = #{id}
+        GROUP BY t_product_item.id
+    </select>
+
+
+    <select id="findProductItemPage" resultType="ProductItemRecord" parameterType="ProductItemRecord">
+        SELECT
+        <include refid="Base_Column_List"/>
+
+
+        FROM t_product_item
+
+
+        WHERE 1=1
+
+
+        <if test="record.id != null and record.id>0 ">
+            AND t_product_item.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+
+
+        <if test="record.parentId != null and record.parentId>0 ">
+            AND t_product_item.parent_id LIKE CONCAT('%',#{record.parentId},'%')
+        </if>
+
+
+        <if test="record.childId != null and record.childId>0 ">
+            AND t_product_item.child_id LIKE CONCAT('%',#{record.childId},'%')
+        </if>
+        <if test="record.note != null and record.note!= ''">
+            AND t_product_item.note LIKE CONCAT('%',#{record.note},'%')
+        </if>
+
+
+        <if test="record.createTime != null and record.createTime>0 ">
+            AND t_product_item.create_time LIKE CONCAT('%',#{record.createTime},'%')
+        </if>
+
+
+        <if test="record.updateTime != null and record.updateTime>0 ">
+            AND t_product_item.update_time LIKE CONCAT('%',#{record.updateTime},'%')
+        </if>
+
+        <if test="startTime != null">
+            <![CDATA[AND t_product_item.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_product_item.end_time <= DATE(#{endTime}]]>
+        </if>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_product_item.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+        ORDER BY update_time DESC
+        , create_time DESC
+    </select>
+
+    <insert id="batchAddProductItem">
+        insert into t_product_item
+        (parent_id,child_id,note) values
+        <foreach collection="productItemList" item="item" separator=",">
+            (#{item.parentId},#{item.childId},#{item.note})
+        </foreach>
+    </insert>
+</mapper>

@@ -50,4 +50,10 @@
     </if>
     -->
     </select>
+
+    <select id="queryProductSettlementProportionByProductId" resultType="ProductSettlementProportionRecord">
+        SELECT *
+        FROM t_product_settlement_proportion
+        where t_product_settlement_proportion.product_id=#{id}
+    </select>
 </mapper>

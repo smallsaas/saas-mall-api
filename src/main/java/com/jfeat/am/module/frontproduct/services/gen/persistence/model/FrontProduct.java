@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -128,6 +129,94 @@ public class FrontProduct extends Model<FrontProduct> {
 	private String description;
 
 	private Long presale;
+
+	@ApiModelProperty(value = "有无子项")
+	private Integer hasChild;
+
+	@ApiModelProperty(value = "开始时间")
+	private Date startTime;
+
+	@ApiModelProperty(value = "结束时间")
+	private Date endTime;
+
+	@ApiModelProperty(value = "vr连接")
+	private String vrLink;
+
+	@ApiModelProperty(value = "vr名")
+	private String vrName;
+
+	@ApiModelProperty(value = "vr图片")
+	private String vrPicture;
+
+	@ApiModelProperty(value = "最高价")
+	private BigDecimal maxPrice;
+
+	@ApiModelProperty(value = "最低价")
+	private BigDecimal minPrice;
+
+	public Integer getHasChild() {
+		return hasChild;
+	}
+
+	public void setHasChild(Integer hasChild) {
+		this.hasChild = hasChild;
+	}
+
+	public Date getStartTime() {
+		return startTime;
+	}
+
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+
+	public Date getEndTime() {
+		return endTime;
+	}
+
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
+	}
+
+	public String getVrLink() {
+		return vrLink;
+	}
+
+	public void setVrLink(String vrLink) {
+		this.vrLink = vrLink;
+	}
+
+	public String getVrName() {
+		return vrName;
+	}
+
+	public void setVrName(String vrName) {
+		this.vrName = vrName;
+	}
+
+	public String getVrPicture() {
+		return vrPicture;
+	}
+
+	public void setVrPicture(String vrPicture) {
+		this.vrPicture = vrPicture;
+	}
+
+	public BigDecimal getMaxPrice() {
+		return maxPrice;
+	}
+
+	public void setMaxPrice(BigDecimal maxPrice) {
+		this.maxPrice = maxPrice;
+	}
+
+	public BigDecimal getMinPrice() {
+		return minPrice;
+	}
+
+	public void setMinPrice(BigDecimal minPrice) {
+		this.minPrice = minPrice;
+	}
 
 	public String getRegion() {
 		return region;

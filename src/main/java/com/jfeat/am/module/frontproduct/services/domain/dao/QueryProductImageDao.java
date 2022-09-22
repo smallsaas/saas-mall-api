@@ -16,4 +16,6 @@ public interface QueryProductImageDao extends BaseMapper<ProductImage> {
     List<ProductImageRecord> findProductImagePage(Page<ProductImageRecord> page, @Param("record") ProductImageRecord record,
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+    List<ProductImage> queryProductImageByProductId(@Param("id")Long id);
 }

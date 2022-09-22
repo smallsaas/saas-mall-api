@@ -2,68 +2,103 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductDao">
     <sql id="Base_Column_List">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        t_product.id, t_product.category_id AS categoryId, t_product.brand_id AS brandId, t_product.name, t_product.short_name AS shortName, t_product.cover, t_product.stock_balance AS stockBalance, t_product.sales, t_product.status, t_product.created_date AS createdDate, t_product.last_modified_date AS lastModifiedDate, t_product.unit, t_product.price, t_product.cost_price AS costPrice, t_product.suggested_price AS suggestedPrice, t_product.promoted, t_product.freight, t_product.free_shipping AS freeShipping, t_product.sort_order AS sortOrder, t_product.partner_level_zone AS partnerLevelZone, t_product.view_count AS viewCount, t_product.fare_id AS fareId, t_product.barcode, t_product.store_location AS storeLocation, t_product.weight, t_product.bulk, t_product.sku_id AS skuId, t_product.sku_name AS skuName, t_product.sku_code AS skuCode, t_product.bar_code AS barCode, t_product.mid, t_product.allow_coupon AS allowCoupon, t_product.credit, t_product.is_virtual AS isVirtual, t_product.required_participate_exam AS requiredParticipateExam
+        t_product.id,
+        t_product.category_id AS categoryId,
+        t_product.brand_id AS brandId,
+        t_product.name,
+        t_product.short_name AS shortName,
+        t_product.cover,
+        t_product.stock_balance AS stockBalance,
+        t_product.sales,
+        t_product.status,
+        t_product.created_date AS createdDate,
+        t_product.last_modified_date AS lastModifiedDate,
+        t_product.unit, t_product.price,
+        t_product.cost_price AS costPrice,
+        t_product.suggested_price AS suggestedPrice,
+        t_product.promoted,
+        t_product.freight,
+        t_product.free_shipping AS freeShipping,
+        t_product.sort_order AS sortOrder,
+        t_product.partner_level_zone AS partnerLevelZone,
+        t_product.view_count AS viewCount,
+        t_product.fare_id AS fareId,
+        t_product.barcode,
+        t_product.store_location AS storeLocation,
+        t_product.weight,
+        t_product.bulk,
+        t_product.sku_id AS skuId,
+        t_product.sku_name AS skuName,
+        t_product.sku_code AS skuCode,
+        t_product.bar_code AS barCode,
+        t_product.mid,
+        t_product.allow_coupon AS allowCoupon,
+        t_product.credit,
+        t_product.is_virtual AS isVirtual,
+        t_product.required_participate_exam AS requiredParticipateExam
     </sql>
 
 
     <select id="findProductModelById" resultType="FrontProductModel">
-        SELECT
-		t_product.id,
-		t_product.distribution_price AS distributionPrice,
-		t_product.category_id AS categoryId,
-		t_product.brand_id AS brandId,
-		t_product. NAME,
-		t_product.short_name AS shortName,
-		t_product.cover,
-		t_product.stock_balance AS stockBalance,
-		t_product.sales,
-		t_product. STATUS,
-		t_product.created_date AS createdDate,
-		t_product.last_modified_date AS lastModifiedDate,
-		t_product.unit,
-		t_product.price,
-		t_product.cost_price AS costPrice,
-		t_product.suggested_price AS suggestedPrice,
-		t_product.promoted,
-		t_product.freight,
-		t_product.free_shipping AS freeShipping,
-		t_product.sort_order AS sortOrder,
-		t_product.partner_level_zone AS partnerLevelZone,
-		t_product.view_count AS viewCount,
-		t_product.fare_id AS fareId,
-		t_product.store_location AS storeLocation,
-		t_product.weight,
-		t_product.bulk,
-		t_product.sku_id AS skuId,
-		t_product.sku_name AS skuName,
-		t_product.sku_code AS skuCode,
-        t_product.banner,
-		t_product.barcode AS barcode,
+        SELECT t_product.id,
+               t_product.distribution_price        AS distributionPrice,
+               t_product.category_id               AS categoryId,
+               t_product.brand_id                  AS brandId,
+               t_product.NAME,
+               t_product.short_name                AS shortName,
+               t_product.cover,
+               t_product.stock_balance             AS stockBalance,
+               t_product.sales,
+               t_product.STATUS,
+               t_product.created_date              AS createdDate,
+               t_product.last_modified_date        AS lastModifiedDate,
+               t_product.unit,
+               t_product.price,
+               t_product.cost_price                AS costPrice,
+               t_product.suggested_price           AS suggestedPrice,
+               t_product.promoted,
+               t_product.freight,
+               t_product.free_shipping             AS freeShipping,
+               t_product.sort_order                AS sortOrder,
+               t_product.partner_level_zone        AS partnerLevelZone,
+               t_product.view_count                AS viewCount,
+               t_product.fare_id                   AS fareId,
+               t_product.store_location            AS storeLocation,
+               t_product.weight,
+               t_product.bulk,
+               t_product.sku_id                    AS skuId,
+               t_product.sku_name                  AS skuName,
+               t_product.sku_code                  AS skuCode,
+               t_product.banner,
+               t_product.barcode                   AS barcode,
 
-		t_product.mid,
-		t_product.allow_coupon AS allowCoupon,
-		t_product.credit,
-		t_product.is_virtual AS isVirtual,
-		t_product.required_participate_exam AS requiredParticipateExam,
+               t_product.mid,
+               t_product.allow_coupon              AS allowCoupon,
+               t_product.credit,
+               t_product.is_virtual                AS isVirtual,
+               t_product.required_participate_exam AS requiredParticipateExam,
 
-		t_fare_template. name AS fareName,
-	    t_product_brand. NAME AS brandName,
-	    category. NAME AS categoryName,
-            t_supplier.name as supplierName
-	FROM
-		t_product
-	  LEFT JOIN t_product_brand ON t_product.brand_id = t_product_brand.id
-      LEFT JOIN t_product_category category ON category.id = t_product.category_id
-	  LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
-      LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
-	WHERE
-		t_product.id =#{id}
+               t_fare_template.name                AS fareName,
+               t_product_brand.NAME                AS brandName,
+               category.NAME                       AS categoryName,
+               t_supplier.name                     as supplierName
+        FROM t_product
+                 LEFT JOIN t_product_brand ON t_product.brand_id = t_product_brand.id
+                 LEFT JOIN t_product_category category ON category.id = t_product.category_id
+                 LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
+                 LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
+        WHERE t_product.id = #{id}
     </select>
 
 
     <sql id="QueryOwnedOrgIds">
-        SELECT children.id FROM t_sys_org, t_sys_org as children WHERE t_sys_org.left_num &lt;= children.left_num AND
-            t_sys_org.right_num >= children.left_num and t_sys_org.id=#{record.orgId} order by t_sys_org.node_level ASC
+        SELECT children.id
+        FROM t_sys_org,
+             t_sys_org as children
+        WHERE t_sys_org.left_num &lt;= children.left_num
+          AND t_sys_org.right_num >= children.left_num
+          and t_sys_org.id = #{record.orgId}
+        order by t_sys_org.node_level ASC
     </sql>
 
 
@@ -109,7 +144,7 @@
         t_product_brand.name AS brandName,
         category.name AS categoryName,
         t_supplier.name as supplierName
-        FROM  t_product
+        FROM t_product
         LEFT JOIN t_product_brand ON t_product.brand_id=t_product_brand.id
         LEFT JOIN t_product_category category ON category.id = t_product.category_id
         LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
@@ -122,7 +157,7 @@
             AND t_product.org_id = ownedOrgIds.id
         </if>
 
-        <if test = "supplierId != null">
+        <if test="supplierId != null">
             AND t_supplier.id = #{supplierId}
         </if>
 
@@ -250,18 +285,248 @@
         <if test="endTime != null">
             <![CDATA[AND t_product.end_time <= DATE(#{endTime)]]>
         </if>
-    <if test="search != null and search != ''">
-        AND
-        (
-        t_product.name LIKE CONCAT('%',#{search},'%')
-        OR
-        t_product.barcode LIKE CONCAT('%',#{search},'%')
-        OR
-        category.name LIKE CONCAT('%',#{search},'%')
-        OR
-        t_product_brand.name LIKE CONCAT('%',#{search},'%')
-        )
-    </if>
-        order by t_product.sort_order  desc,t_product.status desc
+        <if test="search != null and search != ''">
+            AND
+            (
+            t_product.name LIKE CONCAT('%',#{search},'%')
+            OR
+            t_product.barcode LIKE CONCAT('%',#{search},'%')
+            OR
+            category.name LIKE CONCAT('%',#{search},'%')
+            OR
+            t_product_brand.name LIKE CONCAT('%',#{search},'%')
+            )
+        </if>
+        order by t_product.sort_order desc,t_product.status desc
     </select>
+
+
+<!--    ==========================================带子项查询 start=================================================-->
+
+    <resultMap id="FrontProductModelHasChildMap" type="com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel">
+        <id column="id" property="id" />
+        <result column="category_id" property="categoryId" />
+        <result column="brand_id" property="brandId" />
+        <result column="name" property="name" />
+        <result column="short_name" property="shortName" />
+        <result column="cover" property="cover" />
+        <result column="stock_balance" property="stockBalance" />
+        <result column="sales" property="sales" />
+        <result column="status" property="status" />
+        <result column="created_date" property="createdDate" />
+        <result column="last_modified_date" property="lastModifiedDate" />
+        <result column="unit" property="unit" />
+        <result column="price" property="price" />
+        <result column="cost_price" property="costPrice" />
+        <result column="suggested_price" property="suggestedPrice" />
+        <result column="promoted" property="promoted" />
+        <result column="freight" property="freight" />
+        <result column="free_shipping" property="freeShipping" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="partner_level_zone" property="partnerLevelZone" />
+        <result column="view_count" property="viewCount" />
+        <result column="fare_id" property="fareId" />
+        <result column="store_location" property="storeLocation" />
+        <result column="weight" property="weight" />
+        <result column="bulk" property="bulk" />
+        <result column="sku_id" property="skuId" />
+        <result column="sku_name" property="skuName" />
+        <result column="sku_code" property="skuCode" />
+        <result column="bar_code" property="barCode" />
+        <result column="mid" property="mid" />
+        <result column="allow_coupon" property="allowCoupon" />
+        <result column="credit" property="credit" />
+        <result column="is_virtual" property="isVirtual" />
+        <result column="required_participate_exam" property="requiredParticipateExam" />
+        <result column="distribution_price" property="distributionPrice" />
+
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="vr_link" property="vrLink" />
+        <result column="vr_name" property="vrName" />
+        <result column="vr_picture" property="vrPicture" />
+        <result column="max_price" property="maxPrice" />
+        <result column="min_price" property="minPrice" />
+
+
+        <result column="fareName" property="fareName" />
+        <result column="brandName" property="brandName" />
+        <result column="categoryName" property="categoryName" />
+        <result column="supplierName" property="supplierName" />
+
+<!--        添加description-->
+        <association property="productDescription" javaType="ProductDescription" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductDescriptionDao.queryProductDescriptionByProductId">
+            <id column="id" property="id" />
+            <result column="product_id" property="productId" />
+            <result column="description" property="description" />
+        </association>
+
+<!--        添加品牌-->
+        <association property="productBrand" javaType="ProductBrand" column="brandId" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductBrandDao.queryProductBrandById">
+            <id column="id" property="id" />
+            <result column="name" property="name" />
+            <result column="description" property="description" />
+            <result column="logo" property="logo" />
+        </association>
+        <!--        添加标签-->
+        <collection property="tags" ofType="java.lang.Long" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductTagRelationDao.queryTagsByProductId">
+            <result column="tag_id" property="tagId" />
+        </collection>
+
+        <!--        添加分成比例-->
+        <collection property="productSettlementProportionList" ofType="ProductSettlementProportionRecord" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSettlementProportionDao.queryProductSettlementProportionByProductId">
+            <id column="id" property="id" />
+            <result column="product_id" property="productId" />
+            <result column="name" property="name" />
+            <result column="type" property="type" />
+            <result column="proportion" property="proportion" />
+            <result column="level" property="level" />
+        </collection>
+
+        <!--        添加images-->
+        <collection property="productImageList" ofType="ProductImage" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductImageDao.queryProductImageByProductId">
+            <id column="id" property="id" />
+            <result column="product_id" property="productId" />
+            <result column="type" property="type" />
+            <result column="url" property="url" />
+            <result column="sort_order" property="sortOrder" />
+            <result column="name" property="name" />
+        </collection>
+
+        <collection property="items" select="queryProductModelItem" ofType="FrontProductModel" column="id">
+
+        </collection >
+    </resultMap>
+
+    <resultMap id="FrontProductModelChildMap" type="com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel">
+        <id column="id" property="id" />
+        <result column="category_id" property="categoryId" />
+        <result column="brand_id" property="brandId" />
+        <result column="name" property="name" />
+        <result column="short_name" property="shortName" />
+        <result column="cover" property="cover" />
+        <result column="stock_balance" property="stockBalance" />
+        <result column="sales" property="sales" />
+        <result column="status" property="status" />
+        <result column="created_date" property="createdDate" />
+        <result column="last_modified_date" property="lastModifiedDate" />
+        <result column="unit" property="unit" />
+        <result column="price" property="price" />
+        <result column="cost_price" property="costPrice" />
+        <result column="suggested_price" property="suggestedPrice" />
+        <result column="promoted" property="promoted" />
+        <result column="freight" property="freight" />
+        <result column="free_shipping" property="freeShipping" />
+        <result column="sort_order" property="sortOrder" />
+        <result column="partner_level_zone" property="partnerLevelZone" />
+        <result column="view_count" property="viewCount" />
+        <result column="fare_id" property="fareId" />
+        <result column="store_location" property="storeLocation" />
+        <result column="weight" property="weight" />
+        <result column="bulk" property="bulk" />
+        <result column="sku_id" property="skuId" />
+        <result column="sku_name" property="skuName" />
+        <result column="sku_code" property="skuCode" />
+        <result column="bar_code" property="barCode" />
+        <result column="mid" property="mid" />
+        <result column="allow_coupon" property="allowCoupon" />
+        <result column="credit" property="credit" />
+        <result column="is_virtual" property="isVirtual" />
+        <result column="required_participate_exam" property="requiredParticipateExam" />
+        <result column="distribution_price" property="distributionPrice" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="vr_link" property="vrLink" />
+        <result column="vr_name" property="vrName" />
+        <result column="vr_picture" property="vrPicture" />
+        <result column="max_price" property="maxPrice" />
+        <result column="min_price" property="minPrice" />
+<!--        <result column="orderNumber" property="orderNumber"/>-->
+
+        <result column="fareName" property="fareName" />
+        <result column="brandName" property="brandName" />
+        <result column="categoryName" property="categoryName" />
+        <result column="supplierName" property="supplierName" />
+
+        <!--        添加description-->
+        <association property="productDescription" javaType="ProductDescription" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductDescriptionDao.queryProductDescriptionByProductId">
+            <id column="id" property="id" />
+            <result column="product_id" property="productId" />
+            <result column="description" property="description" />
+        </association>
+
+        <!--        添加品牌-->
+        <association property="productBrand" javaType="ProductBrand" column="brandId" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductBrandDao.queryProductBrandById">
+            <id column="id" property="id" />
+            <result column="name" property="name" />
+            <result column="description" property="description" />
+            <result column="logo" property="logo" />
+        </association>
+        <!--        添加标签-->
+        <collection property="tags" ofType="java.lang.Long" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryFrontProductTagRelationDao.queryTagsByProductId">
+            <result column="tag_id" property="tagId" />
+        </collection>
+
+        <!--        添加分成比例-->
+        <collection property="productSettlementProportionList" ofType="ProductSettlementProportionRecord" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSettlementProportionDao.queryProductSettlementProportionByProductId">
+            <id column="id" property="id" />
+            <result column="product_id" property="productId" />
+            <result column="name" property="name" />
+            <result column="type" property="type" />
+            <result column="proportion" property="proportion" />
+            <result column="level" property="level" />
+        </collection>
+
+        <!--        添加images-->
+        <collection property="productImageList" ofType="ProductImage" column="id" select="com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductImageDao.queryProductImageByProductId">
+            <id column="id" property="id" />
+            <result column="product_id" property="productId" />
+            <result column="type" property="type" />
+            <result column="url" property="url" />
+            <result column="sort_order" property="sortOrder" />
+            <result column="name" property="name" />
+        </collection>
+
+    </resultMap>
+
+
+    <select id="findProductModelHasChildById" resultMap="FrontProductModelHasChildMap">
+        SELECT t_product.*,
+               t_fare_template.name                AS fareName,
+               t_product_brand.NAME                AS brandName,
+               category.NAME                       AS categoryName,
+               t_supplier.name                     as supplierName,
+               COUNT(t_order_item.id) AS orderNumber
+        FROM t_product
+                 LEFT JOIN t_product_brand ON t_product.brand_id = t_product_brand.id
+                 LEFT JOIN t_product_category category ON category.id = t_product.category_id
+                 LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
+                 LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
+                 LEFT JOIN t_order_item ON t_order_item.product_id = t_product.id
+
+
+        WHERE t_product.id = #{id}
+    </select>
+
+<!--    子查询-->
+    <select id="queryProductModelItem" resultMap="FrontProductModelChildMap">
+        SELECT t_product.*,
+               t_fare_template.name                AS fareName,
+               t_product_brand.NAME                AS brandName,
+               category.NAME                       AS categoryName,
+               t_supplier.name                     as supplierName
+        FROM t_product_item
+                 LEFT JOIN t_product ON t_product.id = t_product_item.child_id
+                 LEFT JOIN t_product_brand ON t_product.brand_id = t_product_brand.id
+                 LEFT JOIN t_product_category category ON category.id = t_product.category_id
+                 LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
+                 LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
+        WHERE t_product_item.parent_id=#{id}
+    </select>
+
+
+
+<!--    ==========================================带子项查询 end=================================================-->
+
+
 </mapper>
