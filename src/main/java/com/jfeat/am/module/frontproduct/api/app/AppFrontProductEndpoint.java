@@ -1,6 +1,7 @@
 package com.jfeat.am.module.frontproduct.api.app;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
@@ -10,6 +11,8 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
+import com.jfeat.am.module.order.services.gen.persistence.dao.OrderItemMapper;
+import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
@@ -27,6 +30,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -45,6 +49,9 @@ public class AppFrontProductEndpoint {
 
     @Resource
     FrontProductService frontProductService;
+
+    @Resource
+    OrderItemMapper orderItemMapper;
 /*    @Resource
     EtcdExtandService etcdExtandService;*/
 
@@ -213,7 +220,15 @@ public class AppFrontProductEndpoint {
     @GetMapping("/hasChild/{id}")
     @ApiOperation(value = "查看 FrontProduct", response = FrontProduct.class)
     public Tip getProductHasChild(@PathVariable Long id) {
-        return SuccessTip.create(frontProductService.getProductHasChild(id));
+        QueryWrapper<OrderItem> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(OrderItem.PRODUCT_ID,id);
+        List<OrderItem> orderItemList = orderItemMapper.selectList(queryWrapper);
+
+        FrontProductModel frontProductModel = frontProductService.getProductHasChild(id);
+        if (orderItemList!=null && frontProductModel!=null){
+            frontProductModel.setOrderNumber(orderItemList.size());
+        }
+        return SuccessTip.create(frontProductModel);
     }
 
 

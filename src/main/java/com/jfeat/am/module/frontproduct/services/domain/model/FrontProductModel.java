@@ -10,6 +10,7 @@ import java.util.List;
  */
 public class FrontProductModel extends FrontProduct {
 
+
     private List<ProductSettlementProportionRecord> productSettlementProportion;
 
     private List<FrontProductModel> items;
