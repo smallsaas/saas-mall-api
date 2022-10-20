@@ -1,10 +1,16 @@
 package com.jfeat.am.module.supplier.api.app;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.module.supplier.api.permission.SupplierPermission;
 import com.jfeat.am.module.supplier.services.domain.dao.QuerySupplierDao;
+import com.jfeat.am.module.supplier.services.domain.model.SupplierBindModel;
+import com.jfeat.am.module.supplier.services.domain.model.SupplierModel;
 import com.jfeat.am.module.supplier.services.domain.model.SupplierRecord;
 import com.jfeat.am.module.supplier.services.domain.service.SupplierService;
+import com.jfeat.am.module.supplier.services.gen.persistence.model.Supplier;
+import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.base.tips.SuccessTip;
@@ -14,6 +20,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -101,12 +108,69 @@ public class UserSupplierEndpoint {
         return SuccessTip.create(page);
     }
 
-    //发起绑定申请
-/*    @PostMapping("/bindUser")
-    public Tip BindSupplier(@RequestBody SupplierBindModel supplierBindModel){
 
+    @BusinessLog(name = "Supplier", value = "create Supplier")
+    @Permission(SupplierPermission.SUPPLIER_NEW)
+    @PostMapping
+    @ApiOperation(value = "新建 Supplier", response = Supplier.class)
+    public Tip createSupplier(@RequestBody SupplierModel entity) {
+        Supplier one = null;
+        try {
+
+            one = supplierService.createOne(entity);
+
+        } catch (DuplicateKeyException e) {
+            throw new BusinessException(BusinessCode.DuplicateKey);
+        }
+
+        return SuccessTip.create(one);
+    }
+
+    @Permission(SupplierPermission.SUPPLIER_VIEW)
+    @GetMapping("/{id}")
+    @ApiOperation(value = "查看 Supplier", response = SupplierRecord.class)
+    public Tip getSupplier(@PathVariable Long id) {
+        return SuccessTip.create(supplierService.getOne(id));
+    }
+
+
+    @GetMapping("/genAccountTest")
+    @ApiOperation(value = "", response = Supplier.class)
+    public Tip getSupplier(@RequestParam(value = "account") String account) {
+        return SuccessTip.create(supplierService.genAccountName(account));
+    }
+
+
+    @BusinessLog(name = "Supplier", value = "update Supplier")
+    @Permission(SupplierPermission.SUPPLIER_EDIT)
+    @PutMapping("/{id}")
+    @ApiOperation(value = "修改 Supplier", response = Supplier.class)
+    public Tip updateSupplier(@PathVariable Long id, @RequestBody Supplier entity) {
+        entity.setId(id);
+        return SuccessTip.create(supplierService.updateMaster(entity));
+    }
+
+    @BusinessLog(name = "Supplier", value = "delete Supplier")
+    @Permission(SupplierPermission.SUPPLIER_DELETE)
+    @DeleteMapping("/{id}")
+    @ApiOperation("删除 Supplier")
+    public Tip deleteSupplier(@PathVariable Long id) {
+        return SuccessTip.create(supplierService.deleteOne(id));
+    }
+
+
+
+    @PutMapping("/bind/{id}")
+    public Tip BindSupplier(@PathVariable Long id,@RequestBody SupplierBindModel supplierBindModel){
+        supplierBindModel.setSupplierId(id);
         Integer integer = supplierService.bindSupplier(supplierBindModel);
-
         return SuccessTip.create(integer);
-    }*/
+    }
+
+    @PutMapping("/unBind/{id}")
+    public Tip UnBindSupplier(@PathVariable Long id,@RequestBody SupplierBindModel supplierBindModel){
+        supplierBindModel.setSupplierId(id);
+        Integer integer = supplierService.unBind(supplierBindModel);
+        return SuccessTip.create(integer);
+    }
 }
