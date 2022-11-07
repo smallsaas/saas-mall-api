@@ -49,6 +49,16 @@ public class RequestOrder {
 
     private Long orgId;
 
+    private String  category;
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getOrderNumber() {
         return orderNumber;
     }

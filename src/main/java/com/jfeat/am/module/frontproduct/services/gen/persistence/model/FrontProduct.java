@@ -131,6 +131,7 @@ public class FrontProduct extends Model<FrontProduct> {
 	private Long presale;
 
 	@ApiModelProperty(value = "有无子项")
+	@TableField(exist = false)
 	private Integer hasChild;
 
 	@ApiModelProperty(value = "开始时间")

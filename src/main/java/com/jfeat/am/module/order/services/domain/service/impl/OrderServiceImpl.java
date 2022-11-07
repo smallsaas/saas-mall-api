@@ -255,6 +255,7 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         order.setOrgId(requestOrder.getOrgId());
         Long tenantId = queryOrderDao.getTenantIdByOrgId(requestOrder.getOrgId());
         order.setTenantId(tenantId);
+        order.setCategory(requestOrder.getCategory());
         //计算日期
 
         if (order.getCreatedDate()!=null ) {
@@ -423,9 +424,7 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
                 List<OrderItem> orderItems1 = orderItemMap.get(order.getId().intValue());
                 order.setOrderItemRecordList(orderItems1);
             }
-
-
-
+            
         }
 
 

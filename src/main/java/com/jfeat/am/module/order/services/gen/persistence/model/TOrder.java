@@ -229,6 +229,19 @@ public class TOrder extends Model<TOrder> {
 
 	private Integer settlementStatus;
 
+	/**
+	 * 订单类别
+	 */
+	private String category;
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public Long getTenantId() {
 		return tenantId;
 	}
@@ -1113,6 +1126,8 @@ public class TOrder extends Model<TOrder> {
 	public static final String EXT_DISCOUNT = "ext_discount";
 
 	public static final String EXT_CUTS = "ext_cuts";
+
+	public static final String CATEGORY = "category";
 
 	@Override
 	protected Serializable pkVal() {

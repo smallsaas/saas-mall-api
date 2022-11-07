@@ -2,7 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.jfeat.am.module.order.services.domain.dao.QueryOrderDao">
     <sql id="Base_Column_List">
-        t_order.id, t_order.user_id AS userId, t_order.order_number AS orderNumber, t_order.trade_number AS tradeNumber,
+        t_order.id
+        , t_order.user_id AS userId, t_order.order_number AS orderNumber, t_order.trade_number AS tradeNumber,
         t_order.payment_type AS paymentType, t_order.created_date AS createdDate, t_order.pay_date AS payDate,
         t_order.confirm_date AS confirmDate, t_order.deliver_date AS deliverDate, t_order.delivered_date AS
         deliveredDate, t_order.deal_date AS dealDate, t_order.deliver_order_number AS deliverOrderNumber,
@@ -28,12 +29,17 @@
         t_order.supplementary_fee AS supplementaryFee, t_order.origin_price AS originPrice, t_order.coupon_price AS
         couponPrice, t_order.credit_price AS creditPrice, t_order.ext_coupon_id AS extCouponId, t_order.ext_user_type AS
         extUserType, t_order.ext_coupon_type AS extCouponType, t_order.ext_discount AS extDiscount, t_order.ext_cuts AS
-        extCuts,t_order.org_id AS orgId
+        extCuts,t_order.org_id AS orgId,t_order.category
     </sql>
 
     <sql id="QueryOwnedOrgIds">
-        SELECT children.id FROM t_sys_org, t_sys_org as children WHERE t_sys_org.left_num &lt;= children.left_num AND
-            t_sys_org.right_num >= children.left_num and t_sys_org.id=#{record.orgId} order by t_sys_org.node_level ASC
+        SELECT children.id
+        FROM t_sys_org,
+             t_sys_org as children
+        WHERE t_sys_org.left_num &lt;= children.left_num
+          AND t_sys_org.right_num >= children.left_num
+          and t_sys_org.id = #{record.orgId}
+        order by t_sys_org.node_level ASC
     </sql>
 
     <select id="findOrderPage" resultType="OrderRecord" parameterType="OrderRecord">
@@ -310,9 +316,12 @@
         <if test="record.extCuts != null and record.extCuts>0 ">
             AND t_order.ext_cuts LIKE CONCAT('%',#{record.extCuts},'%')
         </if>
-<!--        <if test="record.orgId != null ">
-            AND t_order.org_id = #{record.orgId}
-        </if>-->
+        <if test="record.category != null and record.category!='' ">
+            AND t_order.category LIKE CONCAT('%',#{record.category},'%')
+        </if>
+        <!--        <if test="record.orgId != null ">
+                    AND t_order.org_id = #{record.orgId}
+                </if>-->
         <if test="startTime != null">
             <![CDATA[AND t_order.created_date >= DATE(#{startTime})]]>
         </if>
@@ -325,10 +334,10 @@
 
 
         <if test="leftMoney != null ">
-            AND t_order.total_price  >= #{leftMoney}
+            AND t_order.total_price >= #{leftMoney}
         </if>
         <if test="rightMoney!= null">
-            AND t_order.total_price  &lt;= #{rightMoney}
+            AND t_order.total_price &lt;= #{rightMoney}
         </if>
 
         <if test="search != null and search != ''">
@@ -358,7 +367,7 @@
         SELECT
         <include refid="Base_Column_List"/>
         ,sum(amount.orderAmount) as orderAmount,chi.alliance_name as allianceName,
-        (case when t_user.real_name is NULL  then t_user.`name`
+        (case when t_user.real_name is NULL then t_user.`name`
         else t_user.real_name end )as userName
         ,settlement_status as settlementStatus
         FROM t_order
@@ -367,17 +376,18 @@
         left join t_alliance chi on chi.id=t_alliance.invitor_alliance_id
 
         left join (
-            select ifnull(sum(ROUND(item.price*item.quantity,2)),0) as orderAmount,
-            o.user_id,
-            o.created_date as a_created_date
-            from t_order_item item
-            inner join t_order o on item.order_id=o.id and o.status='CLOSED_CONFIRMED'
+        select ifnull(sum(ROUND(item.price*item.quantity,2)),0) as orderAmount,
+        o.user_id,
+        o.created_date as a_created_date
+        from t_order_item item
+        inner join t_order o on item.order_id=o.id and o.status='CLOSED_CONFIRMED'
 
-            LEFT JOIN t_user u on u.id=o.user_id
-            GROUP BY o.id
+        LEFT JOIN t_user u on u.id=o.user_id
+        GROUP BY o.id
         )
         as amount on amount.user_id = chi.user_id
-        and month(amount.a_created_date) = month(t_order.created_date) and year(amount.a_created_date) = year(t_order.created_date)
+        and month(amount.a_created_date) = month(t_order.created_date) and year(amount.a_created_date) =
+        year(t_order.created_date)
         WHERE 1=1
         <if test="record.pName != null and record.pName!= '' ">
             and t_order.id in (select t_order.id
@@ -637,10 +647,10 @@
         </if>
 
         <if test="leftMoney != null ">
-            AND t_order.total_price  >= #{leftMoney}
+            AND t_order.total_price >= #{leftMoney}
         </if>
         <if test="rightMoney!= null">
-            AND t_order.total_price  &lt;= #{rightMoney}
+            AND t_order.total_price &lt;= #{rightMoney}
         </if>
 
 
@@ -659,12 +669,12 @@
         </if>
 
         <if test="userName != null and userName != ''">
-        AND(
+            AND(
             t_user.name like CONCAT('%',#{userName},'%')
             or
             t_user.real_name like CONCAT('%',#{userName},'%')
             )
-         </if>
+        </if>
 
         <if test="search != null and search != ''">
             AND
@@ -686,7 +696,6 @@
         order by created_date desc
 
     </select>
-
 
 
     <select id="refundOrderPage" resultType="OrderRecord">
@@ -742,30 +751,33 @@
 
 
     <select id="selectUserId" parameterType="java.lang.String" resultType="java.lang.Long">
-        select id from t_sys_user where name=#{name}
+        select id
+        from t_sys_user
+        where name = #{name}
     </select>
 
     <select id="selectProductId" parameterType="java.lang.String" resultType="java.lang.String">
-        select id from t_front_product where bar_code=#{barCode}
+        select id
+        from t_front_product
+        where bar_code = #{barCode}
     </select>
 
 
-    <select id="getUserName"  resultType="java.lang.String">
+    <select id="getUserName" resultType="java.lang.String">
         select name as userName
         FROM t_user
-        where t_user.id =#{userId}
+        where t_user.id = #{userId}
     </select>
 
     <insert id="insertOrderItem" parameterType="java.util.Map">
-        insert into t_order_item (order_id,barcode,product_name,quantity,final_price) value
-        (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice})
+        insert into t_order_item (order_id, barcode, product_name, quantity, final_price) value
+            (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice})
     </insert>
 
 
-
-    <select id="getAllianceOrder"  resultType="OrderRecord">
+    <select id="getAllianceOrder" resultType="OrderRecord">
         SELECT *,
-        (case when u.real_name is NULL  then u.`name`
+        (case when u.real_name is NULL then u.`name`
         else u.real_name end )as userName
         FROM t_order o
         LEFT JOIN t_user u on u.id=o.user_id
@@ -775,7 +787,9 @@
         WHERE ( o.user_id=a.user_id OR o.user_id=kid.user_id)
 
         AND o.created_date>STR_TO_DATE((SELECT value FROM t_config_field WHERE field='starting_time'),'%Y-%m-%d')
-        AND o.created_date&lt;DATE_ADD(STR_TO_DATE((SELECT value FROM t_config_field WHERE field='starting_time'),'%Y-%m-%d') , interval (SELECT value FROM t_config_field WHERE field='settlement_cycle') MONTH)
+        AND o.created_date&lt;DATE_ADD(STR_TO_DATE((SELECT value FROM t_config_field WHERE
+        field='starting_time'),'%Y-%m-%d') , interval (SELECT value FROM t_config_field WHERE field='settlement_cycle')
+        MONTH)
 
         <if test="startTime != null">
             <![CDATA[AND o.created_date >= DATE(#{startTime})]]>
@@ -801,7 +815,7 @@
 
     </select>
 
-    <select id="getUsers"  resultType="com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser">
+    <select id="getUsers" resultType="com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser">
         select id,`name`,real_name as realName from t_user
         <if test="search != null and search != ''">
             where (t_user.name LIKE CONCAT('%',#{search},'%')
@@ -811,7 +825,7 @@
     </select>
 
 
-    <select id="getProducts"  resultType="com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord">
+    <select id="getProducts" resultType="com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord">
         select id,`name`,t_product.barcode,t_product.price from t_product
         where t_product.`status`= 'ONSELL'
         <if test="search != null and search != ''">
@@ -819,33 +833,38 @@
         </if>
     </select>
 
-    <select id="selectByUserId"  resultType="com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser">
-    select id,`name` from t_user where id=#{id}
+    <select id="selectByUserId" resultType="com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser">
+        select id, `name`
+        from t_user
+        where id = #{id}
     </select>
 
     <insert id="insertOrderItem" parameterType="java.util.Map">
-        insert into t_order_item (order_id,barcode,product_name,quantity,final_price
-                       ,price,cost_price,cover,product_id) value
-         (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice}
-         ,#{price},#{costPrice},#{cover},#{id})
+        insert into t_order_item ( order_id, barcode, product_name, quantity, final_price
+                                 , price, cost_price, cover, product_id) value
+            (#{orderId},#{barcode},#{productName},#{quantity},#{finalPrice}
+            ,#{price},#{costPrice},#{cover},#{id})
     </insert>
 
-    <update id="upStockBalance" >
-        update t_product set stock_balance=stock_balance+#{num} where id=#{productId}
+    <update id="upStockBalance">
+        update t_product
+        set stock_balance=stock_balance + #{num}
+        where id = #{productId}
     </update>
 
 
-    <update id="closeProduct" >
-    update t_order SET t_order.`status`='CLOSED_CONFIRMED'
-    where  id=#{id}
+    <update id="closeProduct">
+        update t_order
+        SET t_order.`status`='CLOSED_CONFIRMED'
+        where id = #{id}
     </update>
 
-    <update id="cancelcloseProduct" >
-    update t_order SET t_order.`status`='DELIVERED_CONFIRM_PENDING',t_order.settlement_status=0
-    where  id=#{id}
+    <update id="cancelcloseProduct">
+        update t_order
+        SET t_order.`status`='DELIVERED_CONFIRM_PENDING',
+            t_order.settlement_status=0
+        where id = #{id}
     </update>
-
-
 
 
 </mapper>
