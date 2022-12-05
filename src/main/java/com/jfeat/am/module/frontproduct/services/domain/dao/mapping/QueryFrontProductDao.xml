@@ -349,6 +349,7 @@
         <result column="min_price" property="minPrice" />
 
         <result column="discount_price" property="discountPrice" />
+        <result column="discount" property="discount" />
 
 
         <result column="fareName" property="fareName" />
