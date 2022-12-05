@@ -348,6 +348,8 @@
         <result column="max_price" property="maxPrice" />
         <result column="min_price" property="minPrice" />
 
+        <result column="discount_price" property="discountPrice" />
+
 
         <result column="fareName" property="fareName" />
         <result column="brandName" property="brandName" />

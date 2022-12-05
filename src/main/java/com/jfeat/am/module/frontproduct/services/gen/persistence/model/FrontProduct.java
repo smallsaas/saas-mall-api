@@ -155,6 +155,17 @@ public class FrontProduct extends Model<FrontProduct> {
 	@ApiModelProperty(value = "最低价")
 	private BigDecimal minPrice;
 
+	@ApiModelProperty("折扣价")
+	private BigDecimal discountPrice;
+
+	public BigDecimal getDiscountPrice() {
+		return discountPrice;
+	}
+
+	public void setDiscountPrice(BigDecimal discountPrice) {
+		this.discountPrice = discountPrice;
+	}
+
 	public Integer getHasChild() {
 		return hasChild;
 	}
