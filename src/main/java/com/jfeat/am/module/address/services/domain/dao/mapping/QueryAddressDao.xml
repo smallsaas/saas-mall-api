@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jfeat.am.module.address.services.domain.dao.QueryAddressDao">
+    <sql id="Base_Column_List">
+        t_address
+        .
+        id
+        , t_address.user_id AS userId, t_address.name, t_address.phone, t_address.tel, t_address.province_name AS provinceName, t_address.province_code AS provinceCode, t_address.city_name AS cityName, t_address.city_code AS cityCode, t_address.area_name AS areaName, t_address.area_code AS areaCode, t_address.address, t_address.zip, t_address.default_status AS defaultStatus, t_address.create_time AS createTime, t_address.update_time AS updateTime, t_address.note
+    </sql>
+
+
+    <select id="queryMasterModel" resultType="AddressModel">
+        SELECT t_address.*
+        FROM t_address
+        WHERE t_address.id = #{id}
+        GROUP BY t_address.id
+    </select>
+
+
+    <select id="findAddressPage" resultType="AddressRecord" parameterType="AddressRecord">
+        SELECT
+        <include refid="Base_Column_List"/>
+
+
+        FROM t_address
+
+
+        WHERE 1=1
+
+
+        <if test="record.id != null and record.id>0 ">
+            AND t_address.id LIKE CONCAT('%',#{record.id},'%')
+        </if>
+
+
+        <if test="record.userId != null and record.userId>0 ">
+            AND t_address.user_id LIKE CONCAT('%',#{record.userId},'%')
+        </if>
+        <if test="record.name != null and record.name!= ''">
+            AND t_address.name LIKE CONCAT('%',#{record.name},'%')
+        </if>
+        <if test="record.phone != null and record.phone!= ''">
+            AND t_address.phone LIKE CONCAT('%',#{record.phone},'%')
+        </if>
+        <if test="record.tel != null and record.tel!= ''">
+            AND t_address.tel LIKE CONCAT('%',#{record.tel},'%')
+        </if>
+
+
+        <if test="record.provinceName != null and record.provinceName!= ''">
+            AND t_address.province_name LIKE CONCAT('%',#{record.provinceName},'%')
+        </if>
+
+
+        <if test="record.provinceCode != null and record.provinceCode!= ''">
+            AND t_address.province_code LIKE CONCAT('%',#{record.provinceCode},'%')
+        </if>
+
+
+        <if test="record.cityName != null and record.cityName!= ''">
+            AND t_address.city_name LIKE CONCAT('%',#{record.cityName},'%')
+        </if>
+
+
+        <if test="record.cityCode != null and record.cityCode!= ''">
+            AND t_address.city_code LIKE CONCAT('%',#{record.cityCode},'%')
+        </if>
+
+
+        <if test="record.areaName != null and record.areaName!= ''">
+            AND t_address.area_name LIKE CONCAT('%',#{record.areaName},'%')
+        </if>
+
+
+        <if test="record.areaCode != null and record.areaCode!= ''">
+            AND t_address.area_code LIKE CONCAT('%',#{record.areaCode},'%')
+        </if>
+        <if test="record.address != null and record.address!= ''">
+            AND t_address.address LIKE CONCAT('%',#{record.address},'%')
+        </if>
+        <if test="record.zip != null and record.zip!= ''">
+            AND t_address.zip LIKE CONCAT('%',#{record.zip},'%')
+        </if>
+
+
+        <if test="record.defaultStatus != null and record.defaultStatus>0 ">
+            AND t_address.default_status LIKE CONCAT('%',#{record.defaultStatus},'%')
+        </if>
+
+
+        <if test="record.createTime != null and record.createTime>0 ">
+            AND t_address.create_time LIKE CONCAT('%',#{record.createTime},'%')
+        </if>
+
+
+        <if test="record.updateTime != null and record.updateTime>0 ">
+            AND t_address.update_time LIKE CONCAT('%',#{record.updateTime},'%')
+        </if>
+        <if test="record.note != null and record.note!= ''">
+            AND t_address.note LIKE CONCAT('%',#{record.note},'%')
+        </if>
+
+        <if test="startTime != null">
+            <![CDATA[AND t_address.start_time >= DATE(#{startTime})]]>
+        </if>
+        <if test="endTime != null">
+            <![CDATA[AND t_address.end_time <= DATE(#{endTime}]]>
+        </if>
+        <!--
+    <if test="search != null and search != ''">
+        OR t_address.name LIKE CONCAT('%',#{search},'%')
+    </if>
+    -->
+        ORDER BY update_time DESC
+        , create_time DESC
+    </select>
+
+    <update id="updateAddressList">
+        update  t_address
+        <set>
+            <trim prefix="default_status = case" suffix="end,">
+                <foreach collection="addressList" item="item" index="index">
+                    <if test="item.defaultStatus != null">
+                        when id=#{item.id} then #{item.defaultStatus}
+                    </if>
+                </foreach>
+            </trim>
+        </set>
+        where id in
+        <foreach collection="addressList" separator="," item="item" open="(" close=")">
+            #{item.id}
+        </foreach>
+
+
+    </update>
+</mapper>
