@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.api;
 
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductTagMapper;
 import com.jfeat.crud.base.annotation.BusinessLog;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
@@ -41,6 +42,9 @@ public class FrontProductTagEndpoint {
     @Resource
     FrontProductTagService frontProductTagService;
 
+    @Resource
+    FrontProductTagMapper frontProductTagMapper;
+
     @BusinessLog(name = "产品标签", value = "新建产品标签")
     @PostMapping
     @ApiOperation(value = "新建 产品标签", response = FrontProductTag.class)
@@ -67,7 +71,8 @@ public class FrontProductTagEndpoint {
     @ApiOperation(value = "查看 FrontProductTag", response = FrontProductTag.class)
     @Permission(FrontProductPermission.PRODUCTTAG_VIEW)
     public Tip getProductTag(@PathVariable Long id) {
-        return SuccessTip.create(frontProductTagService.retrieveMaster(id));
+        return SuccessTip.create(frontProductTagMapper.selectById(id));
+//        return SuccessTip.create(frontProductTagService.retrieveMaster(id));
     }
 
     @BusinessLog(name = "产品标签", value = "修改产品标签")
