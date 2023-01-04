@@ -13,6 +13,7 @@ import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.definition.OrderType;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 
+import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletDao;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletHistoryDao;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.ExpressService;
@@ -65,6 +66,9 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
     ExpressMapper expressMapper;
     @Resource
     ExpressService expressService;
+
+    @Resource
+    QueryOrderWalletDao queryOrderWalletDao;
 
 
 
@@ -341,16 +345,26 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
             Integer stockBalance = queryOrderDao.upStockBalance(product.getProductId(),product.getQuantity());
 
         }
-        BigDecimal balance = queryOrderDao.queryWalletBalance(order.getUserId().longValue());
-        //更新用户余额
-        queryOrderDao.upWallet(order.getUserId().longValue(), order.getTotalPrice().add(balance));
 
-        String note = "取消订单 订单号："+order.getOrderNumber();
-        //插入钱包记录数据
-        orderWelletService.insertWelletHistoryByUserId(order.getTotalPrice(),order.getUserId().longValue(), OrderRechargeType.PAYMENT,note);
+        OrderWallet orderWallet = queryOrderWalletDao.selectWalletByUserId(order.getUserId().longValue());
 
+        if (orderWallet!=null){
+            BigDecimal balance = queryOrderDao.queryWalletBalance(order.getUserId().longValue());
+
+            if (balance==null){
+                balance=new BigDecimal(0);
+            }
+            //更新用户余额
+            res+=queryOrderDao.upWallet(order.getUserId().longValue(), order.getTotalPrice().add(balance));
+
+            String note = "取消订单 订单号："+order.getOrderNumber();
+            //插入钱包记录数据
+            res+=orderWelletService.insertWelletHistoryByUserId(order.getTotalPrice(),order.getUserId().longValue(), OrderRechargeType.PAYMENT,note);
+
+
+        }
         //更新订单
-        queryOrderDao.updateById(order);
+        res+=queryOrderDao.updateById(order);
         return res;
     }
 

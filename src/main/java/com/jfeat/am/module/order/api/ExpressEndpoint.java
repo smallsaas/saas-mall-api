@@ -46,7 +46,7 @@ public class ExpressEndpoint {
 
         Integer affected = 0;
         try {
-            if(entity.getIsDefault()==1){
+            if(entity.getIsDefault()!=null&&entity.getIsDefault()==1){
                 expressService.updateIsDefault();
             }
             affected = expressService.createMaster(entity);
