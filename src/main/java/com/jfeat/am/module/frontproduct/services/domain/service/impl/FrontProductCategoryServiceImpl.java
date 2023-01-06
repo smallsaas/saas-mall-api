@@ -21,6 +21,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -133,6 +134,42 @@ public class FrontProductCategoryServiceImpl extends CRUDFrontProductCategorySer
             return addSubProductCategory(record);
         }).collect(Collectors.toList());
 
+    }
+
+    @Override
+    public FrontProductCategoryRecord getTreeProductCategoryById(Long id) {
+        return queryProductCategoryDao.noteTree(id);
+    }
+
+    @Override
+    public List<FrontProductCategoryRecord> productCategoryTreeToList(FrontProductCategoryRecord frontProductCategoryRecord) {
+        List<FrontProductCategoryRecord> result = new ArrayList<>();
+        if (frontProductCategoryRecord!=null&&frontProductCategoryRecord.getSubCategoryList()!=null && frontProductCategoryRecord.getSubCategoryList().size()>0){
+            result.addAll(treeToList(frontProductCategoryRecord.getSubCategoryList()));
+        }
+        frontProductCategoryRecord.setSubCategoryList(null);
+        result.add(0,frontProductCategoryRecord);
+
+
+        return result;
+    }
+
+    public List<FrontProductCategoryRecord> treeToList(List<FrontProductCategoryRecord> messageList) {
+        List<FrontProductCategoryRecord> result = new ArrayList<>();
+        for (FrontProductCategoryRecord entity : messageList) {
+            result.add(entity);
+            List<FrontProductCategoryRecord> childMsg = entity.getSubCategoryList();
+            if (childMsg != null && childMsg.size() > 0) {
+                List<FrontProductCategoryRecord> entityList = this.treeToList(childMsg);
+                result.addAll(entityList);
+            }
+        }
+        if (result.size() > 0) {
+            for (FrontProductCategoryRecord entity : result) {
+                entity.setSubCategoryList(null);
+            }
+        }
+        return result;
     }
 
     /**

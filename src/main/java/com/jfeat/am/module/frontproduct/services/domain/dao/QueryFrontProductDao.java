@@ -31,4 +31,10 @@ public interface QueryFrontProductDao extends BaseMapper<FrontProduct> {
     FrontProductModel findProductModelHasChildById(@Param("id") Long id);
 
     List<FrontProductModel> queryProductModelItem(@Param("id") Long id);
+
+
+    List<FrontProductRecord> findProductPageByCategoryIds(Page<FrontProductRecord> page,@Param("categoryIds") List<Long> categoryIds, @Param("record") FrontProductRecord record,
+                                             @Param("search") String search, @Param("orderBy") String orderBy,
+                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime,
+                                             @Param("supplierId") Long supplierId, @Param("supplierName") String supplierName);
 }

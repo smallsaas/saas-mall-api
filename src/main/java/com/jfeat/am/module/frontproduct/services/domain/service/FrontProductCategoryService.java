@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductCategoryRecord;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.CRUDFrontProductCategoryService;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductCategory;
 
 import java.util.Date;
 import java.util.List;
@@ -41,4 +42,10 @@ public interface FrontProductCategoryService extends CRUDFrontProductCategorySer
      * @return
      */
     List<FrontProductCategoryRecord> queryProductCategoryies(String name);
+
+    FrontProductCategoryRecord getTreeProductCategoryById(Long id);
+
+    List<FrontProductCategoryRecord> productCategoryTreeToList(FrontProductCategoryRecord frontProductCategoryRecord);
+
+   List<FrontProductCategoryRecord> treeToList(List<FrontProductCategoryRecord> messageList);
 }

@@ -6,7 +6,7 @@
         .
         id
         , t_product_category.parent_id AS parentId, t_product_category.name, t_product_category.description, t_product_category.cover, t_product_category.sort_order AS sortOrder, t_product_category.promoted, t_product_category.visible, t_product_category.promoted_product_count AS promotedProductCount, t_product_category.wholesale, t_product_category.is_show_products AS isShowProducts
-        , t_product_category.code AS code
+        , t_product_category.code AS code,t_product_category.category_name as categoryName
     </sql>
 
 
@@ -80,4 +80,50 @@
     </if>
     -->
     </select>
+
+
+
+    <resultMap id="BaseResultMap" type="FrontProductCategoryRecord">
+        <id column="id" property="id" />
+        <result column="parentId" property="parentId" />
+        <result column="name" property="name" />
+        <result column="description" property="description" />
+        <result column="cover" property="cover" />
+        <result column="sortOrder" property="sortOrder" />
+        <result column="promoted" property="promoted" />
+        <result column="visible" property="visible" />
+        <result column="promotedProductCount" property="promotedProductCount" />
+        <result column="wholesale" property="wholesale" />
+        <result column="isShowProducts" property="isShowProducts" />
+        <result column="orgId" property="orgId" />
+        <result column="code" property="code" />
+        <result column="categoryName" property="categoryName" />
+    </resultMap>
+
+
+    <resultMap id="NodeTreeResult" type="FrontProductCategoryRecord"
+               extends="BaseResultMap">
+        <collection property="subCategoryList" column="id" ofType="FrontProductCategoryRecord"
+                    javaType="java.util.ArrayList" select="nextNoteTree">
+        </collection>
+    </resultMap>
+
+
+
+    <select id="nextNoteTree" resultMap="NodeTreeResult">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_category
+        where t_product_category.parent_id=#{parentId}
+    </select>
+
+
+    <select id="noteTree" resultMap="NodeTreeResult">
+        select
+        <include refid="Base_Column_List"/>
+        from t_product_category
+        where id=#{id}
+    </select>
+
+
 </mapper>

@@ -16,4 +16,9 @@ public interface QueryFrontProductCategoryDao extends BaseMapper<FrontProductCat
     List<FrontProductCategoryRecord> findProductCategoryPage(Page<FrontProductCategoryRecord> page, @Param("record") FrontProductCategoryRecord record,
                                                              @Param("search") String search, @Param("orderBy") String orderBy,
                                                              @Param("startTime") Date startTime, @Param("endTime") Date endTime);
+
+
+    List<FrontProductCategoryRecord> nextNoteTree(@Param("parentId") Long parentId);
+
+    FrontProductCategoryRecord noteTree(@Param("id")Long id);
 }

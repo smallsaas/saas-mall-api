@@ -54,6 +54,17 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 	@TableField("code")
 	private String code;
 
+	@TableField("category_name")
+	private String categoryName;
+
+	public String getCategoryName() {
+		return categoryName;
+	}
+
+	public void setCategoryName(String categoryName) {
+		this.categoryName = categoryName;
+	}
+
 	public String getCode() {
 		return code;
 	}
@@ -182,6 +193,9 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 	public static final String WHOLESALE = "wholesale";
 
 	public static final String IS_SHOW_PRODUCTS = "is_show_products";
+
+
+	public static final String CATEGORY_NAME = "category_name";
 
 	@Override
 	protected Serializable pkVal() {

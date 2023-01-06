@@ -88,6 +88,26 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     }
 
     @Override
+    public List<FrontProductRecord> findProductPageByCategoryIds(Page<FrontProductRecord> page, List<Long> categoryIds, FrontProductRecord record, String search, String orderBy, Date startTime, Date endTime, Long supplierId, String supplierName) {
+
+        List<FrontProductRecord> recordList = this.queryFrontProductDao.findProductPageByCategoryIds(page, categoryIds,record, search, orderBy, startTime, endTime,supplierId,supplierName);
+        recordList.forEach(item -> {
+
+            FrontProductRecord frontProductRecord = (FrontProductRecord) item;
+
+
+
+            if(frontProductRecord.getBrandId()!=null){
+                ProductBrand productBrand = productBrandService.retrieveMaster(frontProductRecord.getBrandId());
+                frontProductRecord.setProductBrand(productBrand);
+            }
+        });
+
+        // return this.getEavProxy().selectList(recordList, this.entityName());
+        return recordList;
+    }
+
+    @Override
     public Long getTenantIdByOrgId(Long orgId){
 
       Long tenantId = queryOrgInfoDao.getTenantOrgIdByOrgId(orgId);
