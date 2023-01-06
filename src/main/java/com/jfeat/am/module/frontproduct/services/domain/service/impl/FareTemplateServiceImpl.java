@@ -95,8 +95,9 @@ public class FareTemplateServiceImpl extends CRUDFareTemplateServiceImpl impleme
         String addrs[]= shopAddr.split(",");
         String ids[]=null;
 
+        System.out.println(addrIds);
         //原数据库中ids为空
-        if((addrIds==null||addrIds.equals(""))&&shopAddr!=null){
+        if((addrIds==null||addrIds.equals("")||addrIds.equals("null"))&&shopAddr!=null){
             StringBuilder idsString=new StringBuilder();
             int i=0;
             for (String addr:addrs) {
