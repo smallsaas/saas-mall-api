@@ -57,6 +57,17 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 	@TableField("category_name")
 	private String categoryName;
 
+	@TableField("appid")
+	private String appid;
+
+	public String getAppid() {
+		return appid;
+	}
+
+	public void setAppid(String appid) {
+		this.appid = appid;
+	}
+
 	public String getCategoryName() {
 		return categoryName;
 	}
@@ -196,6 +207,8 @@ public class FrontProductCategory extends Model<FrontProductCategory> {
 
 
 	public static final String CATEGORY_NAME = "category_name";
+
+	public static final String APPID ="appid";
 
 	@Override
 	protected Serializable pkVal() {

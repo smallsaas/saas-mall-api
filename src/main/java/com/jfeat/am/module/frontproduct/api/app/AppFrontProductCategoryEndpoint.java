@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @RestController
 @Api("FrontProduct")
@@ -51,6 +52,14 @@ public class AppFrontProductCategoryEndpoint {
             }
         }
         return SuccessTip.create();
+    }
+
+    @GetMapping("/app/{appid}")
+    public Tip getProductCategoryByAppid(@PathVariable("appid")String appid){
+        QueryWrapper<FrontProductCategory> frontProductCategoryQueryWrapper = new QueryWrapper<>();
+        frontProductCategoryQueryWrapper.eq(FrontProductCategory.APPID,appid);
+        List<FrontProductCategory> frontProductCategories = frontProductCategoryMapper.selectList(frontProductCategoryQueryWrapper);
+        return SuccessTip.create(frontProductCategories);
     }
 
 }

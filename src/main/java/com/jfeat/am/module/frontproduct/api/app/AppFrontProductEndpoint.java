@@ -161,6 +161,7 @@ public class AppFrontProductEndpoint {
                              @RequestParam(name = "skuName", required = false) String skuName,
                              @RequestParam(name = "skuCode", required = false) String skuCode,
                              @RequestParam(name = "barCode", required = false) String barCode,
+                             @RequestParam(name = "appid", required = false) String appid,
                              @RequestParam(name = "brandName", required = false) String brandName,
                              @RequestParam(name = "mid", required = false) Integer mid,
                              @RequestParam(name = "allowCoupon", required = false) Integer allowCoupon,
@@ -215,6 +216,7 @@ public class AppFrontProductEndpoint {
         record.setStoreLocation(storeLocation);
         record.setWeight(weight);
         record.setBulk(bulk);
+        record.setAppid(appid);
         record.setSkuId(skuId);
         record.setSkuName(skuName);
         record.setSkuCode(skuCode);

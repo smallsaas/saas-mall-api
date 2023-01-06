@@ -171,15 +171,18 @@
         <if test="record.category != null and record.category!= ''">
             AND category.code = #{record.category}
         </if>
+        <if test="record.appid != null and record.appid!= ''">
+            AND category.appid = #{record.appid}
+        </if>
 
         <if test="record.id != null and record.id>0 ">
-            AND t_product.id LIKE CONCAT('%',#{record.id},'%')
+            AND t_product.id =#{record.id}
         </if>
         <if test="record.categoryId != null and record.categoryId>0 ">
-            AND t_product.category_id LIKE CONCAT('%',#{record.categoryId},'%')
+            AND t_product.category_id =#{record.categoryId}
         </if>
         <if test="record.brandId != null and record.brandId>0 ">
-            AND t_product.brand_id LIKE CONCAT('%',#{record.brandId},'%')
+            AND t_product.brand_id =#{record.brandId}
         </if>
         <if test="record.brandName != null and record.brandName!= ''">
             AND t_product_brand.name LIKE CONCAT('%',#{record.brandName},'%')

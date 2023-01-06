@@ -23,6 +23,16 @@ public class FrontProductRecord extends FrontProduct {
 
     private String category;
 
+    private String appid;
+
+    public String getAppid() {
+        return appid;
+    }
+
+    public void setAppid(String appid) {
+        this.appid = appid;
+    }
+
     public List<FrontProductRecord> getItems() {
         return items;
     }

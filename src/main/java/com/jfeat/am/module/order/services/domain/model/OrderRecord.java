@@ -25,6 +25,16 @@ public class OrderRecord extends TOrder {
 
     String userPhone;
 
+    Long productId;
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
     public String getUserPhone() {
         return userPhone;
     }

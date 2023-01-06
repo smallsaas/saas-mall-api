@@ -1,6 +1,7 @@
 package com.jfeat.am.module.order.api.app;
 
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
@@ -697,6 +698,67 @@ public class OrderAppEndpoint {
     @ApiOperation(value = "取消订单")
     public Tip cancelOrder(@PathVariable Long id) throws ServerException {
         return SuccessTip.create(orderService.cancelOrder(id));
+
+    }
+
+
+    @BusinessLog(name = "订单", value = "新增线上订单")
+    @PostMapping("/bulk")
+    @ApiOperation(value = "用户团购下单", response = TOrder.class)
+    // @Permission(OrderPermission.ORDER_ADD)
+    public Tip createBulkOrder(@RequestBody RequestOrder order) {
+
+        if (order.getItems()==null){
+            return SuccessTip.create();
+        }
+
+        Long userId = JWTKit.getUserId();
+        if (userId==null){
+            throw new BusinessException(BusinessCode.NoPermission);
+        }
+        OrderRecord record = new OrderRecord();
+        Integer productId = order.getItems().get(0).getProductId();
+        record.setProductId(Long.valueOf(productId));
+        record.setCategory("bulk");
+        record.setUserId(Integer.parseInt(Long.toString(userId)));
+        List<OrderRecord> orderRecordList = queryOrderDao.getOrderRecordList(record);
+
+        if (orderRecordList!=null&&orderRecordList.size()>=1){
+            throw new BusinessException(BusinessCode.OutOfRange,"已经加入过团购");
+        }
+
+        Integer affected = 0;
+        try {
+
+            order.setType(OrderType.ORDER.name());
+            affected = orderService.createOrder(order);
+
+        } catch (DuplicateKeyException e) {
+            throw new BusinessException(BusinessCode.DuplicateKey);
+        } catch (ServerException e) {
+            throw new BusinessException(BusinessCode.BadRequest, e.getMessage());
+        }
+
+        return SuccessTip.create(affected);
+    }
+
+
+    @GetMapping("/status/bulk/{productId}")
+    public Tip getBulkOrder(@PathVariable("productId") Long productId){
+
+        Long userId = JWTKit.getUserId();
+        if (userId==null){
+            throw new BusinessException(BusinessCode.NoPermission);
+        }
+        OrderRecord record = new OrderRecord();
+        record.setProductId(productId);
+        record.setCategory("bulk");
+        record.setUserId(Integer.parseInt(Long.toString(userId)));
+        List<OrderRecord> orderRecordList = queryOrderDao.getOrderRecordList(record);
+        JSONObject result = new JSONObject();
+        result.put("orderNumber",orderRecordList.size());
+        result.put("orderList",orderRecordList);
+        return SuccessTip.create(result);
 
     }
 
