@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.rmi.ServerException;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by vincent on 2017/10/19.
@@ -32,6 +33,13 @@ public interface OrderService extends CRUDOrderService{
      * @return
      */
     OrderModel getOrder(Long id);
+
+    /**
+     * 根据id列表获取多个订单
+     * @param ids
+     * @return
+     */
+    List<OrderRecord> listOrder(List<Integer> ids);
 
     /**
      * 更新指定id数据的状态
@@ -61,4 +69,5 @@ public interface OrderService extends CRUDOrderService{
     ExpressInfo expressInfo(Long id);
 
     void setItemsByPages(Page<OrderRecord> page);
+
 }

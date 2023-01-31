@@ -119,6 +119,16 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         return orderModel;
     }
 
+    /**
+     * 根据id列表获取多个订单
+     * @param ids
+     * @return
+     */
+    @Override
+    public List<OrderRecord> listOrder(List<Integer> ids) {
+        return queryOrderDao.listOrders(ids);
+    }
+
     //修改订单状态
     @Override
     public Integer updateOrderStatus(Long id, String orderStatus) {

@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.io.Serializable;
 
 /**
  * <p>
@@ -30,7 +29,6 @@ public class OrderItem extends Model<OrderItem> {
     public void setExtra(com.alibaba.fastjson.JSONObject extra) {
         this.extra = extra;
     }
-
 
     private static final long serialVersionUID = 1L;
 

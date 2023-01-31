@@ -96,4 +96,6 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
     Long getTenantIdByOrgId(@Param("orgId")Long orgId);
 
     List<OrderRecord> getOrderRecordList(@Param("record")OrderRecord record);
+
+    List<OrderRecord> listOrders(@Param("ids") List<Integer> ids);
 }

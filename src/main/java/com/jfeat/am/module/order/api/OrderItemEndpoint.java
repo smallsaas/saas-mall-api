@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
+import java.util.List;
 
 
 /**
@@ -29,7 +30,6 @@ import java.math.BigDecimal;
  * @since 2019-07-31
  */
 @RestController
-
 @Api("OrderItem")
 @RequestMapping("/api/crud/order/orderItems")
 public class OrderItemEndpoint {
@@ -70,6 +70,21 @@ public class OrderItemEndpoint {
     @ApiOperation("删除 OrderItem")
     public Tip deleteOrderItem(@PathVariable Long id) {
         return SuccessTip.create(orderItemService.deleteMaster(id));
+    }
+
+    /**
+     * 根据productId返回订购了该商品的用户列表
+     * @param productId 商品id
+     * @return 用户列表
+     */
+    @GetMapping("/orderUsers/{productId}")
+    public Tip queryProductOrderUsers(@PathVariable Integer productId) {
+
+        // 为了增加通用性，mapper使用对象进行查询，所以需要将参数设给orderItemRecord对象
+        OrderItemRecord orderItemRecord = new OrderItemRecord();
+        orderItemRecord.setProductId(productId);
+
+        return SuccessTip.create(orderItemService.listOrderUser(orderItemRecord));
     }
 
     @ApiOperation(value = "OrderItem 列表信息", response = OrderItemRecord.class)
