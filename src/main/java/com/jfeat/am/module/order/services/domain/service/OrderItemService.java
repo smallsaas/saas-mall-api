@@ -5,9 +5,7 @@ import com.jfeat.am.module.order.services.domain.model.OrderItemRecord;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDOrderItemService;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by vincent on 2017/10/19.
@@ -20,5 +18,5 @@ public interface OrderItemService extends CRUDOrderItemService{
 
     List listOrderUser(OrderItemRecord orderItemRecord);
 
-    List<HashMap> listUser(List<Integer> ids);
+    HashMap<String,Objects> getUser(Integer userId);
 }

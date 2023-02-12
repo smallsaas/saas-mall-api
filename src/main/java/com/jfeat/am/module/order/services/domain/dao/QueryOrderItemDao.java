@@ -6,9 +6,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+
+import java.util.*;
 
 /**
  * Created by Code Generator on 2019-07-31
@@ -23,5 +22,5 @@ public interface QueryOrderItemDao extends BaseMapper<OrderItem> {
 
     List<OrderItemRecord> listOrderItem(@Param("orderItemRecord") OrderItemRecord orderItemRecord);
 
-    List<HashMap> listUser(@Param("ids") List<Integer> ids);
+    HashMap<String, Objects> getUser(@Param("userId") Integer userId);
 }

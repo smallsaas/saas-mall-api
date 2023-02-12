@@ -4,7 +4,10 @@ import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by Code Generator on 2019-07-31
@@ -16,7 +19,7 @@ public class OrderRecord extends TOrder {
     String realName;
     //邀请人进货额
     BigDecimal orderAmount;
-//邀请人盟友
+    //邀请人盟友
     String allianceName;
 
     List<OrderItem> orderItemRecordList ;
@@ -26,6 +29,17 @@ public class OrderRecord extends TOrder {
     String userPhone;
 
     Long productId;
+
+    // 用户对象
+    HashMap<String,Objects> user;
+
+    public HashMap<String, Objects> getUser() {
+        return user;
+    }
+
+    public void setUser(HashMap<String, Objects> user) {
+        this.user = user;
+    }
 
     public Long getProductId() {
         return productId;

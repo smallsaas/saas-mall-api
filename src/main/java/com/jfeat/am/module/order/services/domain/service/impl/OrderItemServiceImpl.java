@@ -67,24 +67,25 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
 
         // 利用order中的userId查询用户信息
         if (orders == null && orders.size() == 0) return null;
-        List<Integer> userIds = new ArrayList<>();
         for (OrderRecord orderRecord : orders) {
             if (orderRecord.getUserId() == null) continue;
-            userIds.add(orderRecord.getUserId());
-        }
-        if (userIds == null && userIds.size() == 0) return null;
-        List<HashMap> users = this.listUser(userIds);
 
-        return users;
+            HashMap user = this.getUser(orderRecord.getUserId());
+            if (user == null || user.isEmpty()) continue;
+
+            orderRecord.setUser(user);
+        }
+
+        return orders;
     }
 
     /**
      * 查询t_end_user表
-     * @param ids id列表
+     * @param userId 用户id
      * @return
      */
     @Override
-    public List<HashMap> listUser(List<Integer> ids) {
-        return queryOrderItemDao.listUser(ids);
+    public HashMap<String,Objects> getUser(Integer userId) {
+        return queryOrderItemDao.getUser(userId);
     }
 }
