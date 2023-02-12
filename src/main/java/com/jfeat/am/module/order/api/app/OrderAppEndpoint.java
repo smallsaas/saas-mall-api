@@ -771,7 +771,7 @@ public class OrderAppEndpoint {
      * @param productId 商品id
      * @return 用户列表
      */
-    @GetMapping("/orderUsers/{productId}")
+    @GetMapping("/orders/{productId}")
     public Tip queryProductOrderUsers(@PathVariable Integer productId) {
 
         // 为了增加通用性，mapper使用对象进行查询，所以需要将参数设给orderItemRecord对象
