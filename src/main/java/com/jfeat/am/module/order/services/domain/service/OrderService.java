@@ -49,8 +49,6 @@ public interface OrderService extends CRUDOrderService{
      */
     Integer updateOrderStatus(Long id, String orderStatus);
 
-
-
     public List<FrontUser> getUsers(String search);
 
     public List<FrontProductRecord> getProducts(String search);

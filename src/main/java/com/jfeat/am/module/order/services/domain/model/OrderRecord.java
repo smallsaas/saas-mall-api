@@ -30,17 +30,6 @@ public class OrderRecord extends TOrder {
 
     Long productId;
 
-    // 用户对象
-    HashMap<String,Objects> user;
-
-    public HashMap<String, Objects> getUser() {
-        return user;
-    }
-
-    public void setUser(HashMap<String, Objects> user) {
-        this.user = user;
-    }
-
     public Long getProductId() {
         return productId;
     }
