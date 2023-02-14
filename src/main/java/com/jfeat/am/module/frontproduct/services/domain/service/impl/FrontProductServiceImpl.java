@@ -127,16 +127,6 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         }
         entity.setOrgId(JWTKit.getOrgId());
 
-        //保存规格
-        List<ProductSpecificationRecord> productSpecificationRecords = entity.getSpecifications();
-        if(productSpecificationRecords != null && !productSpecificationRecords.isEmpty()){
-            for(ProductSpecificationRecord pRecord : productSpecificationRecords){
-                pRecord.setProductId(entity.getId().intValue());
-                affected+= productSpecificationService.createMaster(pRecord);
-            }
-        }
-
-
         //保存海报
         List<ProductImage> bannerList = entity.getBannerList();
         if(!CollectionUtils.isEmpty(bannerList)){
@@ -194,6 +184,15 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
                             (productSettlementProportionList,entity.getId().intValue());
             for (ProductSettlementProportionRecord tpsp:productSettlementProportionList) {tpsp.setId(null);
                 affected+= productSettlementProportionMapper.insert(tpsp);
+            }
+        }
+
+        //保存规格
+        List<ProductSpecificationRecord> productSpecificationRecords = entity.getSpecifications();
+        if(productSpecificationRecords != null && !productSpecificationRecords.isEmpty()){
+            for(ProductSpecificationRecord pRecord : productSpecificationRecords){
+                pRecord.setProductId(entity.getId().intValue());
+                affected+= productSpecificationService.createMaster(pRecord);
             }
         }
 
