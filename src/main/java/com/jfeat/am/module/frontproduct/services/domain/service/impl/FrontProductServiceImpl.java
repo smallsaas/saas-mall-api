@@ -11,6 +11,7 @@ import com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSettleme
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductSettlementProportionRecord;
+import com.jfeat.am.module.frontproduct.services.domain.model.ProductSpecificationRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.*;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.impl.CRUDFrontProductServiceImpl;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.*;
@@ -67,6 +68,9 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     @Resource
     QueryProductSettlementProportionDao queryProductSettlementProportionDao;
 
+    @Resource
+    ProductSpecificationService productSpecificationService;
+
     @Override
     public List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record,
                                 String search, String orderBy, Date startTime, Date endTime,Long supplierId,String supplierName) {
@@ -122,6 +126,16 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             entity.setStatus(ProductStatus.OFFSELL.getStatus());
         }
         entity.setOrgId(JWTKit.getOrgId());
+
+        //保存规格
+        List<ProductSpecificationRecord> productSpecificationRecords = entity.getSpecifications();
+        if(productSpecificationRecords != null && !productSpecificationRecords.isEmpty()){
+            for(ProductSpecificationRecord pRecord : productSpecificationRecords){
+                pRecord.setProductId(entity.getId().intValue());
+                affected+= productSpecificationService.createMaster(pRecord);
+            }
+        }
+
 
         //保存海报
         List<ProductImage> bannerList = entity.getBannerList();
@@ -182,8 +196,6 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
                 affected+= productSettlementProportionMapper.insert(tpsp);
             }
         }
-
-
 
         return affected;
     }
