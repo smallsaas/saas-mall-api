@@ -12,6 +12,7 @@ import com.jfeat.am.module.order.definition.OrderType;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderItemDao;
 import com.jfeat.am.module.order.services.domain.model.*;
+import com.jfeat.am.module.order.services.domain.service.OrderItemService;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.am.module.supplier.services.domain.dao.QuerySupplierDao;
@@ -67,6 +68,9 @@ public class OrderAppEndpoint {
 
     @Resource
     QueryOrderItemDao queryOrderItemDao;
+
+    @Resource
+    OrderItemService orderItemService;
 
     @BusinessLog(name = "订单", value = "新增线上订单")
     @PostMapping
@@ -760,6 +764,21 @@ public class OrderAppEndpoint {
         result.put("orderList",orderRecordList);
         return SuccessTip.create(result);
 
+    }
+
+    /**
+     * 根据productId返回订购了该商品的订单
+     * @param productId 商品id
+     * @return 用户列表
+     */
+    @GetMapping("/orders/{productId}")
+    public Tip queryProductOrderUsers(@PathVariable Integer productId) {
+
+        // 为了增加通用性，mapper使用对象进行查询，所以需要将参数设给orderItemRecord对象
+        OrderItemRecord orderItemRecord = new OrderItemRecord();
+        orderItemRecord.setProductId(productId);
+
+        return SuccessTip.create(orderItemService.listOrderUser(orderItemRecord));
     }
 
 

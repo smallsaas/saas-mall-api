@@ -57,34 +57,28 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
         if (orderItemRecordList == null && orderItemRecordList.size() == 0) return null;
 
         // 遍历orderItemRecord list获取其中的每个订单的orderId用来查询order表，因为只有order表中才有userId
-        List<Integer> orderIds = new ArrayList<>();
         for (OrderItemRecord orderItem : orderItemRecordList) {
+            // 如果没有orderId则退出此次循环
             if (orderItem.getOrderId() == null) continue;
-            orderIds.add(orderItem.getOrderId());
+            OrderModel order = orderService.getOrder(orderItem.getOrderId().longValue());
+            // 如果没有UserId则跳出此次的循环
+            if (order.getUserId() == null) continue;
+            HashMap<String,Objects> user = this.getUser(order.getUserId());
+            // 如果该userId没有查出数据则跳过此次循环，因为有可能该用户已不存在，那么就没有必要返回这个用户的信息了
+            if (user == null || user.isEmpty()) continue;
+            orderItem.setUser(user);
         }
-        if (orderIds == null && orderIds.size() == 0) return null;
-        List<OrderRecord> orders =  orderService.listOrder(orderIds);
 
-        // 利用order中的userId查询用户信息
-        if (orders == null && orders.size() == 0) return null;
-        List<Integer> userIds = new ArrayList<>();
-        for (OrderRecord orderRecord : orders) {
-            if (orderRecord.getUserId() == null) continue;
-            userIds.add(orderRecord.getUserId());
-        }
-        if (userIds == null && userIds.size() == 0) return null;
-        List<HashMap> users = this.listUser(userIds);
-
-        return users;
+        return orderItemRecordList;
     }
 
     /**
      * 查询t_end_user表
-     * @param ids id列表
+     * @param userId 用户id
      * @return
      */
     @Override
-    public List<HashMap> listUser(List<Integer> ids) {
-        return queryOrderItemDao.listUser(ids);
+    public HashMap<String,Objects> getUser(Integer userId) {
+        return queryOrderItemDao.getUser(userId);
     }
 }

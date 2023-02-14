@@ -3,6 +3,8 @@ package com.jfeat.am.module.order.services.domain.model;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * Created by Code Generator on 2019-07-31
@@ -12,6 +14,17 @@ public class OrderItemRecord extends OrderItem{
     BigDecimal totalPrice;
 
     String skuCode;
+
+    // 订单用户
+    HashMap<String, Objects> user;
+
+    public HashMap<String, Objects> getUser() {
+        return user;
+    }
+
+    public void setUser(HashMap<String, Objects> user) {
+        this.user = user;
+    }
 
     public void setSkuCode(String skuCode) {
         this.skuCode = skuCode;

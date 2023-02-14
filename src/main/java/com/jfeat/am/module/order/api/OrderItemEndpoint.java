@@ -72,21 +72,6 @@ public class OrderItemEndpoint {
         return SuccessTip.create(orderItemService.deleteMaster(id));
     }
 
-    /**
-     * 根据productId返回订购了该商品的用户列表
-     * @param productId 商品id
-     * @return 用户列表
-     */
-    @GetMapping("/orderUsers/{productId}")
-    public Tip queryProductOrderUsers(@PathVariable Integer productId) {
-
-        // 为了增加通用性，mapper使用对象进行查询，所以需要将参数设给orderItemRecord对象
-        OrderItemRecord orderItemRecord = new OrderItemRecord();
-        orderItemRecord.setProductId(productId);
-
-        return SuccessTip.create(orderItemService.listOrderUser(orderItemRecord));
-    }
-
     @ApiOperation(value = "OrderItem 列表信息", response = OrderItemRecord.class)
     @GetMapping
     @ApiImplicitParams({

@@ -131,84 +131,81 @@
         `t_order_item`
     <where>
         <if test="orderItemRecord.id != null and orderItemRecord.id>0 ">
-            `t_order_item`.id = #{orderItemRecord.id}
+            AND `t_order_item`.id = #{orderItemRecord.id}
         </if>
         <if test="orderItemRecord.orderId != null and orderItemRecord.orderId>0 ">
-            `t_order_item`.order_id = #{orderItemRecord.orderId}
+            AND `t_order_item`.order_id = #{orderItemRecord.orderId}
         </if>
         <if test="orderItemRecord.productId != null and orderItemRecord.productId>0 ">
-            `t_order_item`.product_id = #{orderItemRecord.productId}
+            AND `t_order_item`.product_id = #{orderItemRecord.productId}
         </if>
         <if test="orderItemRecord.productName != null and orderItemRecord.productName!= ''">
-            `t_order_item`.product_name = #{orderItemRecord.productName}
+            AND `t_order_item`.product_name = #{orderItemRecord.productName}
         </if>
         <if test="orderItemRecord.quantity != null and orderItemRecord.quantity>0 ">
-            `t_order_item`.quantity = #{orderItemRecord.quantity}
+            AND `t_order_item`.quantity = #{orderItemRecord.quantity}
         </if>
         <if test="orderItemRecord.price != null and orderItemRecord.price>0 ">
-            `t_order_item`.price = #{orderItemRecord.price}
+            AND `t_order_item`.price = #{orderItemRecord.price}
         </if>
         <if test="orderItemRecord.finalPrice != null and orderItemRecord.finalPrice>0 ">
-            `t_order_item`.final_price = #{orderItemRecord.finalPrice}
+            AND `t_order_item`.final_price = #{orderItemRecord.finalPrice}
         </if>
         <if test="orderItemRecord.status != null and orderItemRecord.status!= ''">
-            `t_order_item`.status = #{orderItemRecord.status}
+            AND `t_order_item`.status = #{orderItemRecord.status}
         </if>
         <if test="orderItemRecord.costPrice != null and orderItemRecord.costPrice>0 ">
-            `t_order_item`.cost_price = #{orderItemRecord.costPrice}
+            AND `t_order_item`.cost_price = #{orderItemRecord.costPrice}
         </if>
         <if test="orderItemRecord.cover != null and orderItemRecord.cover!= ''">
-            `t_order_item`.cover = #{orderItemRecord.cover}
+            AND `t_order_item`.cover = #{orderItemRecord.cover}
         </if>
         <if test="orderItemRecord.partnerLevelZone != null and orderItemRecord.partnerLevelZone>0 ">
-            `t_order_item`.partner_level_zone = #{orderItemRecord.partnerLevelZone}
+            AND `t_order_item`.partner_level_zone = #{orderItemRecord.partnerLevelZone}
         </if>
         <if test="orderItemRecord.productSpecificationName != null and orderItemRecord.productSpecificationName!= ''">
-            `t_order_item`.product_specification_name = #{orderItemRecord.productSpecificationName}
+            AND `t_order_item`.product_specification_name = #{orderItemRecord.productSpecificationName}
         </if>
         <if test="orderItemRecord.productSpecificationId != null and orderItemRecord.productSpecificationId>0 ">
-            `t_order_item`.product_specification_id = #{orderItemRecord.productSpecificationId}
+            AND `t_order_item`.product_specification_id = #{orderItemRecord.productSpecificationId}
         </if>
         <if test="orderItemRecord.weight != null and orderItemRecord.weight>0 ">
-            `t_order_item`.weight = #{orderItemRecord.weight}
+            AND `t_order_item`.weight = #{orderItemRecord.weight}
         </if>
         <if test="orderItemRecord.bulk != null and orderItemRecord.bulk>0 ">
-            `t_order_item`.bulk = #{orderItemRecord.bulk}
+            AND `t_order_item`.bulk = #{orderItemRecord.bulk}
         </if>
         <if test="orderItemRecord.barcode != null and orderItemRecord.barcode!= ''">
-            `t_order_item`.barcode = #{orderItemRecord.barcode}
+            AND `t_order_item`.barcode = #{orderItemRecord.barcode}
         </if>
         <if test="orderItemRecord.storeLocation != null and orderItemRecord.storeLocation!= ''">
-            `t_order_item`.store_location = #{orderItemRecord.storeLocation}
+            AND `t_order_item`.store_location = #{orderItemRecord.storeLocation}
         </if>
         <if test="orderItemRecord.marketing != null and orderItemRecord.marketing!= ''">
-            `t_order_item`.marketing = #{orderItemRecord.marketing}
+            AND `t_order_item`.marketing = #{orderItemRecord.marketing}
         </if>
         <if test="orderItemRecord.marketingId != null and orderItemRecord.marketingId>0 ">
-            `t_order_item`.marketing_id = #{orderItemRecord.marketingId}
+            AND `t_order_item`.marketing_id = #{orderItemRecord.marketingId}
         </if>
         <if test="orderItemRecord.marketingDescription != null and orderItemRecord.marketingDescription!= ''">
-            `t_order_item`.marketing_description = #{orderItemRecord.marketingDescription}
+            AND `t_order_item`.marketing_description = #{orderItemRecord.marketingDescription}
         </if>
         <if test="orderItemRecord.skuId != null and orderItemRecord.skuId!= ''">
-            `t_order_item`.sku_id = #{orderItemRecord.skuId}
+            AND `t_order_item`.sku_id = #{orderItemRecord.skuId}
         </if>
         <if test="orderItemRecord.warehouseId != null and orderItemRecord.warehouseId!= ''">
-            `t_order_item`.warehouse_id = #{orderItemRecord.warehouseId}
+            AND `t_order_item`.warehouse_id = #{orderItemRecord.warehouseId}
         </if>
     </where>
     </select>
 
-    <select id="listUser" resultType="HashMap">
+    <select id="getUser" resultType="HashMap">
         SELECT
             `id`,`name`,`avatar`,`phone`,`real_name`
         FROM
             `t_end_user`
         WHERE
-            id IN
-        <foreach collection="ids" item="item" open="(" close=")" separator=",">
-            #{item}
-        </foreach>
+            id = #{userId}
     </select>
 
 </mapper>
