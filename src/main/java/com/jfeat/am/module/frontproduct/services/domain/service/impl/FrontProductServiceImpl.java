@@ -11,6 +11,7 @@ import com.jfeat.am.module.frontproduct.services.domain.dao.QueryProductSettleme
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductModel;
 import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord;
 import com.jfeat.am.module.frontproduct.services.domain.model.ProductSettlementProportionRecord;
+import com.jfeat.am.module.frontproduct.services.domain.model.ProductSpecificationRecord;
 import com.jfeat.am.module.frontproduct.services.domain.service.*;
 import com.jfeat.am.module.frontproduct.services.gen.crud.service.impl.CRUDFrontProductServiceImpl;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.*;
@@ -66,6 +67,9 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     ProductSettlementProportionMapper productSettlementProportionMapper;
     @Resource
     QueryProductSettlementProportionDao queryProductSettlementProportionDao;
+
+    @Resource
+    ProductSpecificationService productSpecificationService;
 
     @Override
     public List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record,
@@ -183,7 +187,14 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             }
         }
 
-
+        //保存规格
+        List<ProductSpecificationRecord> productSpecificationRecords = entity.getSpecifications();
+        if(productSpecificationRecords != null && !productSpecificationRecords.isEmpty()){
+            for(ProductSpecificationRecord pRecord : productSpecificationRecords){
+                pRecord.setProductId(entity.getId().intValue());
+                affected+= productSpecificationService.createMaster(pRecord);
+            }
+        }
 
         return affected;
     }
