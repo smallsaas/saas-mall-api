@@ -37,7 +37,7 @@ public class FrontProductModel extends FrontProduct {
 
     private String supplierName;
 
-    private List<ProductSpecificationRecord> specifications;
+    private List<ProductSpecification> specifications;
 
     /**
      * 订单数量
@@ -157,11 +157,11 @@ public class FrontProductModel extends FrontProduct {
         this.bannerList = bannerList;
     }
 
-    public List<ProductSpecificationRecord> getSpecifications() {
+    public List<ProductSpecification> getSpecifications() {
         return specifications;
     }
 
-    public void setSpecifications(List<ProductSpecificationRecord> specifications) {
+    public void setSpecifications(List<ProductSpecification> specifications) {
         this.specifications = specifications;
     }
 }
