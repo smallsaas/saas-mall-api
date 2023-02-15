@@ -19,4 +19,22 @@ public interface OrderItemService extends CRUDOrderItemService{
     List listOrderUser(OrderItemRecord orderItemRecord);
 
     HashMap<String,Objects> getUser(Integer userId);
+
+    /**
+     * 分页-获取所有的商品订单
+     *
+     * @param page myBatisPlus分页对象
+     * @return 商品列表
+     */
+    Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page);
+
+    /**
+     * 分页-获取指定用户的商品订单
+     *
+     * @param page 分页对象
+     * @param userId 用户id
+     * @return 商品列表
+     */
+    Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page,Integer userId);
+
 }

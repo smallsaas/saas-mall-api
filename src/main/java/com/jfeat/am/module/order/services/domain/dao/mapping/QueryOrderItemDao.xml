@@ -208,4 +208,45 @@
             id = #{userId}
     </select>
 
+
+    <sql id="orderItem_and_oder_and_user_column">
+        t_order_item.id,
+        t_order_item.product_id AS productId,
+        t_order_item.product_name AS productName,
+        t_order_item.quantity,
+        t_order_item.price,
+        t_order_item.final_price AS finalPrice,
+        t_order_item.cost_price AS costPrice,
+        t_order.user_id AS userId
+    </sql>
+    <resultMap id="listOrderItemMap" type="OrderItemRecord">
+        <id column="id" property="id"/>
+        <result column="productId" property="productId"/>
+        <result column="productName" property="productName"/>
+        <result column="quantity" property="quantity"/>
+        <result column="price" property="price"/>
+        <result column="finalPrice" property="finalPrice"/>
+        <result column="costPrice" property="costPrice"/>
+        <association property="user" column="userId" select="com.jfeat.am.module.order.services.domain.dao.QueryOrderItemDao.getUser"/>
+    </resultMap>
+    <!--  分页——获取所有订单  -->
+    <select id="getOrderItemPage" resultMap="listOrderItemMap">
+        SELECT
+            <include refid="orderItem_and_oder_and_user_column" />
+        FROM
+            t_order_item
+        LEFT JOIN t_order ON t_order_item.order_id = t_order.id
+    </select>
+    <!--  分页——获取指定用户的商品订单  -->
+    <select id="getOrderItemByUserIdPage" resultMap="listOrderItemMap">
+        SELECT
+            <include refid="orderItem_and_oder_and_user_column" />
+        FROM
+            t_order_item
+        LEFT JOIN t_order ON t_order_item.order_id = t_order.id
+        WHERE
+            t_order.user_id = #{userId}
+    </select>
+
+
 </mapper>
