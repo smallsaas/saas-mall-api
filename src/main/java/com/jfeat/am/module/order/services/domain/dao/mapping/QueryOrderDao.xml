@@ -43,12 +43,13 @@
 
     <select id="findOrderPage" resultType="OrderRecord" parameterType="OrderRecord">
         SELECT
-        <include refid="Base_Column_List"/>
-        ,t_end_user.name as userName
-        ,settlement_status as settlementStatus
-        ,t_end_user.avatar as avatar
-        ,t_end_user.phone as userPhone
-        FROM t_order
+            <include refid="Base_Column_List"/>
+            ,t_end_user.name as userName
+            ,settlement_status as settlementStatus
+            ,t_end_user.avatar as avatar
+            ,t_end_user.phone as userPhone
+        FROM
+            t_order
         left join t_end_user on t_order.user_id=t_end_user.id
 
         <if test="record.orgId > 0">

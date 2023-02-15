@@ -23,4 +23,8 @@ public interface QueryOrderItemDao extends BaseMapper<OrderItem> {
     List<OrderItemRecord> listOrderItem(@Param("orderItemRecord") OrderItemRecord orderItemRecord);
 
     HashMap<String, Objects> getUser(@Param("userId") Integer userId);
+
+    Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page);
+
+    Page<OrderItemRecord> getOrderItemByUserIdPage(Page<OrderItemRecord> page,@Param("userId") Integer userId);
 }

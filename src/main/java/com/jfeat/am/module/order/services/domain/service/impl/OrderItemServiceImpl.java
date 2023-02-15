@@ -81,4 +81,28 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
     public HashMap<String,Objects> getUser(Integer userId) {
         return queryOrderItemDao.getUser(userId);
     }
+
+    /**
+     * 分页查询所有的商品订单
+     *
+     * @param page myBatisPlus分页对象
+     * @return myBatisPlus分页对象
+     */
+    @Override
+    public Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page) {
+        return queryOrderItemDao.getOrderItemPage(page);
+    }
+
+    /**
+     * 分页-获取指定用户的商品订单
+     *
+     * @param page   分页对象
+     * @param userId 用户id
+     * @return 商品列表
+     */
+    @Override
+    public Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page, Integer userId) {
+        return queryOrderItemDao.getOrderItemByUserIdPage(page,userId);
+    }
+
 }

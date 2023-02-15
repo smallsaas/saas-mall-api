@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.core.model.EndUserTypeSetting;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.definition.OrderType;
@@ -768,6 +769,7 @@ public class OrderAppEndpoint {
 
     /**
      * 根据productId返回订购了该商品的订单
+     *
      * @param productId 商品id
      * @return 用户列表
      */
@@ -780,6 +782,56 @@ public class OrderAppEndpoint {
 
         return SuccessTip.create(orderItemService.listOrderUser(orderItemRecord));
     }
+
+    /**
+     * 分页查询所有的订单
+     *
+     * @return page: Mybatis-Plus封装的分页对象,订单列表数据在page.records
+     */
+    @GetMapping("/orders")
+    public Tip queryOrders(@RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
+                           @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize) {
+
+        /**
+         * 判断用户是否已注册登录
+         * 现在的判断权限不严谨，还需要判断用户的身份进行判断是否可以获取所有的订单
+         * 但是现在该项目并未引入用户模块，暂时不了解用户模块的逻辑，暂不引入
+         */
+        Long userId = JWTKit.getUserId();
+        if (userId==null){
+            throw new BusinessException(BusinessCode.NoPermission,"您还未登录");
+        }
+
+        // 使用分页
+        Page<OrderItemRecord> orderItemPage = new Page<>(pageNum,pageSize);
+        return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage));
+    }
+
+    /**
+     * 分页-查询指定用户的商品订单
+     *
+     * @return page: Mybatis-Plus封装的分页对象,订单列表数据在page.records
+     */
+    @GetMapping("/orders/byUser")
+    public Tip queryOrdersByUser(@RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
+                                 @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize) {
+
+        /**
+         * 判断用户是否已注册登录
+         * 现在的判断权限不严谨，还需要判断用户的身份进行判断是否可以获取所有的订单
+         * 但是现在该项目并未引入用户模块，暂时不了解用户模块的逻辑，暂不引入
+         */
+        Long userId = JWTKit.getUserId();
+        if (userId==null){
+            throw new BusinessException(BusinessCode.NoPermission,"您还未登录");
+        }
+
+        // 使用分页
+        Page<OrderItemRecord> orderItemPage = new Page<>(pageNum,pageSize);
+        return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage, userId.intValue()));
+    }
+
+
 
 
 }
