@@ -229,13 +229,24 @@
         <result column="costPrice" property="costPrice"/>
         <association property="user" column="userId" select="com.jfeat.am.module.order.services.domain.dao.QueryOrderItemDao.getUser"/>
     </resultMap>
-    <!--  分页——获取所有订单  -->
+    <!--  分页——获取所有订单  sql过滤了如果这个订单的用户不存在，没有name，没有phone都不返回-->
     <select id="getOrderItemPage" resultMap="listOrderItemMap">
         SELECT
             <include refid="orderItem_and_oder_and_user_column" />
         FROM
             t_order_item
         LEFT JOIN t_order ON t_order_item.order_id = t_order.id
+        WHERE
+            t_order.state = 1
+          AND
+            EXISTS(SELECT
+                       *
+                   FROM
+                       t_end_user
+                   WHERE
+                       t_end_user.id = t_order.user_id AND t_end_user.name IS NOT NULL AND t_end_user.phone IS NOT NULL
+                   )
+        ORDER BY t_order.created_date DESC
     </select>
     <!--  分页——获取指定用户的商品订单  -->
     <select id="getOrderItemByUserIdPage" resultMap="listOrderItemMap">
@@ -245,7 +256,8 @@
             t_order_item
         LEFT JOIN t_order ON t_order_item.order_id = t_order.id
         WHERE
-            t_order.user_id = #{userId}
+            t_order.user_id = #{userId} AND t_order.state = 1
+        ORDER BY t_order.created_date DESC
     </select>
 
 
