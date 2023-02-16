@@ -217,7 +217,10 @@
         t_order_item.price,
         t_order_item.final_price AS finalPrice,
         t_order_item.cost_price AS costPrice,
-        t_order.user_id AS userId
+
+        t_order.user_id AS userId,
+        t_order.order_number AS orderNumber,
+        t_order.created_date AS createdDate
     </sql>
     <resultMap id="listOrderItemMap" type="OrderItemRecord">
         <id column="id" property="id"/>
@@ -227,6 +230,7 @@
         <result column="price" property="price"/>
         <result column="finalPrice" property="finalPrice"/>
         <result column="costPrice" property="costPrice"/>
+        <result column="orderNumber" property="orderNumber"/>
         <association property="user" column="userId" select="com.jfeat.am.module.order.services.domain.dao.QueryOrderItemDao.getUser"/>
     </resultMap>
     <!--  分页——获取所有订单  sql过滤了如果这个订单的用户不存在，没有name，没有phone都不返回-->
