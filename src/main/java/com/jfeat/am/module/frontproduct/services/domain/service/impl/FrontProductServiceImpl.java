@@ -19,6 +19,7 @@ import com.jfeat.am.module.frontproduct.services.gen.persistence.model.*;
 import com.jfeat.crud.base.exception.BusinessCode;
 import com.jfeat.crud.base.exception.BusinessException;
 import com.jfeat.crud.plus.CRUD;
+import com.jfeat.crud.plus.META;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -27,6 +28,7 @@ import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -250,6 +252,10 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         //添加规格
         List<ProductSpecification> productSpecificationRecordList = productSpecificationMapper.selectList(new QueryWrapper<ProductSpecification>().eq("product_id", id));
         frontProductModel.setSpecifications(productSpecificationRecordList);
+
+        //获取社区信息
+        Map<String, Object> orgInfoMap = queryFrontProductDao.getOrgInfoByOrgId(frontProductModel.getOrgId());
+        frontProductModel.setTenantName(orgInfoMap.get("orgName").toString());
 
         return frontProductModel;
     }

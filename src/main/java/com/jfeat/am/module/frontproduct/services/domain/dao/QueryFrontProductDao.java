@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Code Generator on 2019-07-25
@@ -37,4 +38,6 @@ public interface QueryFrontProductDao extends BaseMapper<FrontProduct> {
                                              @Param("search") String search, @Param("orderBy") String orderBy,
                                              @Param("startTime") Date startTime, @Param("endTime") Date endTime,
                                              @Param("supplierId") Long supplierId, @Param("supplierName") String supplierName);
+
+    Map<String, Object> getOrgInfoByOrgId(@Param("orgId") Long orgId);
 }

@@ -71,6 +71,7 @@
                t_product.sku_code                  AS skuCode,
                t_product.banner,
                t_product.barcode                   AS barcode,
+               t_product.org_id                    AS orgId,
 
                t_product.mid,
                t_product.allow_coupon              AS allowCoupon,
@@ -87,6 +88,7 @@
                  LEFT JOIN t_product_category category ON category.id = t_product.category_id
                  LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
                  LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
+                 LEFT JOIN t_product_specification on t_product_specification.product_id = t_product.id
         WHERE t_product.id = #{id}
     </select>
 
@@ -736,6 +738,9 @@
 
 
 <!--    ==========================================带子项查询 end=================================================-->
-
+<!--   获取社区信息 -->
+    <select id="getOrgInfoByOrgId" resultType="HashMap">
+        SELECT `name` AS orgName FROM t_sys_org WHERE t_sys_org.id = #{orgId}
+    </select>
 
 </mapper>

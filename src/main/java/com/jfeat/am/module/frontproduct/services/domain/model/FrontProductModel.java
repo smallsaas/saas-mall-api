@@ -39,6 +39,8 @@ public class FrontProductModel extends FrontProduct {
 
     private List<ProductSpecification> specifications;
 
+    private String tenantName;
+
     /**
      * 订单数量
      */
@@ -163,5 +165,14 @@ public class FrontProductModel extends FrontProduct {
 
     public void setSpecifications(List<ProductSpecification> specifications) {
         this.specifications = specifications;
+    }
+
+
+    public String getTenantName() {
+        return tenantName;
+    }
+
+    public void setTenantName(String tenantName) {
+        this.tenantName = tenantName;
     }
 }
