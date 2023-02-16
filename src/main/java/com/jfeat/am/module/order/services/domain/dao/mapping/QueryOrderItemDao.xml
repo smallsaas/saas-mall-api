@@ -199,6 +199,7 @@
     </where>
     </select>
 
+    <!--  查询用户表信息  -->
     <select id="getUser" resultType="HashMap">
         SELECT
             `id`,`name`,`avatar`,`phone`,`real_name`
@@ -207,7 +208,6 @@
         WHERE
             id = #{userId}
     </select>
-
 
     <sql id="orderItem_and_oder_and_user_column">
         t_order_item.id,
@@ -259,6 +259,5 @@
             t_order.user_id = #{userId} AND t_order.state = 1
         ORDER BY t_order.created_date DESC
     </select>
-
 
 </mapper>
