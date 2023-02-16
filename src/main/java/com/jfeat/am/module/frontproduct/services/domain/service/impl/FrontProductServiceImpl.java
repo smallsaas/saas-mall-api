@@ -70,6 +70,8 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
 
     @Resource
     ProductSpecificationService productSpecificationService;
+    @Resource
+    ProductSpecificationMapper productSpecificationMapper;
 
     @Override
     public List findProductPage(Page<FrontProductRecord> page, FrontProductRecord record,
@@ -188,9 +190,9 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
         }
 
         //保存规格
-        List<ProductSpecificationRecord> productSpecificationRecords = entity.getSpecifications();
+        List<ProductSpecification> productSpecificationRecords = entity.getSpecifications();
         if(productSpecificationRecords != null && !productSpecificationRecords.isEmpty()){
-            for(ProductSpecificationRecord pRecord : productSpecificationRecords){
+            for(ProductSpecification pRecord : productSpecificationRecords){
                 pRecord.setProductId(entity.getId().intValue());
                 affected+= productSpecificationService.createMaster(pRecord);
             }
@@ -244,6 +246,11 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
             ProductBrand productBrand = productBrandService.retrieveMaster(frontProduct.getBrandId());
             frontProductModel.setProductBrand(productBrand);
         }
+
+        //添加规格
+        List<ProductSpecification> productSpecificationRecordList = productSpecificationMapper.selectList(new QueryWrapper<ProductSpecification>().eq("product_id", id));
+        frontProductModel.setSpecifications(productSpecificationRecordList);
+
         return frontProductModel;
     }
 
@@ -315,6 +322,17 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
                         (productSettlementProportionList,entity.getId().intValue());
         for (ProductSettlementProportionRecord tpsp:productSettlementProportionList) {
             affected+= productSettlementProportionMapper.updateById(tpsp);
+        }
+
+        //删除规格
+        affected += productSpecificationMapper.delete(new QueryWrapper<ProductSpecification>().eq("product_id", entity.getId()));
+        //保存规格
+        List<ProductSpecification> productSpecificationRecords = entity.getSpecifications();
+        if(productSpecificationRecords != null && !productSpecificationRecords.isEmpty()){
+            for(ProductSpecification pRecord : productSpecificationRecords){
+                pRecord.setProductId(entity.getId().intValue());
+                affected+= productSpecificationService.createMaster(pRecord);
+            }
         }
 
         return affected;
