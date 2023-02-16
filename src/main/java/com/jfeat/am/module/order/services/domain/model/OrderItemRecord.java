@@ -3,6 +3,7 @@ package com.jfeat.am.module.order.services.domain.model;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Objects;
 
@@ -17,6 +18,28 @@ public class OrderItemRecord extends OrderItem{
 
     // 订单用户
     HashMap<String, Objects> user;
+
+    // 订单号码,从t_order获取
+    String orderNumber;
+
+    // 创建时间，从t_order获取
+    Date createdDate;
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
+    }
 
     public HashMap<String, Objects> getUser() {
         return user;
