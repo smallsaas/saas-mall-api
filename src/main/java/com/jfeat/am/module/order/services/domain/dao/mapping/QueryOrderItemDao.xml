@@ -217,10 +217,13 @@
         t_order_item.price,
         t_order_item.final_price AS finalPrice,
         t_order_item.cost_price AS costPrice,
+        t_order_item.product_specification_id AS productSpecificationId,
+        t_order_item.product_specification_name AS productSpecificationName,
 
         t_order.user_id AS userId,
         t_order.order_number AS orderNumber,
-        t_order.created_date AS createdDate
+        t_order.created_date AS createdDate,
+        t_order.total_price AS totalPrice
     </sql>
     <resultMap id="listOrderItemMap" type="OrderItemRecord">
         <id column="id" property="id"/>
