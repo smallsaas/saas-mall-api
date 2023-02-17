@@ -14,8 +14,10 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductCategoryService;
 import com.jfeat.am.module.frontproduct.services.domain.service.FrontProductService;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.FrontProductCategoryMapper;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.dao.ProductSpecificationMapper;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProduct;
 import com.jfeat.am.module.frontproduct.services.gen.persistence.model.FrontProductCategory;
+import com.jfeat.am.module.frontproduct.services.gen.persistence.model.ProductSpecification;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderItemMapper;
 import com.jfeat.am.module.order.services.gen.persistence.dao.OrderMapper;
 import com.jfeat.am.module.order.services.gen.persistence.model.OrderItem;
@@ -71,6 +73,9 @@ public class AppFrontProductEndpoint {
     OrderItemMapper orderItemMapper;
 /*    @Resource
     EtcdExtandService etcdExtandService;*/
+
+    @Resource
+    ProductSpecificationMapper productSpecificationMapper;
 
 
     @GetMapping("/{id}")
@@ -256,12 +261,15 @@ public class AppFrontProductEndpoint {
             orderNum =  orderMapper.selectList(orderQueryWrapper).size();
         }
 
-
-
         FrontProductModel frontProductModel = frontProductService.getProductHasChild(id);
         if (orderItemList!=null && frontProductModel!=null){
             frontProductModel.setOrderNumber(orderNum);
         }
+
+        //获取规格
+        List<ProductSpecification> productSpecificationRecordList = productSpecificationMapper.selectList(new QueryWrapper<ProductSpecification>().eq("product_id", id));
+        frontProductModel.setSpecifications(productSpecificationRecordList);
+
         return SuccessTip.create(frontProductModel);
     }
 
