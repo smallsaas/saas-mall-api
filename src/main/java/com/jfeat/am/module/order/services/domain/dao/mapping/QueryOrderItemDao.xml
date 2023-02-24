@@ -222,6 +222,7 @@
 
         t_order.user_id AS userId,
         t_order.order_number AS orderNumber,
+        t_order.id AS orderId,
         t_order.created_date AS createdDate,
         t_order.total_price AS totalPrice
     </sql>
