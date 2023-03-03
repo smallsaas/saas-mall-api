@@ -88,7 +88,6 @@
                  LEFT JOIN t_product_category category ON category.id = t_product.category_id
                  LEFT JOIN t_fare_template ON t_product.fare_id = t_fare_template.id
                  LEFT JOIN t_supplier on t_supplier.org_id = t_product.org_id
-                 LEFT JOIN t_product_specification on t_product_specification.product_id = t_product.id
         WHERE t_product.id = #{id}
     </select>
 
