@@ -768,19 +768,28 @@ public class OrderAppEndpoint {
     }
 
     /**
-     * 根据productId返回订购了该商品的订单
+     * 获取指定商品的已团订单
      *
      * @param productId 商品id
      * @return 用户列表
      */
     @GetMapping("/orders/{productId}")
-    public Tip queryProductOrderUsers(@PathVariable Integer productId) {
+    public Tip queryProductOrderUsers(@PathVariable Integer productId,
+                                      @RequestParam(name = "pageNum", required = false,defaultValue = "1") Integer pageNum,
+                                      @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
 
-        // 为了增加通用性，mapper使用对象进行查询，所以需要将参数设给orderItemRecord对象
+        Page<OrderItemRecord> page = new Page<>();
+        page.setCurrent(pageNum);
+        page.setSize(pageSize);
         OrderItemRecord orderItemRecord = new OrderItemRecord();
         orderItemRecord.setProductId(productId);
 
-        return SuccessTip.create(orderItemService.listOrderUser(orderItemRecord));
+        return SuccessTip.create(orderItemService.listOrderUser(page,orderItemRecord));
+    }
+
+    @GetMapping("/products")
+    public Tip getProducts() {
+        return SuccessTip.create(orderItemService.getProducts());
     }
 
     /**
@@ -790,12 +799,11 @@ public class OrderAppEndpoint {
      */
     @GetMapping("/orders")
     public Tip queryOrders(@RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
-                           @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize) {
+                           @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize,
+                           @RequestParam(name = "productId",required = false) Long productId) {
 
         /**
          * 判断用户是否已注册登录
-         * 现在的判断权限不严谨，还需要判断用户的身份进行判断是否可以获取所有的订单
-         * 但是现在该项目并未引入用户模块，暂时不了解用户模块的逻辑，暂不引入
          */
         Long userId = JWTKit.getUserId();
         if (userId==null){
@@ -804,7 +812,7 @@ public class OrderAppEndpoint {
 
         // 使用分页
         Page<OrderItemRecord> orderItemPage = new Page<>(pageNum,pageSize);
-        return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage));
+        return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage,productId));
     }
 
     /**
@@ -818,8 +826,6 @@ public class OrderAppEndpoint {
 
         /**
          * 判断用户是否已注册登录
-         * 现在的判断权限不严谨，还需要判断用户的身份进行判断是否可以获取所有的订单
-         * 但是现在该项目并未引入用户模块，暂时不了解用户模块的逻辑，暂不引入
          */
         Long userId = JWTKit.getUserId();
         if (userId==null){

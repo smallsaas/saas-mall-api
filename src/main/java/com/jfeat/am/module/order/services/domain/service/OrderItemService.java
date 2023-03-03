@@ -14,9 +14,9 @@ public interface OrderItemService extends CRUDOrderItemService{
     List findOrderItemPage(Page<OrderItemRecord> page, OrderItemRecord record, String search,
                            String orderBy, Date startTime, Date endTime);
 
-    List<OrderItemRecord> listOrderItem(OrderItemRecord orderItemRecord);
+    Page<OrderItemRecord> listOrderItem(Page<OrderItemRecord> page,OrderItemRecord orderItemRecord);
 
-    List listOrderUser(OrderItemRecord orderItemRecord);
+    Page<OrderItemRecord> listOrderUser(Page<OrderItemRecord> page,OrderItemRecord orderItemRecord);
 
     HashMap<String,Objects> getUser(Integer userId);
 
@@ -26,7 +26,7 @@ public interface OrderItemService extends CRUDOrderItemService{
      * @param page myBatisPlus分页对象
      * @return 商品列表
      */
-    Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page);
+    Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page,Long productId);
 
     /**
      * 分页-获取指定用户的商品订单
@@ -36,5 +36,12 @@ public interface OrderItemService extends CRUDOrderItemService{
      * @return 商品列表
      */
     Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page,Integer userId);
+
+    /**
+     * 从已有订单表中获取商品分类
+     *
+     * @return
+     */
+    List<HashMap<String,Objects>> getProducts();
 
 }

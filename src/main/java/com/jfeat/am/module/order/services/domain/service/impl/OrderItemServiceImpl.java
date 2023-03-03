@@ -38,9 +38,9 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
     }
 
     @Override
-    public List<OrderItemRecord> listOrderItem(OrderItemRecord orderItemRecord) {
+    public Page<OrderItemRecord> listOrderItem(Page<OrderItemRecord> page, OrderItemRecord orderItemRecord) {
 
-        return queryOrderItemDao.listOrderItem(orderItemRecord);
+        return queryOrderItemDao.listOrderItem(page,orderItemRecord);
     }
 
     /**
@@ -50,14 +50,14 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
      * @return 有数据返回userList 否则返回null
      */
     @Override
-    public List listOrderUser(OrderItemRecord orderItemRecord) {
+    public Page<OrderItemRecord> listOrderUser(Page<OrderItemRecord> page, OrderItemRecord orderItemRecord) {
 
         // 查询订单
-        List<OrderItemRecord> orderItemRecordList = this.listOrderItem(orderItemRecord);
-        if (orderItemRecordList == null && orderItemRecordList.size() == 0) return null;
+        Page<OrderItemRecord> orderItemRecordPage = this.listOrderItem(page,orderItemRecord);
+        if (orderItemRecordPage.getRecords() == null && orderItemRecordPage.getRecords().size() == 0) return null;
 
         // 遍历orderItemRecord list获取其中的每个订单的orderId用来查询order表，因为只有order表中才有userId
-        for (OrderItemRecord orderItem : orderItemRecordList) {
+        for (OrderItemRecord orderItem : orderItemRecordPage.getRecords()) {
             // 如果没有orderId则退出此次循环
             if (orderItem.getOrderId() == null) continue;
             OrderModel order = orderService.getOrder(orderItem.getOrderId().longValue());
@@ -69,7 +69,7 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
             orderItem.setUser(user);
         }
 
-        return orderItemRecordList;
+        return orderItemRecordPage;
     }
 
     /**
@@ -89,8 +89,8 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
      * @return myBatisPlus分页对象
      */
     @Override
-    public Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page) {
-        return queryOrderItemDao.getOrderItemPage(page);
+    public Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page,Long productId) {
+        return queryOrderItemDao.getOrderItemPage(page,productId);
     }
 
     /**
@@ -103,6 +103,17 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
     @Override
     public Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page, Integer userId) {
         return queryOrderItemDao.getOrderItemByUserIdPage(page,userId);
+    }
+
+    /**
+     * 从已有订单表中获取商品分类
+     *
+     * @return
+     */
+    @Override
+    public List<HashMap<String,Objects>> getProducts() {
+
+        return queryOrderItemDao.getProducts();
     }
 
 }

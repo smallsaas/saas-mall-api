@@ -20,11 +20,13 @@ public interface QueryOrderItemDao extends BaseMapper<OrderItem> {
                                             @Param("search") String search, @Param("orderBy") String orderBy,
                                             @Param("startTime") Date startTime, @Param("endTime") Date endTime);
 
-    List<OrderItemRecord> listOrderItem(@Param("orderItemRecord") OrderItemRecord orderItemRecord);
+    Page<OrderItemRecord> listOrderItem(Page<OrderItemRecord> page, @Param("orderItemRecord") OrderItemRecord orderItemRecord);
 
     HashMap<String, Objects> getUser(@Param("userId") Integer userId);
 
-    Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page);
+    Page<OrderItemRecord> getOrderItemPage(Page<OrderItemRecord> page,@Param("productId") Long productId);
 
     Page<OrderItemRecord> getOrderItemByUserIdPage(Page<OrderItemRecord> page,@Param("userId") Integer userId);
+
+    List<HashMap<String,Objects>> getProducts();
 }
