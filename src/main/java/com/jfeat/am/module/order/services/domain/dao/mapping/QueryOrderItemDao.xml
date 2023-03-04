@@ -273,8 +273,8 @@
 
     <!-- 在已有订单中获取商品分类 -->
     <sql id="getProductsFields">
-        t_order_item.product_id,
-        t_order_item.product_name
+        t_order_item.product_id AS productId,
+        t_order_item.product_name AS productName
     </sql>
     <select id="getProducts" resultType="HashMap">
         SELECT

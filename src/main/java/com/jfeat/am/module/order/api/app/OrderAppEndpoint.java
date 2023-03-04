@@ -787,6 +787,11 @@ public class OrderAppEndpoint {
         return SuccessTip.create(orderItemService.listOrderUser(page,orderItemRecord));
     }
 
+    /**
+     * 获取已有订单的商品分类
+     *
+     * @return
+     */
     @GetMapping("/products")
     public Tip getProducts() {
         return SuccessTip.create(orderItemService.getProducts());
