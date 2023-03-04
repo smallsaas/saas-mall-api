@@ -768,26 +768,6 @@ public class OrderAppEndpoint {
     }
 
     /**
-     * 获取指定商品的已团订单
-     *
-     * @param productId 商品id
-     * @return 用户列表
-     */
-    @GetMapping("/orders/{productId}")
-    public Tip queryProductOrderUsers(@PathVariable Integer productId,
-                                      @RequestParam(name = "pageNum", required = false,defaultValue = "1") Integer pageNum,
-                                      @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize) {
-
-        Page<OrderItemRecord> page = new Page<>();
-        page.setCurrent(pageNum);
-        page.setSize(pageSize);
-        OrderItemRecord orderItemRecord = new OrderItemRecord();
-        orderItemRecord.setProductId(productId);
-
-        return SuccessTip.create(orderItemService.listOrderUser(page,orderItemRecord));
-    }
-
-    /**
      * 获取已有订单的商品分类
      *
      * @return
@@ -800,6 +780,7 @@ public class OrderAppEndpoint {
     /**
      * 分页查询所有的订单
      *
+     * @param productId 查询指定商品的订单
      * @return page: Mybatis-Plus封装的分页对象,订单列表数据在page.records
      */
     @GetMapping("/orders")

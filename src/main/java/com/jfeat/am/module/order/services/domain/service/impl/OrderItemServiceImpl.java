@@ -44,35 +44,6 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
     }
 
     /**
-     * 根据orderItemRecord中的参数，查询对应订单下的所有用户
-     *
-     * @param orderItemRecord 为了保证通用性，使用orderItemRecord实体类作为参数
-     * @return 有数据返回userList 否则返回null
-     */
-    @Override
-    public Page<OrderItemRecord> listOrderUser(Page<OrderItemRecord> page, OrderItemRecord orderItemRecord) {
-
-        // 查询订单
-        Page<OrderItemRecord> orderItemRecordPage = this.listOrderItem(page,orderItemRecord);
-        if (orderItemRecordPage.getRecords() == null && orderItemRecordPage.getRecords().size() == 0) return null;
-
-        // 遍历orderItemRecord list获取其中的每个订单的orderId用来查询order表，因为只有order表中才有userId
-        for (OrderItemRecord orderItem : orderItemRecordPage.getRecords()) {
-            // 如果没有orderId则退出此次循环
-            if (orderItem.getOrderId() == null) continue;
-            OrderModel order = orderService.getOrder(orderItem.getOrderId().longValue());
-            // 如果没有UserId则跳出此次的循环
-            if (order.getUserId() == null) continue;
-            HashMap<String,Objects> user = this.getUser(order.getUserId());
-            // 如果该userId没有查出数据则跳过此次循环，因为有可能该用户已不存在，那么就没有必要返回这个用户的信息了
-            if (user == null || user.isEmpty()) continue;
-            orderItem.setUser(user);
-        }
-
-        return orderItemRecordPage;
-    }
-
-    /**
      * 查询t_end_user表
      * @param userId 用户id
      * @return

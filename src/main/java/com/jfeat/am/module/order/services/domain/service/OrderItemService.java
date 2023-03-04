@@ -16,8 +16,6 @@ public interface OrderItemService extends CRUDOrderItemService{
 
     Page<OrderItemRecord> listOrderItem(Page<OrderItemRecord> page,OrderItemRecord orderItemRecord);
 
-    Page<OrderItemRecord> listOrderUser(Page<OrderItemRecord> page,OrderItemRecord orderItemRecord);
-
     HashMap<String,Objects> getUser(Integer userId);
 
     /**
