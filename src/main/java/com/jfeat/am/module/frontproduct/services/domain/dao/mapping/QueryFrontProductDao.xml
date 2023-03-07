@@ -79,6 +79,9 @@
                t_product.is_virtual                AS isVirtual,
                t_product.required_participate_exam AS requiredParticipateExam,
 
+               t_product.start_date_time AS startDateTime,
+               t_product.end_date_time AS endDateTime,
+
                t_fare_template.name                AS fareName,
                t_product_brand.NAME                AS brandName,
                category.NAME                       AS categoryName,
