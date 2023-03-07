@@ -1,14 +1,15 @@
 package com.jfeat.am.module.frontproduct.services.gen.persistence.model;
 
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -161,20 +162,44 @@ public class FrontProduct extends Model<FrontProduct> {
 	@ApiModelProperty("折扣")
 	private BigDecimal discount;
 
-	public BigDecimal getDiscount() {
-		return discount;
-	}
+	/**
+	 * 团购开始和结束时间
+	 * 为了支持 匠城便民小程序 而添加
+	 */
+	@ApiModelProperty("商品团购开始时间")
+	private LocalDateTime startDateTime;
 
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
-	}
+	@ApiModelProperty("商品团购结束时间")
+	private LocalDateTime endDateTime;
 
 	public BigDecimal getDiscountPrice() {
 		return discountPrice;
 	}
-
 	public void setDiscountPrice(BigDecimal discountPrice) {
 		this.discountPrice = discountPrice;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
+	}
+
+	public void setStartDateTime(LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(LocalDateTime endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 
 	public Integer getHasChild() {
