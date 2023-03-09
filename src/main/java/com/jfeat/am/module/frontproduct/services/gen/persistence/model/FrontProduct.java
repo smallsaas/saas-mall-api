@@ -164,7 +164,7 @@ public class FrontProduct extends Model<FrontProduct> {
 
 	/**
 	 * 团购开始和结束时间
-	 * 为了支持 匠城便民小程序 而添加
+	 * 为了支持 匠城便民小程序 的团购功能而添加
 	 */
 	@ApiModelProperty("商品团购开始时间")
 	private LocalDateTime startDateTime;
