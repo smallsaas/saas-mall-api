@@ -1,6 +1,7 @@
 package com.jfeat.am.module.order.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.core.jwt.JWTKit;
@@ -451,7 +452,33 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
             
         }
 
+    }
 
+    /**
+     * 获取商品已团总数
+     *
+     * @param productId 商品id
+     * @return 已团总数
+     */
+    @Override
+    public int sumQuantityByProductId(Long productId) {
+        return queryOrderDao.sumOrderByProductId(productId);
+    }
+
+    /**
+     * 大匠小程序团购 - 取消订单
+     *
+     * @param productId
+     * @return
+     */
+    @Transactional
+    @Override
+    public int cancelOrderByProductId(Long productId) {
+
+        Long userId = JWTKit.getUserId();
+        if (userId == null) throw new BusinessException(BusinessCode.UserNotExisted,"未注册");
+
+        return queryOrderDao.updateState(Integer.parseInt(userId.toString()),productId);
     }
 
 

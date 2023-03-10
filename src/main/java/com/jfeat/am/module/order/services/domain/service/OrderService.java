@@ -68,4 +68,18 @@ public interface OrderService extends CRUDOrderService{
 
     void setItemsByPages(Page<OrderRecord> page);
 
+    /**
+     * 获取商品已团总数
+     * @param productId 商品id
+     * @return 已团总数
+     */
+    int sumQuantityByProductId(Long productId);
+
+    /**
+     * 大匠小程序团购 - 取消订单
+     * @param productId
+     * @return
+     */
+    int cancelOrderByProductId(Long productId);
+
 }

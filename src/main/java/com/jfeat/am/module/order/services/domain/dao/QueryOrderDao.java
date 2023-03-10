@@ -98,4 +98,19 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
     List<OrderRecord> getOrderRecordList(@Param("record")OrderRecord record);
 
     List<OrderRecord> listOrders(@Param("ids") List<Integer> ids);
+
+    /**
+     * 统计商品已团的总数量
+     * @param productId 商品id
+     * @return 总数
+     */
+    int sumOrderByProductId(@Param("productId") Long productId);
+
+    /**
+     * 取消团购订单
+     * @param userId 取消的用户id
+     * @param productId 要取消的订单的商品id
+     * @return
+     */
+    int updateState(@Param("userId") Integer userId,@Param("productId") Long productId);
 }

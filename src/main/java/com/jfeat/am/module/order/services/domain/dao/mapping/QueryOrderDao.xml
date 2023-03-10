@@ -872,7 +872,8 @@
         FROM t_order
                  JOIN t_order_item ON t_order.id = t_order_item.order_id
         WHERE
-            1=1
+            t_order.state = 1
+
         <if test="record.userId != null and record.userId>0 ">
             AND t_order.user_id = #{record.userId}
         </if>
@@ -895,6 +896,28 @@
             #{item}
         </foreach>
     </select>
+
+    <select id="sumOrderByProductId" resultType="int">
+        SELECT
+            SUM(item.quantity)
+        FROM `t_order` AS `order`
+        LEFT JOIN `t_order_item` AS `item` ON `order`.`id` = `item`.`order_id`
+        LEFT JOIN `t_end_user` AS `user` ON `order`.`user_id` = `user`.`id`
+        WHERE
+            `item`.`product_id` = #{productId}
+            AND `order`.`state` = 1
+            AND `user`.`name` IS NOT NULL
+            AND `user`.`name` IS NOT NULL
+    </select>
+
+    <update id="updateState">
+        UPDATE
+            `t_order` AS `order`
+        LEFT JOIN `t_order_item` AS `item` ON `order`.`id` = `item`.`order_id`
+        SET `order`.`state` = 0
+        WHERE `order`.`user_id` = #{userId}
+            AND `item`.`product_id` = #{productId}
+    </update>
 
 
 </mapper>

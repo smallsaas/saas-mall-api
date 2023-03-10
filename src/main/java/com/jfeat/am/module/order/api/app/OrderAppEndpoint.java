@@ -751,10 +751,12 @@ public class OrderAppEndpoint {
     @GetMapping("/status/bulk/{productId}")
     public Tip getBulkOrder(@PathVariable("productId") Long productId){
 
+        // 用户是否已注册
         Long userId = JWTKit.getUserId();
         if (userId==null){
             throw new BusinessException(BusinessCode.NoPermission);
         }
+
         OrderRecord record = new OrderRecord();
         record.setProductId(productId);
         record.setCategory("bulk");
@@ -765,6 +767,29 @@ public class OrderAppEndpoint {
         result.put("orderList",orderRecordList);
         return SuccessTip.create(result);
 
+    }
+
+    /**
+     * 获取商品的已团总数
+     * @param productId 商品id
+     * @return 已团总数
+     */
+    @GetMapping("/sum-order/{productId}")
+    public Tip sumQuantityByProductId(@PathVariable(name = "productId") Long productId) {
+
+        return SuccessTip.create(orderService.sumQuantityByProductId(productId));
+
+    }
+
+    /**
+     * 取消团购订单
+     * 该方法仅仅只是修改t_order.state状态，因为业务需求不同，不使用上方的取消订单api
+     * @param productId 商品订单id ps: 应该使用订单号的，可是因为遗留的问题，现在使用商品id（每个用户每个商品只能加入一次团购）
+     * @return
+     */
+    @PutMapping("/cancel-order/{productId}")
+    public Tip cancelOrderByProductId(@PathVariable(name = "productId") Long productId) {
+        return SuccessTip.create(orderService.cancelOrderByProductId(productId));
     }
 
     /**
