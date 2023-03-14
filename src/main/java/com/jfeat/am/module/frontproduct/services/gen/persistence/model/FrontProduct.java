@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
@@ -167,9 +168,11 @@ public class FrontProduct extends Model<FrontProduct> {
 	 * 为了支持 匠城便民小程序 的团购功能而添加
 	 */
 	@ApiModelProperty("商品团购开始时间")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private LocalDateTime startDateTime;
 
 	@ApiModelProperty("商品团购结束时间")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	private LocalDateTime endDateTime;
 
 	public BigDecimal getDiscountPrice() {
