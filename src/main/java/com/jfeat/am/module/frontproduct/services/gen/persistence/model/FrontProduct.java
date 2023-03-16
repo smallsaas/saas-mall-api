@@ -1,5 +1,6 @@
 package com.jfeat.am.module.frontproduct.services.gen.persistence.model;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -168,11 +169,13 @@ public class FrontProduct extends Model<FrontProduct> {
 	 * 为了支持 匠城便民小程序 的团购功能而添加
 	 */
 	@ApiModelProperty("商品团购开始时间")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime startDateTime;
 
 	@ApiModelProperty("商品团购结束时间")
-	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime endDateTime;
 
 	public BigDecimal getDiscountPrice() {
