@@ -10,6 +10,7 @@ import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.definition.OrderType;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderDao;
 import com.jfeat.am.module.order.services.domain.model.*;
+import com.jfeat.am.module.order.services.domain.service.OrderItemService;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import com.jfeat.crud.base.annotation.BusinessLog;
@@ -147,13 +148,20 @@ public class OrderEndpoint {
         }
     }
 
-    @BusinessLog(name = "订单", value = "删除订单")
-    @DeleteMapping("/{id}")
-    @ApiOperation("删除 Order")
-    @Permission(OrderPermission.ORDER_DEL)
-    public Tip deleteOrder(@PathVariable Long id) {
-        return SuccessTip.create(orderService.deleteMaster(id));
-    }
+//    @BusinessLog(name = "订单", value = "删除订单")
+//    @DeleteMapping("/{id}")
+//    @ApiOperation("删除 Order")
+//    @Permission(OrderPermission.ORDER_DEL)
+//    public Tip deleteOrder(@PathVariable Long id) {
+//        return SuccessTip.create(orderService.deleteMaster(id));
+//    }
+
+//    @BusinessLog(name = "订单", value = "删除订单")
+//    @DeleteMapping("/{id}")
+//    @ApiOperation("删除 Order")
+//    public Tip deleteOrder(@PathVariable(name = "id") Long id) {
+//        return SuccessTip.create(orderService.deleteOrder(id));
+//    }
 
     @ApiOperation(value = "Order 列表信息", response = OrderRecord.class)
     @GetMapping

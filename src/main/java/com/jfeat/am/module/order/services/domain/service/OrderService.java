@@ -76,10 +76,17 @@ public interface OrderService extends CRUDOrderService{
     int sumQuantityByProductId(Long productId);
 
     /**
-     * 大匠小程序团购 - 取消订单
+     * 大匠小程序团购 - 用户取消订单
      * @param productId
      * @return
      */
     int cancelOrderByProductId(Long productId);
+
+    /**
+     * 删除订单，order联合order_item一起删除
+     * @param id
+     * @return
+     */
+    int deleteOrder(Long id);
 
 }

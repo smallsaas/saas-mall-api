@@ -1,5 +1,7 @@
 package com.jfeat.am.module.order.services.domain.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.module.order.services.domain.model.OrderItemRecord;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDOrderItemService;

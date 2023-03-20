@@ -125,12 +125,19 @@ public class OrderAppEndpoint {
         }
     }
 
+//    @BusinessLog(name = "订单", value = "删除订单")
+//    @DeleteMapping("/{id}")
+//    @ApiOperation("删除 Order")
+//    @Permission(OrderPermission.ORDER_DEL)
+//    public Tip deleteOrder(@PathVariable Long id) {
+//        return SuccessTip.create(orderService.deleteMaster(id));
+//    }
+
     @BusinessLog(name = "订单", value = "删除订单")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 Order")
-    @Permission(OrderPermission.ORDER_DEL)
-    public Tip deleteOrder(@PathVariable Long id) {
-        return SuccessTip.create(orderService.deleteMaster(id));
+    public Tip deleteOrder(@PathVariable(name = "id") Long id) {
+        return SuccessTip.create(orderService.deleteOrder(id));
     }
 
     @ApiOperation(value = "Order 列表信息", response = OrderRecord.class)
