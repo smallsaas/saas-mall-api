@@ -35,7 +35,10 @@
         t_product.allow_coupon AS allowCoupon,
         t_product.credit,
         t_product.is_virtual AS isVirtual,
-        t_product.required_participate_exam AS requiredParticipateExam
+        t_product.required_participate_exam AS requiredParticipateExam,
+        t_product.start_date_time AS startDateTime,
+        t_product.end_date_time AS endDateTime,
+        t_product.supplier_id AS supplierId
     </sql>
 
 
@@ -81,6 +84,7 @@
 
                t_product.start_date_time AS startDateTime,
                t_product.end_date_time AS endDateTime,
+               t_product.supplier_id AS suplierId
 
                t_fare_template.name                AS fareName,
                t_product_brand.NAME                AS brandName,

@@ -165,7 +165,6 @@ public class FrontProduct extends Model<FrontProduct> {
 	private BigDecimal discount;
 
 	/**
-	 * 团购开始和结束时间
 	 * 为了支持 匠城便民小程序 的团购功能而添加
 	 */
 	@ApiModelProperty("商品团购开始时间")
@@ -177,6 +176,16 @@ public class FrontProduct extends Model<FrontProduct> {
 //	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
 	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime endDateTime;
+
+	@ApiModelProperty("供应商id")
+	private Long supplierId;
+
+	public Long getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(Long supplierId) {
+		this.supplierId = supplierId;
+	}
 
 	public BigDecimal getDiscountPrice() {
 		return discountPrice;
