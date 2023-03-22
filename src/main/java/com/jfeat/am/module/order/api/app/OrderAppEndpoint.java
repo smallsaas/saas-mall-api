@@ -836,7 +836,7 @@ public class OrderAppEndpoint {
     /**
      * 分页-查询指定用户的商品订单
      *
-     * @return page: Mybatis-Plus封装的分页对象,订单列表数据在page.records
+     * @return page: Mybatis-Plus封装的分页对象
      */
     @GetMapping("/orders/byUser")
     public Tip queryOrdersByUser(@RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,

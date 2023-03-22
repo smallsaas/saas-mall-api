@@ -899,7 +899,7 @@
 
     <select id="sumOrderByProductId" resultType="int">
         SELECT
-            SUM(item.quantity)
+            IFNULL(SUM(item.quantity),0)
         FROM `t_order` AS `order`
         LEFT JOIN `t_order_item` AS `item` ON `order`.`id` = `item`.`order_id`
         LEFT JOIN `t_end_user` AS `user` ON `order`.`user_id` = `user`.`id`
