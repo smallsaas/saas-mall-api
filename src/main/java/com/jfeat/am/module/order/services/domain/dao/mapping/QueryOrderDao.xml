@@ -919,5 +919,30 @@
             AND `item`.`product_id` = #{productId}
     </update>
 
+    <!-- 获取供应商旗下产品订单 -->
+    <resultMap id="supplierOrderMap" type="OrderRecord">
+        <id column="orderId" property="id"/>
+        <result column="created_date" property="createdDate"/>
+        <result column="order_number" property="orderNumber"/>
+        <result column="total_price" property="totalPrice"/>
+        <result column="productName" property="productName"/>
+        <association property="user" column="user_id" select="com.jfeat.am.module.order.services.domain.dao.QueryOrderItemDao.getUser"/>
+    </resultMap>
+    <select id="listOrdersBySupplier" resultMap="supplierOrderMap">
+        SELECT
+            `order`.`id` AS `orderId`,
+            `order`.`created_date`,
+            `order`.`order_number`,
+            `order`.`total_price`,
+            `order`.`user_id`,
+            `product`.`name` AS `productName`
+        FROM
+            `t_order` AS `order`
+            RIGHT JOIN `t_order_item` AS `item` ON `order`.`id` = `item`.`order_id`
+            RIGHT JOIN `t_product` AS `product` ON `item`.`product_id` = `product`.`id`
+        WHERE
+            `product`.`supplier_id` = #{supplierId}
+    </select>
+
 
 </mapper>

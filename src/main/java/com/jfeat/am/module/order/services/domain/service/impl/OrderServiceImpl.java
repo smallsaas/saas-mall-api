@@ -511,5 +511,17 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
         return affected;
     }
 
+    /**
+     * 查询供应商旗下产品的订单
+     *
+     * @param page
+     * @param supplierId 供应商id
+     * @return
+     */
+    @Override
+    public Page<TOrder> listOrdersBySupplier(Page<TOrder> page, Long supplierId) {
+        return queryOrderDao.listOrdersBySupplier(page,supplierId);
+    }
+
 
 }

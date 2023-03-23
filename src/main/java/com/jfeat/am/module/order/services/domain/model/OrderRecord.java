@@ -23,12 +23,30 @@ public class OrderRecord extends TOrder {
     String allianceName;
 
     List<OrderItem> orderItemRecordList ;
-
+    // 用户头像
     String avatar;
-
+    // 用户电话
     String userPhone;
-
+    // 产品id
     Long productId;
+    // 产品名
+    String productName;
+    // 订单用户信息
+    HashMap<String,Objects> user;
+
+    public String getProductName() {
+        return productName;
+    }
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public HashMap<String, Objects> getUser() {
+        return user;
+    }
+    public void setUser(HashMap<String, Objects> user) {
+        this.user = user;
+    }
 
     public Long getProductId() {
         return productId;

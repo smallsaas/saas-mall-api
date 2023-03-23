@@ -850,7 +850,6 @@ public class OrderAppEndpoint {
             throw new BusinessException(BusinessCode.NoPermission,"您还未登录");
         }
 
-        // 使用分页
         Page<OrderItemRecord> orderItemPage = new Page<>(pageNum,pageSize);
         return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage, userId.intValue()));
     }

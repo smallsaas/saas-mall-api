@@ -113,4 +113,12 @@ public interface QueryOrderDao extends BaseMapper<TOrder> {
      * @return
      */
     int updateState(@Param("userId") Integer userId,@Param("productId") Long productId);
+
+    /**
+     * 查询供应商旗下商品的订单
+     * @param page
+     * @param supplierId 供应商id
+     * @return
+     */
+    Page<TOrder> listOrdersBySupplier(Page<TOrder> page,@Param("supplierId") Long supplierId);
 }

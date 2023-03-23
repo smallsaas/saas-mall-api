@@ -60,7 +60,7 @@ public class OrderItemServiceImpl extends CRUDOrderItemServiceImpl implements Or
     }
 
     /**
-     * 分页查询所有的商品订单
+     * 分页查询指定商品的订单
      *
      * @param page myBatisPlus分页对象
      * @return myBatisPlus分页对象
