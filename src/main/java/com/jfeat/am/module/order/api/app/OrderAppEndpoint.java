@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.core.model.EndUserTypeSetting;
+import com.jfeat.am.module.commons.HouseEmail;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.definition.OrderType;
@@ -72,6 +73,9 @@ public class OrderAppEndpoint {
 
     @Resource
     OrderItemService orderItemService;
+
+    @Resource
+    HouseEmail houseEmail; // 匠城小程序邮件类
 
     @BusinessLog(name = "订单", value = "新增线上订单")
     @PostMapping

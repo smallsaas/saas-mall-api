@@ -15,13 +15,15 @@ import java.util.Objects;
 public class OrderRecord extends TOrder {
     String pName;
     String barcode;
+    // 用户名
     String userName;
+    // 用户真实姓名
     String realName;
     //邀请人进货额
     BigDecimal orderAmount;
     //邀请人盟友
     String allianceName;
-
+    // 订单产品列表
     List<OrderItem> orderItemRecordList ;
     // 用户头像
     String avatar;
