@@ -46,6 +46,13 @@
             <version>1.18.0</version>
         </dependency>
 
+        <!-- 用户模块 -->
+        <dependency>
+            <groupId>com.jfeat</groupId>
+            <artifactId>user-account</artifactId>
+            <version>1.0.1</version>
+        </dependency>
+
         <!-- 消息队列 -->
         <dependency>
             <groupId>com.jfeat</groupId>
@@ -56,6 +63,12 @@
             <groupId>com.jfeat</groupId>
             <artifactId>kafka-email</artifactId>
             <version>1.0.0</version>
+        </dependency>
+
+        <!-- kafka -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
         </dependency>
 
     </dependencies>
