@@ -89,7 +89,7 @@ public class OrderAppEndpoint {
             order.setType(OrderType.ORDER.name());
             affected = orderService.createOrder(order);
 
-            // 订单创建成功则进行邮件发送,应该是在affected > 0才进行发送的，可是创建成功了也是返回0，所以不去深入理解他人的业务，直接发送邮件
+            // 订单创建成功则进行邮件发送,应该是在affected > 0才进行发送的，可是创建成功了也是返回0，不知道是否是使用了代理的原因，所以不去深入理解他人的业务，直接发送邮件
             houseEmail.sendGroupOrderEmail(order);
 
         } catch (DuplicateKeyException e) {

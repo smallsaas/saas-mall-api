@@ -62,7 +62,7 @@ public class HouseEmail {
 
     // 团购邮件内容模版
     private static final String GROUP_EMAIL_TEMPLATE =
-            "【匠城回迁便民服务】团购订单通知：用户\"{userName}\"加入了\"{productName}\"团购，订购数量：{number}，联系电话：{phone}";
+            "【匠城回迁便民服务-团购订单通知】用户：{userName}，联系电话：{phone}，加入了{productName}团购，订购数量：{number}";
 
     // 任务类型：团购任务
     private static final String QUEUE_HOUSE_GROUP = "QUEUE_HOUSE_GROUP";
