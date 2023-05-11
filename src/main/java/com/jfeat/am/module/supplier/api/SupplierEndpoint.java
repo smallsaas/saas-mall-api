@@ -1,6 +1,7 @@
 package com.jfeat.am.module.supplier.api;
 
 
+import com.jfeat.am.module.frontproduct.services.constants.AuthorizationConst;
 import com.jfeat.am.module.supplier.api.permission.SupplierPermission;
 import com.jfeat.am.module.supplier.services.domain.dao.QuerySupplierDao;
 import com.jfeat.am.module.supplier.services.domain.model.SupplierBindModel;
@@ -58,8 +59,6 @@ import com.alibaba.fastjson.JSONArray;
 @Api("Supplier")
 @RequestMapping("/api/crud/supplier/suppliers")
 public class SupplierEndpoint {
-
-    private static final int masterId = 61;
 
     @Resource
     SupplierService supplierService;
@@ -175,8 +174,9 @@ public class SupplierEndpoint {
         record.setUrl(url);
         record.setAddress(address);
         System.out.println(JWTKit.getUserId());
+        System.out.println(JWTKit.getAccount());
         if (META.enabledSaas()) {
-            if(JWTKit.getUserId().equals(masterId)){
+            if(JWTKit.getUserId().equals(AuthorizationConst.masterId)){
             }else{
                 record.setOrgId(JWTKit.getOrgId());
             }
