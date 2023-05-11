@@ -1,6 +1,8 @@
 package com.jfeat.am.module.order.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.Update;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.core.jwt.JWTKit;
@@ -17,6 +19,7 @@ import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletDao;
 import com.jfeat.am.module.order.services.domain.dao.QueryOrderWalletHistoryDao;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.domain.service.ExpressService;
+import com.jfeat.am.module.order.services.domain.service.OrderItemService;
 import com.jfeat.am.module.order.services.domain.service.OrderService;
 import com.jfeat.am.module.order.services.domain.service.OrderWelletService;
 import com.jfeat.am.module.order.services.gen.crud.service.impl.CRUDOrderServiceImpl;
@@ -50,25 +53,36 @@ import java.util.stream.Collectors;
 public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderService {
     @Resource
     QueryOrderDao queryOrderDao;
+
     @Resource
     OrderMapper orderMapper;
+
     @Resource
     OrderItemMapper orderItemMapper;
+
     @Resource
     OrderProcessLogMapper orderProcessLogMapper;
+
     @Resource
     FrontProductMapper frontProductMapper;
+
     @Resource
     QueryOrderWalletHistoryDao queryOrderWalletHistoryDao;
+
     @Resource
     OrderWelletService orderWelletService;
+
     @Resource
     ExpressMapper expressMapper;
+
     @Resource
     ExpressService expressService;
 
     @Resource
     QueryOrderWalletDao queryOrderWalletDao;
+
+    @Resource
+    OrderItemService orderItemService;
 
 
 
@@ -451,7 +465,62 @@ public class OrderServiceImpl extends CRUDOrderServiceImpl implements OrderServi
             
         }
 
+    }
 
+    /**
+     * 获取商品已团总数
+     *
+     * @param productId 商品id
+     * @return 已团总数
+     */
+    @Override
+    public int sumQuantityByProductId(Long productId) {
+        return queryOrderDao.sumOrderByProductId(productId);
+    }
+
+    /**
+     * 大匠小程序团购 - 取消订单
+     *
+     * @param productId
+     * @return
+     */
+    @Transactional
+    @Override
+    public int cancelOrderByProductId(Long productId) {
+
+        Long userId = JWTKit.getUserId();
+        if (userId == null) throw new BusinessException(BusinessCode.UserNotExisted,"未注册");
+
+        return queryOrderDao.updateState(Integer.parseInt(userId.toString()),productId);
+    }
+
+    /**
+     * 删除订单，order联合order_item一起删除
+     *
+     * @param id
+     * @return 删除总数
+     */
+    @Transactional
+    @Override
+    public int deleteOrder(Long id) {
+        // 影响行数
+        int affected = 0;
+
+        affected += queryOrderDao.deleteById(id);
+        if (affected < 1) throw new BusinessException(BusinessCode.DatabaseDeleteError,"删除失败，请确认该记录是否存在");
+        return affected;
+    }
+
+    /**
+     * 查询供应商旗下产品的订单
+     *
+     * @param page
+     * @param supplierId 供应商id
+     * @return
+     */
+    @Override
+    public Page<TOrder> listOrdersBySupplier(Page<TOrder> page, Long supplierId) {
+        return queryOrderDao.listOrdersBySupplier(page,supplierId);
     }
 
 

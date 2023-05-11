@@ -6,6 +6,7 @@ import com.jfeat.am.module.frontproduct.services.domain.model.FrontProductRecord
 import com.jfeat.am.module.frontuser.services.gen.persistence.model.FrontUser;
 import com.jfeat.am.module.order.services.domain.model.*;
 import com.jfeat.am.module.order.services.gen.crud.service.CRUDOrderService;
+import com.jfeat.am.module.order.services.gen.persistence.model.TOrder;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,5 +68,34 @@ public interface OrderService extends CRUDOrderService{
     ExpressInfo expressInfo(Long id);
 
     void setItemsByPages(Page<OrderRecord> page);
+
+    /**
+     * 获取商品已团总数
+     * @param productId 商品id
+     * @return 已团总数
+     */
+    int sumQuantityByProductId(Long productId);
+
+    /**
+     * 大匠小程序团购 - 用户取消订单
+     * @param productId
+     * @return
+     */
+    int cancelOrderByProductId(Long productId);
+
+    /**
+     * 删除订单，order联合order_item一起删除
+     * @param id
+     * @return
+     */
+    int deleteOrder(Long id);
+
+    /**
+     * 查询供应商旗下产品的订单
+     * @param supplierId 供应商id
+     * @return
+     */
+    Page<TOrder> listOrdersBySupplier(Page<TOrder> page,Long supplierId);
+
 
 }

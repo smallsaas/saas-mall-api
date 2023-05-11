@@ -2,6 +2,7 @@ package com.jfeat.am.module.frontproduct.services.domain.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.module.frontproduct.constant.ProductStatus;
@@ -377,5 +378,19 @@ public class FrontProductServiceImpl extends CRUDFrontProductServiceImpl impleme
     @Override
     public Integer deleteProductHasChild(Long id) {
         return null;
+    }
+
+    /**
+     * 清除产品的绑定的供应商id
+     *
+     * @param supplierId 需要清除的供应商id
+     * @return
+     */
+    @Override
+    public int updateBySupplierId(Long supplierId) {
+        if (supplierId == null) return 0;
+        UpdateWrapper<FrontProduct> wrapper = new UpdateWrapper<>();
+        wrapper.eq("supplier_id",supplierId).set("supplier_id",null);
+        return queryFrontProductDao.update(new FrontProduct(),wrapper);
     }
 }

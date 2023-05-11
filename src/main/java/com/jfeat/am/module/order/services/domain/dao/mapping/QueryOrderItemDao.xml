@@ -254,6 +254,9 @@
                    WHERE
                        t_end_user.id = t_order.user_id AND t_end_user.name IS NOT NULL AND t_end_user.phone IS NOT NULL
                    )
+          <if test="productId != null">
+            AND t_order_item.product_id = #{productId}
+          </if>
         ORDER BY t_order.created_date DESC
     </select>
     <!--  分页——获取指定用户的商品订单  -->
@@ -266,6 +269,20 @@
         WHERE
             t_order.user_id = #{userId} AND t_order.state = 1
         ORDER BY t_order.created_date DESC
+    </select>
+
+    <!-- 在已有订单中获取商品分类 -->
+    <sql id="getProductsFields">
+        t_order_item.product_id AS productId,
+        t_order_item.product_name AS productName
+    </sql>
+    <select id="getProducts" resultType="HashMap">
+        SELECT
+            <include refid="getProductsFields" />
+        FROM
+            t_order_item
+        GROUP BY
+            t_order_item.product_id,t_order_item.product_name
     </select>
 
 </mapper>

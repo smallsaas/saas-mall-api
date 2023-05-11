@@ -1,14 +1,17 @@
 package com.jfeat.am.module.frontproduct.services.gen.persistence.model;
 
-import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.alibaba.fastjson.annotation.JSONField;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -161,20 +164,57 @@ public class FrontProduct extends Model<FrontProduct> {
 	@ApiModelProperty("折扣")
 	private BigDecimal discount;
 
-	public BigDecimal getDiscount() {
-		return discount;
-	}
+	/**
+	 * 为了支持 匠城便民小程序 的团购功能而添加
+	 */
+	@ApiModelProperty("商品团购开始时间")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime startDateTime;
 
-	public void setDiscount(BigDecimal discount) {
-		this.discount = discount;
+	@ApiModelProperty("商品团购结束时间")
+//	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
+	private LocalDateTime endDateTime;
+
+	@ApiModelProperty("供应商id")
+	private Long supplierId;
+
+	public Long getSupplierId() {
+		return supplierId;
+	}
+	public void setSupplierId(Long supplierId) {
+		this.supplierId = supplierId;
 	}
 
 	public BigDecimal getDiscountPrice() {
 		return discountPrice;
 	}
-
 	public void setDiscountPrice(BigDecimal discountPrice) {
 		this.discountPrice = discountPrice;
+	}
+
+	public BigDecimal getDiscount() {
+		return discount;
+	}
+	public void setDiscount(BigDecimal discount) {
+		this.discount = discount;
+	}
+
+	public LocalDateTime getStartDateTime() {
+		return startDateTime;
+	}
+
+	public void setStartDateTime(LocalDateTime startDateTime) {
+		this.startDateTime = startDateTime;
+	}
+
+	public LocalDateTime getEndDateTime() {
+		return endDateTime;
+	}
+
+	public void setEndDateTime(LocalDateTime endDateTime) {
+		this.endDateTime = endDateTime;
 	}
 
 	public Integer getHasChild() {

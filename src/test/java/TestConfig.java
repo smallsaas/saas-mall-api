@@ -1,3 +1,7 @@
+import com.jfeat.am.module.commons.HouseEmail;
+
+import javax.annotation.Resource;
+
 /**
  * @author hero
  * @date 11:26

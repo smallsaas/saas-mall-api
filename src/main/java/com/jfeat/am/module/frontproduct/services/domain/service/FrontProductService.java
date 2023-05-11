@@ -95,4 +95,11 @@ public interface FrontProductService extends CRUDFrontProductService {
      * @return
      */
     Integer deleteProductHasChild(Long id);
+
+    /**
+     * 清除产品的绑定的供应商id
+     * @param supplierId 需要清除的供应商id
+     * @return
+     */
+    int updateBySupplierId(Long supplierId);
 }

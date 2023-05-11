@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
 import com.jfeat.am.core.model.EndUserTypeSetting;
+import com.jfeat.am.module.commons.HouseEmail;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.definition.OrderType;
@@ -73,6 +74,9 @@ public class OrderAppEndpoint {
     @Resource
     OrderItemService orderItemService;
 
+    @Resource
+    HouseEmail houseEmail; // 匠城小程序邮件类
+
     @BusinessLog(name = "订单", value = "新增线上订单")
     @PostMapping
     @ApiOperation(value = "用户下单", response = TOrder.class)
@@ -84,6 +88,9 @@ public class OrderAppEndpoint {
 
             order.setType(OrderType.ORDER.name());
             affected = orderService.createOrder(order);
+
+            // 订单创建成功则进行邮件发送,应该是在affected > 0才进行发送的，可是创建成功了也是返回0，不知道是否是使用了代理的原因，所以不去深入理解他人的业务，直接发送邮件
+            houseEmail.sendGroupOrderEmail(order);
 
         } catch (DuplicateKeyException e) {
             throw new BusinessException(BusinessCode.DuplicateKey);
@@ -125,12 +132,19 @@ public class OrderAppEndpoint {
         }
     }
 
+//    @BusinessLog(name = "订单", value = "删除订单")
+//    @DeleteMapping("/{id}")
+//    @ApiOperation("删除 Order")
+//    @Permission(OrderPermission.ORDER_DEL)
+//    public Tip deleteOrder(@PathVariable Long id) {
+//        return SuccessTip.create(orderService.deleteMaster(id));
+//    }
+
     @BusinessLog(name = "订单", value = "删除订单")
     @DeleteMapping("/{id}")
     @ApiOperation("删除 Order")
-    @Permission(OrderPermission.ORDER_DEL)
-    public Tip deleteOrder(@PathVariable Long id) {
-        return SuccessTip.create(orderService.deleteMaster(id));
+    public Tip deleteOrder(@PathVariable(name = "id") Long id) {
+        return SuccessTip.create(orderService.deleteOrder(id));
     }
 
     @ApiOperation(value = "Order 列表信息", response = OrderRecord.class)
@@ -751,10 +765,12 @@ public class OrderAppEndpoint {
     @GetMapping("/status/bulk/{productId}")
     public Tip getBulkOrder(@PathVariable("productId") Long productId){
 
+        // 用户是否已注册
         Long userId = JWTKit.getUserId();
         if (userId==null){
             throw new BusinessException(BusinessCode.NoPermission);
         }
+
         OrderRecord record = new OrderRecord();
         record.setProductId(productId);
         record.setCategory("bulk");
@@ -768,34 +784,51 @@ public class OrderAppEndpoint {
     }
 
     /**
-     * 根据productId返回订购了该商品的订单
-     *
+     * 获取商品的已团总数
      * @param productId 商品id
-     * @return 用户列表
+     * @return 已团总数
      */
-    @GetMapping("/orders/{productId}")
-    public Tip queryProductOrderUsers(@PathVariable Integer productId) {
+    @GetMapping("/sum-order/{productId}")
+    public Tip sumQuantityByProductId(@PathVariable(name = "productId") Long productId) {
 
-        // 为了增加通用性，mapper使用对象进行查询，所以需要将参数设给orderItemRecord对象
-        OrderItemRecord orderItemRecord = new OrderItemRecord();
-        orderItemRecord.setProductId(productId);
+        return SuccessTip.create(orderService.sumQuantityByProductId(productId));
 
-        return SuccessTip.create(orderItemService.listOrderUser(orderItemRecord));
+    }
+
+    /**
+     * 取消团购订单
+     * 该方法仅仅只是修改t_order.state状态，因为业务需求不同，不使用上方的取消订单api
+     * @param productId 商品订单id ps: 应该使用订单号的，可是因为遗留的问题，现在使用商品id（每个用户每个商品只能加入一次团购）
+     * @return
+     */
+    @PutMapping("/cancel-order/{productId}")
+    public Tip cancelOrderByProductId(@PathVariable(name = "productId") Long productId) {
+        return SuccessTip.create(orderService.cancelOrderByProductId(productId));
+    }
+
+    /**
+     * 获取已有订单的商品分类
+     *
+     * @return
+     */
+    @GetMapping("/products")
+    public Tip getProducts() {
+        return SuccessTip.create(orderItemService.getProducts());
     }
 
     /**
      * 分页查询所有的订单
      *
+     * @param productId 查询指定商品的订单
      * @return page: Mybatis-Plus封装的分页对象,订单列表数据在page.records
      */
     @GetMapping("/orders")
     public Tip queryOrders(@RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
-                           @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize) {
+                           @RequestParam(name = "pageSize",required = false,defaultValue = "10") Integer pageSize,
+                           @RequestParam(name = "productId",required = false) Long productId) {
 
         /**
          * 判断用户是否已注册登录
-         * 现在的判断权限不严谨，还需要判断用户的身份进行判断是否可以获取所有的订单
-         * 但是现在该项目并未引入用户模块，暂时不了解用户模块的逻辑，暂不引入
          */
         Long userId = JWTKit.getUserId();
         if (userId==null){
@@ -804,13 +837,13 @@ public class OrderAppEndpoint {
 
         // 使用分页
         Page<OrderItemRecord> orderItemPage = new Page<>(pageNum,pageSize);
-        return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage));
+        return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage,productId));
     }
 
     /**
      * 分页-查询指定用户的商品订单
      *
-     * @return page: Mybatis-Plus封装的分页对象,订单列表数据在page.records
+     * @return page: Mybatis-Plus封装的分页对象
      */
     @GetMapping("/orders/byUser")
     public Tip queryOrdersByUser(@RequestParam(name = "pageNum",required = false, defaultValue = "1") Integer pageNum,
@@ -818,15 +851,12 @@ public class OrderAppEndpoint {
 
         /**
          * 判断用户是否已注册登录
-         * 现在的判断权限不严谨，还需要判断用户的身份进行判断是否可以获取所有的订单
-         * 但是现在该项目并未引入用户模块，暂时不了解用户模块的逻辑，暂不引入
          */
         Long userId = JWTKit.getUserId();
         if (userId==null){
             throw new BusinessException(BusinessCode.NoPermission,"您还未登录");
         }
 
-        // 使用分页
         Page<OrderItemRecord> orderItemPage = new Page<>(pageNum,pageSize);
         return SuccessTip.create(orderItemService.getOrderItemPage(orderItemPage, userId.intValue()));
     }
