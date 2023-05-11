@@ -59,6 +59,8 @@ import com.alibaba.fastjson.JSONArray;
 @RequestMapping("/api/crud/supplier/suppliers")
 public class SupplierEndpoint {
 
+    private static final int masterId = 61;
+
     @Resource
     SupplierService supplierService;
 
@@ -172,8 +174,12 @@ public class SupplierEndpoint {
         record.setType(type);
         record.setUrl(url);
         record.setAddress(address);
+        System.out.println(JWTKit.getUserId());
         if (META.enabledSaas()) {
-            record.setOrgId(JWTKit.getOrgId());
+            if(JWTKit.getUserId().equals(masterId)){
+            }else{
+                record.setOrgId(JWTKit.getOrgId());
+            }
         }
 
 
