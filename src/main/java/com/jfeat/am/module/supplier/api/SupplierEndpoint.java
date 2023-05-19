@@ -176,7 +176,7 @@ public class SupplierEndpoint {
         System.out.println(JWTKit.getUserId());
         System.out.println(JWTKit.getAccount());
         if (META.enabledSaas()) {
-            if(JWTKit.getUserId().equals(AuthorizationConst.masterId)){
+            if(JWTKit.getUserId().equals(AuthorizationConst.masterAccount)){
             }else{
                 record.setOrgId(JWTKit.getOrgId());
             }
