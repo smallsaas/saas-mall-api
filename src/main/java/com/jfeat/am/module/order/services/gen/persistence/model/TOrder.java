@@ -234,6 +234,11 @@ public class TOrder extends Model<TOrder> {
 	 */
 	private String category;
 
+	/**
+	 * 负责跟进的客服人员id
+	 */
+	private Long assistantId;
+
 	public String getCategory() {
 		return category;
 	}
@@ -969,6 +974,14 @@ public class TOrder extends Model<TOrder> {
 		return this;
 	}
 
+	public Long getAssistantId() {
+		return assistantId;
+	}
+
+	public void setAssistantId(Long assistantId) {
+		this.assistantId = assistantId;
+	}
+
 	public static final String ID = "id";
 
 	public static final String USER_ID = "user_id";
@@ -1129,6 +1142,8 @@ public class TOrder extends Model<TOrder> {
 
 	public static final String CATEGORY = "category";
 
+	public static final String ASSISTANT_ID = "assistant_id";
+
 	@Override
 	protected Serializable pkVal() {
 		return this.id;
@@ -1216,6 +1231,7 @@ public class TOrder extends Model<TOrder> {
 			", extCouponType=" + extCouponType +
 			", extDiscount=" + extDiscount +
 			", extCuts=" + extCuts +
+			", assistantId" + assistantId +
 			"}";
 	}
 

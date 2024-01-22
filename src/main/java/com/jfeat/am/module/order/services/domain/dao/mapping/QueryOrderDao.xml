@@ -28,7 +28,7 @@
         t_order.supplementary_fee AS supplementaryFee, t_order.origin_price AS originPrice, t_order.coupon_price AS
         couponPrice, t_order.credit_price AS creditPrice, t_order.ext_coupon_id AS extCouponId, t_order.ext_user_type AS
         extUserType, t_order.ext_coupon_type AS extCouponType, t_order.ext_discount AS extDiscount, t_order.ext_cuts AS
-        extCuts,t_order.org_id AS orgId,t_order.category
+        extCuts,t_order.org_id AS orgId,t_order.category, t_order.assistant_id
     </sql>
 
     <sql id="QueryOwnedOrgIds">
