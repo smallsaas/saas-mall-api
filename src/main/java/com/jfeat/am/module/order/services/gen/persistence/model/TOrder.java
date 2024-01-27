@@ -6,10 +6,13 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Objects;
 
 /**
  * <p>
@@ -238,6 +241,19 @@ public class TOrder extends Model<TOrder> {
 	 * 负责跟进的客服人员id
 	 */
 	private Long assistantId;
+
+	/**
+	 * 负责跟进的客服人员姓名
+	 */
+	private String assistantName;
+
+	public String getAssistantName() {
+		return assistantName;
+	}
+
+	public void setAssistantName(String assistantName) {
+		this.assistantName = assistantName;
+	}
 
 	public String getCategory() {
 		return category;

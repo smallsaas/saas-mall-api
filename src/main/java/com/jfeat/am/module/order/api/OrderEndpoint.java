@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.jfeat.am.common.annotation.Permission;
 import com.jfeat.am.core.jwt.JWTKit;
+import com.jfeat.am.core.model.UserType;
 import com.jfeat.am.module.order.definition.OrderPermission;
 import com.jfeat.am.module.order.definition.OrderStatus;
 import com.jfeat.am.module.order.definition.OrderType;
@@ -57,7 +58,6 @@ public class OrderEndpoint {
 
     @Resource
     QueryOrderDao queryOrderDao;
-
 
 
     @BusinessLog(name = "订单", value = "新增线上订单")
@@ -113,15 +113,15 @@ public class OrderEndpoint {
                                 @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
                                 @RequestParam(name = "search", required = false) String search,
                                 @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[],
-                                    @PathVariable Long id,
+                                @PathVariable Long id,
                                 @RequestParam(name = "status", required = false) String status) {
 
-        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
-        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+        Date startTime = time != null ? (time.length > 0 ? time[0] : null) : null;
+        Date endTime = time != null ? (time.length == 2 ? time[1] : (time.length == 1 ? time[0] : null)) : null;
 
         page.setCurrent(pageNum);
         page.setSize(pageSize);
-        page.setRecords(queryOrderDao.getAllianceOrder(page,id,search,startTime,endTime,status));
+        page.setRecords(queryOrderDao.getAllianceOrder(page, id, search, startTime, endTime, status));
         return SuccessTip.create(page);
     }
 
@@ -142,8 +142,8 @@ public class OrderEndpoint {
         try {
             //不报错，orderStatus参数正确
             OrderStatus.valueOf(orderStatus);
-            return SuccessTip.create(orderService.updateOrderStatus(id,orderStatus));
-        }catch (Exception e){
+            return SuccessTip.create(orderService.updateOrderStatus(id, orderStatus));
+        } catch (Exception e) {
             throw new BusinessException(BusinessCode.BadRequest);
         }
     }
@@ -343,9 +343,8 @@ public class OrderEndpoint {
                            @RequestParam(name = "barcode", required = false) String barcode,
                            @RequestParam(name = "thisMonth", required = false) String thisMonth,
                            @RequestParam(name = "searchMoney", required = false) BigDecimal searchMoney[],
-     @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[] ,
-                           @RequestParam Map<String,Object> parms)
-                           {
+                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[],
+                           @RequestParam Map<String, Object> parms) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -360,16 +359,15 @@ public class OrderEndpoint {
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
-        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
-        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+        Date startTime = time != null ? (time.length > 0 ? time[0] : null) : null;
+        Date endTime = time != null ? (time.length == 2 ? time[1] : (time.length == 1 ? time[0] : null)) : null;
 
-        BigDecimal leftMoney = searchMoney!=null? (searchMoney.length > 0?searchMoney[0]:null) : null;
-        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(searchMoney.length==1?searchMoney[0]:null)) : null;
+        BigDecimal leftMoney = searchMoney != null ? (searchMoney.length > 0 ? searchMoney[0] : null) : null;
+        BigDecimal rightMoney = searchMoney != null ? (searchMoney.length == 2 ? searchMoney[1] : (searchMoney.length == 1 ? searchMoney[0] : null)) : null;
 
 
-
-        Date startEndTime=null;
-       //设置当月1号
+        Date startEndTime = null;
+        //设置当月1号
         /*if(allianceId!=null&&thisMonth!=null&&thisMonth!=""){
 
             Calendar calendar = Calendar.getInstance();
@@ -401,7 +399,7 @@ public class OrderEndpoint {
         record.setDeliveredDate(deliveredDate);
         record.setDealDate(dealDate);
         record.setDeliverOrderNumber(deliverOrderNumber);
-        if(META.enabledSaas()){
+        if (META.enabledSaas()) {
             record.setOrgId(JWTKit.getOrgId());
         }
 
@@ -474,20 +472,27 @@ public class OrderEndpoint {
         record.setExtCouponType(extCouponType);
         record.setExtDiscount(extDiscount);
         record.setExtCuts(extCuts);
-       // record.setOrgId(orgId);
+        // record.setOrgId(orgId);
 
+        /*
+         * added in 2-24-1-25
+         * 增加assistantId过滤，判断用户是否有能够查看该订单
+         * 管理员(ADMIN)、组织经理(ORG_LEADER_USER)跳过过滤
+         */
+        Integer userType = JWTKit.getUserType();
+        if (!UserType.ADMIN.equals(userType) && !UserType.ORG_LEADER_USER.equals(userType)) {
+            Long assistantId = JWTKit.getUserId();
+            record.setAssistantId(assistantId);
+        }
 
-       QueryWrapper multiEntityWrapper = QueryParamUtils.getMultiEntityWrapper(parms, TOrder.class,"t_order.");
+        QueryWrapper multiEntityWrapper = QueryParamUtils.getMultiEntityWrapper(parms, TOrder.class, "t_order.");
 
-
-
-       page.setRecords(queryOrderDao.findOrderPage(multiEntityWrapper,
-                page, record, search, orderBy, startTime,startEndTime, endTime,allianceId
-        ,leftMoney,rightMoney));
-          orderService.setItemsByPages(page);
+        page.setRecords(queryOrderDao.findOrderPage(multiEntityWrapper,
+                page, record, search, orderBy, startTime, startEndTime, endTime, allianceId
+                , leftMoney, rightMoney));
+        orderService.setItemsByPages(page);
         return SuccessTip.create(page);
     }
-
 
 
     @ApiOperation(value = "订单结算", response = OrderRecord.class)
@@ -580,103 +585,102 @@ public class OrderEndpoint {
     })
     @Permission(OrderPermission.ORDER_VIEW)
     public Tip settlementOrder(Page<OrderRecord> page,
-                           @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
-                           @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
-                           @RequestParam(name = "search", required = false) String search,
-                           @RequestParam(name = "id", required = false) Long id,
-                           @RequestParam(name = "userId", required = false) Integer userId,
-                           @RequestParam(name = "orderNumber", required = false) String orderNumber,
-                           @RequestParam(name = "tradeNumber", required = false) String tradeNumber,
-                           @RequestParam(name = "paymentType", required = false) String paymentType,
-                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdDate,
-                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date payDate,
-                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date confirmDate,
-                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date deliverDate,
-                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date deliveredDate,
-                           @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date dealDate,
-                           @RequestParam(name = "deliverOrderNumber", required = false) String deliverOrderNumber,
-                           @RequestParam(name = "status", required = false) String status,
-                           @RequestParam(name = "totalPrice", required = false) BigDecimal totalPrice,
-                           @RequestParam(name = "freight", required = false) BigDecimal freight,
-                           @RequestParam(name = "description", required = false) String description,
-                           @RequestParam(name = "remark", required = false) String remark,
-                           @RequestParam(name = "invoice", required = false) Integer invoice,
-                           @RequestParam(name = "invoiceTitle", required = false) String invoiceTitle,
-                           @RequestParam(name = "receivingTime", required = false) String receivingTime,
-                           @RequestParam(name = "zip", required = false) String zip,
-                           @RequestParam(name = "contactUser", required = false) String contactUser,
-                           @RequestParam(name = "phone", required = false) String phone,
-                           @RequestParam(name = "province", required = false) String province,
-                           @RequestParam(name = "city", required = false) String city,
-                           @RequestParam(name = "district", required = false) String district,
-                           @RequestParam(name = "street", required = false) String street,
-                           @RequestParam(name = "detail", required = false) String detail,
-                           @RequestParam(name = "cover", required = false) String cover,
-                           @RequestParam(name = "expressNumber", required = false) String expressNumber,
-                           @RequestParam(name = "expressCompany", required = false) String expressCompany,
-                           @RequestParam(name = "expressCode", required = false) String expressCode,
-                           @RequestParam(name = "settled", required = false) Integer settled,
-                           @RequestParam(name = "previousStatus", required = false) String previousStatus,
-                           @RequestParam(name = "isDeliverReminder", required = false) Integer isDeliverReminder,
-                           @RequestParam(name = "isDeleted", required = false) Integer isDeleted,
-                           @RequestParam(name = "pointExchangeRate", required = false) Integer pointExchangeRate,
-                           @RequestParam(name = "couponInfo", required = false) String couponInfo,
-                           @RequestParam(name = "marketing", required = false) String marketing,
-                           @RequestParam(name = "marketingId", required = false) Integer marketingId,
-                           @RequestParam(name = "marketingDescription", required = false) String marketingDescription,
-                           @RequestParam(name = "mid", required = false) Integer mid,
-                           @RequestParam(name = "mname", required = false) String mname,
-                           @RequestParam(name = "storeId", required = false) String storeId,
-                           @RequestParam(name = "storeName", required = false) String storeName,
-                           @RequestParam(name = "storeUserId", required = false) String storeUserId,
-                           @RequestParam(name = "storeUserName", required = false) String storeUserName,
-                           @RequestParam(name = "type", required = false) String type,
-                           @RequestParam(name = "payCredit", required = false) Integer payCredit,
-                           @RequestParam(name = "deliveryType", required = false) String deliveryType,
-                           @RequestParam(name = "origin", required = false) String origin,
-                           @RequestParam(name = "storeUserCode", required = false) String storeUserCode,
-                           @RequestParam(name = "storeCode", required = false) String storeCode,
-                           @RequestParam(name = "storeCover", required = false) String storeCover,
-                           @RequestParam(name = "storeGuideUserId", required = false) String storeGuideUserId,
-                           @RequestParam(name = "storeGuideUserCode", required = false) String storeGuideUserCode,
-                           @RequestParam(name = "storeGuideUserName", required = false) String storeGuideUserName,
-                           @RequestParam(name = "inviterUserId", required = false) String inviterUserId,
-                           @RequestParam(name = "inviterUserName", required = false) String inviterUserName,
-                           @RequestParam(name = "followedStoreId", required = false) String followedStoreId,
-                           @RequestParam(name = "followedStoreCode", required = false) String followedStoreCode,
-                           @RequestParam(name = "followedStoreName", required = false) String followedStoreName,
-                           @RequestParam(name = "followedStoreCover", required = false) String followedStoreCover,
-                           @RequestParam(name = "commentId", required = false) String commentId,
-                           @RequestParam(name = "bindingStoreId", required = false) String bindingStoreId,
-                           @RequestParam(name = "bindingStoreCode", required = false) String bindingStoreCode,
-                           @RequestParam(name = "bindingStoreName", required = false) String bindingStoreName,
-                           @RequestParam(name = "bindingStoreCover", required = false) String bindingStoreCover,
-                           @RequestParam(name = "refundFee", required = false) BigDecimal refundFee,
-                           @RequestParam(name = "storeAddress", required = false) String storeAddress,
-                           @RequestParam(name = "supplementaryFee", required = false) BigDecimal supplementaryFee,
-                           @RequestParam(name = "originPrice", required = false) BigDecimal originPrice,
-                           @RequestParam(name = "couponPrice", required = false) BigDecimal couponPrice,
-                           @RequestParam(name = "creditPrice", required = false) BigDecimal creditPrice,
-                           @RequestParam(name = "extCouponId", required = false) String extCouponId,
-                           @RequestParam(name = "extUserType", required = false) String extUserType,
-                           @RequestParam(name = "extCouponType", required = false) String extCouponType,
-                           @RequestParam(name = "extDiscount", required = false) Integer extDiscount,
-                           @RequestParam(name = "extCuts", required = false) Integer extCuts,
-                           @RequestParam(name = "orgId", required = false) Long orgId,
-                           @RequestParam(name = "allianceId", required = false) Long allianceId,
-                           @RequestParam(name = "orderBy", required = false) String orderBy,
-                           @RequestParam(name = "sort", required = false) String sort,
-                           @RequestParam(name = "pName", required = false) String pName,
-                           @RequestParam(name = "barcode", required = false) String barcode,
-                           @RequestParam(name = "thisMonth", required = false) String thisMonth,
-                           @RequestParam(name = "settlementStatus", required = false) Integer settlementStatus,
+                               @RequestParam(name = "pageNum", required = false, defaultValue = "1") Integer pageNum,
+                               @RequestParam(name = "pageSize", required = false, defaultValue = "10") Integer pageSize,
+                               @RequestParam(name = "search", required = false) String search,
+                               @RequestParam(name = "id", required = false) Long id,
+                               @RequestParam(name = "userId", required = false) Integer userId,
+                               @RequestParam(name = "orderNumber", required = false) String orderNumber,
+                               @RequestParam(name = "tradeNumber", required = false) String tradeNumber,
+                               @RequestParam(name = "paymentType", required = false) String paymentType,
+                               @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date createdDate,
+                               @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date payDate,
+                               @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date confirmDate,
+                               @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date deliverDate,
+                               @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date deliveredDate,
+                               @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date dealDate,
+                               @RequestParam(name = "deliverOrderNumber", required = false) String deliverOrderNumber,
+                               @RequestParam(name = "status", required = false) String status,
+                               @RequestParam(name = "totalPrice", required = false) BigDecimal totalPrice,
+                               @RequestParam(name = "freight", required = false) BigDecimal freight,
+                               @RequestParam(name = "description", required = false) String description,
+                               @RequestParam(name = "remark", required = false) String remark,
+                               @RequestParam(name = "invoice", required = false) Integer invoice,
+                               @RequestParam(name = "invoiceTitle", required = false) String invoiceTitle,
+                               @RequestParam(name = "receivingTime", required = false) String receivingTime,
+                               @RequestParam(name = "zip", required = false) String zip,
+                               @RequestParam(name = "contactUser", required = false) String contactUser,
+                               @RequestParam(name = "phone", required = false) String phone,
+                               @RequestParam(name = "province", required = false) String province,
+                               @RequestParam(name = "city", required = false) String city,
+                               @RequestParam(name = "district", required = false) String district,
+                               @RequestParam(name = "street", required = false) String street,
+                               @RequestParam(name = "detail", required = false) String detail,
+                               @RequestParam(name = "cover", required = false) String cover,
+                               @RequestParam(name = "expressNumber", required = false) String expressNumber,
+                               @RequestParam(name = "expressCompany", required = false) String expressCompany,
+                               @RequestParam(name = "expressCode", required = false) String expressCode,
+                               @RequestParam(name = "settled", required = false) Integer settled,
+                               @RequestParam(name = "previousStatus", required = false) String previousStatus,
+                               @RequestParam(name = "isDeliverReminder", required = false) Integer isDeliverReminder,
+                               @RequestParam(name = "isDeleted", required = false) Integer isDeleted,
+                               @RequestParam(name = "pointExchangeRate", required = false) Integer pointExchangeRate,
+                               @RequestParam(name = "couponInfo", required = false) String couponInfo,
+                               @RequestParam(name = "marketing", required = false) String marketing,
+                               @RequestParam(name = "marketingId", required = false) Integer marketingId,
+                               @RequestParam(name = "marketingDescription", required = false) String marketingDescription,
+                               @RequestParam(name = "mid", required = false) Integer mid,
+                               @RequestParam(name = "mname", required = false) String mname,
+                               @RequestParam(name = "storeId", required = false) String storeId,
+                               @RequestParam(name = "storeName", required = false) String storeName,
+                               @RequestParam(name = "storeUserId", required = false) String storeUserId,
+                               @RequestParam(name = "storeUserName", required = false) String storeUserName,
+                               @RequestParam(name = "type", required = false) String type,
+                               @RequestParam(name = "payCredit", required = false) Integer payCredit,
+                               @RequestParam(name = "deliveryType", required = false) String deliveryType,
+                               @RequestParam(name = "origin", required = false) String origin,
+                               @RequestParam(name = "storeUserCode", required = false) String storeUserCode,
+                               @RequestParam(name = "storeCode", required = false) String storeCode,
+                               @RequestParam(name = "storeCover", required = false) String storeCover,
+                               @RequestParam(name = "storeGuideUserId", required = false) String storeGuideUserId,
+                               @RequestParam(name = "storeGuideUserCode", required = false) String storeGuideUserCode,
+                               @RequestParam(name = "storeGuideUserName", required = false) String storeGuideUserName,
+                               @RequestParam(name = "inviterUserId", required = false) String inviterUserId,
+                               @RequestParam(name = "inviterUserName", required = false) String inviterUserName,
+                               @RequestParam(name = "followedStoreId", required = false) String followedStoreId,
+                               @RequestParam(name = "followedStoreCode", required = false) String followedStoreCode,
+                               @RequestParam(name = "followedStoreName", required = false) String followedStoreName,
+                               @RequestParam(name = "followedStoreCover", required = false) String followedStoreCover,
+                               @RequestParam(name = "commentId", required = false) String commentId,
+                               @RequestParam(name = "bindingStoreId", required = false) String bindingStoreId,
+                               @RequestParam(name = "bindingStoreCode", required = false) String bindingStoreCode,
+                               @RequestParam(name = "bindingStoreName", required = false) String bindingStoreName,
+                               @RequestParam(name = "bindingStoreCover", required = false) String bindingStoreCover,
+                               @RequestParam(name = "refundFee", required = false) BigDecimal refundFee,
+                               @RequestParam(name = "storeAddress", required = false) String storeAddress,
+                               @RequestParam(name = "supplementaryFee", required = false) BigDecimal supplementaryFee,
+                               @RequestParam(name = "originPrice", required = false) BigDecimal originPrice,
+                               @RequestParam(name = "couponPrice", required = false) BigDecimal couponPrice,
+                               @RequestParam(name = "creditPrice", required = false) BigDecimal creditPrice,
+                               @RequestParam(name = "extCouponId", required = false) String extCouponId,
+                               @RequestParam(name = "extUserType", required = false) String extUserType,
+                               @RequestParam(name = "extCouponType", required = false) String extCouponType,
+                               @RequestParam(name = "extDiscount", required = false) Integer extDiscount,
+                               @RequestParam(name = "extCuts", required = false) Integer extCuts,
+                               @RequestParam(name = "orgId", required = false) Long orgId,
+                               @RequestParam(name = "allianceId", required = false) Long allianceId,
+                               @RequestParam(name = "orderBy", required = false) String orderBy,
+                               @RequestParam(name = "sort", required = false) String sort,
+                               @RequestParam(name = "pName", required = false) String pName,
+                               @RequestParam(name = "barcode", required = false) String barcode,
+                               @RequestParam(name = "thisMonth", required = false) String thisMonth,
+                               @RequestParam(name = "settlementStatus", required = false) Integer settlementStatus,
                                @RequestParam(name = "userName", required = false) String userName,
                                @RequestParam(name = "searchMoney", required = false) BigDecimal searchMoney[],
-                           @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
+                               @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
 
 
-    )
-    {
+    ) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -691,14 +695,14 @@ public class OrderEndpoint {
         page.setCurrent(pageNum);
         page.setSize(pageSize);
 
-        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
-        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+        Date startTime = time != null ? (time.length > 0 ? time[0] : null) : null;
+        Date endTime = time != null ? (time.length == 2 ? time[1] : (time.length == 1 ? time[0] : null)) : null;
 
-        BigDecimal leftMoney = searchMoney!=null? (searchMoney.length > 0?searchMoney[0]:null) : null;
-        BigDecimal rightMoney = searchMoney!=null ? (searchMoney.length==2?searchMoney[1]:(searchMoney.length==1?searchMoney[0]:null)) : null;
+        BigDecimal leftMoney = searchMoney != null ? (searchMoney.length > 0 ? searchMoney[0] : null) : null;
+        BigDecimal rightMoney = searchMoney != null ? (searchMoney.length == 2 ? searchMoney[1] : (searchMoney.length == 1 ? searchMoney[0] : null)) : null;
 
 
-        Date startEndTime=null;
+        Date startEndTime = null;
         //设置当月1号
        /* if(userId!=null&&thisMonth!=null&&thisMonth!=""){
             Calendar calendar = Calendar.getInstance();
@@ -712,7 +716,7 @@ public class OrderEndpoint {
             calendar.add(Calendar.MONTH, 1);
             startEndTime=calendar.getTime(); }*/
 
-        status="CLOSED_CONFIRMED";
+        status = "CLOSED_CONFIRMED";
 
         OrderRecord record = new OrderRecord();
         record.setBarcode(barcode);
@@ -799,17 +803,14 @@ public class OrderEndpoint {
         record.setOrgId(orgId);
         record.setSettlementStatus(settlementStatus);
 
-        List<OrderRecord> orderRecordList=queryOrderDao
-                .settlementOrder(page, record, search, orderBy, startTime,startEndTime,
-                        endTime,allianceId,userName,leftMoney,rightMoney);
+        List<OrderRecord> orderRecordList = queryOrderDao
+                .settlementOrder(page, record, search, orderBy, startTime, startEndTime,
+                        endTime, allianceId, userName, leftMoney, rightMoney);
 
         page.setRecords(orderRecordList);
 
         return SuccessTip.create(page);
     }
-
-
-
 
 
     @ApiOperation(value = "退货 列表信息", response = OrderRecord.class)
@@ -831,8 +832,7 @@ public class OrderEndpoint {
                            @RequestParam(name = "status", required = false) String status,
                            @RequestParam(name = "sort", required = false) String sort,
                            @RequestParam(required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date time[]
-    )
-    {
+    ) {
         if (orderBy != null && orderBy.length() > 0) {
             if (sort != null && sort.length() > 0) {
                 String pattern = "(ASC|DESC|asc|desc)";
@@ -846,8 +846,8 @@ public class OrderEndpoint {
         }
         page.setCurrent(pageNum);
         page.setSize(pageSize);
-        Date startTime = time!=null? (time.length > 0?time[0]:null) : null;
-        Date endTime = time!=null ? (time.length==2?time[1]:(time.length==1?time[0]:null)) : null;
+        Date startTime = time != null ? (time.length > 0 ? time[0] : null) : null;
+        Date endTime = time != null ? (time.length == 2 ? time[1] : (time.length == 1 ? time[0] : null)) : null;
 
 
         page.setRecords(queryOrderDao.refundOrderPage(page, status, search, orderBy, startTime, endTime));
@@ -858,7 +858,7 @@ public class OrderEndpoint {
 
     @GetMapping("/getUsers")
     @ApiOperation(value = "获取所有订单用户")
-    public Tip getUsers( @RequestParam(name = "search", required = false) String search)  {
+    public Tip getUsers(@RequestParam(name = "search", required = false) String search) {
 
         return SuccessTip.create(orderService.getUsers(search));
 
@@ -866,12 +866,11 @@ public class OrderEndpoint {
 
     @GetMapping("/getProducts")
     @ApiOperation(value = "获取所有产品")
-    public Tip getProducts(@RequestParam(name = "search", required = false) String search)  {
+    public Tip getProducts(@RequestParam(name = "search", required = false) String search) {
 
         return SuccessTip.create(orderService.getProducts(search));
 
     }
-
 
 
     @PostMapping("/create")
@@ -905,12 +904,12 @@ public class OrderEndpoint {
     }
 
     @PostMapping("/deliver")
-    public Tip deliver(@RequestBody OrderDeliver orderDeliver){
+    public Tip deliver(@RequestBody OrderDeliver orderDeliver) {
         return SuccessTip.create(orderService.deliver(orderDeliver));
     }
 
     @GetMapping("/orderExpress/{id}")
-    public Tip expressInfo(@PathVariable Long id){
+    public Tip expressInfo(@PathVariable Long id) {
         ExpressInfo expressInfo = orderService.expressInfo(id);
         return SuccessTip.create(expressInfo);
     }
